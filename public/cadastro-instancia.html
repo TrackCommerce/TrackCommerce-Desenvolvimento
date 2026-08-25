@@ -25,23 +25,25 @@
             </section>
     
             <section class="sessao-processo">
-                <div class="processo processo-completo">
-                    <h2 class="numero">
-                        1
-    
-                    </h2>
-                    <h2 class="titulo-processo">
-                        Identificação
-                    </h2>
-                </div>
-                <div class="processo processo-incompleto">
-                    <h2 class="numero">
-                        2
-    
-                    </h2>
-                    <h2 class="titulo-processo">
-                        Componentes
-                    </h2>
+                <div class="processo-completo">
+                    <div class="processo">
+                        <h2 class="numero">
+                            1
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Identificação
+                        </h2>
+                    </div>
+                    <div class="processo">
+                        <h2 class="numero">
+                            2
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Componentes
+                        </h2>
+                    </div>
                 </div>
                 <div class="processo processo-incompleto">
                     <h2 class="numero">
@@ -55,45 +57,102 @@
     
             <section class="sessao-formulario">
                 <h2 class="titulo-formulario">
-                    Identificação do Servidor
+                    Componentes Físicos
                 </h2>
     
                 <div class="caixa-explicacao">
-                    Preencha os campos baixo para que o sistema possa identificar qual servidor precisa ser monitorado. Além de adicionar um apelido para melhor organização e facilidade na procura.
+                    Escolha quais e as opções para o monitoramento dos componentes físicos (hardwares) do seu servidor.
                 </div>
     
-                <div class="formulario">
-                    <div class="caixa-texto">
-                        <div class="sub-titulo-formulario">
+                <div class="opcoes-componentes">
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
                             <figure>
-                                <img 
-                                src="assets/imgs/computador-cadastro-instância.png" 
-                                alt="Imagem de Exemplo de um Computador">
+                                <img src="assets/imgs/processador-icon.png" alt="Icone de exemplo para um processador">
                             </figure>
-                            <h3>
-                                Apelido para o servidor
-                            </h3>
+                            <h2>Processador</h2>
                         </div>
-                        <input 
-                        type="text" 
-                        id="ipt-apelido-servidor" 
-                        placeholder="Insira um apelido para melhor organização de servidores">
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Monitorar Processador</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Frequência do Processador</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="caixa-texto">
-                        <div class="sub-titulo-formulario">
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
                             <figure>
-                                <img 
-                                src="assets/imgs/id-usuario.png" 
-                                alt="Imagem de Exemplo para um identificador do servidor">
+                                <img src="assets/imgs/armazenamento-disco-icon.png" alt="Icone de exemplo para um armazenamento em disco">
                             </figure>
-                            <h3>
-                                Identificador do servidor
-                            </h3>
+                            <h2>Armazenamento</h2>
                         </div>
-                        <input 
-                        type="text" 
-                        id="ipt-identificador-servidor" 
-                        placeholder="Insira um identificador para o servidor ser monitorado">
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Monitorar Armazenamento</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Quantidade de GB (Gigas) Livre</label>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/memoria-ram-icon.png" alt="Icone para representar a memória ram">
+                            </figure>
+                            <h2>Memóra RAM</h2>
+                        </div>
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Monitorar Memória</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Quantidade de GB (Gigas) Livre</label>
+                            </div>
+                        </div>                        
+                    </div>
+                    
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/rede-icon.png" alt="Iconde de exemplo para representar a rede">
+                            </figure>
+                            <h2>Rede</h2>
+                        </div>
+
+                         <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Monitorar Rede</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" name="" id="">
+                                <label for="">Monitorar Latência da Rede</label>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </section>
@@ -107,6 +166,8 @@
                 </button>
             </section>
         </main>
+        
+        <!-- <main class="container-cadastro"></main> -->
     </div>
 </body>
 </html>
