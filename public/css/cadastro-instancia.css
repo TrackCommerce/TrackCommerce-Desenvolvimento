@@ -1,0 +1,157 @@
+/* Reset básico CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+main {
+    width: 100%;
+}
+
+.container-main, 
+main,
+.sessao-processo,
+.processo,
+.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario{
+    display: flex;
+}
+
+main,
+.sessao-titulo {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+aside {
+    width: 270px;
+    height: 100vh;
+    background-color: #14213D;
+}
+
+.sessao-titulo {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+    gap: 1rem;
+}
+
+.sessao-processo {
+    background-color: #EEEEEE;
+    margin: 3rem 0;
+    border-radius: 20px;
+}
+
+.processo {
+    width: 320px;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.processo:last-child{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.processo-completo {
+    background-color: #FF7100;
+    border-radius: 20px;
+}
+
+.processo .numero {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: #FFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessao-formulario {
+    width: 800px;
+    height: 470px;
+    border: 3px solid #FF7100;
+    border-radius: 40px;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.sessao-formulario .titulo-formulario {
+    border-bottom: 5px solid #CC5429;
+    width: fit-content;
+}
+
+.sessao-formulario .caixa-explicacao {
+    width: 520px;
+    background-color: rgba(204, 84, 41, 0.4);
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.sessao-formulario .formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario h3{
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario figure {
+    margin: 0 1rem 0 10px;
+}
+
+.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario figure img{
+    height: 38px;
+}
+
+.sessao-formulario .formulario .caixa-texto input {
+    width: 450px;
+    height: 50px;
+    border: 3px solid #DDDDDD;
+    border-radius: 30px;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.botoes {
+    display: flex;
+    gap: 10rem;
+}
+
+.botoes .botao {
+    width: 300px;
+    height: 80px;
+    border-radius: 30px;
+    margin-top: 40px;
+    font-size: 40px;
+}
+
+.botoes .cancelar {
+    border: 5px solid #CC5429;
+    background-color: #FFF;
+}
+
+.botoes .avancar {
+    background-color: #CC5429;
+    border: none;
+    color: #FFF;
+}
