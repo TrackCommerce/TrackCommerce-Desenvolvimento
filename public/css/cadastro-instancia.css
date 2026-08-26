@@ -15,7 +15,7 @@ main {
 main,
 .sessao-processo,
 .processo,
-.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario{
+.sessao-card .formulario .caixa-texto .sub-titulo-formulario{
     display: flex;
 }
 
@@ -42,7 +42,7 @@ aside {
 
 .sessao-processo {
     background-color: #EEEEEE;
-    margin: 3rem 0;
+    margin: 2rem 0;
     border-radius: 20px;
 }
 
@@ -79,7 +79,7 @@ aside {
     align-items: center;
 }
 
-.sessao-formulario {
+.sessao-card {
     width: 800px;
     height: 470px;
     border: 3px solid #FF7100;
@@ -92,12 +92,12 @@ aside {
     gap: 2rem;
 }
 
-.sessao-formulario .titulo-formulario {
+.sessao-card .titulo-sessao {
     border-bottom: 5px solid #CC5429;
     width: fit-content;
 }
 
-.sessao-formulario .caixa-explicacao {
+.sessao-card .caixa-explicacao {
     width: 520px;
     background-color: rgba(204, 84, 41, 0.4);
     padding: 10px;
@@ -105,26 +105,26 @@ aside {
     text-align: center;
 }
 
-.sessao-formulario .formulario {
+.sessao-card .formulario {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
-.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario h3{
+.sessao-card .formulario .caixa-texto .sub-titulo-formulario h3{
     font-size: 22px;
     margin-top: 5px;
 }
 
-.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario figure {
+.sessao-card .formulario .caixa-texto .sub-titulo-formulario figure {
     margin: 0 1rem 0 10px;
 }
 
-.sessao-formulario .formulario .caixa-texto .sub-titulo-formulario figure img{
+.sessao-card .formulario .caixa-texto .sub-titulo-formulario figure img{
     height: 38px;
 }
 
-.sessao-formulario .formulario .caixa-texto input {
+.sessao-card .formulario .caixa-texto input {
     width: 450px;
     height: 50px;
     border: 3px solid #DDDDDD;
@@ -239,4 +239,25 @@ aside {
     border: none;
     font-size: 2.5rem;
     cursor: pointer;
+}
+
+/* Estilizando terceira tela cadastro de instância */
+
+.alerta-parametros .lembrete-parametro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 650px;
+    height: 80px;
+
+    background-color: #B33000;
+    color: #FFF;
+    border-radius: 30px;
+
+    margin-top: -1.5rem;
+    margin-bottom: 0.7rem;
+    padding: 20px 10px;
+    font-size: 15px;
+    text-align: center;
 }
