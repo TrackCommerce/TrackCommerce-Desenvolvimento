@@ -305,7 +305,7 @@ let terceiraEtapaCadastro = `
                 </h2>
     
                 <div class="caixa-explicacao">
-                    Escolha o limite de porcentagem de uso para que o sistema solte um alerta.
+                    Escolha o limite de porcentagem de uso para que o sistema solte um alerta. <strong>Utilize apenas números!</strong>
                 </div>
                 
                 <div class="caixa_parametros">
@@ -317,16 +317,32 @@ let terceiraEtapaCadastro = `
                 <button class="botao cancelar" onclick="trocaTela(segundaEtapaCadastro)">
                     Voltar
                 </button>
-                <button class="botao avancar" onclick="transicaoTerceiraEtapa()">
-                    Avançar
+                <button class="botao avancar" onclick="confirmacaoParametro()">
+                    Concluir
                 </button>
             </section>
+`
+
+let containerPopUpConfirmacao = `
+            <div class="pop_up pop_up_confirmacao">
+                <div class="texto_alerta">
+                    <p>
+                        Você tem certeza que gostaria de criar esse serviço com esses paramêtros?
+                    </p>
+                </div>
+                <div class="botoes_alerta">
+                    <button class="botao_cancelar" onclick="fecharPopUp(containerPopUp)">Cancelar</button>
+                    <button class="botao_aceitar" onclick="">Aceitar</button>
+                </div>
+            </div>
 `
 
 // Pegando o element com a classe chamada "container-cadastro"
 let containerCadastro = document.querySelector('.container-cadastro');
 
 let containerPopUp = document.querySelector('.container_pop_up');
+
+let arrayComponentes = [];
 
 // Incializando a aplicação com a primeira etapa do cadastro
 containerCadastro.innerHTML = primeiraEtapaCadastro;
@@ -378,8 +394,75 @@ function transicaoTerceiraEtapa() {
             containerPopUp.style.display = "block";
             containerPopUp.innerHTML = criarPopUpBasico("Você selecionou apenas o componente que quer monitorar! Selecione alguns atributos para monitorar esse componente");        
         } else {
+            function criarCampoDeParametro(componente, idComponente, placeholder) {
+                containerEspecificacoesParametros.innerHTML += `
+                    <h3 class="titulo-parametro">
+                        Paramêtro para ${componente}
+                    </h3>
+                    <input 
+                        type="number" 
+                        id="${idComponente}" 
+                        placeholder="${placeholder}"
+                    >
+                `
+            }
+
             fecharPopUp(containerPopUp);
-            trocaTela(terceiraEtapaCadastro);        
+            trocaTela(terceiraEtapaCadastro);     
+
+            let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
+
+            if(checkboxPorcetangemCpu.checked) {
+                criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Insira o paramêtro para o porcentual de uso da CPU")
+                arrayComponentes.push("id_parametro_porcentagem_cpu");
+            }
+
+            if(checkboxFrequenciaCpu.checked) {
+                criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Insira o paramêtro para a frequência da CPU")
+                arrayComponentes.push("id_parametro_frequencia_cpu");
+            }
+
+            if(checkboxPorcetagemDisco.checked) {
+                criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Insira o paramêtro para o porcentual do armazenamento")
+                arrayComponentes.push("id_parametro_porcentagem_armazenamento");
+            }
+
+             if(checkboxDiscoLivre.checked) {
+                criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Insira o paramêtro para a quantidade de armazenamento livre")
+                arrayComponentes.push("id_parametro_quantidade_livre_disco");
+            }
+
+            if(checkboxPorcentagemRam.checked) {
+                criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Insira o paramêtro para o porcentual de uso da memória RAM")
+                arrayComponentes.push("id_parametro_porcentagem_ram");
+            }
+
+            if(checkboxRamLivre.checked) {
+                criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Insira o paramêtro para a quantidade de memória ram livre")
+                arrayComponentes.push("id_parametro_quantidade_livre_ram");
+            }
+
+            if(checkboxLatenciaRede.checked) {
+                criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Insira o paramêtro para a quantidade máxima de milisegundos (ms) que a latência pode chegar")
+                arrayComponentes.push("id_parametro_latencia_rede");
+            }
+
+            return arrayComponentes;
+        }
+    }
+}
+
+function confirmacaoParametro() {
+    for(let i = 0; i < arrayComponentes.length; i++){
+        let idInput = document.getElementById(arrayComponentes[i]);
+        let valorDoInput = idInput.value;
+            
+        if (valorDoInput !== "" && !isNaN(valorDoInput)) {
+            containerPopUp.style.display = "block";
+            containerPopUp.innerHTML = containerPopUpConfirmacao;
+        } else {
+            containerPopUp.style.display = "block";
+            containerPopUp.innerHTML = criarPopUpBasico("Você colocou algo mais que números! Por favor, utilize apenas números!");    
         }
     }
 }
