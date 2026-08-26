@@ -148,12 +148,14 @@ aside {
     cursor: pointer;
 }
 
-.botoes .cancelar {
+.botoes .cancelar,
+.pop_up_confirmacao .botoes_alerta .botao_cancelar {
     border: 5px solid #CC5429;
     background-color: #FFF;
 }
 
-.botoes .avancar {
+.botoes .avancar,
+.pop_up_confirmacao .botoes_alerta .botao_aceitar {
     background-color: #CC5429;
     border: none;
     color: #FFF;
@@ -260,4 +262,44 @@ aside {
     padding: 20px 10px;
     font-size: 15px;
     text-align: center;
+}
+
+.sessao-card .caixa_parametros {
+    width: 600px;
+    overflow-y: auto;
+}
+
+.sessao-card .caixa_parametros .titulo-parametro {
+    font-size: 20px;
+    margin: 20px 10px;
+}
+
+.sessao-card .caixa_parametros input {
+    width: 500px;
+    height: 50px;
+    border-radius: 30px;
+    border: 3px solid #DDDDDD;
+    padding: 0.75rem;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* Estilizando os botões de pop-up de finalização de cadastro de VM */
+.pop_up_confirmacao {
+    padding: 1rem;
+}
+
+.pop_up_confirmacao .botoes_alerta {
+    display: flex;
+    gap: 5rem;
+    margin-top: 20px;
+}
+
+.pop_up_confirmacao .botoes_alerta button{
+    width: 200px;
+    height: 75px;
+    border-radius: 30px;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
 }
