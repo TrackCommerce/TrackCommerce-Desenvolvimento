@@ -129,29 +129,42 @@ selectFiltro.addEventListener('change', filtrarFuncionarios);
 renderizarLista(funcionariosMock);
 
 function registrarFunc(){
-    let nomeReg = document.getElementById('registro-nome').value;
-    let cargoReg = document.getElementById('registro-cargo').value;
-    let contatoReg = document.getElementById('registro-ctt').value;
-    let emailReg = document.getElementById('registro-email').value;
+    let nomeReg = document.getElementById('registro-nome').value.trim();
+    let cargoReg = document.getElementById('registro-cargo').value.trim();
+    let contatoReg = document.getElementById('registro-ctt').value.trim();
+    let emailReg = document.getElementById('registro-email').value.trim();
+    let aviso = document.getElementById('aviso');
+
+    if(nomeReg.length < 2){
+        aviso.innerText = "Funcionário sem nome";
+        return;
+    } else if(cargoReg.length < 2){
+        aviso.innerText = "Funcionário sem cargo";
+        return;
+    } else if(contatoReg.length !== 11){
+        aviso.innerText = "Número inválido (deve ter 11 dígitos)";
+        return;
+    } else if(!emailReg.includes("@") || !emailReg.includes(".")){
+        aviso.innerText = "Email inválido";
+        return;
+    }
+
+    aviso.innerText = "";
 
     if (emailEditando !== null) {
-        // MODO EDIÇÃO: Procura a posição do funcionário na lista
         const index = funcionariosMock.findIndex(f => f.email === emailEditando);
         
         if (index !== -1) {
-            // Atualiza os dados na posição encontrada
             funcionariosMock[index].nome = nomeReg;
             funcionariosMock[index].cargo = cargoReg;
             funcionariosMock[index].contato = contatoReg;
             funcionariosMock[index].email = emailReg;
         }
         
-        // Limpa o modo de edição e volta o texto do botão ao normal
         emailEditando = null;
         document.querySelector('.botao-salvar').innerText = "Salvar usuário";
         
     } else {
-        // MODO CRIAÇÃO: Adiciona um novo na lista (como você já fazia)
         funcionariosMock.push({
             nome: nomeReg,
             cargo: cargoReg,
@@ -161,15 +174,12 @@ function registrarFunc(){
         });
     }
 
-    // Limpa as caixinhas
     document.getElementById('registro-nome').value = "";
     document.getElementById('registro-cargo').value = "";
     document.getElementById('registro-ctt').value = "";
     document.getElementById('registro-email').value = "";
 
-    // Atualiza a tela
     document.getElementById('btn-cancelar').style.display = "none";
-    document.getElementById('registro-nome').value = "";
     renderizarLista(funcionariosMock);
 }
 
