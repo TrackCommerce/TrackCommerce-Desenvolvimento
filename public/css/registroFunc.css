@@ -177,6 +177,18 @@ body {
 
 .botao-salvar:hover { background-color: #e03e00; }
 
+#aviso {
+    color: #dc3545; 
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 20px; 
+
+    background-color: transparent;
+    padding: 0;
+    flex: none;
+}
 
 @media (max-width: 900px) {
     body {
