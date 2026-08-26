@@ -10,15 +10,14 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /* align-items: center; -> Removido daqui e passado para a media query para evitar bugs no mobile */
     align-items: center; 
-    padding: 20px; /* Cria uma margem de segurança para não grudar na borda em nenhum monitor */
+    padding: 20px; 
 }
 
 .conteiner {
     width: 100%;
     max-width: 1200px;
-    height: 90vh; /* Altura cravada no PC */
+    height: 90vh;
     display: flex;
     flex-direction: column;
 }
@@ -178,19 +177,15 @@ body {
 
 .botao-salvar:hover { background-color: #e03e00; }
 
-/* =========================================
-   RESPONSIVIDADE (MOBILE / CELULARES)
-========================================= */
 
-/* Ponto de quebra para Tablets em pé e Celulares */
 @media (max-width: 900px) {
     body {
-        align-items: flex-start; /* ESSENCIAL: Impede que a parte de cima da tela suma! */
-        padding: 20px 10px; /* Diminui a margem lateral no celular */
+        align-items: flex-start; 
+        padding: 20px 10px; 
     }
 
     .conteiner {
-        height: auto; /* Deixa o contêiner crescer conforme o conteúdo pedir */
+        height: auto; 
     }
 
     .conteudo-principal {
@@ -200,7 +195,7 @@ body {
 
     .painel-esquerdo {
         flex: none;
-        height: 500px; /* Damos uma altura fixa para a caixa da esquerda, assim a lista não some e ganha scroll próprio! */
+        height: 500px; 
     }
 
     .painel-direito {
@@ -209,7 +204,6 @@ body {
     }
 }
 
-/* Telas de celulares pequenos */
 @media (max-width: 600px) {
     .titulo-pagina {
         text-align: center;
@@ -233,7 +227,6 @@ body {
         flex-direction: column;
     }
 
-    /* O uso de !important forçará 100% no celular ignorando as tags HTML */
     .grupo-botoes-acao button {
         width: 100% !important;
     }
