@@ -145,6 +145,7 @@ aside {
     border-radius: 30px;
     margin-top: 40px;
     font-size: 40px;
+    cursor: pointer;
 }
 
 .botoes .cancelar {
@@ -202,4 +203,40 @@ aside {
 
 .opcoes-componentes .opcao-componente .opcoes-monitoramento .opcao input {
     margin-right: 10px;
+}
+
+/* Estilizando Pop-Up erro */
+
+.pop_up {
+    position: absolute;
+    top: 40%;
+    left: 37%;
+
+    background-color: #FFF;
+    border: 5px solid #CC5429;
+    width: 700px;
+    height: 270px;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pop_up .texto_alerta {
+    font-size: 26px;
+    padding: 20px;
+}
+
+.pop_up .botao-saida {
+    align-self: flex-end;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.pop_up .botao-saida button {
+    background-color: #FFF;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
 }
