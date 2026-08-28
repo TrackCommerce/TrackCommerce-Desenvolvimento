@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Permissões de acesso</title>
+<link rel="stylesheet" href="./css/validacao.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+       <aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-img">
+            <img src="./assets/icon/logo.png" alt="Logo"> 
+        </div>
+
+        <h2>TrackCommerce</h2>
+    </div>
+
+    <nav class="menu">
+
+        <a href="#" class="item ativo">
+            <div class="icone">
+                <img src="./assets/imgs/home.png" alt="">
+            </div>
+            <span>Painel</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/server.png" alt="">
+            </div>
+            <span>Servidores Ativos</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/bell.png" alt="">
+            </div>
+            <span>Alertas</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/settings.png" alt="">
+            </div>
+            <span>Configurações</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/chave-permissao.png" alt="">
+            </div>
+            <span>Permissões de Grupos</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/server.png" alt="">
+            </div>
+            <span>Cadastro de Servidores</span>
+        </a>
+
+        <a href="#" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/cadastro.png" alt="">
+            </div>
+            <span>Cadastro de Funcionários</span>
+        </a>
+
+    </nav>
+
+    <div class="usuario">
+
+        <div class="foto">
+            <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+        </div>
+
+        <div class="info">
+            <h3>Usuário</h3>
+            <p>Cargo</p>
+        </div>
+
+    </div>
+
+</aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+      <h1>Permissões de acesso</h1>
+
+      <button class="btn-filtros">Filtros ▾</button>
+
+      <div class="painel">
+
+        <!-- LISTA DE FUNCIONÁRIOS -->
+        <div class="lista">
+
+          <label class="funcionario">
+            <input type="radio" name="funcionario" checked>
+            <div class="avatar"></div>
+            <div class="info">
+              <p>Funcionario: Nome</p>
+              <p class="azul">Nível: Nível</p>
+            </div>
+            <p class="email">Email: Email</p>
+          </label>
+
+          <label class="funcionario">
+            <input type="radio" name="funcionario">
+            <div class="avatar"></div>
+            <div class="info">
+              <p>Funcionario: Nome</p>
+              <p class="vermelho">Nível: Nível</p>
+            </div>
+            <p class="email">Email: Email</p>
+          </label>
+
+          <label class="funcionario">
+            <input type="radio" name="funcionario">
+            <div class="avatar"></div>
+            <div class="info">
+              <p>Funcionario: Nome</p>
+              <p class="verde">Nível: Nível</p>
+            </div>
+            <p class="email">Email: Email</p>
+          </label>
+
+        </div>
+
+        <!-- PERMISSÕES -->
+        <div class="permissoes">
+
+          <label for="permissao">Permissões dos usuários</label>
+          <select id="permissao">
+            <option>Visualização - O usuário pode apenas visualizar o conteúdo da VM</option>
+            <option>Edição - O usuário pode alterar, adicionar e excluir o conteúdo da VM</option>
+            <option>Criação - O usuário pode criar uma nova VM e alterar, adicionar e excluir o conteúdo da mesma</option>
+          </select>
+
+          <button class="btn-selecionar">Selecionar</button>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO -->
+  <div class="overlay">
+    <div class="modal">
+      <p class="modal-pergunta">Aplicar as permissões de acesso para o grupo?</p>
+      <div class="modal-botoes">
+        <button class="btn-nao">Não</button>
+        <button class="btn-sim">Sim</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
