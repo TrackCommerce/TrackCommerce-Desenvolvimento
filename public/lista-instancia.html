@@ -14,7 +14,41 @@
     <div class="container-main">
         <aside></aside>
 
-        <main>
+        <div class="container-edicao">
+            <section class="seccao-acima">
+                <p class="titulo-edicao">
+                    Informações da "Apelido"
+                </p>
+                <button class="botoa-sair">
+                    X
+                </button>
+            </section>
+
+            <section class="sessao-identificacao sublinhado">
+                <div class="sessao-apelido">
+                    <label for="ipt_apelido_servidor">
+                        Apelido
+                    </label>
+                    <input 
+                    type="text" 
+                    id="ipt_apelido_servidor"
+                    placeholder="Insira o apelido da instância"
+                    value="'Apelido'">
+                </div>
+                 
+                <div class="sessao-apelido sublinhado">
+                    <label for="ipt_identificador_servidor">
+                        Identificador
+                    </label>
+                    <input 
+                    type="text" 
+                    id="ipt_identificador_servidor"
+                    placeholder="Insira o identificador da instância"
+                    value="'Identificador'">
+                </div>
+            </section>
+
+        <main style="display: none;">
             <div class="apresentacao-sessao">
                 <h1>
                     Lista de Servidores
@@ -30,7 +64,7 @@
                         <h1>
                             Apelido
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -48,7 +82,7 @@
                         <h1>
                             Mine-Server
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -66,7 +100,7 @@
                         <h1>
                             VM-BD
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -84,7 +118,7 @@
                         <h1>
                             Apelido
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -102,7 +136,7 @@
                         <h1>
                             Mine-Server
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -120,7 +154,7 @@
                         <h1>
                             VM-BD
                         </h1>
-                        <button>
+                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
                             <figure>
                                 <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
                             </figure>
@@ -133,8 +167,13 @@
                     </div>
                 </div>
             </div>
+
+
         </main>
     </div>
 
 </body>
+
+<script src="js/lista-instancia.js"></script>
+
 </html>

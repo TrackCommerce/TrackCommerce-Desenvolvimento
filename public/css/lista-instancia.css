@@ -60,14 +60,14 @@ aside {
     border-bottom: 5px solid #66483D;
 }
 
-.container-instancias .instancia .titulo-instancia button {
+.container-instancias .instancia .titulo-instancia .botao-editar {
     border: none;
     background: none;
     cursor: pointer;
 }
 
 
-.container-instancias .instancia .titulo-instancia button figure img {
+.container-instancias .instancia .titulo-instancia .botao-editar figure img {
     width: 36px;
     height: 33px;
 }
