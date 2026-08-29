@@ -1,4 +1,4 @@
-// Colocando a primeira estrutura do HTML em uma variável
+// Colocando a estrutura HTML da primeira etapa do cadastro em uma variável
 let primeiraEtapaCadastro = `
             <section class="sessao-titulo">
                 <h1 class="titulo">
@@ -93,7 +93,7 @@ let primeiraEtapaCadastro = `
             </section>
         `
 
-// Colocando a segunda estrutura do HTML em uma variável
+// Colocando a estrutura HTML da segunda etapa do cadastro em uma variável
 let segundaEtapaCadastro = `
             <section class="sessao-titulo">
                 <h1 class="titulo">
@@ -155,10 +155,6 @@ let segundaEtapaCadastro = `
 
                         <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_cpu">
-                                <label for="checkbox_monitorar_cpu">Monitorar Processador</label>
-                            </div>
-                            <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_cpu">
                                 <label for="checkbox_porcentagem_cpu">Porcentagem de Uso</label>
                             </div>
@@ -178,10 +174,6 @@ let segundaEtapaCadastro = `
 
                         <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_disco">
-                                <label for="checkbox_monitorar_disco">Monitorar Armazenamento</label>
-                            </div>
-                            <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_disco">
                                 <label for="checkbox_porcentagem_disco">Porcentagem de Uso</label>
                             </div>
@@ -200,10 +192,6 @@ let segundaEtapaCadastro = `
                         </div>
 
                         <div class="opcoes-monitoramento">
-                            <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_ram">
-                                <label for="checkbox_monitorar_ram">Monitorar Memória</label>
-                            </div>
                             <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_ram">
                                 <label for="checkbox_porcentagem_ram">Porcentagem de Uso</label>
@@ -225,10 +213,6 @@ let segundaEtapaCadastro = `
 
                          <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_rede">
-                                <label for="checkbox_monitorar_rede">Monitorar Rede</label>
-                            </div>
-                            <div class="opcao">
                                 <input type="checkbox" id="checkbox_latencia_rede">
                                 <label for="checkbox_latencia_rede">Monitorar Latência da Rede</label>
                             </div>
@@ -247,6 +231,7 @@ let segundaEtapaCadastro = `
             </section>
 `
 
+// Colocando a estrutura HTML da terceira etapa do cadastro em uma variável
 let terceiraEtapaCadastro = `
             <section class="sessao-titulo">
                 <h1 class="titulo">
@@ -323,6 +308,7 @@ let terceiraEtapaCadastro = `
             </section>
 `
 
+// Colocando a estrutura HTML para a confirmação 
 let containerPopUpConfirmacao = `
             <div class="pop_up pop_up_confirmacao">
                 <div class="texto_alerta">
@@ -337,21 +323,27 @@ let containerPopUpConfirmacao = `
             </div>
 `
 
-// Pegando o element com a classe chamada "container-cadastro"
+// Pegando o elemento usando o DOM a partir classe chamada "container-cadastro"
 let containerCadastro = document.querySelector('.container-cadastro');
 
+// Pegando o elemento usando o DOM a partir classe chamada "container_pop_up"
 let containerPopUp = document.querySelector('.container_pop_up');
 
+// Array de suporte para armazenar todos os componentes
 let arrayComponentes = [];
 
 // Incializando a aplicação com a primeira etapa do cadastro
 containerCadastro.innerHTML = primeiraEtapaCadastro;
+
+// Sobreescrevendo o containerPopUP usando a função de criar um pop-up
 containerPopUp.innerHTML = criarPopUpBasico("Você não preencheu todos os campos! <br> Preencha eles corretamente!");
 
+// Função para validar a primeira etapa do cadastro
 function transicaoSegundaEtapa() {
     let iptApelidoServidor = ipt_apelido_servidor.value;
     let iptIdentificadorServidor = ipt_identificador_servidor.value;
 
+    // Verificando um dos campos estão vazios
     if(iptApelidoServidor == "" || iptIdentificadorServidor == ""){
         containerPopUp.style.display = "block";
     } else {
@@ -360,117 +352,108 @@ function transicaoSegundaEtapa() {
     }
 }
 
+// Função para validar a segunda etapa do cadastro
 function transicaoTerceiraEtapa() {
-    let checkboxMonitorarCpu = document.querySelector("#checkbox_monitorar_cpu");
+    // Capturando cada checkbox do cadastro de componente
     let checkboxPorcetangemCpu = document.querySelector("#checkbox_porcentagem_cpu");
     let checkboxFrequenciaCpu = document.querySelector("#checkbox_frequencia_cpu");
-    let checkboxMonitorarDisco = document.querySelector("#checkbox_monitorar_disco");
     let checkboxPorcetagemDisco = document.querySelector("#checkbox_porcentagem_disco");
     let checkboxDiscoLivre = document.querySelector("#checkbox_disco_livre");
-    let checkboxMonitorarRam = document.querySelector("#checkbox_monitorar_ram");
     let checkboxPorcentagemRam = document.querySelector("#checkbox_porcentagem_ram");
     let checkboxRamLivre = document.querySelector("#checkbox_ram_livre");
-    let checkboxMonitorarRede = document.querySelector("#checkbox_monitorar_rede");
     let checkboxLatenciaRede = document.querySelector("#checkbox_latencia_rede");
 
-    if(
-        (checkboxPorcetangemCpu.checked || checkboxFrequenciaCpu.checked) && !checkboxMonitorarCpu.checked ||
-        (checkboxPorcetagemDisco.checked || checkboxDiscoLivre.checked) && !checkboxMonitorarDisco.checked ||
-        (checkboxPorcentagemRam.checked || checkboxRamLivre.checked) && !checkboxMonitorarRam.checked ||
-        checkboxLatenciaRede.checked && !checkboxMonitorarRede.checked 
-    ){
-        containerPopUp.style.display = "block";
-        containerPopUp.innerHTML = criarPopUpBasico("Você está tentando monitorar porcentagens ou relacionados de componentes sem selecionar os componentes! <br> (Dica: Lembre-se sempre de escolher primeiro que vai monitorar e depois as suas funcionalidades");
-    } else if(!checkboxMonitorarCpu.checked && !checkboxMonitorarDisco.checked && !checkboxMonitorarRam.checked && !checkboxMonitorarRede.checked) {
+    // Verificando se todos os componentes não estão selecionandos
+    if(!checkboxPorcetangemCpu.checked && !checkboxFrequenciaCpu.checked && !checkboxPorcetagemDisco.checked && !checkboxDiscoLivre.checked && !checkboxPorcentagemRam.checked && !checkboxRamLivre.checked && !checkboxLatenciaRede.checked) {
         containerPopUp.style.display = "block";
         containerPopUp.innerHTML = criarPopUpBasico("Selecione pelo menos um componente para ser monitorado!");    
     } else {
-        if(
-            checkboxMonitorarCpu.checked && !(checkboxPorcetangemCpu.checked || checkboxFrequenciaCpu.checked) ||
-            checkboxMonitorarDisco.checked && !(checkboxPorcetagemDisco.checked || checkboxDiscoLivre.checked) ||
-            checkboxMonitorarRam.checked && !(checkboxPorcentagemRam.checked || checkboxRamLivre.checked) ||
-            checkboxLatenciaRede.checked && !checkboxMonitorarRede.checked 
-        ) {
-            containerPopUp.style.display = "block";
-            containerPopUp.innerHTML = criarPopUpBasico("Você selecionou apenas o componente que quer monitorar! Selecione alguns atributos para monitorar esse componente");        
-        } else {
-            function criarCampoDeParametro(componente, idComponente, placeholder) {
-                containerEspecificacoesParametros.innerHTML += `
-                    <h3 class="titulo-parametro">
-                        Paramêtro para ${componente}
-                    </h3>
-                    <input 
-                        type="number" 
-                        id="${idComponente}" 
-                        placeholder="${placeholder}"
-                    >
-                `
-            }
-
-            fecharPopUp(containerPopUp);
-            trocaTela(terceiraEtapaCadastro);     
-
-            let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
-
-            if(checkboxPorcetangemCpu.checked) {
-                criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Insira o paramêtro para o porcentual de uso da CPU")
-                arrayComponentes.push("id_parametro_porcentagem_cpu");
-            }
-
-            if(checkboxFrequenciaCpu.checked) {
-                criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Insira o paramêtro para a frequência da CPU")
-                arrayComponentes.push("id_parametro_frequencia_cpu");
-            }
-
-            if(checkboxPorcetagemDisco.checked) {
-                criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Insira o paramêtro para o porcentual do armazenamento")
-                arrayComponentes.push("id_parametro_porcentagem_armazenamento");
-            }
-
-             if(checkboxDiscoLivre.checked) {
-                criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Insira o paramêtro para a quantidade de armazenamento livre")
-                arrayComponentes.push("id_parametro_quantidade_livre_disco");
-            }
-
-            if(checkboxPorcentagemRam.checked) {
-                criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Insira o paramêtro para o porcentual de uso da memória RAM")
-                arrayComponentes.push("id_parametro_porcentagem_ram");
-            }
-
-            if(checkboxRamLivre.checked) {
-                criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Insira o paramêtro para a quantidade de memória ram livre")
-                arrayComponentes.push("id_parametro_quantidade_livre_ram");
-            }
-
-            if(checkboxLatenciaRede.checked) {
-                criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Insira o paramêtro para a quantidade máxima de milisegundos (ms) que a latência pode chegar")
-                arrayComponentes.push("id_parametro_latencia_rede");
-            }
-
-            return arrayComponentes;
+        // Usando uma função para criar um input para cada componente selecionado
+        function criarCampoDeParametro(componente, idComponente, placeholder) {
+            containerEspecificacoesParametros.innerHTML += `
+                <h3 class="titulo-parametro">
+                    Paramêtro para ${componente}
+                </h3>
+                <input 
+                    type="number" 
+                    id="${idComponente}" 
+                    placeholder="${placeholder}"
+                >
+            `
         }
+
+        // Fecho popUp e troco de tela
+        fecharPopUp(containerPopUp);
+        trocaTela(terceiraEtapaCadastro);     
+
+        // Capturando o container que tenha o id "especificacoes_parametros"
+        let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
+
+        // Verificando se cada componente está selecionado e colocando algumas informações para criar o seu input
+        // Aqui eu também coloco todos os ids dos inputs dentro do array de suporte para os componentes
+        if(checkboxPorcetangemCpu.checked) {
+            criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Insira o paramêtro para o porcentual de uso da CPU")
+            arrayComponentes.push("id_parametro_porcentagem_cpu");
+        }
+
+        if(checkboxFrequenciaCpu.checked) {
+            criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Insira o paramêtro para a frequência da CPU")
+            arrayComponentes.push("id_parametro_frequencia_cpu");
+        }
+
+        if(checkboxPorcetagemDisco.checked) {
+            criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Insira o paramêtro para o porcentual do armazenamento")
+            arrayComponentes.push("id_parametro_porcentagem_armazenamento");
+        }
+
+        if(checkboxDiscoLivre.checked) {
+            criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Insira o paramêtro para a quantidade de armazenamento livre")
+            arrayComponentes.push("id_parametro_quantidade_livre_disco");
+        }
+
+        if(checkboxPorcentagemRam.checked) {
+            criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Insira o paramêtro para o porcentual de uso da memória RAM")
+            arrayComponentes.push("id_parametro_porcentagem_ram");
+        }
+
+        if(checkboxRamLivre.checked) {
+            criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Insira o paramêtro para a quantidade de memória ram livre")
+            arrayComponentes.push("id_parametro_quantidade_livre_ram");
+        }
+
+        if(checkboxLatenciaRede.checked) {
+            criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Insira o paramêtro para a quantidade máxima de milisegundos (ms) que a latência pode chegar")
+            arrayComponentes.push("id_parametro_latencia_rede");
+        }
+
+        return arrayComponentes;
     }
 }
 
+// Criando uma função para validar cada campo do input de paramêtro de componente
 function confirmacaoParametro() {
     for(let i = 0; i < arrayComponentes.length; i++){
         let idInput = document.getElementById(arrayComponentes[i]);
         let valorDoInput = idInput.value;
             
+        // Verificando se o campo está vazio e se ele é um número
         if (valorDoInput !== "" && !isNaN(valorDoInput)) {
             containerPopUp.style.display = "block";
             containerPopUp.innerHTML = containerPopUpConfirmacao;
         } else {
             containerPopUp.style.display = "block";
-            containerPopUp.innerHTML = criarPopUpBasico("Você colocou algo mais que números! Por favor, utilize apenas números!");    
+            containerPopUp.innerHTML = criarPopUpBasico("Por favor, utilize apenas números!");    
+            break;
         }
     }
 }
 
+// Função para trocar de tela
 function trocaTela(telaDestino) {
     containerCadastro.innerHTML = telaDestino;
 }
 
+// Função para criar um pop up básico a partir de um texto
 function criarPopUpBasico(textoAlerta){
     return `
             <div class="pop_up">
@@ -486,6 +469,7 @@ function criarPopUpBasico(textoAlerta){
     `
 } 
 
+// Função para fechar o pop-up
 function fecharPopUp(classeDoPopUp) {
     classeDoPopUp.style.display = "none";
 }
