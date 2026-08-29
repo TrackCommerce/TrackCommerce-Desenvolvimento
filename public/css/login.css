@@ -1,0 +1,304 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+.info-geral {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #14213D;
+    color: white;
+    padding: 1.5rem;
+     min-width: 0;
+   
+}
+
+.login-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    width: 65%;
+   
+}
+
+.div-img-info {
+     display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+}
+
+ .div-img-info img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+} 
+
+.nome-logo{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.login-texto-introducao{
+    font-weight: bold;
+    font-size: 28px;
+    padding: 0.0rem 0rem 0.8rem 0rem;
+}
+.login-texto-introducao span {
+    color: #ff5400;
+}
+
+
+
+
+
+
+.form-geral {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+     min-width: 0;
+
+}
+
+.form-login {
+    display: flex;
+
+    flex-direction: column;
+    width: 100%;
+     max-width: 600px;
+    padding: 2rem;
+    background-color: #F7F8FA;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px 10px rgba(0, 0, 0, 0.2);
+    gap: 1rem;
+
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.campo-senha {
+    position: relative;
+    width: 100%;
+}
+
+.btn-olho {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+   
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.btn-olho img {
+    width: 20px;
+    height: 20px;
+}
+.form-login p {
+    color: #5C6B84;
+    font-size: 16px;
+}
+
+.titulo-form {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+.login-label {
+    color: #5C6B84;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+.login-input_email {
+    background-image: url(../assets/imgs/login_mensagem.png);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding: 0.5rem;
+    padding-left: 40px;
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #E5E9F0;
+}
+
+.login-input_senha {
+    background-image: url(../assets/imgs/login_cadeado.png);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding: 0.5rem;
+    padding-left: 40px;
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #E5E9F0;
+
+}
+
+.btn-voltar-geral {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+}
+
+.btn-voltar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    max-width: 180px;
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #000000;
+    text-decoration: none;
+    color: #000;
+    min-height: 35px;
+    font-size: 16px ;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-voltar:hover{
+      transform: scale(1.05);
+}
+.btn-voltar img {
+    width: 20px;
+    height: 20px;
+}
+
+
+.div-btn-entrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-entrar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff5400;
+    padding: 15px 0px 15px 0px;
+    width: 85%;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+}
+
+.div_mensagem_erro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    color: #5C6B84;
+}
+
+@media(max-width:900px){
+    .login-info {
+        width: 90%;
+    }
+    .nome-logo{
+        font-size: 26px;
+    }
+    .login-texto-introducao{
+        font-size: 26px;
+    }
+
+    .btn-voltar{
+        font-size: 14px;
+        max-width: 160px;
+    }
+    .btn-voltar img {
+    width: 16px;
+    height: 16px;
+}
+
+.titulo-form{
+    font-size: 26px;
+}
+
+.form-login p {
+    font-size: 14px;
+}
+
+
+.login-label {
+    font-size: 13px;
+}
+
+.login-input_email {
+    height: 35px;
+}
+
+.login-input_senha {
+    height: 35px;
+
+}
+
+.btn-entrar {
+
+    padding: 10px 0px;
+    width: 80%;
+}
+
+}
+
+@media(max-width:800px){
+    .info-geral{
+        display: none;
+    }
+
+    .form-login {
+    width: 100%;
+     max-width: 500px;
+
+}
+
+.btn-voltar-geral {
+    width: 100%;
+    max-width: 500px;
+}
+
+
+}
+
