@@ -1,0 +1,183 @@
+.pagina {
+    display: flex;
+    flex-direction: row;
+    background-color: #F7F8FA;
+}
+
+.main-info-dash {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    width: calc(100% - 260px);
+      min-width: 0;
+    box-sizing: border-box;
+
+}
+
+.info-localizacao-sessao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+     flex-wrap: wrap;
+}
+
+.titulo-componente {
+    color: #ff5400;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.titulo-localizacao {
+    color: #ff5400;
+    font-size: 18px;
+}
+
+.data-captura {
+    background-color: #dddbdb;
+    border-radius: 10px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.cards-gerais {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    gap: 1rem;
+     flex-wrap: wrap;
+
+}
+
+.card-unico {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-color: #14213D;
+    border-radius: 10px;
+    padding: 1rem;
+    background: linear-gradient(to right, #14213D, #243B5A);
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.titulo-card {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.descricao-card {
+    color: #A0B0CB;
+}
+
+.num-captura-card {
+    display: flex;
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .main-info-dash {
+        width: calc(100% - 200px);
+    }
+
+    .titulo-componente {
+        font-size: 18px;
+    }
+
+    .titulo-localizacao {
+        font-size: 16px;
+    }
+
+    .data-captura {
+        font-size: 12px;
+    }
+    .card-unico {
+        flex: 1 1 calc(50% - 1rem);
+    }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .main-info-dash {
+        width: calc(100% - 150px);
+        gap: 0.75rem;
+    }
+
+    
+
+    .titulo-componente {
+        font-size: 16px;
+    }
+
+    .titulo-localizacao {
+        font-size: 14px;
+    }
+
+    .data-captura {
+        font-size: 12px;
+    }
+    .cards-gerais{
+        gap: 0.75rem;
+    }
+.card-unico {
+        flex: 1 1 100%;
+        padding: 0.75rem;
+    }
+
+    .titulo-card {
+        font-size: 17px;
+    }
+
+    .descricao-card {
+        font-size: 13px;
+    }
+
+    .num-captura-card {
+        font-size: 22px;
+        padding: 0.3rem 0;
+    }
+}
+
+/* Celular pequeno */
+@media (max-width: 400px) {
+    .main-info-dash {
+        width: calc(100% - 130px);
+    }
+
+    .titulo-componente {
+        font-size: 15px;
+    }
+
+    .titulo-localizacao {
+        font-size: 13px;
+    }
+
+    .data-captura {
+        font-size: 11px;
+    }
+    .card-unico {
+       padding: 0.6rem;
+    }
+    .titulo-card {
+        font-size: 16px;
+    }
+
+    .descricao-card {
+        font-size: 12px;
+    }
+
+    .num-captura-card {
+        font-size: 20px;
+    }
+
+}
