@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>TrackCommerce | Selecionar Servidor</title>
 
+    <link rel="icon" href="./assets/icon/logo.png">
     <link rel="stylesheet" href="./css/selecionar-servidores.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
@@ -30,7 +31,7 @@
             <span>Painel</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="lista-instancia.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/server.png" alt="">
             </div>
@@ -51,21 +52,21 @@
             <span>Configurações</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="permissoes.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/chave-permissao.png" alt="">
             </div>
             <span>Permissões de Grupos</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="cadastro-instancia.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/server.png" alt="">
             </div>
             <span>Cadastro de Servidores</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="registroFunc.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/cadastro.png" alt="">
             </div>
@@ -208,6 +209,48 @@
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./grafico.js"></script>
+    <script>
+        const ctx = document.getElementById("grafico-alertas");
+
+new Chart(ctx, {
+    type: "bar",
+
+    data: {
+        labels: ["Latencia", "CPU", "Memória", "Disco"],
+
+        datasets: [{
+            label: "Quantidade de Alertas",
+            data: [12, 8, 15, 6],
+            backgroundColor: "orangered",
+            borderRadius: 6
+        }]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+    </script>
 </body>
 </html>
