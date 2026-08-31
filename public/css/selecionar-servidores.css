@@ -10,12 +10,18 @@ body{
 }
 
 .container{
-    display:flex;
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    padding-left: 260px;
 }
 
 /* SIDEBAR */
 
 .sidebar{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 260px;
     height: 100vh;
     background: #14213D;
@@ -56,21 +62,30 @@ body{
 .menu{
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 .item{
     display: flex;
     align-items: center;
-    text-decoration: none;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
     color: #AEB8CE;
-    padding: 5px;
-    border-radius: 10px;
+    text-decoration: none;
     position: relative;
 }
 
 .item:hover{
     background-color: #203566;
+    color: white;
     transition: 0.2s;
+}
+
+.item img{
+    width: 22px;
+    height: 22px;
 }
 
 .item span{
@@ -103,7 +118,10 @@ body{
 /* USUÁRIO */
 
 .usuario{
-    margin-top: auto;
+    position: absolute;
+    bottom: 25px;
+    left: 18px;
+    right: 18px;
     padding-top: 18px;
     border-top: 1px solid rgba(255,255,255,0.12);
     display: flex;
@@ -138,8 +156,9 @@ body{
 /* CONTEÚDO */
 
 .conteudo{
-    flex:1;
-    padding:35px;
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
 }
 
 .conteudo h1{
@@ -153,20 +172,19 @@ body{
 }
 
 .card{
-    background:white;
-    border:1px solid #ddd;
-    border-radius:15px;
-    padding:20px;
-    display:flex;
-    align-items:center;
-    margin-bottom:20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
 }
 
 .card:hover{
-    transform:scale(1.003);
+    transform: scale(1.003);
     transition: 0.3s;
-    
-
 }
 
 .icone{
@@ -226,6 +244,7 @@ body{
     line-height:45px;
     font-size:22px;
     border: none;
+    flex-shrink: 0;
 }
 
 .botao:hover{
@@ -236,10 +255,11 @@ body{
 /* LADO DIREITO */
 
 .direita{
-    width:300px;
-    background:#fafafa;
-    padding:25px;
-    border-left:1px solid #ddd;
+    width: 300px;
+    flex-shrink: 0;
+    background: #fafafa;
+    padding: 25px;
+    border-left: 1px solid #ddd;
 }
 
 .topo-alerta{
@@ -293,4 +313,144 @@ body{
     height: 100%;
     margin-bottom: 20px;
     margin-top: 5px;
+}
+
+@media (max-width: 1024px){
+
+    .sidebar{
+        width: 90px;
+        align-items: center;
+        padding: 20px 10px;
+    }
+
+    .logo h2,
+    .item span,
+    .info{
+        display: none;
+    }
+
+    .logo{
+        justify-content: center;
+    }
+
+    .item{
+        justify-content: center;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .icone img{
+        width: 26px;
+        height: 26px;
+    }
+
+    .usuario{
+        justify-content: center;
+    }
+
+
+
+    .conteudo{
+        padding: 25px;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .container{
+        flex-direction: column;
+    }
+
+    .sidebar{
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .logo h2{
+        display: block;
+        font-size: 16px;
+    }
+
+    .menu{
+        display: none;
+    }
+
+    .usuario{
+        margin-top: 0;
+        border: none;
+        padding: 0;
+    }
+
+    .conteudo{
+        padding: 20px;
+    }
+
+    .conteudo h1{
+        font-size: 26px;
+    }
+
+    .card{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .icone{
+        margin-right: 0;
+    }
+
+    .botao{
+        align-self: flex-end;
+    }
+
+    .direita{
+        display: block;
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding: 20px;
+    }
+
+    .grafico{
+        height: 240px;
+    }
+
+}
+
+@media (max-width: 480px){
+
+    .conteudo h1{
+        font-size: 22px;
+    }
+
+    .descricao{
+        font-size: 14px;
+    }
+
+    .card{
+        padding: 15px;
+    }
+
+    .texto h3{
+        font-size: 16px;
+    }
+
+    .texto p{
+        font-size: 14px;
+    }
+
+    .status{
+        display: inline-block;
+        margin-top: 8px;
+    }
+
+    .grafico{
+        padding: 15px;
+        height: 220px;
+    }
+
 }

@@ -1,10 +1,10 @@
 let emailEditando = null;
 
 const funcionariosMock = [
-    { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "(11) 96796-6767" },
-    { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "(11) 98888-1111" },
-    { nome: "João Pedro", cargo: "Gerente de Projetos", permissoes: "Administrador", email: "joao.gp@email.com", contato: "(11) 97777-2222" },
-    { nome: "Mariana Souza", cargo: "Designer UX/UI", permissoes: "Leitura", email: "mari.ux@email.com", contato: "(21) 99999-3333" },
+    { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "11967966767" },
+    { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "11988881111" },
+    { nome: "João Pedro", cargo: "Gerente de Projetos", permissoes: "Administrador", email: "joao.gp@email.com", contato: "11977772222" },
+    { nome: "Mariana Souza", cargo: "Designer UX/UI", permissoes: "Leitura", email: "mari.ux@email.com", contato: "21999993333" },
 ];
 
 for(let i = 5; i <= 20; i++) {
@@ -13,7 +13,7 @@ for(let i = 5; i <= 20; i++) {
         cargo: `Cargo Genérico ${i}`,
         permissoes: "Permissões Padrão",
         email: `funcionario${i}@email.com`,
-        contato: "(00) 00000-0000"
+        contato: "00000000000"
     });
 }
 
@@ -78,7 +78,7 @@ function renderizarLista(dados) {
                 </div>
                 <div class="coluna">
                     <span>Email: ${func.email}</span>
-                    <span>Contato: ${func.contato}</span>
+                    <span>Contato: ${formatarParaExibicao(func.contato)}</span>
                 </div>
             </div>
             <div class="botao-radio">
@@ -91,21 +91,6 @@ function renderizarLista(dados) {
     });
 }
 
-
-function preencherFormulario(emailClicado) {
-    const func = funcionariosMock.find(f => f.email === emailClicado);
-    
-    if(func) {
-        document.getElementById('registro-nome').value = func.nome;
-        document.getElementById('registro-cargo').value = func.cargo;
-        document.getElementById('registro-ctt').value = func.contato;
-        document.getElementById('registro-email').value = func.email;
-        
-        emailEditando = func.email;
-        
-        document.querySelector('.botao-salvar').innerText = "Atualizar usuário";
-    }
-}
 function filtrarFuncionarios() {
     const termoPesquisado = inputPesquisa.value.toLowerCase();
     const filtroSelecionado = selectFiltro.value; 
@@ -131,7 +116,7 @@ renderizarLista(funcionariosMock);
 function registrarFunc(){
     let nomeReg = document.getElementById('registro-nome').value.trim();
     let cargoReg = document.getElementById('registro-cargo').value.trim();
-    let contatoReg = document.getElementById('registro-ctt').value.trim();
+    let contatoReg = document.getElementById('registro-ctt').value.replace(/\D/g, "");
     let emailReg = document.getElementById('registro-email').value.trim();
     let aviso = document.getElementById('aviso');
 
@@ -147,6 +132,17 @@ function registrarFunc(){
     } else if(!emailReg.includes("@") || !emailReg.includes(".")){
         aviso.innerText = "Email inválido";
         return;
+    }
+
+    let emailEmUso = funcionariosMock.some(f => f.email === emailReg && f.email !== emailEditando);
+    let contatoEmUso = funcionariosMock.some(f => f.contato === contatoReg && f.email !== emailEditando);
+
+    if (emailEmUso){
+        aviso.innerText = "Email já cadastrado";
+        return; 
+    } else if (contatoEmUso){
+        aviso.innerText = "Contato já cadastrado";
+        return; 
     }
 
     aviso.innerText = "";
@@ -197,4 +193,27 @@ function deletarFunc() {
             renderizarLista(funcionariosMock);
         }
     }
+}
+
+function mascaraTelefone(input) {
+    let valor = input.value.replace(/\D/g, "");
+
+    if (!valor) {
+        input.value = "";
+        return;
+    }
+
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+    
+    valor = valor.replace(/(\d)(\d{4})$/, "$1-$2");
+    input.value = valor;
+}
+
+function formatarParaExibicao(numero) {
+    let valor = String(numero).replace(/\D/g, "");
+    
+    if (valor.length === 11) {
+        return valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    }
+    return numero;
 }
