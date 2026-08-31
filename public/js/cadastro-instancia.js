@@ -247,6 +247,7 @@ let segundaEtapaCadastro = `
             </section>
 `
 
+// Colocando a estrutura HTML da terceira etapa do cadastro em uma variável
 let terceiraEtapaCadastro = `
             <section class="sessao-titulo">
                 <h1 class="titulo">
@@ -323,6 +324,7 @@ let terceiraEtapaCadastro = `
             </section>
 `
 
+// Colocando a estrutura HTML para a confirmação 
 let containerPopUpConfirmacao = `
             <div class="pop_up pop_up_confirmacao">
                 <div class="texto_alerta">
@@ -337,21 +339,27 @@ let containerPopUpConfirmacao = `
             </div>
 `
 
-// Pegando o element com a classe chamada "container-cadastro"
+// Pegando o elemento usando o DOM a partir classe chamada "container-cadastro"
 let containerCadastro = document.querySelector('.container-cadastro');
 
+// Pegando o elemento usando o DOM a partir classe chamada "container_pop_up"
 let containerPopUp = document.querySelector('.container_pop_up');
 
+// Array de suporte para armazenar todos os componentes
 let arrayComponentes = [];
 
 // Incializando a aplicação com a primeira etapa do cadastro
 containerCadastro.innerHTML = primeiraEtapaCadastro;
+
+// Sobreescrevendo o containerPopUP usando a função de criar um pop-up
 containerPopUp.innerHTML = criarPopUpBasico("Você não preencheu todos os campos! <br> Preencha eles corretamente!");
 
+// Função para validar a primeira etapa do cadastro
 function transicaoSegundaEtapa() {
     let iptApelidoServidor = ipt_apelido_servidor.value;
     let iptIdentificadorServidor = ipt_identificador_servidor.value;
 
+    // Verificando um dos campos estão vazios
     if(iptApelidoServidor == "" || iptIdentificadorServidor == ""){
         containerPopUp.style.display = "block";
     } else {
