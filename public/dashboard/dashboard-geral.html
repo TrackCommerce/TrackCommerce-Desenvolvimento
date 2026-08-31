@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -94,4 +95,191 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Geral</title>
+    <link rel="stylesheet" href="/public/css/dashboard-geral.css">
+    <link rel="stylesheet" href="/public/css/sidebar.css">
+
+</head>
+
+<body>
+    <div class="pagina">
+        <div class="sidebar">
+            <a href="../index.html" class="logo">
+                <img src="../assets/icon/logo.png" alt="">
+                <p class="titulo_logo">TrackCommerce</p>
+
+
+            </a>
+            <div class="links-gerais">
+                <a href="/public/dashboard/dashboard-geral.html" class="link-unico">
+                    <img src="../assets/imgs/icon-painel.png" alt="">
+                    <p>Painel</p>
+                </a>
+
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-servidores.png" alt="">
+                    <p>Servidores Ativos</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-alertas.png" alt="">
+                    <p>Alertas</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-permissoes.png" alt="">
+                    <p>Permissões de grupo</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-servidores.png" alt="">
+                    <p>Cadastro de servidores</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-cadastrar-user.png" alt="">
+                    <p>Cadastro de Funcionários</p>
+                </a>
+            </div>
+
+            <hr class="linha-hr">
+            <div class="usuario">
+                <img src="../assets/imgs/icon-perfil.png" alt="">
+                <div class="info-usuario">
+                    <p class="nome-usuario"><b>Ema</b></p>
+                    <p class="cargo-usuario">Gestor(a)</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-info-dash">
+
+            <div class="div_ambientes_geral">
+                <div class="ambiente_titulo_geral">
+                    <p class="ambiente_titulo">Selecionar Ambiente do Servidor</p>
+                    <p class="ambiete_desc">Monitore a saúde, configurações e distribuição de carga nos servidores
+                        ativos.</p>
+                </div>
+
+                <div class="card-geral-servidores">
+                    <div class="card-unico-servidor">
+                        <img class="cor-verde-servidor" src="/public/assets/imgs/icon-shopping-cart.png" alt="">
+                        <div class="info-geral-card">
+                            <div class="info-superior-card">
+                                <p class="titulo-card">Servidor de Checkout</p>
+                                <p class="status-card cor-verde-servidor">SAUDÁVEL</p>
+                            </div>
+                            <p class="desc-card">Processa pagamentos do carrinho do usuário, gerenciando gateways de
+                                pedidos e verificações de pagamento em tempo real.</p>
+                        </div>
+                        <a href="dashboard-especifica.html">➜</a>
+                    </div>
+                    <div class="card-unico-servidor">
+                        <img class="cor-amarela-servidor" src="/public/assets/imgs/icon-bd.png" alt="">
+                        <div class="info-geral-card ">
+                            <div class="info-superior-card">
+                                <p class="titulo-card">Servidor de Banco de Dados</p>
+                                <p class="status-card cor-amarela-servidor">ATENÇÃO</p>
+                            </div>
+                            <p class="desc-card">Cluster principal do banco de dados com logs mestres e credenciais de
+                                clientes. Processos de reindexação podem apresentar lentidão.</p>
+                        </div>
+                        <a href="dashboard-especifica.html">➜</a>
+                    </div>
+                    <div class="card-unico-servidor">
+                        <img class="cor-verde-servidor" src="/public/assets/imgs/icon-graph-line.png" alt="">
+                        <div class="info-geral-card">
+                            <div class="info-superior-card">
+                                <p class="titulo-card">Servidor de Checkout</p>
+                                <p class="status-card cor-verde-servidor">SAUDÁVEL</p>
+                            </div>
+                            <p class="desc-card">Processa pagamentos do carrinho do usuário, gerenciando gateways de
+                                pedidos e verificações de pagamento em tempo real.</p>
+                        </div>
+                        <a href="dashboard-especifica.html">➜</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="div-alerta-geral">
+                <div class="titulo-geral-alerta">
+                    <div class="titulo-inicial-alerta">Alertas Recentes</div>
+                    <a href="#">Ver todos</a>
+                </div>
+                <div class="alertas-geral">
+                    <div class="card-alerta-unico">
+                        
+                        <div class="info-superior-card-alerta">
+                            <div class="reparticao-info-superior">
+                                <div class="alerta-status cor-vermelha-alerta"></div>
+                            <p class="card-titulo-alerta">Espaço em Disco do BD Alto</p>
+                            </div>
+                            
+                            <p class="card-horario-alerta">4min atrás</p>
+                        </div>
+                        <p class="desc-alerta">Partição do cluster primário do banco de dados reportando uso em 91% do limite de capacidade.</p>
+                    </div>
+                    <div class="card-alerta-unico">
+                        
+                        <div class="info-superior-card-alerta">
+                            <div class="reparticao-info-superior">
+                                <div class="alerta-status cor-amarela-alerta"></div>
+                            <p class="card-titulo-alerta">Pico de Latência</p>
+                            </div>
+                            
+                            <p class="card-horario-alerta">12min atrás</p>
+                        </div>
+                        <p class="desc-alerta">Endpoint do gateway do servidor de checkout retornou um tempo médio de resposta de 412ms.</p>
+                    </div>
+
+
+                    <div class="card-alerta-unico">
+                        
+                        <div class="info-superior-card-alerta">
+                            <div class="reparticao-info-superior">
+                                <div class="alerta-status cor-verde-alerta"></div>
+                            <p class="card-titulo-alerta">Backup Concluído</p>
+                            </div>
+                            
+                            <p class="card-horario-alerta">1h atrás</p>
+                        </div>
+                        <p class="desc-alerta">Rotina de snapshot de armazenamento global executada e verificada com sucesso.</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+</body>
+
+>>>>>>> login
 </html>

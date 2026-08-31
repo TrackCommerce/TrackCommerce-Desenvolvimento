@@ -1,3 +1,37 @@
+<<<<<<< HEAD
+=======
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cores usadas */
+
+.cor-verde-servidor{
+    color: #10B981;
+    background-color: #E6F4EA ;
+}
+.cor-amarela-servidor{
+    color: #F59E0B;
+    background-color: #FFFBEB;
+}
+.cor-vermelha-servidor{
+    color: #f50b0b;
+    background-color:#ffebeb ;
+}
+
+.cor-verde-alerta{
+    background-color: #10B981;
+}
+.cor-amarela-alerta{
+    background-color: #F59E0B;
+}
+.cor-vermelha-alerta{
+    background-color: #EF4444;
+}
+
+>>>>>>> login
 .pagina {
     display: flex;
     flex-direction: row;
@@ -6,6 +40,7 @@
 
 .main-info-dash {
     display: flex;
+<<<<<<< HEAD
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
@@ -180,4 +215,187 @@
         font-size: 20px;
     }
 
+=======
+    flex-direction: row;
+    width: 100%;
+min-width: 0;
+}
+
+
+.div_ambientes_geral{
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: #fff;
+    
+}
+.ambiente_titulo{
+    font-size: 1.4rem;
+    font-weight: bold;  
+}
+
+.ambiete_desc{
+    font-size: 0.8rem;
+     color: #6B7280;
+}
+
+.card-geral-servidores{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0rem;
+    gap: 1rem;
+}
+
+.card-unico-servidor{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem ;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);  
+    border-radius: 8px;
+    gap: 1rem;
+    width: 90%;
+}
+
+.card-unico-servidor img{
+   
+    border-radius: 8px;
+    padding: 0.5rem;
+   height: 2rem;
+    width: 2rem;
+    box-sizing: content-box;
+}
+
+.info-geral-card{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.info-superior-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+}
+.titulo-card{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.status-card{
+    font-size: 0.7rem;
+    font-weight: bold;
+    
+    padding: 0.2rem 0.8rem;
+    border-radius: 8px;
+
+}
+
+.desc-card{
+    font-size: 0.8rem;
+    color: #6B7280;
+}
+
+
+.card-unico-servidor a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #ff5400;
+    border-radius: 100%;
+    padding: 0.8rem;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+
+
+/* CSS DO ALERTA COMEÇA AQUI!!!!!!!*/
+.div-alerta-geral{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.5rem;
+    background-color: #F8F9FB;
+  border-left: 0.1px solid rgb(0, 0, 0, 0.1);
+}
+
+.titulo-geral-alerta{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titulo-geral-alerta a{
+    color: #ff5400;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.titulo-inicial-alerta{
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.alertas-geral{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0rem ;
+    gap: 1rem;
+    
+}
+
+.card-alerta-unico{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0.7rem;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: content-box;
+    gap: 0.4rem;
+     box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.info-superior-card-alerta{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.alerta-status{
+   
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+.card-titulo-alerta{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.card-horario-alerta{
+    font-size: 0.8rem;
+    color: #6B7280;
+}
+.reparticao-info-superior{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.desc-alerta{
+    color: #6B7280;
+    font-size: 0.8rem;
+>>>>>>> login
 }
