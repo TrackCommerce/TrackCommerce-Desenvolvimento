@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard-especifica</title>
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/dashboard-especifica.css">
+</head>
+
+<body>
+
+    <div class="pagina">
+        <div class="sidebar">
+            <a href="../index.html" class="logo">
+                <img src="../assets/icon/logo.png" alt="">
+                <p class="titulo_logo">TrackCommerce</p>
+
+
+            </a>
+            <div class="links-gerais">
+                <a href="/public/dashboard/dashboard-geral.html" class="link-unico">
+                    <img src="../assets/imgs/icon-painel.png" alt="">
+                    <p>Painel</p>
+                </a>
+
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-servidores.png" alt="">
+                    <p>Servidores Ativos</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-alertas.png" alt="">
+                    <p>Alertas</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-permissoes.png" alt="">
+                    <p>Permissões de grupo</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-servidores.png" alt="">
+                    <p>Cadastro de servidores</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="../assets/imgs/icon-cadastrar-user.png" alt="">
+                    <p>Cadastro de Funcionários</p>
+                </a>
+            </div>
+
+            <hr class="linha-hr">
+            <div class="usuario">
+                <img src="../assets/imgs/icon-perfil.png" alt="">
+                <div class="info-usuario">
+                    <p class="nome-usuario"><b>Ema</b></p>
+                    <p class="cargo-usuario">Gestor(a)</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-info-dash">
+            <div id="overlay" class="overlay" onclick="abrir_menu()"></div>
+            <div class="top-bar">
+                <div class="info-localizacao-sessao">
+                    <p class="titulo-componente">CPU - </p>
+                    <p class="titulo-localizacao">Checkout</p>
+                    <p class="data-captura">12/08/2026 - 14/08/2026 </p>
+                </div>
+
+
+                <div class="menu-container">
+                    <button class="btn-menu" onclick="abrir_menu()">≡</button>
+                    <div class="menu-opcoes" id="menu-opcoes">
+                        <div class="opcao_unitaria">
+                            <div class="div_img_desc">
+                            <img src="/public/assets/imgs/icon_cpu.png" alt="">
+                            <div class="opcao_descricao_geral">
+                                <p class="opcao_titulo_desc">CPU</p>
+                                <p class="opcao_desc">Descrição</p>
+                            </div>
+                        </div>
+                            <a href="#"> ➜</a>
+                        </div>
+                        <div class="opcao_unitaria">
+                            <div class="div_img_desc">
+                            <img src="/public/assets/imgs/icon_ram.png" alt="">
+                            <div class="opcao_descricao_geral">
+                                <p class="opcao_titulo_desc">RAM</p>
+                                <p class="opcao_desc">Descrição</p>
+                            </div>
+                        </div>
+                            <a href="#"> ➜</a>
+                        </div>
+                        <div class="opcao_unitaria">
+                            <div class="div_img_desc">
+                            <img src="/public/assets/imgs/icon_disco.png" alt="">
+                            <div class="opcao_descricao_geral">
+                                <p class="opcao_titulo_desc">Disco</p>
+                                <p class="opcao_desc">Descrição</p>
+                            </div>
+                        </div>
+                            <a href="#"> ➜</a>
+                        </div>
+                        <div class="opcao_unitaria">
+                            <div class="div_img_desc">
+                            <img src="/public/assets/imgs/icon_redes.png" alt="">
+                            <div class="opcao_descricao_geral">
+                                <p class="opcao_titulo_desc">Redes</p>
+                                <p class="opcao_desc">Descrição</p>
+                            </div>
+                        </div>
+                            <a href="#"> ➜</a>
+                        </div>
+                                                
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-gerais">
+                <div class="card-unico">
+                    <p class="titulo-card">Titulo</p>
+                    <p class="descricao-card">Descrição</p>
+                    <p class="num-captura-card">67</p>
+                    <p class="descricao-card">Explicação</p>
+                </div>
+                <div class="card-unico">
+                    <p class="titulo-card">Titulo</p>
+                    <p class="descricao-card">Descrição</p>
+                    <p class="num-captura-card">67</p>
+                    <p class="descricao-card">Explicação</p>
+                </div>
+                <div class="card-unico">
+                    <p class="titulo-card">Titulo</p>
+                    <p class="descricao-card">Descrição</p>
+                    <p class="num-captura-card">67</p>
+                    <p class="descricao-card">Explicação</p>
+                </div>
+                <div class="card-unico">
+                    <p class="titulo-card">Titulo</p>
+                    <p class="descricao-card">Descrição</p>
+                    <p class="num-captura-card">67</p>
+                    <p class="descricao-card">Explicação</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+<script>
+    function abrir_menu(){
+
+        let menu = document.getElementById("menu-opcoes");
+        let overlay = document.getElementById("overlay");
+
+        if(menu.style.display == "flex"){
+            menu.style.display = "none";
+            overlay.style.display = "none"
+        }else{
+            menu.style.display = "flex";
+            overlay.style.display = "flex"
+        }
+    }
+</script>
+</html>
