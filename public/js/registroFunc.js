@@ -1,20 +1,53 @@
 let emailEditando = null;
 
-const funcionariosMock = [
-    { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "11967966767" },
-    { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "11988881111" },
-    { nome: "João Pedro", cargo: "Gerente de Projetos", permissoes: "Administrador", email: "joao.gp@email.com", contato: "11977772222" },
-    { nome: "Mariana Souza", cargo: "Designer UX/UI", permissoes: "Leitura", email: "mari.ux@email.com", contato: "21999993333" },
+const funcionarios = [
+    // { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "11967966767" },
+    // { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "11988881111" },
+    // { nome: "João Pedro", cargo: "Gerente de Projetos", permissoes: "Administrador", email: "joao.gp@email.com", contato: "11977772222" },
+    // { nome: "Mariana Souza", cargo: "Designer UX/UI", permissoes: "Leitura", email: "mari.ux@email.com", contato: "21999993333" },
 ];
 
-for(let i = 5; i <= 20; i++) {
-    funcionariosMock.push({
-        nome: `Funcionário Nome ${i}`,
-        cargo: `Cargo Genérico ${i}`,
-        permissoes: "Permissões Padrão",
-        email: `funcionario${i}@email.com`,
-        contato: "00000000000"
-    });
+// for(let i = 5; i <= 20; i++) {
+//     funcionarios.push({
+//         nome: `Funcionário Nome ${i}`,
+//         cargo: `Cargo Genérico ${i}`,
+//         permissoes: "Permissões Padrão",
+//         email: `funcionario${i}@email.com`,
+//         contato: "00000000000"
+//     });
+// }
+function listarFunc(){
+    fetch("/usuario/listar").then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                aviso.innerText = "Nenhum resultado encontrado"
+            }
+
+            resposta.json().then(function (resposta){
+                console.log("Dados recebido: ", JSON.stringify(resposta))
+
+                if (resposta.length === 0){
+                    divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
+                    return;
+                }
+                
+                resposta.forEach(func =>{
+                    funcionarios.push({
+                        nome: func.nome,
+                        cargo: func.nome_cargo,
+                        permissoes: "Permissões Padrão",
+                        email: func.email,
+                        contato: func.celular
+                    })
+                })
+                
+                console.log(funcionarios)
+                renderizarLista(funcionarios)
+                return false
+                
+            })
+        }
+    })
 }
 
 const divLista = document.getElementById('lista-funcionarios');
@@ -36,7 +69,7 @@ function cancelarEdicao() {
     radios.forEach(radio => radio.checked = false);
 }
 function preencherFormulario(emailClicado) {
-    const func = funcionariosMock.find(f => f.email === emailClicado);
+    const func = funcionarios.find(f => f.email === emailClicado);
     
     if(func) {
         document.getElementById('registro-nome').value = func.nome;
@@ -50,7 +83,6 @@ function preencherFormulario(emailClicado) {
         document.getElementById('btn-cancelar').style.display = "block";
         document.getElementById('btn-deletar').style.display = "block";
 
-        document.getElementById('btn-deletar').style.display = "none";
 
         const radios = document.getElementsByName('selecao-func');
         radios.forEach(radio => radio.checked = false); 
@@ -95,7 +127,7 @@ function filtrarFuncionarios() {
     const termoPesquisado = inputPesquisa.value.toLowerCase();
     const filtroSelecionado = selectFiltro.value; 
 
-    const dadosFiltrados = funcionariosMock.filter(func => {
+    const dadosFiltrados = funcionarios.filter(func => {
         
         const valorDoCampo = String(func[filtroSelecionado]).toLowerCase();
         
@@ -110,8 +142,7 @@ function filtrarFuncionarios() {
 inputPesquisa.addEventListener('input', filtrarFuncionarios);
 selectFiltro.addEventListener('change', filtrarFuncionarios);
 
-
-renderizarLista(funcionariosMock);
+listarFunc()
 
 function registrarFunc(){
     let nomeReg = document.getElementById('registro-nome').value.trim();
@@ -134,8 +165,8 @@ function registrarFunc(){
         return;
     }
 
-    let emailEmUso = funcionariosMock.some(f => f.email === emailReg && f.email !== emailEditando);
-    let contatoEmUso = funcionariosMock.some(f => f.contato === contatoReg && f.email !== emailEditando);
+    let emailEmUso = funcionarios.some(f => f.email === emailReg && f.email !== emailEditando);
+    let contatoEmUso = funcionarios.some(f => f.contato === contatoReg && f.email !== emailEditando);
 
     if (emailEmUso){
         aviso.innerText = "Email já cadastrado";
@@ -148,20 +179,20 @@ function registrarFunc(){
     aviso.innerText = "";
 
     if (emailEditando !== null) {
-        const index = funcionariosMock.findIndex(f => f.email === emailEditando);
+        const index = funcionarios.findIndex(f => f.email === emailEditando);
         
         if (index !== -1) {
-            funcionariosMock[index].nome = nomeReg;
-            funcionariosMock[index].cargo = cargoReg;
-            funcionariosMock[index].contato = contatoReg;
-            funcionariosMock[index].email = emailReg;
+            funcionarios[index].nome = nomeReg;
+            funcionarios[index].cargo = cargoReg;
+            funcionarios[index].contato = contatoReg;
+            funcionarios[index].email = emailReg;
         }
         
         emailEditando = null;
         document.querySelector('.botao-salvar').innerText = "Salvar usuário";
         
     } else {
-        funcionariosMock.push({
+        funcionarios.push({
             nome: nomeReg,
             cargo: cargoReg,
             permissoes: "Permissões Padrão",
@@ -230,21 +261,21 @@ function registrarFunc(){
     document.getElementById('registro-email').value = "";
 
     document.getElementById('btn-cancelar').style.display = "none";
-    renderizarLista(funcionariosMock);
+    renderizarLista(funcionarios);
 }
 
 function deletarFunc() {
     if (emailEditando !== null) {
         if (confirm("Tem certeza que deseja excluir este funcionário?")) {
             
-            const index = funcionariosMock.findIndex(f => f.email === emailEditando);
+            const index = funcionarios.findIndex(f => f.email === emailEditando);
             
             if (index !== -1) {
-                funcionariosMock.splice(index, 1); 
+                funcionarios.splice(index, 1); 
             }
             
             cancelarEdicao();
-            renderizarLista(funcionariosMock);
+            renderizarLista(funcionarios);
         }
     }
 }

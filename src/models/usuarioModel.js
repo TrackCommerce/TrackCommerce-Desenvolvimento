@@ -12,6 +12,17 @@ function cadastrar(nome, email, contato, cargo) {
     return database.executar(instrucaoSql);
 }
 
+function listarTodos(){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n")
+
+    var instrucaoSql = `
+        SELECT u.id_usuario, u.nome, u.email, u.celular, c.nome_cargo FROM usuario as u JOIN cargo as c ON u.fk_cargo = c.id_cargo;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    listarTodos
 };
