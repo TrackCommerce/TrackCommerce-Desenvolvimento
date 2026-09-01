@@ -179,8 +179,7 @@ function registrarFunc(){
             nomeServer: nomeReg,
             emailServer: emailReg,
             contatoServer: contatoReg,
-            cargoServer: cargoReg,
-            permissoesServer: "Permissões Padrão"
+            cargoServer: cargoReg
         }),
 
     }).then(function (resposta) {

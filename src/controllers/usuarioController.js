@@ -5,7 +5,6 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var contato = req.body.contatoServer;
     var cargo = req.body.cargoServer;
-    var permissoes = req.body.permissoesServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -16,12 +15,10 @@ function cadastrar(req, res) {
         res.status(400).send("Seu contato está undefined!");
     } else if (cargo == undefined) {
         res.status(400).send("Cargo está undefined!");
-    } else if (permissoes == undefined) {
-        res.status(400).send("Permissões está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, contato, cargo, permissoes)
+        usuarioModel.cadastrar(nome, email, contato, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);
