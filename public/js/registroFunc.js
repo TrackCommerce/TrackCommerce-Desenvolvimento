@@ -168,6 +168,61 @@ function registrarFunc(){
             email: emailReg,
             contato: contatoReg
         });
+
+        fetch("/usuario/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            nomeServer: nomeReg,
+            emailServer: emailReg,
+            contatoServer: contatoReg,
+            cargoServer: cargoReg,
+            permissoesServer: "Permissões Padrão"
+        }),
+
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            //cardErro.style.display = "block";
+
+            alert("Cadastro foi realizado com sucesso!");
+
+            sessionStorage.clear();
+
+            setTimeout(() => {
+                window.location.href = "../registroFunc.html";
+            }, 2000);
+            //limparFormulario();
+
+        } else {
+
+            resposta.text().then((texto) => {
+                console.log(texto);
+
+                if (
+                    texto.includes("Duplicate")
+                ) {
+                    alert("Este email já está cadastrado")
+                }
+
+
+            })
+
+        }
+
+    }).catch(function (erro) {
+
+        console.log(`#ERRO: ${erro}`);
+        alert("Erro ao cadastrar.");
+
+    });
+
+    return false;
     }
 
     document.getElementById('registro-nome').value = "";
