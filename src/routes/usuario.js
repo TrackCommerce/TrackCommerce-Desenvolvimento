@@ -12,6 +12,9 @@ router.get("/listar", function(req,res) {
 router.put("/editar", function(req,res) {
     usuarioController.editar(req,res)
 })
+router.delete("/deletar", function(req,res) {
+    usuarioController.deletar(req,res)
+})
 
 
 module.exports = router;

@@ -6,7 +6,11 @@ function cadastrar(nome, email, contato, cargo) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, celular, fk_cargo) VALUES ('${nome}', '${email}', '${contato}', 1);
+        INSERT INTO usuario (nome, email, celular, fk_cargo) VALUES ('${nome}', '${email}', '${contato}', (
+                SELECT id_cargo
+                FROM cargo
+                WHERE nome_cargo = '${cargo}'
+            ));
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -40,8 +44,20 @@ function editar(id, nome, email, contato, cargo){
     return database.executar(instrucaoSql);
 }
 
+function deletar(id) {
+
+    var instrucaoSql = `
+        DELETE FROM usuario
+        WHERE id_usuario = ${id};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
     listarTodos,
-    editar
+    editar,
+    deletar
 };

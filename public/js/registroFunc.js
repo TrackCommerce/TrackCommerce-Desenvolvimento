@@ -1,4 +1,5 @@
 let emailEditando = null;
+let idEditando = null;
 
 document.getElementById('btn-atualizar').style.display = "none";
 
@@ -81,6 +82,7 @@ function preencherFormulario(emailClicado) {
         document.getElementById('registro-email').value = func.email;
         
         emailEditando = func.email;
+        idEditando = func.id;
         //document.querySelector('.botao-salvar').innerText = "Atualizar usuário";
         document.getElementById('btn-salvar').style.display = "none";
         document.getElementById('btn-atualizar').style.display = "block";
@@ -270,16 +272,47 @@ function registrarFunc(){
 
 function deletarFunc() {
     if (emailEditando !== null) {
+
         if (confirm("Tem certeza que deseja excluir este funcionário?")) {
-            
-            const index = funcionarios.findIndex(f => f.email === emailEditando);
-            
-            if (index !== -1) {
-                funcionarios.splice(index, 1); 
+
+            const func = funcionarios.find(f => f.email === emailEditando);
+
+            if (!func) {
+                alert("Funcionário não encontrado.");
+                return;
             }
-            
-            cancelarEdicao();
-            renderizarLista(funcionarios);
+
+            const id = func.id;
+
+            fetch("/usuario/deletar", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idServer: id
+                })
+            })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    alert("Funcionário deletado com sucesso!");
+                    const index = funcionarios.findIndex(f => f.id === id);
+
+                    if (index !== -1) {
+                        funcionarios.splice(index, 1);
+                    }
+
+                    cancelarEdicao();
+                    renderizarLista(funcionarios);
+
+                } else {
+                    alert("Erro ao deletar funcionário.");
+                }
+            })
+            .catch(function (erro) {
+                console.log("Erro:", erro);
+                alert("Erro ao conectar com o servidor.");
+            });
         }
     }
 }
@@ -371,7 +404,7 @@ function atualizarFunc(){
 
             setTimeout(() => {
                 window.location.href = "../registroFunc.html";
-            }, 2000);
+            }, 200);
 
         } else {
             resposta.text().then(texto => {
@@ -384,4 +417,46 @@ function atualizarFunc(){
         console.log(`#ERRO: ${erro}`);
         alert("Erro ao atualizar funcionário.");
     });
+}
+
+function deletarFunc() {
+
+    if (idEditando === null) {
+        alert("Nenhum funcionário selecionado.");
+        return;
+    }
+
+    if (confirm("Tem certeza que deseja excluir este funcionário?")) {
+
+        fetch("/usuario/deletar", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idEditando
+            })
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                alert("Funcionário deletado com sucesso!");
+
+                const index = funcionarios.findIndex(f => f.id === idEditando);
+
+                if (index !== -1) {
+                    funcionarios.splice(index, 1);
+                }
+
+                cancelarEdicao();
+                renderizarLista(funcionarios);
+
+            } else {
+                alert("Erro ao deletar funcionário.");
+            }
+        })
+        .catch(function (erro) {
+            console.log("Erro:", erro);
+            alert("Erro ao conectar com o servidor.");
+        });
+    }
 }
