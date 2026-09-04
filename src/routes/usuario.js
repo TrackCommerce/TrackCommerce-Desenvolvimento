@@ -9,5 +9,9 @@ router.post("/cadastrar", function (req, res) {
 router.get("/listar", function(req,res) {
     usuarioController.listarTodos(req,res)
 })
+router.put("/editar", function(req,res) {
+    usuarioController.editar(req,res)
+})
+
 
 module.exports = router;

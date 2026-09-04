@@ -1,5 +1,7 @@
 let emailEditando = null;
 
+document.getElementById('btn-atualizar').style.display = "none";
+
 const funcionarios = [
     // { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "11967966767" },
     // { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "11988881111" },
@@ -33,6 +35,7 @@ function listarFunc(){
                 
                 resposta.forEach(func =>{
                     funcionarios.push({
+                        id: func.id_usuario,
                         nome: func.nome,
                         cargo: func.nome_cargo,
                         permissoes: "Permissões Padrão",
@@ -78,8 +81,9 @@ function preencherFormulario(emailClicado) {
         document.getElementById('registro-email').value = func.email;
         
         emailEditando = func.email;
-        document.querySelector('.botao-salvar').innerText = "Atualizar usuário";
-        
+        //document.querySelector('.botao-salvar').innerText = "Atualizar usuário";
+        document.getElementById('btn-salvar').style.display = "none";
+        document.getElementById('btn-atualizar').style.display = "block";
         document.getElementById('btn-cancelar').style.display = "block";
         document.getElementById('btn-deletar').style.display = "block";
 
@@ -301,4 +305,83 @@ function formatarParaExibicao(numero) {
         return valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
     }
     return numero;
+}
+
+function atualizarFunc(){
+    const func = funcionarios.find(f => f.email === emailEditando);
+
+    if (!func) {
+        alert("Funcionário não encontrado.");
+        return;
+    }
+
+    const id = func.id;
+
+    let nomeAtt = document.getElementById('registro-nome').value.trim();
+    let cargoAtt = document.getElementById('registro-cargo').value.trim();
+    let contatoAtt = document.getElementById('registro-ctt').value.replace(/\D/g, "");
+    let emailAtt = document.getElementById('registro-email').value.trim();
+    let aviso = document.getElementById('aviso');
+    
+
+    if(nomeAtt.length < 2){
+        aviso.innerText = "Funcionário sem nome";
+        return;
+    } else if(cargoAtt.length < 2){
+        aviso.innerText = "Funcionário sem cargo";
+        return;
+    } else if(contatoAtt.length !== 11){
+        aviso.innerText = "Número inválido (deve ter 11 dígitos)";
+        return;
+    } else if(!emailAtt.includes("@") || !emailAtt.includes(".")){
+        aviso.innerText = "Email inválido";
+        return;
+    }
+
+    let emailEmUso = funcionarios.some(f => f.email === emailAtt && f.email !== emailEditando);
+    let contatoEmUso = funcionarios.some(f => f.contato === contatoAtt && f.email !== emailEditando);
+
+
+    if (emailEmUso){
+        aviso.innerText = "Email já cadastrado";
+        return; 
+    } else if (contatoEmUso){
+        aviso.innerText = "Contato já cadastrado";
+        return; 
+    }
+
+    fetch("/usuario/editar", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            idServer: id,
+            nomeServer: nomeAtt,
+            emailServer: emailAtt,
+            contatoServer: contatoAtt,
+            cargoServer: cargoAtt
+        }),
+
+        })    .then(function (resposta) {
+
+        if (resposta.ok) {
+            alert("Atualização foi realizada com sucesso!");
+
+            setTimeout(() => {
+                window.location.href = "../registroFunc.html";
+            }, 2000);
+
+        } else {
+            resposta.text().then(texto => {
+                console.log(texto);
+            });
+        }
+
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        alert("Erro ao atualizar funcionário.");
+    });
 }
