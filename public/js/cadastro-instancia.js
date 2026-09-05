@@ -334,10 +334,18 @@ let containerPopUpConfirmacao = `
                 </div>
                 <div class="botoes_alerta">
                     <button class="botao_cancelar" onclick="fecharPopUp(containerPopUp)">Cancelar</button>
-                    <button class="botao_aceitar" onclick="">Aceitar</button>
+                    <button class="botao_aceitar" onclick="cadastrarServidor()">Aceitar</button>
                 </div>
             </div>
 `
+
+let cadastroServidor = {
+    apelido:"",
+    identificador:"",
+    componentes: [
+        
+    ]
+}
 
 // Pegando o elemento usando o DOM a partir classe chamada "container-cadastro"
 let containerCadastro = document.querySelector('.container-cadastro');
@@ -363,8 +371,13 @@ function transicaoSegundaEtapa() {
     if(iptApelidoServidor == "" || iptIdentificadorServidor == ""){
         containerPopUp.style.display = "block";
     } else {
+
+         cadastroServidor.apelido = iptApelidoServidor;
+        cadastroServidor.identificador = iptIdentificadorServidor;
+
         fecharPopUp(containerPopUp);
         trocaTela(segundaEtapaCadastro);
+        
     }
 }
 
@@ -496,4 +509,10 @@ function criarPopUpBasico(textoAlerta){
 
 function fecharPopUp(classeDoPopUp) {
     classeDoPopUp.style.display = "none";
+}
+
+
+function cadastrarServidor(){
+cadastroServidor.componentes = []; 
+    
 }
