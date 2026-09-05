@@ -5,6 +5,11 @@
     font-family:'Inter', sans-serif;
 }
 
+::selection{
+    background-color: #203566;
+    color: white;
+}
+
 body{
     background:#f5f5f5;
 }
