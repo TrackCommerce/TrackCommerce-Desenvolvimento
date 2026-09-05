@@ -358,7 +358,6 @@ function transicaoSegundaEtapa() {
 
         fecharPopUp(containerPopUp);
         trocaTela(segundaEtapaCadastro);
-
     }
 }
 

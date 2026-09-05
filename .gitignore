@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 .env.dev
 .env
 package-lock.json
 package.json
 node_modules
 .gitignore
+=======
+.env
+.github
+>>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
