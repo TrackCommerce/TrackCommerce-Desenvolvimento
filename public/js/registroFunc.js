@@ -19,6 +19,12 @@ const funcionarios = [
 //         contato: "00000000000"
 //     });
 // }
+
+window.onload = function () {
+    listarFunc();
+    listarCargos();
+}
+
 function listarFunc(){
     fetch("/usuario/listar").then(function (resposta) {
         if (resposta.ok) {
@@ -39,7 +45,6 @@ function listarFunc(){
                         id: func.id_usuario,
                         nome: func.nome,
                         cargo: func.nome_cargo,
-                        permissoes: "Permissões Padrão",
                         email: func.email,
                         contato: func.celular
                     })
@@ -148,7 +153,6 @@ function filtrarFuncionarios() {
 inputPesquisa.addEventListener('input', filtrarFuncionarios);
 selectFiltro.addEventListener('change', filtrarFuncionarios);
 
-listarFunc()
 
 function registrarFunc(){
     let nomeReg = document.getElementById('registro-nome').value.trim();
@@ -201,7 +205,6 @@ function registrarFunc(){
         funcionarios.push({
             nome: nomeReg,
             cargo: cargoReg,
-            permissoes: "Permissões Padrão",
             email: emailReg,
             contato: contatoReg
         });
@@ -228,12 +231,13 @@ function registrarFunc(){
 
             alert("Cadastro foi realizado com sucesso!");
 
-            sessionStorage.clear();
+            //sessionStorage.clear();
 
-            setTimeout(() => {
-                window.location.href = "../registroFunc.html";
-            }, 2000);
+            // setTimeout(() => {
+            //     window.location.href = "../registroFunc.html";
+            // }, 2000);
             //limparFormulario();
+            listarFunc(funcionarios);
 
         } else {
 
@@ -303,7 +307,7 @@ function deletarFunc() {
                     }
 
                     cancelarEdicao();
-                    renderizarLista(funcionarios);
+                    listarFunc(funcionarios);
 
                 } else {
                     alert("Erro ao deletar funcionário.");
@@ -402,9 +406,11 @@ function atualizarFunc(){
         if (resposta.ok) {
             alert("Atualização foi realizada com sucesso!");
 
-            setTimeout(() => {
-                window.location.href = "../registroFunc.html";
-            }, 200);
+            // setTimeout(() => {
+            //     window.location.href = "../registroFunc.html";
+            // }, 200);
+
+            listarFunc(funcionarios);
 
         } else {
             resposta.text().then(texto => {
@@ -448,6 +454,7 @@ function deletarFunc() {
                 }
 
                 cancelarEdicao();
+                
                 renderizarLista(funcionarios);
 
             } else {
@@ -459,4 +466,35 @@ function deletarFunc() {
             alert("Erro ao conectar com o servidor.");
         });
     }
+
+    document.getElementById('btn-atualizar').style.display = 'none';
+    document.getElementById('btn-salvar').style.display = 'block'
+}
+
+function listarCargos(){
+        fetch("/cargo/listar")
+        .then(resposta => resposta.json())
+        .then(cargos => {
+
+            const select = document.getElementById("registro-cargo");  
+
+            select.innerHTML = `
+                <option value="" disabled selected hidden>
+                    Selecione um cargo
+                </option>
+            `;
+
+            cargos.forEach(cargo => {
+                const option = document.createElement("option");
+                option.value = cargo.nome_cargo;
+                option.textContent = cargo.nome_cargo;
+                
+                select.appendChild(option);
+                //console.log(cargos.carrgo.id_cargo)
+            });
+
+        })
+        .catch(erro => {
+            console.error("Erro ao listar cargos:", erro);
+        });
 }
