@@ -172,7 +172,7 @@ h2 {
   cursor: pointer;
 }
  
-.permissao-item:has(input:checked) {
+.permissao-item:has(option:checked) {
   background-color: #fde6d8;
   border-color: #ff5c00;
 }
@@ -229,4 +229,8 @@ h2 {
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.card-permissoes option{
+  height: 100px;
 }

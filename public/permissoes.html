@@ -1,207 +1,170 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cadastro de permissões - TrackCommerce</title>
-    <link rel="stylesheet" href="./css/sidebar.css" />
-    <link rel="stylesheet" href="./css/permissoes.css" />
-  </head>
-  <body>
-  
-    <div class="container">
-      <aside class="sidebar">
-        <div class="logo">
-          <div class="logo-img">
-            <img src="./assets/icon/logo.png" alt="Logo" />
-          </div>
 
-          <h2>TrackCommerce</h2>
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de permissões - TrackCommerce</title>
+  <link rel="stylesheet" href="./css/sidebar.css" />
+  <link rel="stylesheet" href="./css/permissoes.css" />
+</head>
+
+<body>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-img">
+          <img src="./assets/icon/logo.png" alt="Logo" />
         </div>
 
-        <nav class="menu">
-          <a href="#" class="item ativo">
-            <div class="icone">
-              <img src="./assets/imgs/home.png" alt="" />
-            </div>
-            <span>Painel</span>
-          </a>
+        <h2>TrackCommerce</h2>
+      </div>
 
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/server.png" alt="" />
-            </div>
-            <span>Servidores Ativos</span>
-          </a>
-
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/bell.png" alt="" />
-            </div>
-            <span>Alertas</span>
-          </a>
-
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/settings.png" alt="" />
-            </div>
-            <span>Configurações</span>
-          </a>
-
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/chave-permissao.png" alt="" />
-            </div>
-            <span>Permissões de Grupos</span>
-          </a>
-
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/server.png" alt="" />
-            </div>
-            <span>Cadastro de Servidores</span>
-          </a>
-
-          <a href="#" class="item">
-            <div class="icone">
-              <img src="./assets/imgs/cadastro.png" alt="" />
-            </div>
-            <span>Cadastro de Funcionários</span>
-          </a>
-        </nav>
-
-        <div class="usuario">
-          <div class="foto">
-            <img src="./assets/imgs/usuario-icone.webp" alt="Usuário" />
+      <nav class="menu">
+        <a href="#" class="item ativo">
+          <div class="icone">
+            <img src="./assets/imgs/home.png" alt="" />
           </div>
+          <span>Painel</span>
+        </a>
 
-          <div class="info">
-            <h3>Usuário</h3>
-            <p>Cargo</p>
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/server.png" alt="" />
           </div>
-        </div>
-      </aside>
+          <span>Servidores Ativos</span>
+        </a>
 
-      <div class="conteudo">
-        <h1>Gerenciamento de Cargos e Permissões</h1>
-
-        <div class="linha">
-          <div class="card lista-cargos">
-            <label class="cargo-item">
-              <div class="cargo-info">
-                <div class="cargo-avatar"></div>
-                <div>
-                  <div><b>Cargo:</b> Nome</div>
-                  <div><b>Experiência:</b> Sênior</div>
-                </div>
-              </div>
-              <input type="radio" name="cargo" class="radio" />
-            </label>
-
-            <label class="cargo-item">
-              <div class="cargo-info">
-                <div class="cargo-avatar"></div>
-                <div>
-                  <div><b>Cargo:</b> Nome</div>
-                  <div><b>Experiência:</b> Sênior</div>
-                </div>
-              </div>
-              <input type="radio" name="cargo" class="radio" />
-            </label>
-
-            <label class="cargo-item">
-              <div class="cargo-info">
-                <div class="cargo-avatar"></div>
-                <div>
-                  <div><b>Cargo:</b> Nome</div>
-                  <div><b>Experiência:</b> Sênior</div>
-                </div>
-              </div>
-              <input type="radio" name="cargo" class="radio" />
-            </label>
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/bell.png" alt="" />
           </div>
+          <span>Alertas</span>
+        </a>
 
-          <div class="card permissoes">
-            <h2 style="margin-top: 0">Permissões</h2>
-
-            <label class="permissao-item">
-              <div>
-                <b>Visualização</b>
-                <p>O usuário pode apenas visualizar o conteúdo da VM</p>
-              </div>
-              <input type="radio" name="permissao1" class="radio" />
-            </label>
-
-            <label class="permissao-item">
-              <div>
-                <b>Edição</b>
-                <p>
-                  O usuário pode alterar, adicionar e excluir o conteúdo da VM
-                </p>
-              </div>
-              <input type="radio" name="permissao1" class="radio" />
-            </label>
-
-            <label class="permissao-item">
-              <div>
-                <b>Criação</b>
-                <p>
-                  O usuário pode criar uma nova VM e alterar, adicionar e
-                  excluir o conteúdo da mesma
-                </p>
-              </div>
-              <input type="radio" name="permissao1" class="radio" />
-            </label>
-
-            <div class="botoes">
-              <button class="botao editar">EDITAR</button>
-              <button class="botao excluir">EXCLUIR</button>
-            </div>
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/settings.png" alt="" />
           </div>
+          <span>Configurações</span>
+        </a>
+
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/chave-permissao.png" alt="" />
+          </div>
+          <span>Permissões de Grupos</span>
+        </a>
+
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/server.png" alt="" />
+          </div>
+          <span>Cadastro de Servidores</span>
+        </a>
+
+        <a href="#" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/cadastro.png" alt="" />
+          </div>
+          <span>Cadastro de Funcionários</span>
+        </a>
+      </nav>
+
+      <div class="usuario">
+        <div class="foto">
+          <img src="./assets/imgs/usuario-icone.webp" alt="Usuário" />
         </div>
 
-        <h2>Criação de Cargo</h2>
-
-        <div class="linha">
-          <div class="card form-cargo">
-            <input type="text" placeholder="Nome de exemplo" />
-            <input type="text" placeholder="Exemplo Sênior" />
-            <button class="botao-adicionar">ADICIONAR CARGO</button>
-          </div>
-
-          <div class="card permissoes">
-            <h2 style="margin-top: 0">Permissões</h2>
-
-            <label class="permissao-item">
-              <div>
-                <b>Visualização</b>
-                <p>O usuário pode apenas visualizar o conteúdo da VM</p>
-              </div>
-              <input type="radio" name="permissao2" class="radio" />
-            </label>
-
-            <label class="permissao-item">
-              <div>
-                <b>Edição</b>
-                <p>
-                  O usuário pode alterar, adicionar e excluir o conteúdo da VM
-                </p>
-              </div>
-              <input type="radio" name="permissao2" class="radio" />
-            </label>
-
-            <label class="permissao-item">
-              <div>
-                <b>Criação</b>
-                <p>
-                  O usuário pode criar uma nova VM e alterar, adicionar e
-                  excluir o conteúdo da mesma
-                </p>
-              </div>
-              <input type="radio" name="permissao2" class="radio" />
-            </label>
-          </div>
+        <div class="info">
+          <h3>Usuário</h3>
+          <p>Cargo</p>
         </div>
       </div>
+    </aside>
+
+    <div class="conteudo">
+      <h1>Gerenciamento de Cargos e Permissões</h1>
+
+      <div class="linha">
+        <div class="card lista-cargos">
+          <label class="cargo-item">
+            <div class="cargo-info">
+              <div class="cargo-avatar"></div>
+              <div>
+                <div><b>Cargo:</b> Nome</div>
+                <div><b>Experiência:</b> Sênior</div>
+              </div>
+            </div>
+            <input type="radio" name="cargo" class="radio" />
+          </label>
+
+          <label class="cargo-item">
+            <div class="cargo-info">
+              <div class="cargo-avatar"></div>
+              <div>
+                <div><b>Cargo:</b> Nome</div>
+                <div><b>Experiência:</b> Sênior</div>
+              </div>
+            </div>
+            <input type="radio" name="cargo" class="radio" />
+          </label>
+
+          <label class="cargo-item">
+            <div class="cargo-info">
+              <div class="cargo-avatar"></div>
+              <div>
+                <div><b>Cargo:</b> Nome</div>
+                <div><b>Experiência:</b> Sênior</div>
+              </div>
+            </div>
+            <input type="radio" name="cargo" class="radio" />
+          </label>
+        </div>
+
+        <div class="card permissoes">
+          <h2 style="margin-top: 0">Permissões</h2>
+          <select name="" id="">
+            <option value="permissao">Permissões</option>
+            <option value="visualizar">Visualização</option>
+            <option value="editar">Edição</option>
+            <option value="criar">Criação</option>
+          </select>
+
+          <div class="botoes">
+            <button class="botao editar">EDITAR</button>
+            <button class="botao excluir">EXCLUIR</button>
+          </div> 
+        </div>
+      </div>
+
+      <h2>Criação de Cargo</h2>
+
+      <div class="linha">
+        <div class="card form-cargo">
+          <input type="text" placeholder="Nome de exemplo" />
+          <input type="text" placeholder="Exemplo Sênior" />
+          <button class="botao-adicionar">ADICIONAR CARGO</button>
+        </div>
+
+        <div class="card permissoes">
+          <h2 style="margin-top: 0">Permissões</h2>
+          <select multiple size= "3">
+            <option value="visualizar">Visualização</option>
+            <option value="editar">Edição</option>
+            <option value="criar">Criação</option>
+          </select>
+
+          <div class="botoes">
+            <button class="botao editar">EDITAR</button>
+            <button class="botao excluir">EXCLUIR</button>
+          </div> 
+        </div>
+
+      </div>
     </div>
-  </body>
+  </div>
+  </div>
+</body>
+
 </html>
