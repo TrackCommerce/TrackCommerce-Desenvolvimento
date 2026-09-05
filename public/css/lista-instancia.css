@@ -270,3 +270,96 @@ aside {
     background-color: #FF0016;
     border: none;
 }
+
+
+/* Adicionando responsividade */
+@media (max-width: 900px) {
+    /* Adicionando responsividade na lista de servidores */
+    aside {
+        display: none;
+    }
+
+    main {
+        margin-top: 2rem;
+    }
+
+    .container-instancias {
+        overflow-y: auto;
+    }
+
+    .container-instancias .instancia {
+        width: 90%;
+        height: 60%;
+        font-size: 60%;
+    }
+    
+    .container-instancias .instancia .titulo-instancia .botao-editar figure img {
+        width: 31px;
+        height: 28px;
+    }
+
+    /* Adicionando responsividade no pop-up de edição */
+    /* Estilizando pop-up de edição */
+    .container-edicao {
+        width: 90%;
+        height: 98%;
+
+        position: absolute;
+        left: 7%;
+        top: 2%;
+    }
+
+    .container-edicao .seccao-acima .titulo-edicao {
+        font-size: 20px;
+        margin-left: -10px;
+    }
+
+    .container-edicao .seccao-acima .botoa-sair {
+        margin-top: -25px;
+        font-size: 25px;
+    }
+
+    .container-edicao .sessao-identificacao {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .container-edicao .sessao-identificacao .sessao-apelido label {
+        font-size: 14px;
+    }
+
+    .container-edicao .sessao-parametros {
+        height: 130px;
+    }
+    
+    .container-edicao .sessao-parametros .container-inputs {
+        width: 80%;
+    }
+
+    .container-edicao .sessao-parametros .container-inputs .inputs-parametros input{
+        width: 80%;
+        height: 30px;
+        border-radius: 30px;
+        border: 2px solid #000;
+        padding: 20px;
+    }
+
+    .container-edicao .sessao-parametros .container-inputs .inputs-parametros label {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .container-edicao .sessao-botoes {
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    .container-edicao .sessao-botoes .botao {
+        font-size: 20px;
+        height: 60px;
+        width: 120px;
+    }
+
+}
