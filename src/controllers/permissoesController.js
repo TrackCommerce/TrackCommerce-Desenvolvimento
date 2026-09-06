@@ -1,6 +1,6 @@
 var permissoesModel = require("../models/permissoesModel");
 
-function buscarCargos(res){
+function buscarCargos(req, res){
 
     permissoesModel.buscarCargos().then(function (resultado){
         if (resultado.length > 0) {
