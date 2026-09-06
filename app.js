@@ -22,6 +22,7 @@ var permissoesRouter = require("./src/routes/permissoes")
 var usuariosRouter = require("./src/routes/usuarios")
 var instanciaRouter = require("./src/routes/instancia");
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
