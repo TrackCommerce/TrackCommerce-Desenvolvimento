@@ -234,3 +234,8 @@ h2 {
 .card-permissoes option{
   height: 100px;
 }
+
+.select{
+  height: 40px;
+  width: 900px;
+}
