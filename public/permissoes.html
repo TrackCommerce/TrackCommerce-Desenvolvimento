@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -87,54 +87,44 @@
       <h1>Gerenciamento de Cargos e Permissões</h1>
 
       <div class="linha">
-        <div class="card lista-cargos">
-          <label class="cargo-item">
-            <div class="cargo-info">
-              <div class="cargo-avatar"></div>
-              <div>
-                <div><b>Cargo:</b> Nome</div>
-                <div><b>Experiência:</b> Sênior</div>
-              </div>
-            </div>
-            <input type="radio" name="cargo" class="radio" />
-          </label>
+        <div class="card lista-cargos" id="containerListaCargos"></div>
 
-          <label class="cargo-item">
-            <div class="cargo-info">
-              <div class="cargo-avatar"></div>
-              <div>
-                <div><b>Cargo:</b> Nome</div>
-                <div><b>Experiência:</b> Sênior</div>
-              </div>
-            </div>
-            <input type="radio" name="cargo" class="radio" />
-          </label>
-
-          <label class="cargo-item">
-            <div class="cargo-info">
-              <div class="cargo-avatar"></div>
-              <div>
-                <div><b>Cargo:</b> Nome</div>
-                <div><b>Experiência:</b> Sênior</div>
-              </div>
-            </div>
-            <input type="radio" name="cargo" class="radio" />
-          </label>
-        </div>
-
-        <div class="card permissoes">
+        <div class="card permissoes desabilitado" id="permissoesCargo">
           <h2 style="margin-top: 0">Permissões</h2>
-          <select name="" id="">
-            <option value="permissao">Permissões</option>
-            <option value="visualizar">Visualização</option>
-            <option value="editar">Edição</option>
-            <option value="criar">Criação</option>
-          </select>
+
+          <label class="permissao-item">
+            <div>
+              <b>Visualização</b>
+              <p>O usuário pode apenas visualizar o conteúdo da VM</p>
+            </div>
+            <input type="checkbox" class="radio" data-permissao-id="1"/>
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Edição</b>
+              <p>
+                O usuário pode alterar, adicionar e excluir o conteúdo da VM
+              </p>
+            </div>
+            <input type="checkbox" class="radio" data-permissao-id="2"/>
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Criação</b>
+              <p>
+                O usuário pode criar uma nova VM e alterar, adicionar e
+                excluir o conteúdo da mesma
+              </p>
+            </div>
+            <input type="checkbox" class="radio" data-permissao-id="3"/>
+          </label>
 
           <div class="botoes">
-            <button class="botao editar">EDITAR</button>
-            <button class="botao excluir">EXCLUIR</button>
-          </div> 
+            <button class="botao editar" onclick="editarPermissoes()">EDITAR</button>
+            <button class="botao excluir" onclick="excluirCargo()">EXCLUIR</button>
+          </div>
         </div>
       </div>
 
@@ -142,45 +132,198 @@
 
       <div class="linha">
         <div class="card form-cargo">
-          <input type="text" placeholder="Nome de exemplo" />
-          <input type="text" placeholder="Exemplo Sênior" />
-          <button class="botao-adicionar">ADICIONAR CARGO</button>
+          <input type="text" id="iptNome" placeholder="Nome"/>
+          <input type="text" id="iptExperiencia" placeholder="Experiência"/>
+          <button class="botao-adicionar" onclick="adicionarCargo()">ADICIONAR CARGO</button>
         </div>
 
-        <div class="card permissoes">
+        <div class="card permissoes" id="permissoesCargoNovo">
           <h2 style="margin-top: 0">Permissões</h2>
-          <select multiple size="3">
-            <option type="checkbox" value="visualizar">Visualização</option>
-            <option type="checkbox" value="editar">Edição</option>
-            <option type="checkbox" value="criar">Criação</option>
-          </select>
 
-          <div class="botoes"> 
-            <button class="botao editar">EDITAR</button>
-            <button class="botao excluir">EXCLUIR</button>
-          </div> 
+          <label class="permissao-item">
+            <div>
+              <b>Visualização</b>
+              <p>O usuário pode apenas visualizar o conteúdo da VM</p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" />
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Edição</b>
+              <p>
+                O usuário pode alterar, adicionar e excluir o conteúdo da VM
+              </p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" />
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Criação</b>
+              <p>
+                O usuário pode criar uma nova VM e alterar, adicionar e
+                excluir o conteúdo da mesma
+              </p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" />
+          </label>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </body>
-
 </html>
 
 <script>
-  function carregarCargos(){
-    fetch(`/permissoes/cargos`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados dos cargos: ${error.message}`);
-            });
+  function carregarCargos() {
+    fetch(`/permissoes/cargos`, {cache: 'no-store'}).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+
+          let container = document.getElementById("containerListaCargos")
+          for (let i = 0; i < resposta.length; i++) {
+            let cargo = resposta[i];
+
+            container.innerHTML += `
+
+            <label class="cargo-item" data-cargo-id="${cargo.id_cargo}">
+              <div class="cargo-info">
+                <div class="cargo-avatar"></div>
+
+                <div>
+                  <div><b>Cargo:</b> ${cargo.nome_cargo}</div>
+                  <div><b>Experiência:</b> ${cargo.nivel}</div>
+                </div>
+                
+                </div><input type="radio" name="cargo" class="radio" value="${cargo.id_cargo}"/>
+
+            </label>
+            `
+          }
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados dos cargos: ${error.message}`);
+      });
+
   }
+
+  function buscarPermissaoCargo(idCargo){
+    // Essa é a função que vai ter um fetch que faz uma requisição 
+    // das permissões no banco de acordo com o parâmetro "idCargo"
+
+
+    // Variável para simular resposta do fetch, apagar após conexão com o banco de dados
+    // Os IDs das permissões devem ser visualização(1), edição(2), Criação(3) no banco de dados
+    let permissoes = [
+      {
+        id_permissao: 1,
+        nome_permissao: "Visualização"
+      },
+      {
+        id_permissao: 2,
+        nome_permissao: "Edição"
+      }
+    ];
+
+
+    // Quando o fetch estiver implementado, esta parte deverá ficar
+    // dentro do .then() que recebe a resposta do backend.
+    // a variável "permissoes" deverá ser substituída pelo nome da variável(parametro)
+    // que receber o JSON retornado pelo backend.
+    let checkboxesPermissoes = document.querySelectorAll('.permissoes input[type="checkbox"]');
+
+    for (let i = 0; i < checkboxesPermissoes.length; i++) {
+      checkboxesPermissoes[i].checked = false;
+    }
+
+    for (let i = 0; i < permissoes.length; i++) {
+      let permissao = permissoes[i];
+      let checkbox = document.querySelector(`[data-permissao-id="${permissao.id_permissao}"]`);
+
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+    }
+  }
+
+  function editarPermissoes(){
+    let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    let idCargo = cargoSelecionado.value;
+    
+    let permissoesMarcadas = document.querySelectorAll('#permissoesCargo input[type="checkbox"]')
+    
+    let permissoesSelecionadas = [];
+
+    for (let i = 0; i < permissoesMarcadas.length; i++) {
+      let permissao = permissoesMarcadas[i];
+
+      if (permissao.checked) {
+        let idPermissao = permissao.dataset.permissaoId;
+        permissoesSelecionadas.push(Number(idPermissao))
+      }
+      
+    }
+
+
+    // Para o fetch, deve considerar as variáveis "idCargo" e "permissoesSelecionadas"
+    // na qual essa é um vetor com os IDs das permissões
+
+  }
+
+  function excluirCargo(){
+    let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    let idCargo = cargoSelecionado.value;
+
+    // Excluir o cargo de acordo com a variável "idcargo"
+  }
+
+  function adicionarCargo(){
+    let nome = iptNome.value;
+    let experiencia = iptExperiencia.value;
+
+    if (nome == "" || experiencia == "") {
+      alert("Nome ou Expêriencia vazios")
+      return;
+    }
+
+    let permissoesMarcadas = document.querySelector('#permissoesCargoNovo input[type="checkbox"]')
+
+    let permissoesSelecionadas = [];
+
+    for (let i = 0; i < permissoesMarcadas.length; i++) {
+      let permissao = permissoesMarcadas[i];
+
+      if (permissao.checked) {
+        let idPermissao = permissao.dataset.permissaoId;
+        permissoesSelecionadas.push(Number(idPermissao))
+      }
+      
+    }
+
+
+    // Para esse fetch deve ser levado em consideração as variáveis "nome", "experiencia" e 
+    // o vetor "permissoesSelecionadas" que esse último é um vetor com os IDs das permissões
+    
+  }
+
+
+
+
+  // Aqui eu identifico o clique no cargo e identifico qual cargo o clique foi na variável "idCargo"
+  document.getElementById("containerListaCargos").addEventListener("change", function (event) {
+
+    if (event.target.classList.contains("radio")) {
+        let idCargo = event.target.value;
+        document.getElementById("permissoesCargo").classList.remove("desabilitado");
+
+        buscarPermissaoCargo(idCargo)
+    }
+
+});
+
 </script>

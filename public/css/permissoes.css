@@ -160,6 +160,11 @@ h2 {
 .permissoes {
   flex: 1;
 }
+
+.permissoes.desabilitado {
+  opacity: 0.5;
+  pointer-events: none;
+}
  
 .permissao-item {
   display: flex;
@@ -172,7 +177,7 @@ h2 {
   cursor: pointer;
 }
  
-.permissao-item:has(option:checked) {
+.permissao-item:has(input:checked) {
   background-color: #fde6d8;
   border-color: #ff5c00;
 }
