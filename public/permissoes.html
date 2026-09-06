@@ -97,7 +97,7 @@
               <b>Visualização</b>
               <p>O usuário pode apenas visualizar o conteúdo da VM</p>
             </div>
-            <input type="checkbox" class="radio" data-permissao-id="1"/>
+            <input type="checkbox" class="radio" data-permissao-id="1" />
           </label>
 
           <label class="permissao-item">
@@ -107,7 +107,7 @@
                 O usuário pode alterar, adicionar e excluir o conteúdo da VM
               </p>
             </div>
-            <input type="checkbox" class="radio" data-permissao-id="2"/>
+            <input type="checkbox" class="radio" data-permissao-id="2" />
           </label>
 
           <label class="permissao-item">
@@ -118,7 +118,7 @@
                 excluir o conteúdo da mesma
               </p>
             </div>
-            <input type="checkbox" class="radio" data-permissao-id="3"/>
+            <input type="checkbox" class="radio" data-permissao-id="3" />
           </label>
 
           <div class="botoes">
@@ -132,8 +132,8 @@
 
       <div class="linha">
         <div class="card form-cargo">
-          <input type="text" id="iptNome" placeholder="Nome"/>
-          <input type="text" id="iptExperiencia" placeholder="Experiência"/>
+          <input type="text" id="iptNome" placeholder="Nome" />
+          <input type="text" id="iptExperiencia" placeholder="Experiência" />
           <button class="botao-adicionar" onclick="adicionarCargo()">ADICIONAR CARGO</button>
         </div>
 
@@ -173,11 +173,12 @@
     </div>
   </div>
 </body>
+
 </html>
 
 <script>
   function carregarCargos() {
-    fetch(`/permissoes/cargos`, {cache: 'no-store'}).then(function (response) {
+    fetch(`/permissoes/cargos`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
 
@@ -212,51 +213,66 @@
 
   }
 
-  function buscarPermissaoCargo(idCargo){
-    // Essa é a função que vai ter um fetch que faz uma requisição 
-    // das permissões no banco de acordo com o parâmetro "idCargo"
+  function buscarPermissaoCargo(idCargo) {
+    fetch(`/permissoes/cargos/${idCargo}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
 
+          let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
 
-    // Variável para simular resposta do fetch, apagar após conexão com o banco de dados
-    // Os IDs das permissões devem ser visualização(1), edição(2), Criação(3) no banco de dados
-    let permissoes = [
-      {
-        id_permissao: 1,
-        nome_permissao: "Visualização"
-      },
-      {
-        id_permissao: 2,
-        nome_permissao: "Edição"
+          for (let i = 0; i < checkboxesPermissoes.length; i++) {
+            checkboxesPermissoes[i].checked = false;
+          }
+
+          for (let i = 0; i <resposta.length; i++) {
+            let permissao = resposta[i];
+            let checkbox = document.querySelector(`[data-permissao-id="${permissao.id_permissao}"]`);
+
+            if (checkbox) {
+              checkbox.checked = true;
+            }
+          }
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
       }
-    ];
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados dos cargos: ${error.message}`);
+      });
 
-
-    // Quando o fetch estiver implementado, esta parte deverá ficar
-    // dentro do .then() que recebe a resposta do backend.
-    // a variável "permissoes" deverá ser substituída pelo nome da variável(parametro)
-    // que receber o JSON retornado pelo backend.
-    let checkboxesPermissoes = document.querySelectorAll('.permissoes input[type="checkbox"]');
-
-    for (let i = 0; i < checkboxesPermissoes.length; i++) {
-      checkboxesPermissoes[i].checked = false;
-    }
-
-    for (let i = 0; i < permissoes.length; i++) {
-      let permissao = permissoes[i];
-      let checkbox = document.querySelector(`[data-permissao-id="${permissao.id_permissao}"]`);
-
-      if (checkbox) {
-        checkbox.checked = true;
-      }
-    }
   }
+  // Essa é a função que vai ter um fetch que faz uma requisição 
+  // das permissões no banco de acordo com o parâmetro "idCargo"
 
-  function editarPermissoes(){
+
+  // Variável para simular resposta do fetch, apagar após conexão com o banco de dados
+  // Os IDs das permissões devem ser visualização(1), edição(2), Criação(3) no banco de dados
+  let permissoes = [
+    {
+      id_permissao: 1,
+      nome_permissao: "Visualização"
+    },
+    {
+      id_permissao: 2,
+      nome_permissao: "Edição"
+    }
+  ];
+
+
+  // Quando o fetch estiver implementado, esta parte deverá ficar
+  // dentro do .then() que recebe a resposta do backend.
+  // a variável "permissoes" deverá ser substituída pelo nome da variável(parametro)
+  // que receber o JSON retornado pelo backend.
+
+
+
+  function editarPermissoes() {
     let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
     let idCargo = cargoSelecionado.value;
-    
+
     let permissoesMarcadas = document.querySelectorAll('#permissoesCargo input[type="checkbox"]')
-    
+
     let permissoesSelecionadas = [];
 
     for (let i = 0; i < permissoesMarcadas.length; i++) {
@@ -266,8 +282,29 @@
         let idPermissao = permissao.dataset.permissaoId;
         permissoesSelecionadas.push(Number(idPermissao))
       }
-      
+
     }
+
+    fetch(`/permissoes/cargos/${idCargo}`, {
+    method: 'PUT',
+    cache: 'no-store',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ permissoes: permissoesSelecionadas })
+  })
+    .then(function (response) {
+      if (response.ok) {
+        alert('Permissões atualizadas com sucesso!');
+      } else {
+        console.error('Erro ao atualizar permissões na API');
+        alert('Erro ao atualizar as permissões.');
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na requisição de edição: ${error.message}`);
+    });
+
 
 
     // Para o fetch, deve considerar as variáveis "idCargo" e "permissoesSelecionadas"
@@ -275,14 +312,40 @@
 
   }
 
-  function excluirCargo(){
+  async function excluirCargo() {
     let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
     let idCargo = cargoSelecionado.value;
 
-    // Excluir o cargo de acordo com a variável "idcargo"
-  }
+     fetch(`/permissoes/cargos/${idCargo}`, {
+    method: 'DELETE',
+    cache: 'no-store'
+  })
+    .then(function (response) {
+      if (response.ok) {
+        // CORREÇÃO: restrito a #permissoesCargo, não afeta o form de criação
+        let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
+        for (let i = 0; i < checkboxesPermissoes.length; i++) {
+          checkboxesPermissoes[i].checked = false;
+        }
 
-  function adicionarCargo(){
+        // CORREÇÃO: o cargo não existe mais, então desabilita o painel
+        document.getElementById("permissoesCargo").classList.add("desabilitado");
+
+        alert('Cargo excluído com sucesso!');
+
+        // CORREÇÃO: recarrega a lista pra remover o item da tela sem precisar de F5
+        carregarCargos();
+      } else {
+        console.error('Erro ao tentar deletar o cargo na API');
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na deleção do cargo: ${error.message}`);
+    });
+  }
+  // Excluir o cargo de acordo com a variável "idcargo"
+
+  function adicionarCargo() {
     let nome = iptNome.value;
     let experiencia = iptExperiencia.value;
 
@@ -291,7 +354,7 @@
       return;
     }
 
-    let permissoesMarcadas = document.querySelector('#permissoesCargoNovo input[type="checkbox"]')
+    let permissoesMarcadas = document.querySelectorAll('#permissoesCargoNovo input[type="checkbox"]')
 
     let permissoesSelecionadas = [];
 
@@ -302,13 +365,41 @@
         let idPermissao = permissao.dataset.permissaoId;
         permissoesSelecionadas.push(Number(idPermissao))
       }
-      
+
     }
 
+    fetch(`/permissoes/cargos`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dadosDoCargo) 
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log('Dados salvos com sucesso no banco:', resposta);
+            alert('Cargo salvo com sucesso!');
 
+            // Limpa os campos do formulário após o sucesso (Opcional)
+            iptNome.value = "";
+            iptExperiencia.value = "";
+            for (let i = 0; i < permissoesMarcadas.length; i++) {
+              permissoesMarcadas[i].checked = false;
+            }
+          });
+        } else {
+          console.error('Erro ao salvar os dados na API');
+          alert('Erro ao salvar o cargo.');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na requisição de salvamento: ${error.message}`);
+      });
     // Para esse fetch deve ser levado em consideração as variáveis "nome", "experiencia" e 
     // o vetor "permissoesSelecionadas" que esse último é um vetor com os IDs das permissões
-    
+
   }
 
 
@@ -318,12 +409,12 @@
   document.getElementById("containerListaCargos").addEventListener("change", function (event) {
 
     if (event.target.classList.contains("radio")) {
-        let idCargo = event.target.value;
-        document.getElementById("permissoesCargo").classList.remove("desabilitado");
+      let idCargo = event.target.value;
+      document.getElementById("permissoesCargo").classList.remove("desabilitado");
 
-        buscarPermissaoCargo(idCargo)
+      buscarPermissaoCargo(idCargo)
     }
 
-});
+  });
 
 </script>
