@@ -35,6 +35,8 @@ function listarFunc(){
             resposta.json().then(function (resposta){
                 console.log("Dados recebido: ", JSON.stringify(resposta))
 
+                funcionarios.length = 0
+
                 if (resposta.length === 0){
                     divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
                     return;
