@@ -28,9 +28,10 @@ app.use(cors());
 
 
 let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
+let buscarInstancia = require("./src/routes/lista-instancia")
 
 app.use("/cadastrarInstancia", cadastrarInstanciaRouter);
-
+app.use("/listarInstancias", buscarInstancia);
 
 app.listen(PORTA_APP, function () {
     console.log(`

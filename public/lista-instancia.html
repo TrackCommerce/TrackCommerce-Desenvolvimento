@@ -6,14 +6,63 @@
 
     <link rel="stylesheet" href="css/lista-instancia.css">
     <link rel="stylesheet" href="css/cadastro-instancia.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <title>TrackCommerce - Lista de servidores</title>
 </head>
-<body>
+<body onload="listarInstancias()">
 
     <div class="container-main">
-        <aside></aside>
+         <div class="sidebar">
+            <a href="../index.html" class="logo">
+                <img src="./assets/icon/logo.png" alt="">
+                <p class="titulo_logo">TrackCommerce</p>
+
+
+            </a>
+            <div class="links-gerais">
+                <a href="./dashboard/dashboard-geral.html" class="link-unico">
+                    <img src="./assets/imgs/icon-painel.png" alt="">
+                    <p>Painel</p>
+                </a>
+
+                <a href="" class="link-unico">
+                    <img src="./assets/imgs/icon-servidores.png" alt="">
+                    <p>Servidores Ativos</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="./assets/imgs/icon-alertas.png" alt="">
+                    <p>Alertas</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="./assets/imgs/icon-permissoes.png" alt="">
+                    <p>Permissões de grupo</p>
+                </a>
+                <a href="./cadastro-instancia.html" class="link-unico">
+                    <img src="./assets/imgs/icon-servidores.png" alt="">
+                    <p>Cadastro de servidores</p>
+                </a>
+                <a href="./lista-instancia.html" class="link-unico">
+                    <img src="./assets/imgs/icon-servidores.png" alt="">
+                    <p>Servidores</p>
+                </a>
+                <a href="" class="link-unico">
+                    <img src="./assets/imgs/icon-cadastrar-user.png" alt="">
+                    <p>Cadastro de Funcionários</p>
+                </a>
+                
+            </div>
+
+            <hr class="linha-hr">
+            <div class="usuario">
+                <img src="./assets/imgs/icon-perfil.png" alt="">
+                <div class="info-usuario">
+                    <p class="nome-usuario"><b>Ema</b></p>
+                    <p class="cargo-usuario">Gestor(a)</p>
+                </div>
+            </div>
+        </div>
 
         <div class="container_pop_up_editar" style="display: none;"></div>
         
@@ -27,8 +76,8 @@
                 </p>
             </div>
 
-            <div class="container-instancias">
-                <div class="instancia">
+            <div class="container-instancias" id="container_instancias">
+                <!-- <div class="instancia">
                     <div class="titulo-instancia">
                         <h1>
                             Apelido
@@ -44,97 +93,9 @@
                         <p>Identificador</p>
                         <p>Principais componentes</p>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="instancia">
-                    <div class="titulo-instancia">
-                        <h1>
-                            Mine-Server
-                        </h1>
-                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
-                            <figure>
-                                <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
-                            </figure>
-                        </button>
-                    </div>
-                    
-                    <div class="informacoes-instancia">
-                        <p>mine-cloud-amazon</p>
-                        <p>CPU | Armazenamento | RAM</p>
-                    </div>
-                </div>
-
-                <div class="instancia">
-                    <div class="titulo-instancia">
-                        <h1>
-                            VM-BD
-                        </h1>
-                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
-                            <figure>
-                                <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
-                            </figure>
-                        </button>
-                    </div>
-        
-                    <div class="informacoes-instancia">
-                        <p>vm-bd-amazon</p>
-                        <p>Armazenamento</p>
-                    </div>
-                </div>
-
-                <div class="instancia">
-                    <div class="titulo-instancia">
-                        <h1>
-                            Apelido
-                        </h1>
-                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
-                            <figure>
-                                <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
-                            </figure>
-                        </button>
-                    </div>
-
-                    <div class="informacoes-instancia">
-                        <p>Identificador</p>
-                        <p>Principais componentes</p>
-                    </div>
-                </div>
-
-                <div class="instancia">
-                    <div class="titulo-instancia">
-                        <h1>
-                            Mine-Server
-                        </h1>
-                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
-                            <figure>
-                                <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
-                            </figure>
-                        </button>
-                    </div>
-                    
-                    <div class="informacoes-instancia">
-                        <p>mine-cloud-amazon</p>
-                        <p>CPU | Armazenamento | RAM</p>
-                    </div>
-                </div>
-
-                <div class="instancia">
-                    <div class="titulo-instancia">
-                        <h1>
-                            VM-BD
-                        </h1>
-                        <button onclick="popUpAtualizarInstancia()" class="botao-editar">
-                            <figure>
-                                <img src="assets/imgs/editar-icon.png" alt="Icone para representar o botão de editar">
-                            </figure>
-                        </button>
-                    </div>
-        
-                    <div class="informacoes-instancia">
-                        <p>vm-bd-amazon</p>
-                        <p>Armazenamento</p>
-                    </div>
-                </div>
+                
             </div>
         </main>
         

@@ -570,8 +570,8 @@ function cadastrarServidor() {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                console.log("Cadastro de instância realizado com sucesso!!")
-
+                alert("Cadastro de instância realizado com sucesso!!")
+                
 
 
 
@@ -609,6 +609,7 @@ function cadastrarServidor() {
                                         }),
 
                                     })
+                                    
 
                                     console.log(cadastroServidor.componentes_instancia[0].fk_componente);
                                 }

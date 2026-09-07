@@ -25,18 +25,6 @@ function buscar_id_instancia(identificador) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function cadastrar_componente_instancia(fk_componente, fk_instancia, parametro) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", fk_componente, fk_instancia, parametro);
     
