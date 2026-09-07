@@ -21,7 +21,8 @@ var cargoRouter = require("./src/routes/cargo");
 var permissoesRouter = require("./src/routes/permissoes")
 var usuariosRouter = require("./src/routes/usuarios")
 var instanciaRouter = require("./src/routes/instancia");
-
+let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
+let buscarInstancia = require("./src/routes/lista-instancia")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,12 +30,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+
 //app.use("/", indexRouter);
 app.use("/usuario", usuarioRouter);
 app.use("/cargo", cargoRouter);
 app.use("/permissoes", permissoesRouter)
 app.use("/usuarios", usuariosRouter)
 app.use("/instancia", instanciaRouter);
+app.use("/cadastrarInstancia", cadastrarInstanciaRouter);
+app.use("/listarInstancias", buscarInstancia);
 
 app.listen(PORTA_APP, function () {
     console.log(`
