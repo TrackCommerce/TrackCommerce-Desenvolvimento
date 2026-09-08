@@ -48,6 +48,11 @@ function deletarCargo(idCargo) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     database.executar(instrucaoSql);
 
+    var instrucaoSql = `
+        DELETE FROM usuario WHERE fk_cargo = ${idCargo};`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    database.executar(instrucaoSql);
+
     var instrucaoSql = `DELETE FROM cargo WHERE id_cargo = ${idCargo};`
     return database.executar(instrucaoSql);
 }
@@ -69,17 +74,16 @@ async function adicionarCargo(nome, experiencia, permissoes) {
         return resultado;
     }else{
         for (let i = 0; i < permissoes.length; i++) {
-      if (i == permissoes.length - 1) {
-        var instrucaoSql = `INSERT INTO cargo_permissao (fk_cargo, fk_permissao) VALUES (${idCargo}, ${permissoes[i]});`;
-        console.log("Executando a instrução SQL: \n" + instrucaoSql);
-        return database.executar(instrucaoSql);
-      }
 
       var instrucaoSql = `INSERT INTO cargo_permissao (fk_cargo, fk_permissao) VALUES (${idCargo}, ${permissoes[i]});`;
       console.log("Executando a instrução SQL: \n" + instrucaoSql);
       database.executar(instrucaoSql);
     }
+
+    return resultado;
     }
+
+
 }
 
 

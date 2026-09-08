@@ -11,77 +11,84 @@
 <body onload="carregarCargos()">
 
   <div class="container">
-    <aside class="sidebar">
-      <div class="logo">
+       <aside class="sidebar">
+
+    <div class="logo">
         <div class="logo-img">
-          <img src="./assets/icon/logo.png" alt="Logo" />
+            <img src="./assets/icon/logo.png" alt="Logo"> 
         </div>
 
         <h2>TrackCommerce</h2>
-      </div>
+    </div>
 
-      <nav class="menu">
+    <nav class="menu">
+
         <a href="#" class="item ativo">
-          <div class="icone">
-            <img src="./assets/imgs/home.png" alt="" />
-          </div>
-          <span>Painel</span>
+            <div class="icone">
+                <img src="./assets/imgs/home.png" alt="">
+            </div>
+            <span>Painel</span>
+        </a>
+
+        <a href="lista-instancia.html" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/server.png" alt="">
+            </div>
+            <span>Servidores Ativos</span>
         </a>
 
         <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/server.png" alt="" />
-          </div>
-          <span>Servidores Ativos</span>
+            <div class="icone">
+                <img src="./assets/imgs/bell.png" alt="">
+            </div>
+            <span>Alertas</span>
         </a>
 
         <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/bell.png" alt="" />
-          </div>
-          <span>Alertas</span>
+            <div class="icone">
+                <img src="./assets/imgs/settings.png" alt="">
+            </div>
+            <span>Configurações</span>
         </a>
 
-        <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/settings.png" alt="" />
-          </div>
-          <span>Configurações</span>
+        <a href="permissoes.html" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/chave-permissao.png" alt="">
+            </div>
+            <span>Permissões de Grupos</span>
         </a>
 
-        <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/chave-permissao.png" alt="" />
-          </div>
-          <span>Permissões de Grupos</span>
+        <a href="cadastro-instancia.html" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/server.png" alt="">
+            </div>
+            <span>Cadastro de Servidores</span>
         </a>
 
-        <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/server.png" alt="" />
-          </div>
-          <span>Cadastro de Servidores</span>
+        <a href="registroFunc.html" class="item">
+            <div class="icone">
+                <img src="./assets/imgs/cadastro.png" alt="">
+            </div>
+            <span>Cadastro de Funcionários</span>
         </a>
 
-        <a href="#" class="item">
-          <div class="icone">
-            <img src="./assets/imgs/cadastro.png" alt="" />
-          </div>
-          <span>Cadastro de Funcionários</span>
-        </a>
-      </nav>
+    </nav>
 
-      <div class="usuario">
+    <div class="usuario">
+
         <div class="foto">
-          <img src="./assets/imgs/usuario-icone.webp" alt="Usuário" />
+            <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
         </div>
 
         <div class="info">
-          <h3>Usuário</h3>
-          <p>Cargo</p>
+            <h3>Usuário</h3>
+            <p>Cargo</p>
         </div>
-      </div>
-    </aside>
+
+    </div>
+
+</aside>
+
 
     <div class="conteudo">
       <h1>Gerenciamento de Cargos e Permissões</h1>
@@ -145,7 +152,7 @@
               <b>Visualização</b>
               <p>O usuário pode apenas visualizar o conteúdo da VM</p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" />
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="1"/>
           </label>
 
           <label class="permissao-item">
@@ -155,7 +162,7 @@
                 O usuário pode alterar, adicionar e excluir o conteúdo da VM
               </p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" />
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="2"/>
           </label>
 
           <label class="permissao-item">
@@ -166,7 +173,7 @@
                 excluir o conteúdo da mesma
               </p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" />
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="3"/>
           </label>
         </div>
       </div>
@@ -183,6 +190,7 @@
         response.json().then(function (resposta) {
 
           let container = document.getElementById("containerListaCargos")
+          container.innerHTML = " "
           for (let i = 0; i < resposta.length; i++) {
             let cargo = resposta[i];
 
@@ -326,6 +334,7 @@
 
     let permissoesMarcadas = document.querySelectorAll('#permissoesCargoNovo input[type="checkbox"]')
 
+    
     let permissoesSelecionadas = [];
 
     for (let i = 0; i < permissoesMarcadas.length; i++) {
@@ -371,9 +380,7 @@
       .catch(function (error) {
         console.error(`Erro na requisição de salvamento: ${error.message}`);
       });
-    // Para esse fetch deve ser levado em consideração as variáveis "nome", "experiencia" e 
-    // o vetor "permissoesSelecionadas" que esse último é um vetor com os IDs das permissões
-
+      carregarCargos()
   }
 
 

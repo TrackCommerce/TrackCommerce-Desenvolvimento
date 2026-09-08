@@ -66,6 +66,7 @@ function adicionarCargo(req, res) {
     var experiencia = req.body.experienciaServer;
     var permissoes = req.body.permissoesServer;
 
+    console.log(permissoes + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") 
         permissoesModel.adicionarCargo(nome, experiencia, permissoes)
             .then(
                 function (resultado) {
