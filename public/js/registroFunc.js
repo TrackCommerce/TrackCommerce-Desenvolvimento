@@ -221,7 +221,8 @@ function registrarFunc(){
             nomeServer: nomeReg,
             emailServer: emailReg,
             contatoServer: contatoReg,
-            cargoServer: cargoReg
+            cargoServer: cargoReg,
+            fkEmpresaServer: sessionStorage.fk_empresa
         }),
 
     }).then(function (resposta) {
