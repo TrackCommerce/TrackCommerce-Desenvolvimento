@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<title>Permissões de acesso</title>
-<link rel="stylesheet" href="./css/permissoes.css">
+  <meta charset="UTF-8" />
+  <title>Cadastro de permissões - TrackCommerce</title>
+  <link rel="stylesheet" href="./css/sidebar.css" />
+  <link rel="stylesheet" href="./css/permissoes.css" />
 </head>
-<body>
 
-  <div class="app">
+<body onload="carregarCargos()">
 
-    <!-- SIDEBAR -->
+  <div class="container">
        <aside class="sidebar">
 
     <div class="logo">
@@ -29,7 +30,7 @@
             <span>Painel</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="lista-instancia.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/server.png" alt="">
             </div>
@@ -50,21 +51,21 @@
             <span>Configurações</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="permissoes.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/chave-permissao.png" alt="">
             </div>
             <span>Permissões de Grupos</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="cadastro-instancia.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/server.png" alt="">
             </div>
             <span>Cadastro de Servidores</span>
         </a>
 
-        <a href="#" class="item">
+        <a href="registroFunc.html" class="item">
             <div class="icone">
                 <img src="./assets/imgs/cadastro.png" alt="">
             </div>
@@ -88,69 +89,313 @@
 
 </aside>
 
-    <!-- CONTEÚDO -->
-    <main class="conteudo">
 
-      <h1>Permissões de acesso</h1>
+    <div class="conteudo">
+      <h1>Gerenciamento de Cargos e Permissões</h1>
 
-      <button class="btn-filtros">Filtros ▾</button>
+      <div class="linha">
+        <div class="card lista-cargos" id="containerListaCargos"></div>
 
-      <div class="painel">
+        <div class="card permissoes desabilitado" id="permissoesCargo">
+          <h2 style="margin-top: 0">Permissões</h2>
 
-        <!-- LISTA DE FUNCIONÁRIOS -->
-        <div class="lista">
-
-          <label class="funcionario">
-            <input type="radio" name="funcionario" checked>
-            <div class="avatar"></div>
-            <div class="info">
-              <p>Funcionario: Nome</p>
-              <p class="azul">Nível: Nível</p>
+          <label class="permissao-item">
+            <div>
+              <b>Visualização</b>
+              <p>O usuário pode apenas visualizar o conteúdo da VM</p>
             </div>
-            <p class="email">Email: Email</p>
+            <input type="checkbox" class="radio" data-permissao-id="1" />
           </label>
 
-          <label class="funcionario">
-            <input type="radio" name="funcionario">
-            <div class="avatar"></div>
-            <div class="info">
-              <p>Funcionario: Nome</p>
-              <p class="vermelho">Nível: Nível</p>
+          <label class="permissao-item">
+            <div>
+              <b>Edição</b>
+              <p>
+                O usuário pode alterar, adicionar e excluir o conteúdo da VM
+              </p>
             </div>
-            <p class="email">Email: Email</p>
+            <input type="checkbox" class="radio" data-permissao-id="2" />
           </label>
 
-          <label class="funcionario">
-            <input type="radio" name="funcionario">
-            <div class="avatar"></div>
-            <div class="info">
-              <p>Funcionario: Nome</p>
-              <p class="verde">Nível: Nível</p>
+          <label class="permissao-item">
+            <div>
+              <b>Criação</b>
+              <p>
+                O usuário pode criar uma nova VM e alterar, adicionar e
+                excluir o conteúdo da mesma
+              </p>
             </div>
-            <p class="email">Email: Email</p>
+            <input type="checkbox" class="radio" data-permissao-id="3" />
           </label>
 
+          <div class="botoes">
+            <button class="botao editar" onclick="editarPermissoes()">EDITAR</button>
+            <button class="botao excluir" onclick="excluirCargo()">EXCLUIR</button>
+          </div>
         </div>
-
-        <!-- PERMISSÕES -->
-        <div class="permissoes">
-
-          <label for="permissao">Permissões dos usuários</label>
-          <select id="permissao">
-            <option>Visualização - O usuário pode apenas visualizar o conteúdo da VM</option>
-            <option>Edição - O usuário pode alterar, adicionar e excluir o conteúdo da VM</option>
-            <option>Criação - O usuário pode criar uma nova VM e alterar, adicionar e excluir o conteúdo da mesma</option>
-          </select>
-
-          <button class="btn-selecionar">Selecionar</button>
-
-        </div>
-
       </div>
 
-    </main>
+      <h2>Criação de Cargo</h2>
 
+      <div class="linha">
+        <div class="card form-cargo">
+          <input type="text" id="iptNome" placeholder="Nome" />
+          <input type="text" id="iptExperiencia" placeholder="Experiência" />
+          <button class="botao-adicionar" onclick="adicionarCargo()">ADICIONAR CARGO</button>
+        </div>
+
+        <div class="card permissoes" id="permissoesCargoNovo">
+          <h2 style="margin-top: 0">Permissões</h2>
+
+          <label class="permissao-item">
+            <div>
+              <b>Visualização</b>
+              <p>O usuário pode apenas visualizar o conteúdo da VM</p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="1"/>
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Edição</b>
+              <p>
+                O usuário pode alterar, adicionar e excluir o conteúdo da VM
+              </p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="2"/>
+          </label>
+
+          <label class="permissao-item">
+            <div>
+              <b>Criação</b>
+              <p>
+                O usuário pode criar uma nova VM e alterar, adicionar e
+                excluir o conteúdo da mesma
+              </p>
+            </div>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="3"/>
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
-
 </body>
+
 </html>
+
+<script>
+  function carregarCargos() {
+    fetch(`/permissoes/cargos`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+
+          let container = document.getElementById("containerListaCargos")
+          container.innerHTML = " "
+          for (let i = 0; i < resposta.length; i++) {
+            let cargo = resposta[i];
+
+            container.innerHTML += `
+
+            <label class="cargo-item" data-cargo-id="${cargo.id_cargo}">
+              <div class="cargo-info">
+                <div class="cargo-avatar"></div>
+
+                <div>
+                  <div><b>Cargo:</b> ${cargo.nome_cargo}</div>
+                  <div><b>Experiência:</b> ${cargo.nivel}</div>
+                </div>
+                
+                </div><input type="radio" name="cargo" class="radio" value="${cargo.id_cargo}"/>
+
+            </label>
+            `
+          }
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados dos cargos: ${error.message}`);
+      });
+
+  }
+
+  // Os IDs das permissões devem ser visualização(1), edição(2), Criação(3) no banco de dados
+  function buscarPermissaoCargo(idCargo) {
+    fetch(`/permissoes/buscarPermissoes/${idCargo}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+
+          let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
+
+          for (let i = 0; i < checkboxesPermissoes.length; i++) {
+            checkboxesPermissoes[i].checked = false;
+          }
+
+          for (let i = 0; i < resposta.length; i++) {
+            let permissao = resposta[i];
+            let checkbox = document.querySelector(`[data-permissao-id="${permissao.id_permissao}"]`);
+
+            if (checkbox) {
+              checkbox.checked = true;
+            }
+          }
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados dos cargos: ${error.message}`);
+      });
+
+  }
+
+
+  function editarPermissoes() {
+    let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    let idCargo = cargoSelecionado.value;
+
+    let permissoesMarcadas = document.querySelectorAll('#permissoesCargo input[type="checkbox"]')
+
+    let permissoesSelecionadas = [];
+
+    for (let i = 0; i < permissoesMarcadas.length; i++) {
+      let permissao = permissoesMarcadas[i];
+
+      if (permissao.checked) {
+        let idPermissao = permissao.dataset.permissaoId;
+        permissoesSelecionadas.push(Number(idPermissao))
+      }
+
+    }
+
+    fetch(`/permissoes/editarPermissoes/${idCargo}`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ permissoes: permissoesSelecionadas })
+    })
+      .then(function (response) {
+        if (response.ok) {
+          alert('Permissões atualizadas com sucesso!');
+        } else {
+          console.error('Erro ao atualizar permissões na API');
+          alert('Erro ao atualizar as permissões.');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na requisição de edição: ${error.message}`);
+      });
+
+  }
+
+  
+  async function excluirCargo() {
+    let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    let idCargo = cargoSelecionado.value;
+
+    fetch(`/permissoes/deletarCargo/${idCargo}`, {
+      method: 'DELETE',
+      cache: 'no-store'
+    })
+      .then(function (response) {
+        if (response.ok) {
+          let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
+          for (let i = 0; i < checkboxesPermissoes.length; i++) {
+            checkboxesPermissoes[i].checked = false;
+          }
+
+          document.getElementById("permissoesCargo").classList.add("desabilitado");
+
+          alert('Cargo excluído com sucesso!');
+
+          carregarCargos();
+        } else {
+          console.error('Erro ao tentar deletar o cargo na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na deleção do cargo: ${error.message}`);
+      });
+  }
+
+  function adicionarCargo() {
+    let nome = iptNome.value;
+    let experiencia = iptExperiencia.value;
+
+    if (nome == "" || experiencia == "") {
+      alert("Nome ou Expêriencia vazios")
+      return;
+    }
+
+    let permissoesMarcadas = document.querySelectorAll('#permissoesCargoNovo input[type="checkbox"]')
+
+    
+    let permissoesSelecionadas = [];
+
+    for (let i = 0; i < permissoesMarcadas.length; i++) {
+      let permissao = permissoesMarcadas[i];
+
+      if (permissao.checked) {
+        let idPermissao = permissao.dataset.permissaoId;
+        permissoesSelecionadas.push(Number(idPermissao))
+      }
+
+    }
+
+    fetch(`/permissoes/adicionarCargo`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nomeServer: nome, 
+        experienciaServer: experiencia,
+        permissoesServer: permissoesSelecionadas
+      }
+      )
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log('Dados salvos com sucesso no banco:', resposta);
+            alert('Cargo salvo com sucesso!');
+
+            iptNome.value = "";
+            iptExperiencia.value = "";
+            for (let i = 0; i < permissoesMarcadas.length; i++) {
+              permissoesMarcadas[i].checked = false;
+            }
+          });
+        } else {
+          console.error('Erro ao salvar os dados na API');
+          alert('Erro ao salvar o cargo.');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na requisição de salvamento: ${error.message}`);
+      });
+      carregarCargos()
+  }
+
+
+
+
+  // Aqui eu identifico o clique no cargo e identifico qual cargo o clique foi na variável "idCargo"
+  document.getElementById("containerListaCargos").addEventListener("change", function (event) {
+
+    if (event.target.classList.contains("radio")) {
+      let idCargo = event.target.value;
+      document.getElementById("permissoesCargo").classList.remove("desabilitado");
+
+      buscarPermissaoCargo(idCargo)
+    }
+
+  });
+
+</script>

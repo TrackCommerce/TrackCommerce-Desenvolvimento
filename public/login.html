@@ -105,7 +105,46 @@
 
             setTimeout(sumir_mensagem, 2000)
         }else{
-            window.location.href="dashboard/dashboard-geral.html"
+
+            fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id_usuario;
+                    sessionStorage.FK_EMPRESA = json.fk_empresa;
+                    sessionStorage.FK_CARGO = json.fk_cargo;
+                });
+
+                window.location.href="dashboard/dashboard-geral.html"
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
         }
     }
 
