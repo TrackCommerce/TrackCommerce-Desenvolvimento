@@ -66,7 +66,6 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
 
 
 
-
     function opcaoChecked(idOpcao) {
         let idConvertido = String(idOpcao)
 
@@ -81,8 +80,6 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
 
     function parametro(idOpcao) {
         let idConvertido = String(idOpcao)
-
-
 
 
         if (vetor_opcoes_componentes[idConvertido] !== undefined) {
@@ -297,7 +294,7 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
             </section>
 
             <section class="sessao-botoes">
-                <button class="editar botao" onclick="confirmarAtualizarInstancia(${id_instancia})">
+                <button class="editar botao" onclick="confirmarAtualizarInstancia(${id_instancia}, ipt_apelido_servidor, ipt_identificador_servidor)">
                     Editar
                 </button>
 
@@ -423,12 +420,40 @@ function confirmarDeletarInstancia(id_instancia) {
 }
 
     function editarDefinitivo(id_instancia){
-        let nome = ipt_apelido_servidor.value;
-        let identificador = ipt_identificador_servidor.value;
+        let nome = document.getElementById( ipt_apelido_servidor).value;
+        let identificador = document.getElementById(ipt_identificador_servidor).value;
         let componentes = guardarComponentes();
 
 
+         fetch(`/listarInstancias/editarInstancia/${id_instancia}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServidor : nome,
+                identificadorServidor : identificador,
+                componentesServidor: componentes
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Instância atualizada com sucesso");
+                window.location.reload();
+            } else {
+                throw ("Houve um erro ao tentar editar a instância! Código: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
     }
+
+
+
+
+
+
 
 
 
