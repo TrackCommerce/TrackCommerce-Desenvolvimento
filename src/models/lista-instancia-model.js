@@ -23,7 +23,6 @@ GROUP BY a.id_instancia, a.nome;
     return database.executar(instrucaoSql);
 }
 
-
 function deletar_instancia(fk_instancia) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", fk_instancia);
     var instrucaoSql1 = `
@@ -39,11 +38,19 @@ function deletar_instancia(fk_instancia) {
     return database.executar(instrucaoSq2);
 }
 
-
-function editar_instancia(nome, identificador, ) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idAviso);
+function busca_componentes_instancia(fk_instancia) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function busca_componentes_instancias(): ", fk_instancia)
     var instrucaoSql = `
-        UPDATE aviso SET descricao = '${novaDescricao}' WHERE id = ${idAviso};
+        SELECT * FROM componente_instancia WHERE fk_instancia = ${fk_instancia};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function editar_nome_identificador_instancia(nome, identificador, id_instancia) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar_nome_identificador_instancia(): ", nome, identificador, id_instancia);
+    var instrucaoSql = `
+        UPDATE instancia SET nome = '${novaDescricao}' AND identificador = '${identificador}' WHERE id = ${id_instancia};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -53,5 +60,6 @@ function editar_instancia(nome, identificador, ) {
 module.exports = {
     buscar_instancias,
     deletar_instancia,
-    editar_instancia
+    busca_componentes_instancia,
+    editar_nome_identificador_instancia
 };

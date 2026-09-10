@@ -7,14 +7,13 @@ router.get("/buscarIdInstancia/:empresaServidor", function (req, res) {
     listaInstancias.buscar_instancias(req, res);
 });
 
-
-
-router.put("/editarInstancia/:idInstancia", function (req, res) {
-    listaInstancias.editar_instancia(req, res);
+router.get("/buscarComponentesInstancias/:idInstancia", function (req, res) {
+    listaInstancias.busca_componentes_instancia(req, res);
 });
 
-
-
+router.put("/editarNomeIdentificadorInstancia/:idInstancia", function (req, res) {
+    listaInstancias.editar_nome_identificador_instancia(req, res);
+});
 
 router.delete("/deletarInstancia/:idInstancia", function (req, res) {
     listaInstancias.deletar_instancia(req, res);

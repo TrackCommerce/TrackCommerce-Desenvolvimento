@@ -9,14 +9,12 @@ function buscar_instancias(req, res) {
     })
 }
 
-function editar_instancia(req, res) {
+function editar_nome_identificador_instancia(req, res) {
     var fk_instancia = req.params.idInstancia;
     var nome = req.body.nomeServer;
     var identificador = req.body.identificadorServer;
-    var componentes = req.body.componentesServer;
 
-
-   lista_instancia_model.buscar_instancias(fk_instancia, nome, identificador, componentes)
+   lista_instancia_model.buscar_instancias(fk_instancia, nome, identificador)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -51,10 +49,18 @@ function deletar_instancia(req, res) {
         );
 }
 
-
+function busca_componentes_instancia(req, res) {
+    var fk_instancia = req.params.idInstancia;
+    
+    lista_instancia_model.busca_componentes_instancia(fk_instancia)
+    .then((resultado) => {
+        res.status(200).json(resultado)
+    })
+}
 
 module.exports = {
     buscar_instancias,
-    deletar_instancia
-    
+    deletar_instancia,
+    busca_componentes_instancia,
+    editar_nome_identificador_instancia
 };
