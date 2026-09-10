@@ -155,10 +155,6 @@ let segundaEtapaCadastro = `
 
                         <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_cpu">
-                                <label for="checkbox_monitorar_cpu">Monitorar Processador</label>
-                            </div>
-                            <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_cpu">
                                 <label for="checkbox_porcentagem_cpu">Porcentagem de Uso</label>
                             </div>
@@ -178,10 +174,6 @@ let segundaEtapaCadastro = `
 
                         <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_disco">
-                                <label for="checkbox_monitorar_disco">Monitorar Armazenamento</label>
-                            </div>
-                            <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_disco">
                                 <label for="checkbox_porcentagem_disco">Porcentagem de Uso</label>
                             </div>
@@ -200,10 +192,6 @@ let segundaEtapaCadastro = `
                         </div>
 
                         <div class="opcoes-monitoramento">
-                            <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_ram">
-                                <label for="checkbox_monitorar_ram">Monitorar Memória</label>
-                            </div>
                             <div class="opcao">
                                 <input type="checkbox" id="checkbox_porcentagem_ram">
                                 <label for="checkbox_porcentagem_ram">Porcentagem de Uso</label>
@@ -225,13 +213,17 @@ let segundaEtapaCadastro = `
 
                          <div class="opcoes-monitoramento">
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_monitorar_rede">
-                                <label for="checkbox_monitorar_rede">Monitorar Rede</label>
+                                <input type="checkbox" id="checkbox_latencia_rede">
+                                <label for="checkbox_latencia_rede">Latência da Rede</label>
                             </div>
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_latencia_rede">
-                                <label for="checkbox_latencia_rede">Monitorar Latência da Rede</label>
+                                <input type="checkbox" id="checkbox_download_rede">
+                                <label for="checkbox_download_rede">Download da Rede</label>
                             </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_upload_rede">
+                                <label for="checkbox_upload_rede">Upload da Rede</label>
+                            </div>                            
                         </div>                        
                     </div>
                 </div>
@@ -286,17 +278,6 @@ let terceiraEtapaCadastro = `
                             Paramêtros
                         </h2>
                     </div>
-                </div>
-            </section>
-    
-            <section class="alerta-parametros">
-                <div class="lembrete-parametro">
-                    <p>
-                        Lembrete!!!
-                    </p>
-                    <p>
-                        Caso nenhum paramêtro seja específicado, todos os componentes emitiram alertas a partir de 80% de uso (ou similar, dependendo da escolha de monitoramento)
-                    </p>
                 </div>
             </section>
 
@@ -369,94 +350,86 @@ function transicaoSegundaEtapa() {
 }
 
 function transicaoTerceiraEtapa() {
-    let checkboxMonitorarCpu = document.querySelector("#checkbox_monitorar_cpu");
+    // Capturando cada checkbox do cadastro de componente
     let checkboxPorcetangemCpu = document.querySelector("#checkbox_porcentagem_cpu");
     let checkboxFrequenciaCpu = document.querySelector("#checkbox_frequencia_cpu");
-    let checkboxMonitorarDisco = document.querySelector("#checkbox_monitorar_disco");
     let checkboxPorcetagemDisco = document.querySelector("#checkbox_porcentagem_disco");
     let checkboxDiscoLivre = document.querySelector("#checkbox_disco_livre");
-    let checkboxMonitorarRam = document.querySelector("#checkbox_monitorar_ram");
     let checkboxPorcentagemRam = document.querySelector("#checkbox_porcentagem_ram");
     let checkboxRamLivre = document.querySelector("#checkbox_ram_livre");
-    let checkboxMonitorarRede = document.querySelector("#checkbox_monitorar_rede");
     let checkboxLatenciaRede = document.querySelector("#checkbox_latencia_rede");
+    let checkboxDownloadRede = document.querySelector("#checkbox_download_rede");
+    let checkboxUploadRede = document.querySelector("#checkbox_upload_rede");
 
-    if(
-        (checkboxPorcetangemCpu.checked || checkboxFrequenciaCpu.checked) && !checkboxMonitorarCpu.checked ||
-        (checkboxPorcetagemDisco.checked || checkboxDiscoLivre.checked) && !checkboxMonitorarDisco.checked ||
-        (checkboxPorcentagemRam.checked || checkboxRamLivre.checked) && !checkboxMonitorarRam.checked ||
-        checkboxLatenciaRede.checked && !checkboxMonitorarRede.checked 
-    ){
-        containerPopUp.style.display = "block";
-        containerPopUp.innerHTML = criarPopUpBasico("Você está tentando monitorar porcentagens ou relacionados de componentes sem selecionar os componentes! <br> (Dica: Lembre-se sempre de escolher primeiro que vai monitorar e depois as suas funcionalidades");
-    } else if(!checkboxMonitorarCpu.checked && !checkboxMonitorarDisco.checked && !checkboxMonitorarRam.checked && !checkboxMonitorarRede.checked) {
+    // Verificando se todos os componentes não estão selecionandos
+    if(!checkboxPorcetangemCpu.checked && !checkboxFrequenciaCpu.checked && !checkboxPorcetagemDisco.checked && !checkboxDiscoLivre.checked && !checkboxPorcentagemRam.checked && !checkboxRamLivre.checked && !checkboxLatenciaRede.checked && !checkboxDownloadRede.checked && !checkboxUploadRede.checked) {
         containerPopUp.style.display = "block";
         containerPopUp.innerHTML = criarPopUpBasico("Selecione pelo menos um componente para ser monitorado!");    
     } else {
-        if(
-            checkboxMonitorarCpu.checked && !(checkboxPorcetangemCpu.checked || checkboxFrequenciaCpu.checked) ||
-            checkboxMonitorarDisco.checked && !(checkboxPorcetagemDisco.checked || checkboxDiscoLivre.checked) ||
-            checkboxMonitorarRam.checked && !(checkboxPorcentagemRam.checked || checkboxRamLivre.checked) ||
-            checkboxLatenciaRede.checked && !checkboxMonitorarRede.checked 
-        ) {
-            containerPopUp.style.display = "block";
-            containerPopUp.innerHTML = criarPopUpBasico("Você selecionou apenas o componente que quer monitorar! Selecione alguns atributos para monitorar esse componente");        
-        } else {
-            function criarCampoDeParametro(componente, idComponente, placeholder) {
-                containerEspecificacoesParametros.innerHTML += `
-                    <h3 class="titulo-parametro">
-                        Paramêtro para ${componente}
-                    </h3>
-                    <input 
-                        type="number" 
-                        id="${idComponente}" 
-                        placeholder="${placeholder}"
-                    >
-                `
-            }
-
-            fecharPopUp(containerPopUp);
-            trocaTela(terceiraEtapaCadastro);     
-
-            let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
-
-            if(checkboxPorcetangemCpu.checked) {
-                criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Insira o paramêtro para o porcentual de uso da CPU")
-                arrayComponentes.push("id_parametro_porcentagem_cpu");
-            }
-
-            if(checkboxFrequenciaCpu.checked) {
-                criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Insira o paramêtro para a frequência da CPU")
-                arrayComponentes.push("id_parametro_frequencia_cpu");
-            }
-
-            if(checkboxPorcetagemDisco.checked) {
-                criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Insira o paramêtro para o porcentual do armazenamento")
-                arrayComponentes.push("id_parametro_porcentagem_armazenamento");
-            }
-
-             if(checkboxDiscoLivre.checked) {
-                criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Insira o paramêtro para a quantidade de armazenamento livre")
-                arrayComponentes.push("id_parametro_quantidade_livre_disco");
-            }
-
-            if(checkboxPorcentagemRam.checked) {
-                criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Insira o paramêtro para o porcentual de uso da memória RAM")
-                arrayComponentes.push("id_parametro_porcentagem_ram");
-            }
-
-            if(checkboxRamLivre.checked) {
-                criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Insira o paramêtro para a quantidade de memória ram livre")
-                arrayComponentes.push("id_parametro_quantidade_livre_ram");
-            }
-
-            if(checkboxLatenciaRede.checked) {
-                criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Insira o paramêtro para a quantidade máxima de milisegundos (ms) que a latência pode chegar")
-                arrayComponentes.push("id_parametro_latencia_rede");
-            }
-
-            return arrayComponentes;
+        function criarCampoDeParametro(componente, idComponente, placeholder) {
+            containerEspecificacoesParametros.innerHTML += `
+                <h3 class="titulo-parametro">
+                    Paramêtro para ${componente}
+                </h3>
+                <input 
+                    type="number" 
+                    id="${idComponente}" 
+                    placeholder="${placeholder}"
+                >
+            `
         }
+
+        fecharPopUp(containerPopUp);
+        trocaTela(terceiraEtapaCadastro);     
+
+        let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
+
+        if(checkboxPorcetangemCpu.checked) {
+            criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Exemplo: 60 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_cpu");
+        }
+
+        if(checkboxFrequenciaCpu.checked) {
+            criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Exemplo: 2.4 (Unidade: Gigahertz GHz)")
+            arrayComponentes.push("id_parametro_frequencia_cpu");
+        }
+
+        if(checkboxPorcetagemDisco.checked) {
+            criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Exemplo: 70 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_armazenamento");
+        }
+
+            if(checkboxDiscoLivre.checked) {
+            criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Exemplo: 120 (Unidade: Gigabyte GB)")
+            arrayComponentes.push("id_parametro_quantidade_livre_disco");
+        }
+
+        if(checkboxPorcentagemRam.checked) {
+            criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Exemplo: 80 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_ram");
+        }
+
+        if(checkboxRamLivre.checked) {
+            criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Exemplo: 4 (Unidade: Gigabyte GB)")
+            arrayComponentes.push("id_parametro_quantidade_livre_ram");
+        }
+
+        if(checkboxLatenciaRede.checked) {
+            criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Exemplo: 200 (Unidade: Milissegundo ms)")
+            arrayComponentes.push("id_parametro_latencia_rede");
+        }
+
+        if(checkboxDownloadRede.checked) {
+            criarCampoDeParametro("download de rede", "id_parametro_download_rede", "Exemplo: 300 (Unidade: Megabits por Segundo Mbps)")
+            arrayComponentes.push("id_parametro_download_rede");
+        }
+
+        if(checkboxUploadRede.checked) {
+            criarCampoDeParametro("upload de rede", "id_parametro_upload_rede", "Exemplo: 100 (Unidade: Megabits por Segundo Mbps)")
+            arrayComponentes.push("id_parametro_upload_rede");
+        }
+
+        return arrayComponentes;
     }
 }
 
