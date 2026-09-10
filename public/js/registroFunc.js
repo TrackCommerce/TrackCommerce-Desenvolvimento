@@ -52,6 +52,9 @@ function listarFunc(){
                 
                 console.log(funcionarios)
                 renderizarLista(funcionarios)
+
+                funcionarios.splice(0, funcionarios.length);
+
                 return false
                 
             })
@@ -160,6 +163,7 @@ function registrarFunc(){
     let contatoReg = document.getElementById('registro-ctt').value.replace(/\D/g, "");
     let emailReg = document.getElementById('registro-email').value.trim();
     let aviso = document.getElementById('aviso');
+    let senhaReg = cyrb53(emailReg);
 
     if(nomeReg.length < 2){
         aviso.innerText = "Funcionário sem nome";
@@ -202,12 +206,12 @@ function registrarFunc(){
         document.querySelector('.botao-salvar').innerText = "Salvar usuário";
         
     } else {
-        funcionarios.push({
-            nome: nomeReg,
-            cargo: cargoReg,
-            email: emailReg,
-            contato: contatoReg
-        });
+        // funcionarios.push({
+        //     nome: nomeReg,
+        //     cargo: cargoReg,
+        //     email: emailReg,
+        //     contato: contatoReg
+        // });
 
         fetch("/usuario/cadastrar", {
         method: "POST",
@@ -219,7 +223,8 @@ function registrarFunc(){
             nomeServer: nomeReg,
             emailServer: emailReg,
             contatoServer: contatoReg,
-            cargoServer: cargoReg
+            cargoServer: cargoReg,
+            senhaServer: senhaReg
         }),
 
     }).then(function (resposta) {
@@ -498,3 +503,21 @@ function listarCargos(){
             console.error("Erro ao listar cargos:", erro);
         });
 }
+
+// Faz Hash
+
+const cyrb53 = (str, seed = 0) => {
+    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+    for(let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+    h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+    h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  
+    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+};
+
