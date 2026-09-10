@@ -14,7 +14,7 @@ function editar_nome_identificador_instancia(req, res) {
     var nome = req.body.nomeServer;
     var identificador = req.body.identificadorServer;
 
-   lista_instancia_model.buscar_instancias(fk_instancia, nome, identificador)
+   lista_instancia_model.editar_nome_identificador_instancia(nome, identificador, fk_instancia)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -28,6 +28,24 @@ function editar_nome_identificador_instancia(req, res) {
             }
         );
 
+}
+
+function deletar_relacionamento(req, res) {
+    var fk_instancia = req.params.idInstancia;
+
+    lista_instancia_model.deletar_relacionamento(fk_instancia)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    )
+    .catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
 }
 
 
@@ -62,5 +80,6 @@ module.exports = {
     buscar_instancias,
     deletar_instancia,
     busca_componentes_instancia,
-    editar_nome_identificador_instancia
+    editar_nome_identificador_instancia,
+    deletar_relacionamento
 };
