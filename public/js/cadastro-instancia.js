@@ -551,9 +551,7 @@ function cadastrarServidor() {
                         .then(function (resposta) {
                             resposta.json().then((ids) => {
                                 ids.forEach(id => {
-                                    console.log(id)
                                     idInstancia = id.id_instancia
-                                    console.log(idInstancia)
                                 });
 
                                 for (let i = 0; i < cadastroServidor.componentes_instancia.length; i++) {
@@ -583,7 +581,11 @@ function cadastrarServidor() {
                                 
                             });
 
-                            alert("Cadastro de instância realizado com sucesso!!")
+                            fecharPopUp(containerPopUp)
+                            setInterval(() => {
+                                trocaTela(primeiraEtapaCadastro)    
+                            }, 500);
+
                             console.log(contador + " " + cadastroServidor.componentes_instancia.length)
                         })
                         .catch(function (resposta) {

@@ -1,24 +1,17 @@
 // Ao incrementar com o banco de dados, penso em utilizar como paramêtro o próprio ID da máquina virtual
 // A partir da criação de todos os card, já irei adicionar o ID de cada instância como paramêtro
 
-
-
 function listarInstancias() {
-    let empresaServidor = 1;
-    let container_instancias = document.getElementById("container_instancias");
+  let empresaServidor = 1;
+  let container_instancias = document.getElementById("container_instancias");
 
-
-    fetch(`/listarInstancias/buscarIdInstancia/${empresaServidor}`, {
-        method: "GET",
-    })
-        .then(
-            function (resposta) {
-                if (resposta.ok) {
-                    resposta.json()
-                        .then((instancias) => {
-
-                            instancias.forEach(instancia => {
-                                container_instancias.innerHTML += `
+  fetch(`/listarInstancias/buscarIdInstancia/${empresaServidor}`, {
+    method: "GET",
+  }).then(function (resposta) {
+    if (resposta.ok) {
+      resposta.json().then((instancias) => {
+        instancias.forEach((instancia) => {
+          container_instancias.innerHTML += `
                         <div class="instancia">
                     <div class="titulo-instancia">
                         <h1>
@@ -40,62 +33,54 @@ function listarInstancias() {
                         </p>
                     </div>
                 </div>
-                        `
-
-                            });
-                        })
-                }
-            }
-        )
-
+                        `;
+        });
+      });
+    }
+  });
 }
-
 
 let containerPopUpEditar = document.querySelector(".container_pop_up_editar");
 let popUpConfirmacao = document.querySelector(".pop_up_confirmar");
 
-function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id_instancia) {
-    let containerMainLista = document.querySelector('.botao-editar');
-    if (containerMainLista) containerMainLista.style.cursor = 'default'
+function popUpAtualizarInstancia(
+  nome,
+  identificador,
+  grupoOpcoesComponentes,
+  id_instancia,
+) {
+  let containerMainLista = document.querySelector(".botao-editar");
+  if (containerMainLista) containerMainLista.style.cursor = "default";
 
-    let vetor_opcoes_componentes = {};
+  let vetor_opcoes_componentes = {};
 
-    grupoOpcoesComponentes.split(", ").forEach(opcao => {
-        let [id, parametro] = opcao.split(":");
+  grupoOpcoesComponentes.split(", ").forEach((opcao) => {
+    let [id, parametro] = opcao.split(":");
 
-        vetor_opcoes_componentes[id] = parametro
-    })
+    vetor_opcoes_componentes[id] = parametro;
+  });
 
+  function opcaoChecked(idOpcao) {
+    let idConvertido = String(idOpcao);
 
-
-    function opcaoChecked(idOpcao) {
-        let idConvertido = String(idOpcao)
-
-        if (vetor_opcoes_componentes[idConvertido] !== undefined) {
-            return "checked";
-        } else {
-            return "";
-        }
-
+    if (vetor_opcoes_componentes[idConvertido] !== undefined) {
+      return "checked";
+    } else {
+      return "";
     }
+  }
 
+  function parametro(idOpcao) {
+    let idConvertido = String(idOpcao);
 
-    function parametro(idOpcao) {
-        let idConvertido = String(idOpcao)
-
-
-        if (vetor_opcoes_componentes[idConvertido] !== undefined) {
-            return vetor_opcoes_componentes[idConvertido];
-        } else {
-            return "";
-        }
+    if (vetor_opcoes_componentes[idConvertido] !== undefined) {
+      return vetor_opcoes_componentes[idConvertido];
+    } else {
+      return "";
     }
+  }
 
-
-
-
-
-    containerPopUpEditar.innerHTML = `
+  containerPopUpEditar.innerHTML = `
         <div class="container-edicao">
             <section class="seccao-acima">
                 <p class="titulo-edicao">
@@ -335,77 +320,89 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
                 </button>
             </section>
         </div>
-`
-    containerPopUpEditar.style.display = "block";
+`;
+  containerPopUpEditar.style.display = "block";
 }
 
 function fecharPopUp() {
-    containerPopUpEditar.style.display = "none";
-
+  containerPopUpEditar.style.display = "none";
 }
 
 function fecharPopUpConfirmacao() {
-    popUpConfirmacao.style.display = "none";
+  popUpConfirmacao.style.display = "none";
 }
 
 let componentes = [];
 
-function guardarComponentes(){
-    if (checkbox_porcentagem_cpu.checked) {
-        componentes.push({
-            fk_componente: 1,
-            parametro: ipt_editar_porcentual_cpu.value
+function guardarComponentes() {
+  if (checkbox_porcentagem_cpu.checked) {
+    componentes.push({
+      fk_componente: 1,
+      parametro: ipt_editar_porcentual_cpu.value,
+    });
+  }
 
-        })};
+  if (checkbox_frequencia_cpu.checked) {
+    componentes.push({
+      fk_componente: 2,
+      parametro: ipt_editar_frequencia_cpu.value,
+    });
+  }
 
-     if (checkbox_frequencia_cpu.checked) {
-        componentes.push({
-            fk_componente: 2,
-            parametro: ipt_editar_frequencia_cpu.value
+  if (checkbox_porcentagem_disco.checked) {
+    componentes.push({
+      fk_componente: 3,
+      parametro: ipt_editar_porcentual_disco.value,
+    });
+  }
 
-        })};
-    
-     if (checkbox_porcentagem_disco.checked) {
-        componentes.push({
-            fk_componente: 3,
-            parametro: ipt_editar_porcentual_disco.value
+  if (checkbox_disco_livre.checked) {
+    componentes.push({
+      fk_componente: 4,
+      parametro: ipt_editar_quantidade_livre_disco.value,
+    });
+  }
 
-        })};
+  if (checkbox_porcentagem_ram.checked) {
+    componentes.push({
+      fk_componente: 5,
+      parametro: ipt_editar_porcentual_ram.value,
+    });
+  }
 
-        if (checkbox_disco_livre.checked) {
-        componentes.push({
-            fk_componente: 4,
-            parametro: ipt_editar_quantidade_livre_disco.value
+  if (checkbox_ram_livre.checked) {
+    componentes.push({
+      fk_componente: 6,
+      parametro: ipt_editar_quantidade_livre_ram.value,
+    });
+  }
+  if (checkbox_latencia_rede.checked) {
+    componentes.push({
+      fk_componente: 7,
+      parametro: ipt_editar_latencia_rede.value,
+    });
+  }
 
-        })};
+  if (checkbox_download_rede.checked) {
+    componentes.push({
+      fk_componente: 8,
+      parametro: ipt_editar_download_rede.value,
+    });
+  }
 
-        if (checkbox_porcentagem_ram.checked) {
-        componentes.push({
-            fk_componente: 5,
-            parametro: ipt_editar_porcentual_ram.value
+  if (checkbox_upload_rede.checked) {
+    componentes.push({
+      fk_componente: 9,
+      parametro: ipt_editar_upload_rede.value,
+    });
+  }
 
-        })};
-
-        if (checkbox_ram_livre.checked) {
-        componentes.push({
-            fk_componente: 6,
-            parametro: ipt_editar_quantidade_livre_ram.value
-
-        })};
-
-        if (checkbox_latencia_rede.checked) {
-        componentes.push({
-            fk_componente: 7,
-            parametro: ipt_editar_latencia_rede.value
-
-        })};
-
-        return componentes;
+  return componentes;
 }
 function confirmarAtualizarInstancia(id_instancia) {
-    popUpConfirmacao.style.display = "block";
+  popUpConfirmacao.style.display = "block";
 
-    popUpConfirmacao.innerHTML = `
+  popUpConfirmacao.innerHTML = `
             <div class="parte-superior">
                 <button onclick="fecharPopUpConfirmacao()">X</button>
                 <div class="texto-confirmacao">
@@ -422,13 +419,13 @@ function confirmarAtualizarInstancia(id_instancia) {
                     Confirmar
                 </button>
             </div>
-    `
+    `;
 }
 
 function confirmarDeletarInstancia(id_instancia) {
-    popUpConfirmacao.style.display = "block";
+  popUpConfirmacao.style.display = "block";
 
-    popUpConfirmacao.innerHTML = `
+  popUpConfirmacao.innerHTML = `
             <div class="parte-superior">
                 <button onclick="fecharPopUpConfirmacao()">X</button>
                 <div class="texto-confirmacao">
@@ -445,76 +442,126 @@ function confirmarDeletarInstancia(id_instancia) {
                     Confirmar
                 </button>
             </div>
-    `
-
+    `;
 }
 
-function editarDefinitivo(id_instancia){
-    let nome = ipt_apelido_servidor.value;
-    let identificador = ipt_identificador_servidor.value;
-    let componentes = guardarComponentes();
+function editarDefinitivo(id_instancia) {
+  let nomeAtualizar = ipt_apelido_servidor.value;
+  let identificadorAtualizar = ipt_identificador_servidor.value;
+  let componentes = guardarComponentes();
 
-    fetch(`/listarInstancias/buscarComponentesInstancias/${id_instancia}`, {
-        method: "GET",
-    }).then(
-        function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then((instancias) => {
-                    console.log(instancias)
+  fetch(`/listarInstancias/buscarComponentesInstancias/${id_instancia}`, {
+    method: "GET",
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then((instancias) => {
+          fetch(
+            `/listarInstancias/editarNomeIdentificadorInstancia/${id_instancia}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                nomeServer: nomeAtualizar,
+                identificadorServer: identificadorAtualizar,
+              }),
+            },
+          )
+            .then(function (resposta) {
+              if (resposta.ok) {
+                instancias.forEach((instancia) => {
+                  let id_instancia_deletar = instancia.fk_instancia;
+
+                  fetch(
+                    `/listarInstancias/deletarRelacionamento/${id_instancia_deletar}`,
+                    {
+                      method: "DELETE",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    },
+                  )
+                    .then(function (resposta) {
+                      if (resposta.ok) {
+                        console.log("Relacionamento deletado");
+
+                        for (let i = 0; i < componentes.length; i++) {
+                          let id_input = componentes[i].parametro;
+
+                          fetch(
+                            "/cadastrarInstancia/cadastrarComponenteInstancia",
+                            {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                                componenteServidor:
+                                  componentes[i].fk_componente,
+                                instanciaServidor: id_instancia_deletar,
+                                parametroServidor: id_input,
+                              }),
+                            },
+                          );
+                        }
+                      } else if (resposta.status == 404) {
+                        window.alert("Deu 404!");
+                      } else {
+                        throw (
+                          "Houve um erro ao tentar realizar a postagem! Código da resposta: " +
+                          resposta.status
+                        );
+                      }
+                    })
+                    .catch(function (resposta) {
+                      console.log(`#ERRO: ${resposta}`);
+                    });
+                });
+                setInterval(() => {
+                  window.location.reload()
+                }, 500);
+              } else {
+                throw (
+                  "Houve um erro ao tentar editar a instância! Código: " +
+                  resposta.status
+                );
+              }
             })
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+        });
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
     });
-
-    // fetch(`/listarInstancias/editar_nome_identificador_instancia/${id_instancia}`, {
-    //     method: "PUT",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         nomeServidor : nome,
-    //         identificadorServidor: identificador
-    //     })
-    // }).then(function (resposta) {
-
-    //     if (resposta.ok) {
-
-    //         window.alert("Instância atualizada com sucesso");
-    //         window.location.reload();
-    //     } else {
-    //         throw ("Houve um erro ao tentar editar a instância! Código: " + resposta.status);
-    //     }
-    // }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    // });
 }
 
-
-
-
-
-
-
-
-
- function deletarDefinitivo(id_instancia) {
-        fetch(`/listarInstancias/deletarInstancia/${id_instancia}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                window.alert("instancia deletado com sucesso!");
-                  window.location.reload();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
+function deletarDefinitivo(id_instancia) {
+  fetch(`/listarInstancias/deletarInstancia/${id_instancia}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        setInterval(() => {
+            window.location.reload()
+        }, 500);
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw (
+          "Houve um erro ao tentar realizar a postagem! Código da resposta: " +
+          resposta.status
+        );
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+}
