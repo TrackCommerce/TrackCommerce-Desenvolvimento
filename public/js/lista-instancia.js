@@ -32,9 +32,11 @@ function listarInstancias() {
                     </div>
 
                     <div class="informacoes-instancia">
-                        <p>${instancia.identificador}</p>
-                        <p>Principais componentes:
-                        ${instancia.grupoComponentes}
+                        <p>
+                            ${instancia.identificador}
+                        </p>
+                        <p>
+                            ${instancia.grupoComponentes}
                         </p>
                     </div>
                 </div>
@@ -202,8 +204,16 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
                          <div class="opcoes-monitoramento">
                             <div class="opcao">
                                 <input type="checkbox" id="checkbox_latencia_rede"  ${opcaoChecked(7)}>
-                                <label for="checkbox_latencia_rede">Monitorar Latência da Rede</label>
+                                <label for="checkbox_latencia_rede">Latência da Rede</label>
                             </div>
+                             <div class="opcao">
+                                <input type="checkbox" id="checkbox_download_rede" ${opcaoChecked(8)}>
+                                <label for="checkbox_download_rede">Download da Rede</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_upload_rede" ${opcaoChecked(9)}>
+                                <label for="checkbox_upload_rede">Upload da Rede</label>
+                            </div> 
                         </div>                        
                     </div>
                 </div>
@@ -290,6 +300,28 @@ function popUpAtualizarInstancia(nome, identificador, grupoOpcoesComponentes, id
                         placeholder="Insira o seu paramêtro"
                         value=${parametro(7)}>    
                     </div>
+
+                    <div class="inputs-parametros">
+                        <label for="ipt_editar_download_rede">
+                            Download da Rede (Mbps)
+                        </label>
+                        <input 
+                        type="text" 
+                        id="ipt_editar_download_rede"
+                        placeholder="Insira o seu paramêtro"
+                        value=${parametro(8)}>    
+                    </div>
+
+                    <div class="inputs-parametros">
+                        <label for="ipt_editar_upload_rede">
+                            Upload da Rede (Mbps)
+                        </label>
+                        <input 
+                        type="text" 
+                        id="ipt_editar_upload_rede"
+                        placeholder="Insira o seu paramêtro"
+                        value=${parametro(9)}>    
+                    </div>
                 </div>
             </section>
 
@@ -316,11 +348,9 @@ function fecharPopUpConfirmacao() {
     popUpConfirmacao.style.display = "none";
 }
 
+let componentes = [];
 
 function guardarComponentes(){
-
-    let componentes = [];
-
     if (checkbox_porcentagem_cpu.checked) {
         componentes.push({
             fk_componente: 1,
@@ -419,35 +449,46 @@ function confirmarDeletarInstancia(id_instancia) {
 
 }
 
-    function editarDefinitivo(id_instancia){
-        let nome = document.getElementById( ipt_apelido_servidor).value;
-        let identificador = document.getElementById(ipt_identificador_servidor).value;
-        let componentes = guardarComponentes();
+function editarDefinitivo(id_instancia){
+    let nome = ipt_apelido_servidor.value;
+    let identificador = ipt_identificador_servidor.value;
+    let componentes = guardarComponentes();
 
-
-         fetch(`/listarInstancias/editarInstancia/${id_instancia}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nomeServidor : nome,
-                identificadorServidor : identificador,
-                componentesServidor: componentes
-            })
-        }).then(function (resposta) {
-
+    fetch(`/listarInstancias/buscarComponentesInstancias/${id_instancia}`, {
+        method: "GET",
+    }).then(
+        function (resposta) {
             if (resposta.ok) {
-                window.alert("Instância atualizada com sucesso");
-                window.location.reload();
-            } else {
-                throw ("Houve um erro ao tentar editar a instância! Código: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+                resposta.json().then((instancias) => {
+                    console.log(instancias)
+            })
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
 
-    }
+    // fetch(`/listarInstancias/editar_nome_identificador_instancia/${id_instancia}`, {
+    //     method: "PUT",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         nomeServidor : nome,
+    //         identificadorServidor: identificador
+    //     })
+    // }).then(function (resposta) {
+
+    //     if (resposta.ok) {
+
+    //         window.alert("Instância atualizada com sucesso");
+    //         window.location.reload();
+    //     } else {
+    //         throw ("Houve um erro ao tentar editar a instância! Código: " + resposta.status);
+    //     }
+    // }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    // });
+}
 
 
 
