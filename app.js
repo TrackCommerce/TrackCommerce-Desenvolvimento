@@ -1,5 +1,5 @@
-//var ambiente_processo = 'producao';
-var ambiente_processo = 'desenvolvimento';
+var ambiente_processo = 'producao';
+// var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
@@ -15,11 +15,15 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
-//var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuario");
+// var indexRouter = require("./src/routes/index");
+// var usuarioRouter = require("./src/routes/usuario");
 var cargoRouter = require("./src/routes/cargo");
 var permissoesRouter = require("./src/routes/permissoes")
+<<<<<<< HEAD
 var usuariosRouter = require("./src/routes/usuario")
+=======
+// var usuariosRouter = require("./src/routes/usuarios")
+>>>>>>> 4be087875eac358a80b08037ad06154123062911
 var instanciaRouter = require("./src/routes/instancia");
 let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
 let buscarInstancia = require("./src/routes/lista-instancia")
@@ -30,12 +34,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-
-//app.use("/", indexRouter);
-app.use("/usuario", usuarioRouter);
-app.use("/cargo", cargoRouter);
 app.use("/permissoes", permissoesRouter)
-app.use("/usuarios", usuariosRouter)
+// app.use("/usuarios", usuariosRouter)
 app.use("/instancia", instanciaRouter);
 app.use("/cadastrarInstancia", cadastrarInstanciaRouter);
 app.use("/listarInstancias", buscarInstancia);

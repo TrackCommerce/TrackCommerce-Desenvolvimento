@@ -47,10 +47,19 @@ function busca_componentes_instancia(fk_instancia) {
     return database.executar(instrucaoSql);
 }
 
+function deletar_relacionamento(fk_instancia) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", fk_instancia);
+    var instrucaoSql = `
+        DELETE FROM componente_instancia WHERE fk_instancia = ${fk_instancia};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function editar_nome_identificador_instancia(nome, identificador, id_instancia) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar_nome_identificador_instancia(): ", nome, identificador, id_instancia);
     var instrucaoSql = `
-        UPDATE instancia SET nome = '${novaDescricao}' AND identificador = '${identificador}' WHERE id = ${id_instancia};
+        UPDATE instancia SET nome = '${nome}', identificador = '${identificador}' WHERE id_instancia = ${id_instancia};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -61,5 +70,6 @@ module.exports = {
     buscar_instancias,
     deletar_instancia,
     busca_componentes_instancia,
-    editar_nome_identificador_instancia
+    editar_nome_identificador_instancia,
+    deletar_relacionamento
 };

@@ -19,5 +19,9 @@ router.delete("/deletarInstancia/:idInstancia", function (req, res) {
     listaInstancias.deletar_instancia(req, res);
 });
 
+router.delete("/deletarRelacionamento/:idInstancia", function (req, res) {
+    listaInstancias.deletar_relacionamento(req, res);
+});
+
 
 module.exports = router;
