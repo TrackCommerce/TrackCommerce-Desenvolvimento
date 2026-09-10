@@ -67,11 +67,31 @@
 
         </div>
     </main>
+    <div id="modal_trocar_senha" style="display: none;" class="modal-container">
+        <div class="modal-content">
+            <h3>Primeiro Acesso Detectado</h3>
+            <p>Sua senha atual é temporária. Crie uma nova senha para continuar.</p>
+            
+            <div class="campo">
+                <label class="login-label">Nova Senha</label>
+                <input type="password" id="ipt_nova_senha" placeholder="Nova senha">
+            </div>
+            <div class="campo">
+                <label class="login-label">Confirme a Nova Senha</label>
+                <input type="password" id="ipt_confirmar_senha" placeholder="Confirme a nova senha">
+            </div>
+            
+            <button type="button" class="btn-entrar" onclick="salvarNovaSenha()">Salvar Nova Senha</button>
+            <div class="div_mensagem_erro" id="mensagem_aviso_modal"></div>
+        </div>
+    </div>
 </body>
 
 </html>
 
+<script src="js/hash.js"></script>
 <script>
+    
     function mostrarSenha() {
 
        let senha = document.getElementById("ipt_senha");
@@ -86,90 +106,111 @@
         }
     }
 
+    var idUsuarioTemporario = null;
     function validacao_login() {
-
-
-
         let ipt_email = document.getElementById("ipt_email");
         let ipt_senha = document.getElementById("ipt_senha");
-        let mensagem_aviso = document.getElementById("mensagem_aviso")
-        
+        let mensagem_aviso = document.getElementById("mensagem_aviso");
 
         let email = ipt_email.value.trim();
         let senha = ipt_senha.value.trim();
-        let senhaHash = cyrb53(senha);
-
+        let senhaHash = cyrb53(senha).toString();
 
         if (email == "" || senha == "") {
-           
-            mensagem_aviso.innerHTML = "Digite e-mail e senha válidos"
-             mensagem_aviso.style.display = "flex";
-
-            setTimeout(sumir_mensagem, 2000)
-        }else{
-
+            mensagem_aviso.innerHTML = "Digite e-mail e senha válidos";
+            mensagem_aviso.style.display = "flex";
+            setTimeout(sumir_mensagem, 2000);
+        } else {
             fetch("/usuario/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: email,
-                senhaServer: senhaHash
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: email,
+                    senhaServer: senhaHash
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!");
 
-            if (resposta.ok) {
-                console.log(resposta);
+                if (resposta.ok) {
+                    console.log(resposta);
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id_usuario;
-                    sessionStorage.FK_EMPRESA = json.fk_empresa;
-                    sessionStorage.FK_CARGO = json.fk_cargo;
-                });
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
 
-                window.location.href="selecionar-servidor.html"
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.ID_USUARIO = json.id_usuario;
+                        sessionStorage.FK_EMPRESA = json.fk_empresa;
+                        sessionStorage.FK_CARGO = json.fk_cargo;
 
-            } else {
+                        if (json.primeiroAcesso) {
+                            idUsuarioTemporario = json.id_usuario;
+                            document.getElementById("modal_trocar_senha").style.display = "flex";
+                        } else {
+                            window.location.href = "selecionar-servidor.html";
+                        }
+                    });
 
-                console.log("Houve um erro ao tentar realizar o login!");
+                } else {
+                    console.log("Houve um erro ao tentar realizar o login!");
 
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                        mensagem_aviso.innerHTML = texto || "Erro ao realizar o login!";
+                        mensagem_aviso.style.display = "flex";
+                        setTimeout(sumir_mensagem, 3000);
+                    });
+                }
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
+            }).catch(function (erro) {
+                console.log(erro);
+            });
         }
     }
 
+    function salvarNovaSenha() {
+        let novaSenha = document.getElementById("ipt_nova_senha").value.trim();
+        let confirmaSenha = document.getElementById("ipt_confirmar_senha").value.trim();
+        let msgModal = document.getElementById("mensagem_aviso_modal");
+
+        if (novaSenha == "" || confirmaSenha == "") {
+            msgModal.innerText = "Preencha ambos os campos.";
+            return;
+        }
+
+        if (novaSenha !== confirmaSenha) {
+            msgModal.innerText = "As senhas não coincidem.";
+            return;
+        }
+
+        let novaSenhaHash = cyrb53(novaSenha).toString();
+
+        fetch("/usuario/redefinirSenha", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idServer: idUsuarioTemporario,
+                novaSenhaServer: novaSenhaHash
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Senha alterada com sucesso!");
+                window.location.href = "selecionar-servidor.html";
+            } else {
+                msgModal.innerText = "Houve um erro ao atualizar a senha.";
+            }
+        }).catch(function (erro) {
+            console.error(erro);
+        });
+    }
     function sumir_mensagem() {
                 let mensagem_aviso = document.getElementById("mensagem_aviso")
 
         mensagem_aviso.style.display = "none";
     }
 
-// Faz Hash
 
-const cyrb53 = (str, seed = 0) => {
-    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-    for(let i = 0, ch; i < str.length; i++) {
-        ch = str.charCodeAt(i);
-        h1 = Math.imul(h1 ^ ch, 2654435761);
-        h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
-    h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-    h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
-    h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-  
-    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-};
 </script>

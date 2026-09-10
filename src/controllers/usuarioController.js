@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var { cyrb53 } = require("../../public/js/hash");
 
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
@@ -119,13 +120,26 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        res.status(200).json(resultadoAutenticar[0]);
+                        var usuario = resultadoAutenticar[0];
+                        var hashEmail = cyrb53(usuario.email).toString();
+
+                        var PrimeiroAcesso = (senha == hashEmail);
+
+                        res.status(200).json({
+                            id_usuario: usuario.id_usuario,
+                            nome: usuario.nome,
+                            email: usuario.email,
+                            fk_empresa: usuario.fk_empresa,
+                            fk_cargo: usuario.fk_cargo,
+                            primeiroAcesso: PrimeiroAcesso
+                        });
                         console.log(resultadoAutenticar);
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
+
                 }
             ).catch(
                 function (erro) {
@@ -138,10 +152,29 @@ function autenticar(req, res) {
 
 }
 
+function redefinirSenha(req, res) {
+    var idUsuario = req.body.idServer;
+    var novaSenhaHash = req.body.novaSenhaServer;
+
+    if (idUsuario == undefined || novaSenhaHash == undefined) {
+        res.status(400).send("Dados incompletos para redefinir senha.");
+    } else {
+        usuarioModel.redefinirSenha(idUsuario, novaSenhaHash)
+            .then(function (resultado) {
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
     deletar,
-    autenticar
+    autenticar,
+    redefinirSenha
 }

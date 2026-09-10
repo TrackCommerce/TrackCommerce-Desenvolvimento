@@ -18,6 +18,9 @@ router.delete("/deletar", function(req,res) {
 router.post("/autenticar", function (req, res){
     usuarioController.autenticar(req, res);
 });
+router.post("/redefinirSenha", function (req, res) {
+    usuarioController.redefinirSenha(req, res);
+});
 
 
 module.exports = router;
