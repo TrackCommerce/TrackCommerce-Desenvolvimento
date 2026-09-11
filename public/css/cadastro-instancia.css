@@ -172,7 +172,15 @@ main {
     display: flex;
 }
 
-main,
+.container-cadastro {
+    margin-top: 2%;
+}
+
+.container-cadastro section{
+    margin-left: 10%;
+}
+
+.container-cadastro,
 .sessao-titulo {
     justify-content: center;
     align-items: center;
