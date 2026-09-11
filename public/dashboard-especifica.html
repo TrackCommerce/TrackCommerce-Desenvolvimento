@@ -5,72 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard-especifica</title>
-    <link rel="stylesheet" href="../css/sidebar.css">
-    <link rel="stylesheet" href="../css/dashboard-especifica.css">
+    <link rel="stylesheet" href="./css/dashboard-especifica.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="pagina">
-       <div class="sidebar">
-            <a href="../index.html" class="logo">
-                <img src="/public/assets/icon/logo.png" alt="">
-                <p class="titulo_logo">TrackCommerce</p>
+         <aside class="sidebar">
 
-
-            </a>
-            <div class="links-gerais">
-<<<<<<< HEAD
-                <a href="./dashboard/dashboard-geral.html" class="link-unico">
-                    <img src="../assets/imgs/icon-painel.png" alt="">
-=======
-                <a href="/public/dashboard/dashboard-geral.html" class="link-unico">
-                    <img src="/public/assets/imgs/icon-painel.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-                    <p>Painel</p>
-                </a>
-
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-servidores.png" alt="">
-                    <p>Servidores Ativos</p>
-                </a>
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-alertas.png" alt="">
-                    <p>Alertas</p>
-                </a>
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-permissoes.png" alt="">
-                    <p>Permissões de grupo</p>
-                </a>
-<<<<<<< HEAD
-                <a href="./cadastro-instancia.html" class="link-unico">
-                    <img src="../assets/imgs/icon-servidores.png" alt="">
-=======
-                <a href="/public/cadastro-instancia.html" class="link-unico">
-                    <img src="/public/assets/imgs/icon-servidores.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-                    <p>Cadastro de servidores</p>
-                </a>
-                <a href="./lista-instancia.html" class="link-unico">
-                    <img src="../assets/imgs/icon-servidores.png" alt="">
-                    <p>Servidores</p>
-                </a>
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-cadastrar-user.png" alt="">
-                    <p>Cadastro de Funcionários</p>
-                </a>
-                
-            </div>
-
-            <hr class="linha-hr">
-            <div class="usuario">
-                <img src="/public/assets/imgs/icon-perfil.png" alt="">
-                <div class="info-usuario">
-                    <p class="nome-usuario"><b>Ema</b></p>
-                    <p class="cargo-usuario">Gestor(a)</p>
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="./assets/icon/logo.png" alt="Logo"> 
                 </div>
+
+                <h2>TrackCommerce</h2>
             </div>
-        </div>
+
+            <nav class="menu">
+
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/home.png" alt="">
+                    </div>
+                    <span>Painel</span>
+                </a>
+
+                <a href="selecionar-servidor.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Servidores Ativos</span>
+                </a>
+
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/bell.png" alt="">
+                    </div>
+                    <span>Alertas</span>
+                </a>
+
+                <a href="lista-instancia.html" class="item" ativo>
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Listagem de Servidores</span>
+                </a>
+
+                <a href="permissoes.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/chave-permissao.png" alt="">
+                    </div>
+                    <span>Permissões de Grupos</span>
+                </a>
+
+                <a href="cadastro-instancia.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Cadastro de Servidores</span>
+                </a>
+
+                <a href="registroFunc.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/cadastro.png" alt="">
+                    </div>
+                    <span>Cadastro de Funcionários</span>
+                </a>
+
+            </nav>
+
+            <div class="usuario">
+
+                <div class="foto">
+                    <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+                </div>
+
+                <div class="info">
+                    <h3>Usuário</h3>
+                    <p>Cargo</p>
+                </div>
+
+            </div>
+
+        </aside>
 
         <main class="main-info-dash">
             <div id="overlay" class="overlay" onclick="abrir_menu()"></div>

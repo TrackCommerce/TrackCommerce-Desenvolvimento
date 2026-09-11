@@ -15,12 +15,9 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
-// var indexRouter = require("./src/routes/index");
-// var usuarioRouter = require("./src/routes/usuario");
 var cargoRouter = require("./src/routes/cargo");
 var permissoesRouter = require("./src/routes/permissoes")
 var usuariosRouter = require("./src/routes/usuario")
-// var usuariosRouter = require("./src/routes/usuarios")
 var instanciaRouter = require("./src/routes/instancia");
 let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
 let buscarInstancia = require("./src/routes/lista-instancia")
