@@ -315,10 +315,18 @@ let containerPopUpConfirmacao = `
                 </div>
                 <div class="botoes_alerta">
                     <button class="botao_cancelar" onclick="fecharPopUp(containerPopUp)">Cancelar</button>
-                    <button class="botao_aceitar" onclick="">Aceitar</button>
+                    <button class="botao_aceitar" onclick="cadastrarServidor()">Aceitar</button>
                 </div>
             </div>
 `
+
+let cadastroServidor = {
+    apelido: "",
+    identificador: "",
+    componentes_instancia: [
+
+    ]
+}
 
 // Pegando o elemento usando o DOM a partir classe chamada "container-cadastro"
 let containerCadastro = document.querySelector('.container-cadastro');
@@ -341,9 +349,13 @@ function transicaoSegundaEtapa() {
     let iptIdentificadorServidor = ipt_identificador_servidor.value;
 
     // Verificando um dos campos estão vazios
-    if(iptApelidoServidor == "" || iptIdentificadorServidor == ""){
+    if (iptApelidoServidor == "" || iptIdentificadorServidor == "") {
         containerPopUp.style.display = "block";
     } else {
+
+        cadastroServidor.apelido = iptApelidoServidor;
+        cadastroServidor.identificador = iptIdentificadorServidor;
+
         fecharPopUp(containerPopUp);
         trocaTela(segundaEtapaCadastro);
     }
@@ -384,66 +396,102 @@ function transicaoTerceiraEtapa() {
 
         let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
 
-        if(checkboxPorcetangemCpu.checked) {
+        if (checkboxPorcetangemCpu.checked) {
             criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Exemplo: 60 (Unidade: Porcentagem %)")
             arrayComponentes.push("id_parametro_porcentagem_cpu");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 1
+            })
+
         }
 
-        if(checkboxFrequenciaCpu.checked) {
+        if (checkboxFrequenciaCpu.checked) {
             criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Exemplo: 2.4 (Unidade: Gigahertz GHz)")
             arrayComponentes.push("id_parametro_frequencia_cpu");
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 2
+            })
         }
 
-        if(checkboxPorcetagemDisco.checked) {
+        if (checkboxPorcetagemDisco.checked) {
             criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Exemplo: 70 (Unidade: Porcentagem %)")
             arrayComponentes.push("id_parametro_porcentagem_armazenamento");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 3
+            })
         }
 
-            if(checkboxDiscoLivre.checked) {
+        if (checkboxDiscoLivre.checked) {
             criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Exemplo: 120 (Unidade: Gigabyte GB)")
             arrayComponentes.push("id_parametro_quantidade_livre_disco");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 4
+            })
         }
 
-        if(checkboxPorcentagemRam.checked) {
+        if (checkboxPorcentagemRam.checked) {
             criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Exemplo: 80 (Unidade: Porcentagem %)")
             arrayComponentes.push("id_parametro_porcentagem_ram");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 5
+            })
         }
 
-        if(checkboxRamLivre.checked) {
+        if (checkboxRamLivre.checked) {
             criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Exemplo: 4 (Unidade: Gigabyte GB)")
             arrayComponentes.push("id_parametro_quantidade_livre_ram");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 6
+            })
         }
 
-        if(checkboxLatenciaRede.checked) {
+        if (checkboxLatenciaRede.checked) {
             criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Exemplo: 200 (Unidade: Milissegundo ms)")
             arrayComponentes.push("id_parametro_latencia_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 7
+            })
         }
 
         if(checkboxDownloadRede.checked) {
             criarCampoDeParametro("download de rede", "id_parametro_download_rede", "Exemplo: 300 (Unidade: Megabits por Segundo Mbps)")
             arrayComponentes.push("id_parametro_download_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 8
+            })
         }
 
         if(checkboxUploadRede.checked) {
             criarCampoDeParametro("upload de rede", "id_parametro_upload_rede", "Exemplo: 100 (Unidade: Megabits por Segundo Mbps)")
             arrayComponentes.push("id_parametro_upload_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 9
+            })
         }
 
-        return arrayComponentes;
+        return arrayComponentes;  
     }
 }
 
 function confirmacaoParametro() {
-    for(let i = 0; i < arrayComponentes.length; i++){
+    for (let i = 0; i < arrayComponentes.length; i++) {
         let idInput = document.getElementById(arrayComponentes[i]);
         let valorDoInput = idInput.value;
-            
+
         if (valorDoInput !== "" && !isNaN(valorDoInput)) {
             containerPopUp.style.display = "block";
             containerPopUp.innerHTML = containerPopUpConfirmacao;
         } else {
             containerPopUp.style.display = "block";
-            containerPopUp.innerHTML = criarPopUpBasico("Você colocou algo mais que números! Por favor, utilize apenas números!");    
+            containerPopUp.innerHTML = criarPopUpBasico("Você colocou algo mais que números! Por favor, utilize apenas números!");
         }
     }
 }
@@ -452,7 +500,7 @@ function trocaTela(telaDestino) {
     containerCadastro.innerHTML = telaDestino;
 }
 
-function criarPopUpBasico(textoAlerta){
+function criarPopUpBasico(textoAlerta) {
     return `
             <div class="pop_up">
                 <div class="botao-saida" onclick="fecharPopUp(containerPopUp)">
@@ -465,8 +513,97 @@ function criarPopUpBasico(textoAlerta){
                 </div>
             </div>
     `
-} 
+}
 
 function fecharPopUp(classeDoPopUp) {
     classeDoPopUp.style.display = "none";
+}
+
+
+function cadastrarServidor() {
+    var idInstancia;
+    let contador = 0;
+
+    fetch("/cadastrarInstancia/cadastrarInstancia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServidor: cadastroServidor.apelido,
+            identificadorServidor: cadastroServidor.identificador,
+            empresaServidor: 1
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                let identificadorServidor = cadastroServidor.identificador;
+                {
+                    console.log(cadastroServidor.componentes_instancia.length)
+                    fetch(`/cadastrarInstancia/buscarIdInstancia/${identificadorServidor}`, {
+                        method: "GET",
+                    })
+                        .then(function (resposta) {
+                            resposta.json().then((ids) => {
+                                ids.forEach(id => {
+                                    idInstancia = id.id_instancia
+                                });
+
+                                for (let i = 0; i < cadastroServidor.componentes_instancia.length; i++) {
+                                    let id_input = document.getElementById(arrayComponentes[i]);
+                                    let valor_input = id_input.value;
+
+                                    console.log("entramos no for")
+                                    fetch("/cadastrarInstancia/cadastrarComponenteInstancia", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            // crie um atributo que recebe o valor recuperado aqui
+                                            // Agora vá para o arquivo routes/usuario.js
+                                            componenteServidor: cadastroServidor.componentes_instancia[i].fk_componente,
+                                            instanciaServidor: idInstancia,
+                                            parametroServidor: valor_input
+
+                                        }),
+
+                                    })
+                                    
+                                    contador ++;
+                                    console.log(cadastroServidor.componentes_instancia[0].fk_componente);
+                                }
+                                
+                            });
+
+                            fecharPopUp(containerPopUp)
+                            setInterval(() => {
+                                trocaTela(primeiraEtapaCadastro)    
+                            }, 500);
+
+                            console.log(contador + " " + cadastroServidor.componentes_instancia.length)
+                        })
+                        .catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+                        });
+
+                }
+
+
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+
+
+
+    console.log(cadastroServidor)
 }

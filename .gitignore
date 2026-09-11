@@ -1,0 +1,6 @@
+.env.dev
+.env
+package-lock.json
+package.json
+node_modules
+.gitignore

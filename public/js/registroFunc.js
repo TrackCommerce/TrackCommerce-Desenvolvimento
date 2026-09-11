@@ -1,25 +1,61 @@
+
+
 let emailEditando = null;
+let idEditando = null;
 
-const funcionariosMock = [
-    { nome: "Carlos", cargo: "Analista de Infra", permissoes: "Monitoramento", email: "CarlosEdu@email.com", contato: "11967966767" },
-    { nome: "Ana Silva", cargo: "Desenvolvedora Front-end", permissoes: "Leitura/Escrita", email: "ana.silva@email.com", contato: "11988881111" },
-    { nome: "João Pedro", cargo: "Gerente de Projetos", permissoes: "Administrador", email: "joao.gp@email.com", contato: "11977772222" },
-    { nome: "Mariana Souza", cargo: "Designer UX/UI", permissoes: "Leitura", email: "mari.ux@email.com", contato: "21999993333" },
-];
-
-for(let i = 5; i <= 20; i++) {
-    funcionariosMock.push({
-        nome: `Funcionário Nome ${i}`,
-        cargo: `Cargo Genérico ${i}`,
-        permissoes: "Permissões Padrão",
-        email: `funcionario${i}@email.com`,
-        contato: "00000000000"
-    });
-}
+const funcionarios = [];
 
 const divLista = document.getElementById('lista-funcionarios');
 const inputPesquisa = document.getElementById('campo-pesquisa');
 const selectFiltro = document.getElementById('seletor-filtro');
+
+window.onload = function () {
+    // Esconde botões de ação secundários no carregamento inicial
+    document.getElementById('btn-atualizar').style.display = "none";
+    document.getElementById('btn-cancelar').style.display = "none";
+    if (document.getElementById('btn-deletar')) {
+        document.getElementById('btn-deletar').style.display = "none";
+    }
+
+    listarFunc();
+    listarCargos();
+}
+
+function listarFunc() {
+    fetch("/usuario/listar").then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                const aviso = document.getElementById('aviso');
+                if (aviso) aviso.innerText = "Nenhum resultado encontrado";
+                return;
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                funcionarios.length = 0; 
+
+                if (resposta.length === 0) {
+                    divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
+                    return;
+                }
+
+                resposta.forEach(func => {
+                    funcionarios.push({
+                        id: func.id_usuario,
+                        nome: func.nome,
+                        cargo: func.nome_cargo,
+                        permissoes: func.permissoes || "N/A", 
+                        email: func.email,
+                        contato: func.celular
+                    });
+                });
+
+                renderizarLista(funcionarios);
+            });
+        }
+    }).catch(erro => console.error("Erro ao listar funcionários:", erro));
+}
 
 function cancelarEdicao() {
     document.getElementById('registro-nome').value = "";
@@ -27,40 +63,49 @@ function cancelarEdicao() {
     document.getElementById('registro-ctt').value = "";
     document.getElementById('registro-email').value = "";
 
-    emailEditando = null;
+    const aviso = document.getElementById('aviso');
+    if (aviso) aviso.innerText = "";
 
-    document.querySelector('.botao-salvar').innerText = "Salvar usuário";
+    emailEditando = null;
+    idEditando = null;
+
+    document.getElementById('btn-salvar').style.display = "block";
+    document.getElementById('btn-atualizar').style.display = "none";
     document.getElementById('btn-cancelar').style.display = "none";
+    if (document.getElementById('btn-deletar')) {
+        document.getElementById('btn-deletar').style.display = "none";
+    }
 
     const radios = document.getElementsByName('selecao-func');
     radios.forEach(radio => radio.checked = false);
 }
+
 function preencherFormulario(emailClicado) {
-    const func = funcionariosMock.find(f => f.email === emailClicado);
-    
-    if(func) {
+    const func = funcionarios.find(f => f.email === emailClicado);
+
+    if (func) {
         document.getElementById('registro-nome').value = func.nome;
         document.getElementById('registro-cargo').value = func.cargo;
-        document.getElementById('registro-ctt').value = func.contato;
+        document.getElementById('registro-ctt').value = formatarParaExibicao(func.contato);
         document.getElementById('registro-email').value = func.email;
-        
+
         emailEditando = func.email;
-        document.querySelector('.botao-salvar').innerText = "Atualizar usuário";
-        
+        idEditando = func.id;
+
+
+        document.getElementById('btn-salvar').style.display = "none";
+        document.getElementById('btn-atualizar').style.display = "block";
         document.getElementById('btn-cancelar').style.display = "block";
-        document.getElementById('btn-deletar').style.display = "block";
-
-        document.getElementById('btn-deletar').style.display = "none";
-
-        const radios = document.getElementsByName('selecao-func');
-        radios.forEach(radio => radio.checked = false); 
+        if (document.getElementById('btn-deletar')) {
+            document.getElementById('btn-deletar').style.display = "block";
+        }
     }
 }
 
 function renderizarLista(dados) {
-    divLista.innerHTML = ''; 
-    
-    if(dados.length === 0) {
+    divLista.innerHTML = '';
+
+    if (dados.length === 0) {
         divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
         return;
     }
@@ -68,152 +113,240 @@ function renderizarLista(dados) {
     dados.forEach(func => {
         const cartao = document.createElement('div');
         cartao.className = 'cartao-funcionario';
-        
+
         cartao.innerHTML = `
             <div class="info-cartao">
                 <div class="coluna">
-                    <span>Funcionario: ${func.nome}</span>
-                    <span>Cargo: ${func.cargo}</span>
-                    <span>Permissões: ${func.permissoes}</span>
+                    <span><strong>Funcionário:</strong> ${func.nome}</span>
+                    <span><strong>Cargo:</strong> ${func.cargo}</span>
+                    <span><strong>Permissões:</strong> ${func.permissoes}</span>
                 </div>
                 <div class="coluna">
-                    <span>Email: ${func.email}</span>
-                    <span>Contato: ${formatarParaExibicao(func.contato)}</span>
+                    <span><strong>Email:</strong> ${func.email}</span>
+                    <span><strong>Contato:</strong> ${formatarParaExibicao(func.contato)}</span>
                 </div>
             </div>
             <div class="botao-radio">
-                <!-- Adicionamos o input radio aqui -->
                 <input type="radio" name="selecao-func" onchange="preencherFormulario('${func.email}')">
             </div>
         `;
-        
+
         divLista.appendChild(cartao);
     });
 }
 
 function filtrarFuncionarios() {
     const termoPesquisado = inputPesquisa.value.toLowerCase();
-    const filtroSelecionado = selectFiltro.value; 
+    const filtroSelecionado = selectFiltro.value;
 
-    const dadosFiltrados = funcionariosMock.filter(func => {
-        
-        const valorDoCampo = String(func[filtroSelecionado]).toLowerCase();
-        
-        
+    const dadosFiltrados = funcionarios.filter(func => {
+        const valorDoCampo = String(func[filtroSelecionado] || '').toLowerCase();
         return valorDoCampo.includes(termoPesquisado);
     });
 
     renderizarLista(dadosFiltrados);
 }
 
+if (inputPesquisa) inputPesquisa.addEventListener('input', filtrarFuncionarios);
+if (selectFiltro) selectFiltro.addEventListener('change', filtrarFuncionarios);
 
-inputPesquisa.addEventListener('input', filtrarFuncionarios);
-selectFiltro.addEventListener('change', filtrarFuncionarios);
-
-
-renderizarLista(funcionariosMock);
-
-function registrarFunc(){
+function registrarFunc() {
     let nomeReg = document.getElementById('registro-nome').value.trim();
     let cargoReg = document.getElementById('registro-cargo').value.trim();
     let contatoReg = document.getElementById('registro-ctt').value.replace(/\D/g, "");
     let emailReg = document.getElementById('registro-email').value.trim();
     let aviso = document.getElementById('aviso');
 
-    if(nomeReg.length < 2){
+    if (nomeReg.length < 2) {
         aviso.innerText = "Funcionário sem nome";
         return;
-    } else if(cargoReg.length < 2){
+    } else if (cargoReg.length < 2) {
         aviso.innerText = "Funcionário sem cargo";
         return;
-    } else if(contatoReg.length !== 11){
+    } else if (contatoReg.length !== 11) {
         aviso.innerText = "Número inválido (deve ter 11 dígitos)";
         return;
-    } else if(!emailReg.includes("@") || !emailReg.includes(".")){
+    } else if (!emailReg.includes("@") || !emailReg.includes(".")) {
         aviso.innerText = "Email inválido";
         return;
     }
 
-    let emailEmUso = funcionariosMock.some(f => f.email === emailReg && f.email !== emailEditando);
-    let contatoEmUso = funcionariosMock.some(f => f.contato === contatoReg && f.email !== emailEditando);
+    let emailEmUso = funcionarios.some(f => f.email === emailReg);
+    let contatoEmUso = funcionarios.some(f => f.contato === contatoReg);
 
-    if (emailEmUso){
+    if (emailEmUso) {
         aviso.innerText = "Email já cadastrado";
-        return; 
-    } else if (contatoEmUso){
+        return;
+    } else if (contatoEmUso) {
         aviso.innerText = "Contato já cadastrado";
-        return; 
+        return;
     }
 
     aviso.innerText = "";
 
-    if (emailEditando !== null) {
-        const index = funcionariosMock.findIndex(f => f.email === emailEditando);
-        
-        if (index !== -1) {
-            funcionariosMock[index].nome = nomeReg;
-            funcionariosMock[index].cargo = cargoReg;
-            funcionariosMock[index].contato = contatoReg;
-            funcionariosMock[index].email = emailReg;
+    fetch("/usuario/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            nomeServer: nomeReg,
+            emailServer: emailReg,
+            contatoServer: contatoReg,
+            cargoServer: cargoReg,
+            fkEmpresaServer: sessionStorage.fk_empresa
+        }),
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            alert("Cadastro foi realizado com sucesso!");
+            cancelarEdicao();
+            listarFunc();
+        } else {
+            resposta.text().then((texto) => {
+                if (texto.includes("Duplicate")) {
+                    alert("Este email ou contato já está cadastrado.");
+                } else {
+                    alert("Erro ao cadastrar funcionário.");
+                }
+            });
         }
-        
-        emailEditando = null;
-        document.querySelector('.botao-salvar').innerText = "Salvar usuário";
-        
-    } else {
-        funcionariosMock.push({
-            nome: nomeReg,
-            cargo: cargoReg,
-            permissoes: "Permissões Padrão",
-            email: emailReg,
-            contato: contatoReg
-        });
+    }).catch(function (erro) {
+        console.error(`#ERRO: ${erro}`);
+        alert("Erro ao cadastrar.");
+    });
+
+    return false;
+}
+
+function atualizarFunc() {
+    if (idEditando === null) {
+        alert("Nenhum funcionário selecionado para atualização.");
+        return;
     }
 
-    document.getElementById('registro-nome').value = "";
-    document.getElementById('registro-cargo').value = "";
-    document.getElementById('registro-ctt').value = "";
-    document.getElementById('registro-email').value = "";
+    let nomeAtt = document.getElementById('registro-nome').value.trim();
+    let cargoAtt = document.getElementById('registro-cargo').value.trim();
+    let contatoAtt = document.getElementById('registro-ctt').value.replace(/\D/g, "");
+    let emailAtt = document.getElementById('registro-email').value.trim();
+    let aviso = document.getElementById('aviso');
 
-    document.getElementById('btn-cancelar').style.display = "none";
-    renderizarLista(funcionariosMock);
+    if (nomeAtt.length < 2) {
+        aviso.innerText = "Funcionário sem nome";
+        return;
+    } else if (cargoAtt.length < 2) {
+        aviso.innerText = "Funcionário sem cargo";
+        return;
+    } else if (contatoAtt.length !== 11) {
+        aviso.innerText = "Número inválido (deve ter 11 dígitos)";
+        return;
+    } else if (!emailAtt.includes("@") || !emailAtt.includes(".")) {
+        aviso.innerText = "Email inválido";
+        return;
+    }
+
+    let emailEmUso = funcionarios.some(f => f.email === emailAtt && f.id !== idEditando);
+    let contatoEmUso = funcionarios.some(f => f.contato === contatoAtt && f.id !== idEditando);
+
+    if (emailEmUso) {
+        aviso.innerText = "Email já cadastrado por outro usuário";
+        return;
+    } else if (contatoEmUso) {
+        aviso.innerText = "Contato já cadastrado por outro usuário";
+        return;
+    }
+
+    aviso.innerText = "";
+
+    fetch("/usuario/editar", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            idServer: idEditando,
+            nomeServer: nomeAtt,
+            emailServer: emailAtt,
+            contatoServer: contatoAtt,
+            cargoServer: cargoAtt
+        }),
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            alert("Atualização realizada com sucesso!");
+            cancelarEdicao();
+            listarFunc();
+        } else {
+            resposta.text().then(texto => console.log(texto));
+        }
+    })
+    .catch(function (erro) {
+        console.error(`#ERRO: ${erro}`);
+        alert("Erro ao atualizar funcionário.");
+    });
 }
 
 function deletarFunc() {
-    if (emailEditando !== null) {
-        if (confirm("Tem certeza que deseja excluir este funcionário?")) {
-            
-            const index = funcionariosMock.findIndex(f => f.email === emailEditando);
-            
-            if (index !== -1) {
-                funcionariosMock.splice(index, 1); 
+    if (idEditando === null) {
+        alert("Nenhum funcionário selecionado.");
+        return;
+    }
+
+    if (confirm("Tem certeza que deseja excluir este funcionário?")) {
+        fetch("/usuario/deletar", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idServer: idEditando })
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                alert("Funcionário deletado com sucesso!");
+                cancelarEdicao();
+                listarFunc();
+            } else {
+                alert("Erro ao deletar funcionário.");
             }
-            
-            cancelarEdicao();
-            renderizarLista(funcionariosMock);
-        }
+        })
+        .catch(function (erro) {
+            console.error("Erro:", erro);
+            alert("Erro ao conectar com o servidor.");
+        });
     }
 }
 
 function mascaraTelefone(input) {
     let valor = input.value.replace(/\D/g, "");
-
     if (!valor) {
         input.value = "";
         return;
     }
-
     valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
-    
     valor = valor.replace(/(\d)(\d{4})$/, "$1-$2");
     input.value = valor;
 }
 
 function formatarParaExibicao(numero) {
     let valor = String(numero).replace(/\D/g, "");
-    
     if (valor.length === 11) {
         return valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
     }
     return numero;
+}
+
+function listarCargos() {
+    fetch("/cargo/listar")
+        .then(resposta => resposta.json())
+        .then(cargos => {
+            const select = document.getElementById("registro-cargo");
+            if (!select) return;
+
+            select.innerHTML = `
+                <option value="" disabled selected hidden>
+                    Selecione um cargo
+                </option>
+            `;
+
+            cargos.forEach(cargo => {
+                const option = document.createElement("option");
+                option.value = cargo.nome_cargo;
+                option.textContent = cargo.nome_cargo;
+                select.appendChild(option);
+            });
+        })
+        .catch(erro => console.error("Erro ao listar cargos:", erro));
 }
