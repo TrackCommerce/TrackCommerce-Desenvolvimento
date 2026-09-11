@@ -19,11 +19,8 @@ var app = express();
 // var usuarioRouter = require("./src/routes/usuario");
 var cargoRouter = require("./src/routes/cargo");
 var permissoesRouter = require("./src/routes/permissoes")
-<<<<<<< HEAD
 var usuariosRouter = require("./src/routes/usuario")
-=======
 // var usuariosRouter = require("./src/routes/usuarios")
->>>>>>> 4be087875eac358a80b08037ad06154123062911
 var instanciaRouter = require("./src/routes/instancia");
 let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
 let buscarInstancia = require("./src/routes/lista-instancia")
@@ -35,10 +32,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/permissoes", permissoesRouter)
-// app.use("/usuarios", usuariosRouter)
+app.use("/usuario", usuariosRouter)
 app.use("/instancia", instanciaRouter);
 app.use("/cadastrarInstancia", cadastrarInstanciaRouter);
 app.use("/listarInstancias", buscarInstancia);
+app.use("/cargo", cargoRouter);
+
 
 app.listen(PORTA_APP, function () {
     console.log(`

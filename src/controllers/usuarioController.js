@@ -7,6 +7,7 @@ function cadastrar(req, res) {
     var contato = req.body.contatoServer;
     var cargo = req.body.cargoServer;
     var fk_empresa = req.body.fkEmpresaServer;
+    var senha = cyrb53(email).toString();
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -18,7 +19,7 @@ function cadastrar(req, res) {
         res.status(400).send("Cargo está undefined!");
     } else {
 
-        usuarioModel.cadastrar(nome, email, contato, cargo, fk_empresa)
+        usuarioModel.cadastrar(nome, email, contato, senha, cargo, fk_empresa)
             .then(
                 function (resultado) {
                     res.json(resultado);

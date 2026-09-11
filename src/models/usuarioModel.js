@@ -1,16 +1,17 @@
 var database = require("../database/config")
 
-function cadastrar(nome, email, contato, cargo, fk_empresa) {
+function cadastrar(nome, email, contato, senha, cargo, fk_empresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, contato, cargo);
     
+    var fkEmpresaSql = (fk_empresa == undefined || fk_empresa == null || fk_empresa == "") ? "NULL" : fk_empresa;
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, celular, fk_cargo, fk_empresa) VALUES ('${nome}', '${email}', '${contato}', (
+        INSERT INTO usuario (nome, email, celular, senha, fk_cargo, fk_empresa) VALUES ('${nome}', '${email}', '${contato}', '${senha}',(
                 SELECT id_cargo
                 FROM cargo
                 WHERE nome_cargo = '${cargo}'
-            ), ${fk_empresa});
+            ), ${fkEmpresaSql});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
