@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
  
 body {
@@ -178,23 +178,23 @@ body {
     font-size:28px;
     margin-right:20px;
 }
- 
+
 .conteudo {
   flex: 1;
   background-color: #f2f2f2;
   padding: 30px 40px;
+  h1, h2 {
+    color: #ff5c00;
+    margin-bottom: 20px;
+  }
+   
+  h1 {
+    font-size: 26px;
+  }
 }
  
-h1, h2 {
-  color: #ff5c00;
-  margin-bottom: 20px;
-}
  
-h1 {
-  font-size: 26px;
-}
- 
-h2 {
+.conteudo h2 {
   font-size: 22px;
   margin-top: 30px;
 }
