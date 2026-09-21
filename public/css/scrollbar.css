@@ -1,0 +1,28 @@
+/* --- REGRA PARA FIREFOX E NAVEGADORES MODERNOS --- */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #FF4500 #14213D; /* Cor do puxador e do trilho */
+}
+
+/* --- REGRA PARA CHROME, EDGE E SAFARI --- */
+/* Largura da barra de rolagem vertical */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Cor do fundo (trilho) da barra */
+::-webkit-scrollbar-track {
+  background: #14213D;
+  border-radius: 5px;
+}
+
+/* Cor do puxador (a parte que se move) */
+::-webkit-scrollbar-thumb {
+  background: #FF4500;
+  border-radius: 5px;
+}
+
+/* Cor do puxador ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6347; /* Ajustado para um tom de laranja mais claro no hover */
+}
