@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>TrackCommerce | Selecionar Servidor</title>
@@ -7,131 +8,139 @@
     <link rel="stylesheet" href="./css/selecionar-servidores.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-img">
-                <img src="./assets/icon/logo.png" alt="Logo">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="./assets/icon/logo.png" alt="Logo">
+                </div>
+                <h2>TrackCommerce</h2>
             </div>
-            <h2>TrackCommerce</h2>
-        </div>
 
-        <nav class="menu">
-            <a href="desenvolvimento.html" class="item">
-                <div class="icone">
-                    <img src="./assets/imgs/home.png" alt="">
-                </div>
-                <span>Painel</span>
-            </a>
-            <a href="selecionar-servidor.html" class="item ativo">
-                <div class="icone">
-                    <img src="./assets/imgs/server.png" alt="">
-                </div>
-                <span>Servidores Ativos</span>
-            </a>
-            <a href="desenvolvimento.html" class="item">
-                <div class="icone">
-                    <img src="./assets/imgs/bell.png" alt="">
-                </div>
-                <span>Alertas</span>
-            </a>
-            <a href="lista-instancia.html" class="item" ativo>
-                <div class="icone">
-                    <img src="./assets/imgs/server.png" alt="">
-                </div>
-                <span>Listagem de Servidores</span>
-            </a>
-            <a href="permissoes.html" class="item">
-                <div class="icone">
-                    <img src="./assets/imgs/chave-permissao.png" alt="">
-                </div>
-                <span>Permissões de Grupos</span>
-            </a>
-            <a href="cadastro-instancia.html" class="item">
-                <div class="icone">
-                    <img src="./assets/imgs/server.png" alt="">
-                </div>
-                <span>Cadastro de Servidores</span>
-            </a>
-            <a href="registroFunc.html" class="item">
-                <div class="icone">
-                    <img src="./assets/imgs/cadastro.png" alt="">
-                </div>
-                <span>Cadastro de Funcionários</span>
-            </a>
-        </nav>
+            <nav class="menu">
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/home.png" alt="">
+                    </div>
+                    <span>Painel</span>
+                </a>
+                <a href="selecionar-servidor.html" class="item ativo">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Servidores Ativos</span>
+                </a>
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/bell.png" alt="">
+                    </div>
+                    <span>Alertas</span>
+                </a>
+                <a href="lista-instancia.html" class="item" ativo>
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Listagem de Servidores</span>
+                </a>
+                <a href="permissoes.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/chave-permissao.png" alt="">
+                    </div>
+                    <span>Permissões de Grupos</span>
+                </a>
+                <a href="cadastro-instancia.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Cadastro de Servidores</span>
+                </a>
+                <a href="registroFunc.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/cadastro.png" alt="">
+                    </div>
+                    <span>Cadastro de Funcionários</span>
+                </a>
+            </nav>
 
-        <div class="usuario">
-            <div class="foto">
-                <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+            <div class="usuario">
+                <div class="foto">
+                    <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+                </div>
+                <div class="info">
+                    <h3>Usuário</h3>
+                    <p>Cargo</p>
+                </div>
             </div>
-            <div class="info">
-                <h3>Usuário</h3>
-                <p>Cargo</p>
+        </aside>
+
+        <main class="conteudo">
+            <h1>Selecionar Ambiente do Servidor</h1>
+            <p class="descricao">
+                Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
+            </p>
+
+            <div id="instancia"></div>
+
+            <div class="card">
+                <div class="icone verde"><img src="./assets/imgs/carrinho.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Servidor de Checkout</h3>
+                        <span class="status verde-texto">SAUDÁVEL</span>
+                    </div>
+                    <p>
+                        Processa pagamentos do carrinho do usuário,
+                        gerenciando gateways de pedidos e verificação
+                        de pagamento em tempo real.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
             </div>
-        </div>
-    </aside>
 
-    <main class="conteudo">
-        <h1>Selecionar Ambiente do Servidor</h1>
-        <p class="descricao">
-            Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
-        </p>
-
-        <div id="instancia"></div>
-
-        <div class="card">
-            <div class="icone verde"><img src="./assets/imgs/carrinho.png" alt=""></div>
-            <div class="texto">
-                <h3>Servidor de Checkout</h3>
-                <span class="status verde-texto">SAUDÁVEL</span>
-                <p>
-                    Processa pagamentos do carrinho do usuário,
-                    gerenciando gateways de pedidos e verificação
-                    de pagamento em tempo real.
-                </p>
+            <div class="card">
+                <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Servidor de Banco de Dados</h3>
+                        <span class="status amarelo-texto">ATENÇÃO</span>
+                    </div>
+                    <p>
+                        Cluster principal do banco de dados com logs mestres
+                        e credenciais de clientes. Processos de reindexação
+                        podem apresentar lentidão.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
             </div>
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
-        </div>
 
-        <div class="card">
-            <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
-            <div class="texto">
-                <h3>Servidor de Banco de Dados</h3>
-                <span class="status amarelo-texto">ATENÇÃO</span>
-                <p>
-                    Cluster principal do banco de dados com logs mestres
-                    e credenciais de clientes. Processos de reindexação
-                    podem apresentar lentidão.
-                </p>
+            <div class="card">
+                <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Gateway de API</h3>
+                        <span class="status verde-texto">SAUDÁVEL</span>
+                    </div>
+                    <p>
+                        Distribui regras de roteamento para microsserviços
+                        principais. Camada de cache operando normalmente.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
             </div>
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
-        </div>
+        </main>
 
-        <div class="card">
-            <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
-            <div class="texto">
-                <h3>Gateway de API</h3>
-                <span class="status verde-texto">SAUDÁVEL</span>
-                <p>
-                    Distribui regras de roteamento para microsserviços
-                    principais. Camada de cache operando normalmente.
-                </p>
-            </div>
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
-        </div>
-    </main>
+    </div>
 
-</div>
-
-<script src="./js/selecionar-servidor.js"></script>
-<script>
-    function redirecionar(){
-        window.location.href="./dashboard/dashboard-especifica.html"
-    }
-</script>
+    <script src="./js/selecionar-servidor.js"></script>
+    <script>
+        function redirecionar() {
+            window.location.href = "./dashboard/dashboard-especifica.html"
+        }
+    </script>
 </body>
+
 </html>
