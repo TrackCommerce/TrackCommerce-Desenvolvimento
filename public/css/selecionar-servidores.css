@@ -170,11 +170,12 @@ body{
     background: white;
     border: 1px solid #ddd;
     border-radius: 15px;
-    padding: 20px;
+    padding: 28px 30px;
     display: flex;
     align-items: center;
     gap: 18px;
     margin-bottom: 20px;
+    position: relative; 
 }
 
 .card:hover{
@@ -381,47 +382,58 @@ body{
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Nova classe para alinhar lado a lado */
-.titulo-status {
+.cabecalho-tela {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.cabecalho-tela .descricao {
+    margin-bottom: 0;
+}
+
+/* BOTÃO SINO */
+.btn-sino {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
 }
 
-.texto h3{
-    color: #14213D;
-    font-size: 18px;
+.btn-sino:hover {
+    background: #e9ecef;
 }
 
-.texto p{
-    color:#666;
-    margin-top:4px;
-    line-height: 1.4;
+.btn-sino img {
+    width: 22px;
+    height: 22px;
 }
 
-.status{
-    font-size:11px;
-    font-weight: 600;
-    padding:4px 10px;
-    border-radius:12px;
-    text-transform: uppercase;
+/* BOTÃO EDITAR */
+.btn-editar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+.btn-editar:hover {
+    opacity: 1;
+}
+
+.btn-editar img {
+    width: 18px;
+    height: 18px;
 }
