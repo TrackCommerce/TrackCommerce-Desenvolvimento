@@ -97,8 +97,8 @@
             <div id="instancia"></div>
 
             <div class="card">
-                <button class="btn-editar"><img src="./assets/imgs/edit.svg" alt="Editar"></button>
-
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
                 <div class="icone verde"><img src="./assets/imgs/carrinho.png" alt=""></div>
                 <div class="texto">
                     <div class="titulo-status">
@@ -115,8 +115,8 @@
             </div>
 
             <div class="card">
-                <button class="btn-editar"><img src="./assets/imgs/edit.svg" alt="Editar"></button>
-
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
                 <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
                 <div class="texto">
                     <div class="titulo-status">
@@ -133,7 +133,8 @@
             </div>
 
             <div class="card">
-                <button class="btn-editar"><img src="./assets/imgs/edit.svg" alt="Editar"></button>
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
                 <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
                 <div class="texto">
                     <div class="titulo-status">
@@ -151,12 +152,99 @@
 
     </div>
 
-    <script src="./js/selecionar-servidor.js"></script>
+    <div class="modal-overlay" id="modalEditar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Servidor</h2>
+                <button class="btn-fechar" onclick="fecharModal()">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Editar nome:</label>
+                        <input type="text" placeholder="Ex: Servidor de Checkout">
+                    </div>
+                    <div class="form-group">
+                        <label>Editar identificador:</label>
+                        <input type="text" placeholder="Ex: SRV-01">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label>Editar descrição:</label>
+                    <input type="text" placeholder="Descrição do servidor...">
+                </div>
+
+                <div class="caixa-grupo">
+                    <label class="titulo-grupo">Editar componentes monitorados:</label>
+                    <div class="componentes-lista">
+                        <label class="componente-item">
+                            <div class="caixa-comp">CPU</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                        <label class="componente-item">
+                            <div class="caixa-comp">RAM</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                        <label class="componente-item">
+                            <div class="caixa-comp">Rede</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="caixa-grupo">
+                    <label class="titulo-grupo">Editar regras de alertas:</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Alerta percentual CPU:</label>
+                            <input type="text" placeholder="Ex: 80%">
+                        </div>
+                        <div class="form-group">
+                            <label>Alerta percentual RAM:</label>
+                            <input type="text" placeholder="Ex: 85%">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Alerta percentual Disco:</label>
+                            <input type="text" placeholder="Ex: 90%">
+                        </div>
+                        <div class="form-group">
+                            <label>Alerta Request rede:</label>
+                            <input type="text" placeholder="Ex: 500ms">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-salvar-modal" onclick="fecharModal()">Guardar Alterações</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function redirecionar() {
             window.location.href = "./dashboard/dashboard-especifica.html"
         }
+
+        function abrirModal() {
+            document.getElementById('modalEditar').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modalEditar').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById('modalEditar');
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
     </script>
+        <script src="./js/selecionar-servidor.js"></script>
+
 </body>
 
 </html>
