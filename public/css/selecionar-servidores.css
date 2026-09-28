@@ -204,19 +204,30 @@ body{
     flex:1;
 }
 
-.texto h2{
-    margin-bottom:5px;
+.titulo-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.texto h3{
+    color: #14213D;
+    font-size: 18px;
 }
 
 .texto p{
     color:#666;
-    margin-top:8px;
+    margin-top:4px;
+    line-height: 1.4;
 }
 
 .status{
-    font-size:12px;
-    padding:4px 8px;
-    border-radius:10px;
+    font-size:11px;
+    font-weight: 600;
+    padding:4px 10px;
+    border-radius:12px;
+    text-transform: uppercase;
 }
 
 .verde-texto{
@@ -368,4 +379,49 @@ body{
         display: inline-block;
         margin-top: 8px;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Nova classe para alinhar lado a lado */
+.titulo-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.texto h3{
+    color: #14213D;
+    font-size: 18px;
+}
+
+.texto p{
+    color:#666;
+    margin-top:4px;
+    line-height: 1.4;
+}
+
+.status{
+    font-size:11px;
+    font-weight: 600;
+    padding:4px 10px;
+    border-radius:12px;
+    text-transform: uppercase;
 }
