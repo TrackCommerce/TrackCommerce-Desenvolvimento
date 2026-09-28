@@ -86,13 +86,10 @@
                         Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
                     </p>
                 </div>
-                <button class="btn-sino">
+                <button class="btn-sino" onclick="abrirModalNotificacoes()">
                     <img src="./assets/imgs/bell.svg" alt="Notificações">
                 </button>
             </div>
-
-            <div id="instancia"></div>
-
 
             <div id="instancia"></div>
 
@@ -223,7 +220,43 @@
         </div>
     </div>
 
-    <script>
+    <div class="modal-overlay" id="modalNotificacoes">
+        <div class="modal-content modal-notificacoes-content">
+            <div class="modal-header">
+                <h2>Alertas</h2>
+                <button class="btn-fechar" onclick="fecharModalNotificacoes()">&times;</button>
+            </div>
+
+            <div class="modal-body notificacoes-lista">
+
+                <div class="alerta-card">
+                    <div class="alerta-icone vermelha"></div>
+                    <div class="alerta-texto">
+                        <b>Espaço em Disco do BD Alto</b>
+                        <p>Partição do banco de dados usando 91% da capacidade.</p>
+                    </div>
+                </div>
+
+                <div class="alerta-card">
+                    <div class="alerta-icone laranja"></div>
+                    <div class="alerta-texto">
+                        <b>Pico de Latência</b>
+                        <p>Tempo médio de resposta de 412ms.</p>
+                    </div>
+                </div>
+
+                <div class="alerta-card">
+                    <div class="alerta-icone verde"></div>
+                    <div class="alerta-texto">
+                        <b>Backup Concluído</b>
+                        <p>Snapshot executado com sucesso hoje.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
         function redirecionar() {
             window.location.href = "./dashboard/dashboard-especifica.html"
         }
@@ -231,19 +264,32 @@
         function abrirModal() {
             document.getElementById('modalEditar').style.display = 'flex';
         }
-
         function fecharModal() {
             document.getElementById('modalEditar').style.display = 'none';
         }
 
+        function abrirModalNotificacoes() {
+            document.getElementById('modalNotificacoes').style.display = 'flex';
+        }
+        function fecharModalNotificacoes() {
+            document.getElementById('modalNotificacoes').style.display = 'none';
+        }
+
         window.onclick = function (event) {
-            var modal = document.getElementById('modalEditar');
-            if (event.target == modal) {
+            var modalEdicao = document.getElementById('modalEditar');
+            var modalNoti = document.getElementById('modalNotificacoes');
+            
+            if (event.target == modalEdicao) {
                 fecharModal();
+            }
+            if (event.target == modalNoti) {
+                fecharModalNotificacoes();
             }
         }
     </script>
-        <script src="./js/selecionar-servidor.js"></script>
+    <script src="./js/selecionar-servidor.js"></script>
+</body>
+</html>
 
 </body>
 

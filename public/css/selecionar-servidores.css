@@ -438,9 +438,7 @@ body{
     width: 18px;
     height: 18px;
 }
-/* ====================================
-   ESTILOS DO MODAL / POP-UP DE EDIÇÃO
-==================================== */
+
 
 .modal-overlay {
     position: fixed;
