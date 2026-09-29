@@ -160,17 +160,17 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Editar nome:</label>
-                        <input type="text" placeholder="Ex: Servidor de Checkout">
+                        <input type="text" id="ipt_nome" placeholder="Ex: Servidor de Checkout">
                     </div>
                     <div class="form-group">
                         <label>Editar identificador:</label>
-                        <input type="text" placeholder="Ex: SRV-01">
+                        <input type="text" id="ipt_identificador" placeholder="Ex: SRV-01">
                     </div>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 25px;">
                     <label>Editar descrição:</label>
-                    <input type="text" placeholder="Descrição do servidor...">
+                    <input type="text" id="ipt_descricao" placeholder="Descrição do servidor...">
                 </div>
 
                 <div class="caixa-grupo">
@@ -215,7 +215,7 @@
                     </div>
                 </div>
 
-                <button class="btn-salvar-modal" onclick="fecharModal()">Guardar Alterações</button>
+                <button class="btn-salvar-modal" onclick="salvarEdicao(1)">Guardar Alterações</button>
             </div>
         </div>
     </div>
@@ -256,7 +256,7 @@
         </div>
     </div>
 
-<script>
+    <script>
         function redirecionar() {
             window.location.href = "./dashboard/dashboard-especifica.html"
         }
@@ -278,7 +278,7 @@
         window.onclick = function (event) {
             var modalEdicao = document.getElementById('modalEditar');
             var modalNoti = document.getElementById('modalNotificacoes');
-            
+
             if (event.target == modalEdicao) {
                 fecharModal();
             }
@@ -289,8 +289,4 @@
     </script>
     <script src="./js/selecionar-servidor.js"></script>
 </body>
-</html>
-
-</body>
-
 </html>
