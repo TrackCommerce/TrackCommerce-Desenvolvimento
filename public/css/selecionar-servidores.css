@@ -22,7 +22,6 @@ body{
 }
 
 /* SIDEBAR */
-
 .sidebar{
     position: fixed;
     top: 0;
@@ -34,8 +33,6 @@ body{
     display: flex;
     flex-direction: column;
 }
-
-/* LOGO */
 
 .logo{
     display: flex;
@@ -63,7 +60,6 @@ body{
 }
 
 /* MENU */
-
 .menu{
     display: flex;
     flex-direction: column;
@@ -97,14 +93,12 @@ body{
     font-size: 16px;
 }
 
-
 .icone img{
     width: 40%;
     height: 40%;
 }
 
 /* ITEM ATIVO */
-
 .ativo{
     background: #203566;
     color: white;
@@ -121,12 +115,8 @@ body{
 }
 
 /* USUÁRIO */
-
 .usuario{
-    position: absolute;
-    bottom: 25px;
-    left: 18px;
-    right: 18px;
+    margin-top: auto;
     padding-top: 18px;
     border-top: 1px solid rgba(255,255,255,0.12);
     display: flex;
@@ -159,7 +149,6 @@ body{
 }
 
 /* CONTEÚDO */
-
 .conteudo{
     flex: 1;
     padding: 35px;
@@ -176,15 +165,17 @@ body{
     margin-bottom:30px;
 }
 
+/* CARDS */
 .card{
     background: white;
     border: 1px solid #ddd;
     border-radius: 15px;
-    padding: 20px;
+    padding: 28px 30px;
     display: flex;
     align-items: center;
     gap: 18px;
     margin-bottom: 20px;
+    position: relative; 
 }
 
 .card:hover{
@@ -214,19 +205,30 @@ body{
     flex:1;
 }
 
-.texto h2{
-    margin-bottom:5px;
+.titulo-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.texto h3{
+    color: #14213D;
+    font-size: 18px;
 }
 
 .texto p{
     color:#666;
-    margin-top:8px;
+    margin-top:4px;
+    line-height: 1.4;
 }
 
 .status{
-    font-size:12px;
-    padding:4px 8px;
-    border-radius:10px;
+    font-size:11px;
+    font-weight: 600;
+    padding:4px 10px;
+    border-radius:12px;
+    text-transform: uppercase;
 }
 
 .verde-texto{
@@ -250,78 +252,16 @@ body{
     font-size:22px;
     border: none;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .botao:hover{
     background-color: #FF5A1F;
-    transform: 0.1s;
+    transition: 0.1s;
 }
 
-/* LADO DIREITO */
-
-.direita{
-    width: 300px;
-    flex-shrink: 0;
-    background: #fafafa;
-    padding: 25px;
-    border-left: 1px solid #ddd;
-}
-
-.topo-alerta{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:20px;
-}
-
-.topo-alerta a{
-    color:orangered;
-    font-size:14px;
-    text-decoration: none;
-}
-
-.alerta{
-    background:white;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:15px;
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.bola{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    margin-top:5px;
-}
-
-.vermelha{
-    background:red;
-}
-
-.laranja{
-    background:orange;
-}
-
-.grafico {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 25px;
-    height: 280px;
-}
-
-#grafico-alertas {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 20px;
-    margin-top: 5px;
-}
-
+/* RESPONSIVIDADE */
 @media (max-width: 1024px){
-
     .sidebar{
         width: 90px;
         align-items: center;
@@ -353,27 +293,29 @@ body{
         justify-content: center;
     }
 
-
-
     .conteudo{
         padding: 25px;
     }
-
 }
 
 @media (max-width: 768px){
-
     .container{
         flex-direction: column;
+        padding-left: 0;
     }
 
     .sidebar{
+        position: relative;
         width: 100%;
         height: auto;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
+    }
+
+    .logo{
+        margin-bottom: 0;
     }
 
     .logo h2{
@@ -411,23 +353,9 @@ body{
     .botao{
         align-self: flex-end;
     }
-
-    .direita{
-        display: block;
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid #ddd;
-        padding: 20px;
-    }
-
-    .grafico{
-        height: 240px;
-    }
-
 }
 
 @media (max-width: 480px){
-
     .conteudo h1{
         font-size: 22px;
     }
@@ -452,10 +380,267 @@ body{
         display: inline-block;
         margin-top: 8px;
     }
+}
 
-    .grafico{
-        padding: 15px;
-        height: 220px;
-    }
+.cabecalho-tela {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
 
+.cabecalho-tela .descricao {
+    margin-bottom: 0;
+}
+
+/* BOTÃO SINO */
+.btn-sino {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-sino:hover {
+    background: #e9ecef;
+}
+
+.btn-sino img {
+    width: 22px;
+    height: 22px;
+}
+
+/* BOTÃO EDITAR */
+.btn-editar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+.btn-editar:hover {
+    opacity: 1;
+}
+
+.btn-editar img {
+    width: 18px;
+    height: 18px;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    padding: 25px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    color: #14213D;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+}
+
+.btn-fechar:hover {
+    color: orangered;
+}
+
+/* FORMULÁRIOS */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #14213D;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #203566;
+}
+
+/* CAIXAS DE GRUPO (Componentes e Regras) */
+.caixa-grupo {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fcfcfc;
+}
+
+.titulo-grupo {
+    font-size: 14px;
+    font-weight: 600;
+    color: #14213D;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.componentes-lista {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.componente-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.caixa-comp {
+    width: 70px;
+    height: 70px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    font-weight: 600;
+    color: #14213D;
+    transition: 0.2s;
+}
+
+.componente-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.componente-item:hover .caixa-comp {
+    border-color: #203566;
+    background: #f0f4ff;
+}
+
+/* BOTÃO GUARDAR */
+.btn-salvar-modal {
+    width: 100%;
+    padding: 14px;
+    background: orangered;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.btn-salvar-modal:hover {
+    background: #FF5A1F;
+}
+
+.modal-notificacoes-content {
+    max-width: 420px;
+}
+.notificacoes-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.alerta-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background: #fcfcfc;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    transition: 0.2s;
+}
+.alerta-card:hover {
+    border-color: #203566;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.alerta-icone {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+.alerta-icone.vermelha { background: #ff4d4d; }
+.alerta-icone.laranja { background: #ffa600; }
+.alerta-icone.verde { background: #00cc66; }
+.alerta-texto b {
+    font-size: 15px;
+    color: #14213D;
+    display: block;
+    margin-bottom: 4px;
+}
+.alerta-texto p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
 }
