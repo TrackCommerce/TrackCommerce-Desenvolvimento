@@ -136,6 +136,10 @@ body{
 
 /* RESPONSIVIDADE */
 @media (max-width: 1024px){
+    .container{
+        padding-left: 80px;
+    }
+
     .logo h2,
     .item span,
     .info{
@@ -169,7 +173,7 @@ body{
 @media (max-width: 768px){
     .container{
         flex-direction: column;
-        padding-left: 0;
+        padding-left: 80px;
     }
 
     .sidebar{

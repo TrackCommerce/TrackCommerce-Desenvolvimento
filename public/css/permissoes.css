@@ -213,14 +213,14 @@ body {
 @media (max-width: 1024px) {
 
     .container {
-        padding-left: 90px;
+        padding-left: 80px;
     }
 }
 
 @media (max-width: 768px) {
 
     .container {
-        padding-left: 70px;
+        padding-left: 80px;
     }
 
     .linha {
@@ -239,7 +239,7 @@ body {
 @media (max-width: 480px) {
 
     .container {
-        padding-left: 60px;
+        padding-left: 80px;
     }
 
     .conteudo {

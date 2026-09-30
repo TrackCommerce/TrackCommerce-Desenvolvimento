@@ -28,7 +28,15 @@ main {
 
 .container-main {
     display: flex;
-    margin-left: 260px;
+    width: 100%;
+    min-height: 100vh;
+    padding-left: 250px;
+}
+
+@media (max-width: 1024px) {
+    .container-main {
+        padding-left: 80px;
+    }
 }
 
 .container-main .inicio-sessao {

@@ -11,130 +11,14 @@ body{
  
 .app{
     display:flex;
+    padding-left: 250px;
 }
- 
-/* SIDEBAR */
- 
-.sidebar{
-    width: 260px;
-    height: 100vh;
-    background: #14213D;
-    padding: 22px 18px;
-    display: flex;
-    flex-direction: column;
+
+@media (max-width: 1024px) {
+  .app {
+    padding-left: 80px;
+  }
 }
- 
-/* LOGO */
- 
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 35px;
-}
- 
-.logo-img{
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-}
- 
-.logo-img img{
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-}
- 
-.logo h2{
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-}
- 
-/* MENU */
- 
-.menu{
-    display: flex;
-    flex-direction: column;
-}
- 
-.item{
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #AEB8CE;
-    padding: 5px;
-    border-radius: 10px;
-    position: relative;
-}
- 
-.item:hover{
-    background-color: #203566;
-    transition: 0.2s;
-}
- 
-.item span{
-    font-size: 16px;
-}
- 
- 
-.icone img{
-    width: 40%;
-    height: 40%;
-}
- 
-/* ITEM ATIVO */
- 
-.ativo{
-    background: #203566;
-    color: white;
-}
- 
-.ativo::after{
-    content: "";
-    width: 4px;
-    height: 18px;
-    background: orangered;
-    border-radius: 4px;
-    position: absolute;
-    right: 12px;
-}
- 
-/* USUÁRIO */
- 
-.usuario{
-    margin-top: auto;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
- 
-.foto{
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #D9D9D9;
-}
- 
-.foto img{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
- 
-.info h3{
-    color: white;
-    font-size: 15px;
-    margin-bottom: 2px;
-}
- 
-.info p{
-    color: #8C97B0;
-    font-size: 13px;
-}
- 
  
 /* CONTEÚDO */
 .conteudo {
@@ -329,4 +213,3 @@ h1 {
 .btn-sim:hover{
   background: #e64a19;
 }
- 

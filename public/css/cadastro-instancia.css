@@ -28,6 +28,10 @@ body {
     min-height: 100vh;
 }
 
+.cadastro-instancia-layout {
+    padding-left: 250px;
+}
+
 
 /* CONTEÚDO */
 
@@ -449,6 +453,10 @@ body {
 /* TABLET */
 
 @media (max-width: 1024px) {
+
+    .cadastro-instancia-layout {
+        padding-left: 80px;
+    }
 
     .container-cadastro {
         padding: 25px;
