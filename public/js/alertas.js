@@ -1,4 +1,4 @@
-// Mock do Webhook do Jira simulando retorno da API
+// dados simulados da api do jira
 const mockData = [
     { data: "18/08/2026 20:20:44", servidor: "Server 05", componente: "Disco", tipo: "Espaço em disco", severidade: "Crítico", status: "Pendente", reincidente: false },
     { data: "18/08/2026 20:12:12", servidor: "API Gateway", componente: "Rede / Latência", tipo: "Pico de Latência", severidade: "Aviso", status: "Em Investigação", reincidente: false },
@@ -16,12 +16,12 @@ const mockData = [
     { data: "18/08/2026 09:10:05", servidor: "Server 01", componente: "Processamento (CPU)", tipo: "Pico de uso", severidade: "Crítico", status: "Resolvido", reincidente: false }
 ];
 
-// Estado global
+// estado global
 let alertasFiltrados = [...mockData];
 let paginaAtual = 1;
 const itensPorPagina = 5;
 
-// Inicialização
+// inicializacao
 document.addEventListener('DOMContentLoaded', () => {
     calcularKPIs();
     renderizarTabela();
@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function calcularKPIs() {
     const total = mockData.length;
 
-    // Total de alertas
+    // total de alertas
     const elTotal = document.getElementById("totalAlertasHoje");
     if (elTotal) elTotal.textContent = total;
 
-    // Chamados Jira não respondidos (Pendente + Em Investigação)
+    // chamados nao respondidos no jira
     const naoRespondidos = mockData.filter(a => a.status === "Pendente" || a.status === "Em Investigação").length;
     const elChamados = document.getElementById("chamadosNaoRespondidos");
     if (elChamados) {
@@ -44,8 +44,8 @@ function calcularKPIs() {
         elChamados.style.color = naoRespondidos > 5 ? "#ef4444" : (naoRespondidos >= 3 ? "#f59e0b" : "#10b981");
     }
 
-    // Taxa de Reincidência (24h) calculada a partir do JSON
-    // Conta quantos alertas no JSON têm a flag reincidente: true (ou servidores repetidos)
+    // taxa de reincidencia em 24h
+    // conta alertas reincidentes ou servidores repetidos
     const contagemServidores = {};
     mockData.forEach(a => {
         contagemServidores[a.servidor] = (contagemServidores[a.servidor] || 0) + 1;
@@ -62,7 +62,7 @@ function calcularKPIs() {
         elReinc.textContent = taxaReinc + "%";
     }
 
-    // Taxa de Resolução (24h) calculada a partir do JSON (status === "Resolvido")
+    // taxa de resolucao em 24h
     const totalResolvidos = mockData.filter(a => a.status === "Resolvido").length;
     const taxaRes = total > 0 ? ((totalResolvidos / total) * 100).toFixed(1) : "0.0";
     const elRes = document.getElementById("taxaResolucao");
@@ -122,11 +122,11 @@ function atualizarPaginacao() {
         info.textContent = `Mostrando ${inicio} a ${fim} de ${alertasFiltrados.length} alertas`;
     }
 
-    // Botões Anterior/Próximo
+    // botoes anterior e proximo
     document.getElementById("btnPrev").disabled = paginaAtual === 1;
     document.getElementById("btnNext").disabled = paginaAtual === totalPaginas || totalPaginas === 0;
 
-    // Números das páginas
+    // numeros das paginas
     const containerNum = document.getElementById("pageNumbers");
     containerNum.innerHTML = "";
     for (let i = 1; i <= totalPaginas; i++) {
@@ -138,7 +138,7 @@ function atualizarPaginacao() {
     }
 }
 
-// Configurar botões Prev/Next
+// acao dos botoes anterior e proximo
 document.getElementById("btnPrev").onclick = () => {
     if (paginaAtual > 1) { paginaAtual--; renderizarTabela(); }
 };
@@ -184,7 +184,7 @@ function inicializarGrafico() {
 
     const total = mockData.length;
 
-    // Categorias de componentes esperadas no monitoramento
+    // categorias dos componentes monitorados
     const categorias = [
         {
             nome: 'Processamento (CPU)',
@@ -208,7 +208,7 @@ function inicializarGrafico() {
         }
     ];
 
-    // Calcula a quantidade real de ocorrências e a porcentagem relativa ao total de alertas do JSON
+    // calcula a porcentagem de cada componente
     const distribuicao = categorias.map(cat => {
         const quantidade = mockData.filter(a => cat.match(a.componente)).length;
         const porcentagem = total > 0 ? Math.round((quantidade / total) * 100) : 0;
@@ -221,7 +221,7 @@ function inicializarGrafico() {
         };
     });
 
-    // Renderiza as barras com as porcentagens e larguras dinâmicas
+    // renderiza as barras do grafico
     container.innerHTML = distribuicao.map(item => `
         <div class="comp-item">
             <div class="comp-header">

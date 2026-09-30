@@ -21,7 +21,7 @@ body {
     padding-left: 260px;
 }
 
-/* SIDEBAR */
+/* barra lateral */
 .sidebar {
     position: fixed;
     top: 0;
@@ -59,7 +59,7 @@ body {
     font-weight: bold;
 }
 
-/* MENU */
+/* menu */
 .menu {
     display: flex;
     flex-direction: column;
@@ -105,7 +105,7 @@ body {
     font-size: 16px;
 }
 
-/* ITEM ATIVO */
+/* item ativo */
 .ativo {
     background: #203566;
     color: white;
@@ -121,7 +121,7 @@ body {
     right: 12px;
 }
 
-/* USUÁRIO */
+/* usuario */
 .usuario {
     margin-top: auto;
     padding-top: 18px;
@@ -155,7 +155,7 @@ body {
     font-size: 13px;
 }
 
-/* CONTEÚDO */
+/* conteudo */
 .conteudo-principal {
     flex: 1;
     display: flex;
@@ -191,7 +191,7 @@ body {
     font-weight: 700;
 }
 
-/* KPI CARDS */
+/* cards de kpi */
 .kpi-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -235,7 +235,7 @@ body {
     font-weight: 400;
 }
 
-/* FILTER BAR */
+/* barra de filtros */
 .filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -298,7 +298,7 @@ body {
     background: white;
 }
 
-/* TABLE */
+/* tabela */
 .table-container {
     background: white;
     border: 1px solid #e2e8f0;
@@ -334,7 +334,7 @@ body {
     border-bottom: none;
 }
 
-/* Status and Severity badges */
+/* status e severidade */
 .sev-critico::before,
 .sev-aviso::before {
     content: '';
@@ -391,7 +391,7 @@ body {
     font-weight: normal;
 }
 
-/* PAGINATION */
+/* paginacao */
 .pagination {
     display: flex;
     justify-content: space-between;
@@ -455,7 +455,7 @@ body {
     background: #f1f5f9;
 }
 
-/* RIGHT PANEL */
+/* painel lateral */
 .right-panel h3 {
     font-size: 16px;
     color: #0f172a;
@@ -551,7 +551,7 @@ body {
     line-height: 1.5;
 }
 
-/* RESPONSIVIDADE */
+/* responsividade */
 @media (max-width: 1300px) {
     .kpi-cards {
         grid-template-columns: repeat(2, 1fr);
