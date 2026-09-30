@@ -192,7 +192,7 @@ body {
 }
 
 .sessao-card .formulario .caixa-texto {
-    width: 100%;
+    width: min(450px, 100%);
 }
 
 .sessao-card .formulario .caixa-texto .sub-titulo-formulario {
