@@ -82,7 +82,7 @@
     </button>
   </header>
 
-  <!-- Status e uptime -->
+  
   <section class="row" aria-label="Resumo do sistema">
     <div class="card stat">
       <span class="label">Status do sistema</span>
@@ -94,13 +94,13 @@
     </div>
   </section>
 
-  <!-- CPU e RAM -->
+  
   <section class="row" aria-label="Uso de CPU e RAM">
     <div class="card">
       <h2 class="card-title">CPU</h2>
       <div class="metric">
         <div class="spark-wrap">
-          <img class="spark" src="../assets/imgs/grafico.svg" alt="">
+         <div class="chart-box"><canvas id="grafico-cpu"></canvas></div>
           <div class="axis"><span>00:00</span><span>12:00</span><span>Ativo</span></div>
         </div>
         <span class="big">80%</span>
@@ -110,26 +110,38 @@
       <h2 class="card-title">RAM</h2>
       <div class="metric">
         <div class="spark-wrap">
-          <img class="spark" src="../assets/imgs/grafico.svg" alt="">
+          <div class="chart-box"><canvas id="grafico-ram"></canvas></div>
           <div class="axis"><span>00:00</span><span>12:00</span><span>Ativo</span></div>
         </div>
-        <span class="big">67%</span>
+        <span class="big" id="valor-ram">67%</span>
       </div>
     </div>
   </section>
 
-  <!-- Volume I/O -->
+
   <section class="card" aria-label="Volume de entrada e saída">
     <h2 class="card-title">Volume I/O</h2>
     <div class="io-grid">
-      <div><span class="label">Disk read MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
-      <div><span class="label">Disk write MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
-      <div><span class="label">Rede download MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
-      <div><span class="label">Rede upload MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
+    <div>
+        <span class="label">Disk read MB/m</span>
+        <div class="chart-box"><canvas id="grafico-disk-read"></canvas></div>
+      </div>
+      <div>
+        <span class="label">Disk write MB/m</span>
+        <div class="chart-box"><canvas id="grafico-disk-write"></canvas></div>
+      </div>
+      <div>
+        <span class="label">Rede download MB/m</span>
+        <div class="chart-box"><canvas id="grafico-net-down"></canvas></div>
+      </div>
+      <div>
+        <span class="label">Rede upload MB/m</span>
+        <div class="chart-box"><canvas id="grafico-net-up"></canvas></div>
+      </div>
     </div>
   </section>
 
-  <!-- Top 5 processos -->
+  
   <section class="card" aria-label="Top 5 processos">
     <h2 class="card-title">Top 5 processos</h2>
     
@@ -148,5 +160,7 @@
   </section>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="../js/dashboard-geral.js"></script>
 </body>
 </html>
