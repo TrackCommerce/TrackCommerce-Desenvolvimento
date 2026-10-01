@@ -33,6 +33,13 @@
     display: flex;
     flex-direction: row;
     background-color: #F7F8FA;
+    padding-left: 250px;
+}
+
+@media (max-width: 1024px) {
+    .pagina {
+        padding-left: 80px;
+    }
 }
 
 .main-info-dash {
