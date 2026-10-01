@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/icon/logo.png">
+    <link rel="stylesheet" href="./css/alertas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Alertas</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="./assets/icon/logo.png" alt="Logo">
+                </div>
+                <h2>TrackCommerce</h2>
+            </div>
+
+            <nav class="menu">
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/home.png" alt="">
+                    </div>
+                    <span>Painel</span>
+                </a>
+                <a href="selecionar-servidor.html" class="item ativo">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Servidores Ativos</span>
+                </a>
+                <a href="desenvolvimento.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/bell.png" alt="">
+                    </div>
+                    <span>Alertas</span>
+                </a>
+                <a href="lista-instancia.html" class="item" ativo>
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Listagem de Servidores</span>
+                </a>
+                <a href="permissoes.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/chave-permissao.png" alt="">
+                    </div>
+                    <span>Permissões de Grupos</span>
+                </a>
+                <a href="cadastro-instancia.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/server.png" alt="">
+                    </div>
+                    <span>Cadastro de Servidores</span>
+                </a>
+                <a href="registroFunc.html" class="item">
+                    <div class="icone">
+                        <img src="./assets/imgs/cadastro.png" alt="">
+                    </div>
+                    <span>Cadastro de Funcionários</span>
+                </a>
+            </nav>
+
+            <div class="usuario">
+                <div class="foto">
+                    <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+                </div>
+                <div class="info">
+                    <h3>Usuário</h3>
+                    <p>Cargo</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="conteudo-principal">
+            <div class="main-panel">
+                <div class="cabecalho-tela">
+                    <h1>Histórico de Alertas</h1>
+                </div>
+
+                <div class="kpi-cards">
+                    <div class="kpi-card">
+                        <p>Total de Alertas (24h)</p>
+                        <h2 id="totalAlertasHoje">0</h2>
+                    </div>
+                    <div class="kpi-card">
+                        <p>Chamados Jira não respondidos</p>
+                        <h2><span id="chamadosNaoRespondidos">0</span> <span class="kpi-sub">em aberto</span></h2>
+                    </div>
+                    <div class="kpi-card">
+                        <p>Taxa de Reincidência(24h)</p>
+                        <h2 id="taxaReincidencia" style="color: #f59e0b;">0%</h2>
+                    </div>
+                    <div class="kpi-card">
+                        <p>Taxa de Resolução(24h)</p>
+                        <h2 id="taxaResolucao" style="color: #10b981;">0%</h2>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <div class="filter-search">
+                        <img src="./assets/imgs/search.svg" alt="" class="search-icon"
+                            onerror="this.style.display='none'">
+                        <input type="text" id="buscaInput" placeholder="Buscar alerta ou servidor...">
+                    </div>
+                    <div class="filter-group">
+                        <label>Componente:</label>
+                        <select id="filtroComponente">
+                            <option value="Todos">Todos</option>
+                            <option value="CPU">Processamento (CPU)</option>
+                            <option value="Memória RAM">Memória RAM</option>
+                            <option value="Disco">Armazenamento (Disco)</option>
+                            <option value="Rede / Latência">Rede / Latência</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Severidade:</label>
+                        <select id="filtroSeveridade">
+                            <option value="Ambos">Crítico & Aviso</option>
+                            <option value="Crítico">Crítico</option>
+                            <option value="Aviso">Aviso</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Período:</label>
+                        <select id="filtroPeriodo">
+                            <option value="24h">Últimas 24 horas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="alertas-table">
+                        <thead>
+                            <tr>
+                                <th>Data & Hora</th>
+                                <th>Servidor / Ativo</th>
+                                <th>Componente</th>
+                                <th>Tipo de Alerta</th>
+                                <th>Severidade</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaBody">
+                            <!-- preenchido via js -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <span id="paginationInfo">Mostrando 1 a 5 de 0 alertas</span>
+                        <div class="pagination-buttons">
+                            <button id="btnPrev">Anterior</button>
+                            <div id="pageNumbers" class="page-numbers"></div>
+                            <button id="btnNext">Próximo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <h3>Distribuição por Componente</h3>
+                <div class="chart-container" id="chartComponentes">
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <span class="insight-icon">!</span>
+                        <h4>Insight Operacional</h4>
+                    </div>
+                    <p>O servidor <strong>Cluster-BD-01</strong> registrou a maior frequência de alertas críticos de
+                        disco nos últimos 7 dias. Recomendamos análise preventiva de logs e limpeza de logs temporários
+                        de transações.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/alertas.js"></script>
+</body>
+
+</html>

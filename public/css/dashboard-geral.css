@@ -1,3 +1,4 @@
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { font-family: "Outfit", sans-serif; background: #f7f8fa; color: #1a2233; }
@@ -187,6 +188,170 @@ grid-template-columns: 1fr 1fr;
 gap: 14px 40px; 
 margin-top: 14px; 
     }
+=======
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cores usadas */
+
+.cor-verde-servidor{
+    color: #10B981;
+    background-color: #E6F4EA ;
+}
+.cor-amarela-servidor{
+    color: #F59E0B;
+    background-color: #FFFBEB;
+}
+.cor-vermelha-servidor{
+    color: #f50b0b;
+    background-color:#ffebeb ;
+}
+
+.cor-verde-alerta{
+    background-color: #10B981;
+}
+.cor-amarela-alerta{
+    background-color: #F59E0B;
+}
+.cor-vermelha-alerta{
+    background-color: #EF4444;
+}
+
+.pagina {
+    display: flex;
+    flex-direction: row;
+    background-color: #F7F8FA;
+    padding-left: 250px;
+}
+
+@media (max-width: 1024px) {
+    .pagina {
+        padding-left: 80px;
+    }
+}
+
+.main-info-dash {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+min-width: 0;
+}
+
+
+.div_ambientes_geral{
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: #fff;
+    
+}
+.ambiente_titulo{
+    font-size: 1.4rem;
+    font-weight: bold;  
+}
+
+.ambiete_desc{
+    font-size: 0.8rem;
+     color: #6B7280;
+}
+
+.card-geral-servidores{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0rem;
+    gap: 1rem;
+}
+
+.card-unico-servidor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem ;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);  
+    border-radius: 8px;
+    gap: 1rem;
+   
+}
+
+.card-unico-servidor img{
+   
+    border-radius: 8px;
+    padding: 0.5rem;
+   height: 2rem;
+    width: 2rem;
+    box-sizing: content-box;
+}
+
+.info-geral-card{
+    display: flex;
+     min-width: 0;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.info-superior-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+}
+.titulo-card{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.status-card{
+    font-size: 0.7rem;
+    font-weight: bold;
+    
+    padding: 0.2rem 0.8rem;
+    border-radius: 8px;
+
+}
+
+.desc-card{
+    font-size: 0.8rem;
+    color: #6B7280;
+}
+
+
+.card-unico-servidor a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #ff5400;
+    border-radius: 100%;
+    padding: 0.8rem;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-left: auto;
+}
+
+
+
+/* CSS DO ALERTA COMEÇA AQUI!!!!!!!*/
+.div-alerta-geral{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.5rem;
+    background-color: #F8F9FB;
+  border-left: 0.1px solid rgb(0, 0, 0, 0.1);
+}
+
+.titulo-geral-alerta{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 .io-grid .chart-box { max-width: 300px; }
 
@@ -202,5 +367,12 @@ th, td { padding: 10px;
 th { background: #f4f6f9; 
     text-align: left; 
 }
+ dashboard
 .num { text-align: right; }
 .pid { color: #6b7486; }
+=======
+.desc-alerta{
+    color: #6B7280;
+    font-size: 0.8rem;
+}
+

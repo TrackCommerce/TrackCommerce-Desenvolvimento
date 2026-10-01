@@ -1,263 +1,294 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>TrackCommerce | Selecionar Servidor</title>
-
     <link rel="icon" href="./assets/icon/logo.png">
     <link rel="stylesheet" href="./css/selecionar-servidores.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-         <aside class="sidebar">
-
+        <aside class="sidebar">
             <div class="logo">
                 <div class="logo-img">
-                    <img src="./assets/icon/logo.png" alt="Logo"> 
+                    <img src="./assets/icon/logo.png" alt="Logo">
                 </div>
-
                 <h2>TrackCommerce</h2>
             </div>
 
             <nav class="menu">
-
                 <a href="desenvolvimento.html" class="item">
                     <div class="icone">
                         <img src="./assets/imgs/home.png" alt="">
                     </div>
                     <span>Painel</span>
                 </a>
-
                 <a href="selecionar-servidor.html" class="item ativo">
                     <div class="icone">
                         <img src="./assets/imgs/server.png" alt="">
                     </div>
                     <span>Servidores Ativos</span>
                 </a>
-
                 <a href="desenvolvimento.html" class="item">
                     <div class="icone">
                         <img src="./assets/imgs/bell.png" alt="">
                     </div>
                     <span>Alertas</span>
                 </a>
-
                 <a href="lista-instancia.html" class="item" ativo>
                     <div class="icone">
                         <img src="./assets/imgs/server.png" alt="">
                     </div>
                     <span>Listagem de Servidores</span>
                 </a>
-
                 <a href="permissoes.html" class="item">
                     <div class="icone">
                         <img src="./assets/imgs/chave-permissao.png" alt="">
                     </div>
                     <span>Permissões de Grupos</span>
                 </a>
-
                 <a href="cadastro-instancia.html" class="item">
                     <div class="icone">
                         <img src="./assets/imgs/server.png" alt="">
                     </div>
                     <span>Cadastro de Servidores</span>
                 </a>
-
                 <a href="registroFunc.html" class="item">
                     <div class="icone">
                         <img src="./assets/imgs/cadastro.png" alt="">
                     </div>
                     <span>Cadastro de Funcionários</span>
                 </a>
-
             </nav>
 
             <div class="usuario">
-
                 <div class="foto">
                     <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
                 </div>
-
                 <div class="info">
                     <h3>Usuário</h3>
                     <p>Cargo</p>
                 </div>
-
             </div>
-
         </aside>
 
-    <main class="conteudo">
+        <main class="conteudo">
 
-        <h1>Selecionar Ambiente do Servidor</h1>
-
-        <p class="descricao">
-            Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
-        </p>
-
-        <div id="instancia"></div>
-
-        <!-- <div class="card">
-
-            <div class="icone verde"><img src="./assets/imgs/carrinho.png" alt=""></div>
-
-            <div class="texto">
-                <h3>Servidor de Checkout</h3>
-
-                <span class="status verde-texto">SAUDÁVEL</span>
-
-                <p>
-                    Processa pagamentos do carrinho do usuário,
-                    gerenciando gateways de pedidos e verificação
-                    de pagamento em tempo real.
-                </p>
+            <div class="cabecalho-tela">
+                <div>
+                    <h1>Selecionar Ambiente do Servidor</h1>
+                    <p class="descricao">
+                        Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
+                    </p>
+                </div>
+                <button class="btn-sino" onclick="abrirModalNotificacoes()">
+                    <img src="./assets/imgs/bell.svg" alt="Notificações">
+                </button>
             </div>
 
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+            <div id="instancia"></div>
 
-        </div>
-
-        <div class="card">
-
-            <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
-
-            <div class="texto">
-                <h3>Servidor de Banco de Dados</h3>
-
-                <span class="status amarelo-texto">ATENÇÃO</span>
-
-                <p>
-                    Cluster principal do banco de dados com logs mestres
-                    e credenciais de clientes. Processos de reindexação
-                    podem apresentar lentidão.
-                </p>
+            <div class="card">
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
+                <div class="icone verde"><img src="./assets/imgs/carrinho.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Servidor de Checkout</h3>
+                        <span class="status verde-texto">SAUDÁVEL</span>
+                    </div>
+                    <p>
+                        Processa pagamentos do carrinho do usuário,
+                        gerenciando gateways de pedidos e verificação
+                        de pagamento em tempo real.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
             </div>
 
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
-
-        </div>
-
-        <div class="card">
-
-            <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
-
-            <div class="texto">
-                <h3>Gateway de API</h3>
-
-                <span class="status verde-texto">SAUDÁVEL</span>
-
-                <p>
-                    Distribui regras de roteamento para microsserviços
-                    principais. Camada de cache operando normalmente.
-                </p>
+            <div class="card">
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
+                <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Servidor de Banco de Dados</h3>
+                        <span class="status amarelo-texto">ATENÇÃO</span>
+                    </div>
+                    <p>
+                        Cluster principal do banco de dados com logs mestres
+                        e credenciais de clientes. Processos de reindexação
+                        podem apresentar lentidão.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
             </div>
 
-            <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+            <div class="card">
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
+                <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Gateway de API</h3>
+                        <span class="status verde-texto">SAUDÁVEL</span>
+                    </div>
+                    <p>
+                        Distribui regras de roteamento para microsserviços
+                        principais. Camada de cache operando normalmente.
+                    </p>
+                </div>
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+            </div>
+        </main>
 
-        </div> -->
+    </div>
 
-    </main>
+    <div class="modal-overlay" id="modalEditar">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Servidor</h2>
+                <button class="btn-fechar" onclick="fecharModal()">&times;</button>
+            </div>
 
-    <aside class="direita">
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Editar nome:</label>
+                        <input type="text" id="ipt_nome" placeholder="Ex: Servidor de Checkout">
+                    </div>
+                    <div class="form-group">
+                        <label>Editar identificador:</label>
+                        <input type="text" id="ipt_identificador" placeholder="Ex: SRV-01">
+                    </div>
+                </div>
 
-        <div class="topo-alerta">
-            <h3>Alertas Recentes</h3>
-            <a href="">Ver Todos</a>
-        </div>
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label>Editar descrição:</label>
+                    <input type="text" id="ipt_descricao" placeholder="Descrição do servidor...">
+                </div>
 
-        <div class="alerta">
-            <div class="bola vermelha"></div>
+                <div class="caixa-grupo">
+                    <label class="titulo-grupo">Editar componentes monitorados:</label>
+                    <div class="componentes-lista">
+                        <label class="componente-item">
+                            <div class="caixa-comp">CPU</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                        <label class="componente-item">
+                            <div class="caixa-comp">RAM</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                        <label class="componente-item">
+                            <div class="caixa-comp">Rede</div>
+                            <input type="checkbox" name="comp">
+                        </label>
+                    </div>
+                </div>
 
-            <div>
-                <b>Espaço em Disco do BD Alto</b>
-                <p>Partição do banco de dados usando 91% da capacidade.</p>
+                <div class="caixa-grupo">
+                    <label class="titulo-grupo">Editar regras de alertas:</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Alerta percentual CPU:</label>
+                            <input type="text" placeholder="Ex: 80%">
+                        </div>
+                        <div class="form-group">
+                            <label>Alerta percentual RAM:</label>
+                            <input type="text" placeholder="Ex: 85%">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Alerta percentual Disco:</label>
+                            <input type="text" placeholder="Ex: 90%">
+                        </div>
+                        <div class="form-group">
+                            <label>Alerta Request rede:</label>
+                            <input type="text" placeholder="Ex: 500ms">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-salvar-modal" onclick="salvarEdicao(1)">Guardar Alterações</button>
             </div>
         </div>
+    </div>
 
-        <div class="alerta">
-            <div class="bola laranja"></div>
+    <div class="modal-overlay" id="modalNotificacoes">
+        <div class="modal-content modal-notificacoes-content">
+            <div class="modal-header">
+                <h2>Alertas</h2>
+                <button class="btn-fechar" onclick="fecharModalNotificacoes()">&times;</button>
+            </div>
 
-            <div>
-                <b>Pico de Latência</b>
-                <p>Tempo médio de resposta de 412ms.</p>
+            <div class="modal-body notificacoes-lista">
+
+                <div class="alerta-card">
+                    <div class="alerta-icone vermelha"></div>
+                    <div class="alerta-texto">
+                        <b>Espaço em Disco do BD Alto</b>
+                        <p>Partição do banco de dados usando 91% da capacidade.</p>
+                    </div>
+                </div>
+
+                <div class="alerta-card">
+                    <div class="alerta-icone laranja"></div>
+                    <div class="alerta-texto">
+                        <b>Pico de Latência</b>
+                        <p>Tempo médio de resposta de 412ms.</p>
+                    </div>
+                </div>
+
+                <div class="alerta-card">
+                    <div class="alerta-icone verde"></div>
+                    <div class="alerta-texto">
+                        <b>Backup Concluído</b>
+                        <p>Snapshot executado com sucesso hoje.</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="alerta">
-            <div class="bola verde"></div>
-
-            <div>
-                <b>Backup Concluído</b>
-                <p>Snapshot executado com sucesso.</p>
-            </div>
-        </div>
-
-        <div class="grafico">
-
-            <h3>Alertas e Incidentes</h3>
-
-            <p>Últimos 30 dias</p>
-
-            <canvas id="grafico-alertas"></canvas>
-
-
-        </div>
-
-    </aside>
-
-</div>
-    
-    <script src="./js/selecionar-servidor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        function redirecionar(){
-            window.location.href="./dashboard/dashboard-especifica.html"
+        function redirecionar() {
+            window.location.href = "./dashboard/dashboard-especifica.html"
         }
 
-        const ctx = document.getElementById("grafico-alertas");
+        function abrirModal() {
+            document.getElementById('modalEditar').style.display = 'flex';
+        }
+        function fecharModal() {
+            document.getElementById('modalEditar').style.display = 'none';
+        }
 
-        new Chart(ctx, {
-            type: "bar",
+        function abrirModalNotificacoes() {
+            document.getElementById('modalNotificacoes').style.display = 'flex';
+        }
+        function fecharModalNotificacoes() {
+            document.getElementById('modalNotificacoes').style.display = 'none';
+        }
 
-            data: {
-                labels: ["Latencia", "CPU", "Memória", "Disco"],
+        window.onclick = function (event) {
+            var modalEdicao = document.getElementById('modalEditar');
+            var modalNoti = document.getElementById('modalNotificacoes');
 
-                datasets: [{
-                    label: "Quantidade de Alertas",
-                    data: [12, 8, 15, 6],
-                    backgroundColor: "orangered",
-                    borderRadius: 6
-                }]
-            },
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            display: false
-                        }
-                    }
-                }
+            if (event.target == modalEdicao) {
+                fecharModal();
             }
-        });
+            if (event.target == modalNoti) {
+                fecharModalNotificacoes();
+            }
+        }
     </script>
+    <script src="./js/selecionar-servidor.js"></script>
 </body>
 </html>

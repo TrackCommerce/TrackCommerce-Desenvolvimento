@@ -9,26 +9,28 @@
 
     <link rel="stylesheet" href="./css/login.css">
     <link rel="icon" href="assets/icon/logo.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <main class="main-container">
         <div class="info-geral">
+            <a href="index.html" class="nome-logo">
+                <img src="assets/icon/logo.png" alt="Logo TrackCommerce">
+                <span><strong>Track</strong>Commerce</span>
+            </a>
+
             <div class="login-info">
-                <p class="nome-logo">TrackCommerce</p>
-                <p class="login-texto-introducao">Monitore sua infraestrutura com <span>precisão</span></p>
-                <p>Acompanhe o desempenho dos seus servidores, detecte problemas antes que impactem seu negócio e
-                    garanta a
-                    melhor experiência para seus clientes</p>
+                <h1 class="login-texto-introducao">Monitore sua<br>infraestrutura com<br><span>precisão</span></h1>
             </div>
+
             <div class="div-img-info">
                 <img src="assets/imgs/login-notebook.png" alt="notebook">
             </div>
-
         </div>
-
 
         <div class="form-geral">
             <div class="btn-voltar-geral">
@@ -36,51 +38,54 @@
                     <img src="assets/imgs/btn-seta.png" alt="">
                     <p>Voltar para o início</p>
                 </a>
-
             </div>
-            <form action="" class="form-login">
+
+            <form action="" class="form-login" onsubmit="event.preventDefault(); validacao_login();">
                 <span class="titulo-form">Entrar</span>
                 <p>Acesse sua conta para monitorar sua infraestrutura e proteger seu e-commerce.</p>
-                <div class="campo">
-                    <label for="" class="login-label">E-mail</label>
-                    <input type="text" id="ipt_email" placeholder="nome@empresa.com" class="login-input_email">
-                </div>
-                <div class="campo">
-                    <label for="" class="login-label">Senha</label>
-                    <div class="campo-senha">
-                        <input type="password" id="ipt_senha" placeholder="********" class="login-input_senha">
 
-                        <button type="button" class="btn-olho" onclick="mostrarSenha()">
+                <div class="campo">
+                    <label for="ipt_email" class="login-label">E-mail</label>
+                    <input type="email" id="ipt_email" placeholder="nome@empresa.com" class="login-input_email">
+                </div>
+
+                <div class="campo">
+                    <label for="ipt_senha" class="login-label">Senha</label>
+                    <div class="campo-senha">
+                        <input type="password" id="ipt_senha" placeholder="••••••••" class="login-input_senha">
+
+                        <button type="button" class="btn-olho" onclick="mostrarSenha()"
+                            aria-label="Mostrar ou ocultar senha">
                             <img id="img-olho" src="assets/imgs/olho-fechado.png" alt="">
                         </button>
                     </div>
                 </div>
 
                 <div class="div-btn-entrar">
-                    <button type="button" class="btn-entrar" onclick="validacao_login()">
+                    <button type="submit" class="btn-entrar">
                         Entrar
                     </button>
                 </div>
                 <div class="div_mensagem_erro" id="mensagem_aviso"></div>
             </form>
-
-
         </div>
     </main>
+
     <div id="modal_trocar_senha" style="display: none;" class="modal-container">
         <div class="modal-content">
             <h3>Primeiro Acesso Detectado</h3>
             <p>Sua senha atual é temporária. Crie uma nova senha para continuar.</p>
-            
+
             <div class="campo">
-                <label class="login-label">Nova Senha</label>
-                <input type="password" id="ipt_nova_senha" placeholder="Nova senha">
+                <label for="ipt_nova_senha" class="login-label">Nova Senha</label>
+                <input type="password" id="ipt_nova_senha" placeholder="Nova senha" class="login-input_senha">
             </div>
             <div class="campo">
-                <label class="login-label">Confirme a Nova Senha</label>
-                <input type="password" id="ipt_confirmar_senha" placeholder="Confirme a nova senha">
+                <label for="ipt_confirmar_senha" class="login-label">Confirme a Nova Senha</label>
+                <input type="password" id="ipt_confirmar_senha" placeholder="Confirme a nova senha"
+                    class="login-input_senha">
             </div>
-            
+
             <button type="button" class="btn-entrar" onclick="salvarNovaSenha()">Salvar Nova Senha</button>
             <div class="div_mensagem_erro" id="mensagem_aviso_modal"></div>
         </div>
@@ -88,13 +93,10 @@
 </body>
 
 </html>
-
 <script src="js/hash.js"></script>
 <script>
-    
     function mostrarSenha() {
-
-       let senha = document.getElementById("ipt_senha");
+        let senha = document.getElementById("ipt_senha");
         let olho = document.getElementById("img-olho");
 
         if (senha.type === "password") {
@@ -114,61 +116,58 @@
 
         let email = ipt_email.value.trim();
         let senha = ipt_senha.value.trim();
-        let senhaHash = cyrb53(senha).toString();
 
         if (email == "" || senha == "") {
             mensagem_aviso.innerHTML = "Digite e-mail e senha válidos";
             mensagem_aviso.style.display = "flex";
-            setTimeout(sumir_mensagem, 2000);
-        } else {
-            fetch("/usuario/autenticar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    emailServer: email,
-                    senhaServer: senhaHash
-                })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!");
-
-                if (resposta.ok) {
-                    console.log(resposta);
-
-                    resposta.json().then(json => {
-                        console.log(json);
-                        console.log(JSON.stringify(json));
-
-                        sessionStorage.EMAIL_USUARIO = json.email;
-                        sessionStorage.NOME_USUARIO = json.nome;
-                        sessionStorage.ID_USUARIO = json.id_usuario;
-                        sessionStorage.FK_EMPRESA = json.fk_empresa;
-                        sessionStorage.FK_CARGO = json.fk_cargo;
-
-                        if (json.primeiroAcesso) {
-                            idUsuarioTemporario = json.id_usuario;
-                            document.getElementById("modal_trocar_senha").style.display = "flex";
-                        } else {
-                            window.location.href = "selecionar-servidor.html";
-                        }
-                    });
-
-                } else {
-                    console.log("Houve um erro ao tentar realizar o login!");
-
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                        mensagem_aviso.innerHTML = texto || "Erro ao realizar o login!";
-                        mensagem_aviso.style.display = "flex";
-                        setTimeout(sumir_mensagem, 3000);
-                    });
-                }
-
-            }).catch(function (erro) {
-                console.log(erro);
-            });
+            setTimeout(sumir_mensagem, 2500);
+            return;
         }
+
+        let senhaHash = cyrb53(senha).toString();
+
+        fetch("/usuario/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senhaHash
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!");
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id_usuario;
+                    sessionStorage.FK_EMPRESA = json.fk_empresa;
+                    sessionStorage.FK_CARGO = json.fk_cargo;
+
+                    if (json.primeiroAcesso) {
+                        idUsuarioTemporario = json.id_usuario;
+                        document.getElementById("modal_trocar_senha").style.display = "flex";
+                    } else {
+                        window.location.href = "selecionar-servidor.html";
+                    }
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    mensagem_aviso.innerHTML = texto || "Erro ao realizar o login!";
+                    mensagem_aviso.style.display = "flex";
+                    setTimeout(sumir_mensagem, 3000);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        });
     }
 
     function salvarNovaSenha() {
@@ -206,11 +205,11 @@
             console.error(erro);
         });
     }
+
     function sumir_mensagem() {
-                let mensagem_aviso = document.getElementById("mensagem_aviso")
-
-        mensagem_aviso.style.display = "none";
+        let mensagem_aviso = document.getElementById("mensagem_aviso");
+        if (mensagem_aviso) {
+            mensagem_aviso.style.display = "none";
+        }
     }
-
-
 </script>

@@ -1,0 +1,190 @@
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: #14213D;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+/* LOGO */
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 35px;
+}
+
+.sidebar .logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+}
+
+.sidebar .logo-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.sidebar .logo h2 {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* MENU */
+
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.sidebar .item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: #AEB8CE;
+    text-decoration: none;
+    position: relative;
+}
+
+.sidebar .item:hover {
+    background-color: #203566;
+    color: white;
+    transition: 0.2s;
+}
+
+.sidebar .item img {
+    width: 22px;
+    height: 22px;
+}
+
+.sidebar .item span {
+    font-size: 16px;
+}
+
+/* ICONE */
+
+.sidebar .icone {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sidebar .icone img {
+    width: 22px;
+    height: 22px;
+}
+
+/* ITEM ATIVO */
+
+.sidebar .ativo {
+    background: #203566;
+    color: white;
+}
+
+.sidebar .ativo::after {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: orangered;
+    border-radius: 4px;
+    position: absolute;
+    right: 12px;
+}
+
+/* USUÁRIO */
+
+.sidebar .usuario {
+    position: absolute;
+    bottom: 25px;
+    left: 18px;
+    right: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar .foto {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    flex-shrink: 0;
+}
+
+.sidebar .foto img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.sidebar .info h3 {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.sidebar .info p {
+    color: #8C97B0;
+    font-size: 13px;
+}
+
+
+@media (max-width: 1024px) {
+
+    .sidebar {
+        width: 80px;
+        height: 100vh;
+        padding: 15px 8px;
+        align-items: center;
+    }
+
+    .sidebar .logo h2,
+    .sidebar .item span,
+    .sidebar .info {
+        display: none;
+    }
+
+    .sidebar .logo {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .sidebar .menu {
+        width: 100%;
+    }
+
+    .sidebar .item {
+        justify-content: center;
+        width: 100%;
+        padding: 12px 5px;
+    }
+
+    .sidebar .usuario {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 15px;
+        justify-content: center;
+    }
+
+}
