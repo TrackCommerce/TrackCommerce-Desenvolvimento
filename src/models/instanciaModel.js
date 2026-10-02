@@ -6,7 +6,7 @@ function listar(id) {
     var instrucaoSql = `
             SELECT i.id_instancia, 
 		            i.nome 
-                    FROM instancia AS i
+                    FROM instancias AS i
 		        JOIN empresa AS e ON i.fk_empresa = e.id_empresa
                 JOIN usuario AS u ON u.fk_empresa = e.id_empresa
                 WHERE id_usuario = ${id};
