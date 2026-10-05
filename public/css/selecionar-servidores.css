@@ -65,6 +65,12 @@ body{
     line-height:40px;
     font-size:28px;
     margin-right:20px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
 }
 
 .verde{
@@ -127,6 +133,19 @@ body{
     border: none;
     flex-shrink: 0;
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icone img,
+.botao img,
+.btn-editar img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .botao:hover{
