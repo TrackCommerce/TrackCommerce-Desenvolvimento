@@ -99,6 +99,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 28px;
 }
 
 .big {
@@ -107,7 +108,8 @@ h1 {
 }
 
 .spark-wrap {
-  width: 55%;
+  flex: 1;
+  min-width: 0;
 }
 
 .axis {
@@ -121,23 +123,29 @@ h1 {
   position: relative;
   width: 100%;
   height: 100px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.chart-box canvas {
+  display: block;
+  max-width: 100%;
 }
 
 .io-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px 40px;
+  gap: 24px 40px;
   margin-top: 14px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.io-grid > div {
+  min-width: 0;
 }
 
 .io-grid .chart-box {
-  max-width: 150px;
+  width: 100%;
+  height: 130px;
 }
 
 /* Tabela */
@@ -167,6 +175,23 @@ th {
 
 .pid {
   color: #6b7486;
+}
+
+.processes-card .card-title {
+  font-size: 24px;
+}
+
+.processes-card table {
+  font-size: 15px;
+}
+
+.processes-card th,
+.processes-card td {
+  padding: 14px 12px;
+}
+
+.processes-card th {
+  font-size: 13px;
 }
 
 
@@ -295,6 +320,28 @@ th {
 
   main {
     margin-left: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .metric {
+    position: relative;
+    display: block;
+  }
+
+  .big {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    font-size: 34px;
+  }
+
+  .processes-card {
+    overflow-x: auto;
+  }
+
+  .processes-card table {
+    min-width: 560px;
   }
 }
 
