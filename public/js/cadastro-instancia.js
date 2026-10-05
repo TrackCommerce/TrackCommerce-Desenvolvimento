@@ -159,8 +159,8 @@ let segundaEtapaCadastro = `
                                 <label for="checkbox_porcentagem_cpu">Porcentagem de Uso</label>
                             </div>
                             <div class="opcao">
-                                <input type="checkbox" id="checkbox_frequencia_cpu">
-                                <label for="checkbox_frequencia_cpu">Frequência do Processador</label>
+                                <input type="checkbox" id="checkbox_top_5">
+                                <label for="checkbox_top_5">Top 5 processos</label>
                             </div>
                         </div>
                     </div>
@@ -180,6 +180,9 @@ let segundaEtapaCadastro = `
                             <div class="opcao">
                                 <input type="checkbox" id="checkbox_disco_livre">
                                 <label for="checkbox_disco_livre">Quantidade de GB (Gigas) Livre</label>
+                            </div><div class="opcao">
+                                <input type="checkbox" id="checkbox_entrada_saida">
+                                <label for="checkbox_entrada_saida">Entrada e saida I/O</label>
                             </div>
                         </div>                        
                     </div>
@@ -196,10 +199,6 @@ let segundaEtapaCadastro = `
                                 <input type="checkbox" id="checkbox_porcentagem_ram">
                                 <label for="checkbox_porcentagem_ram">Porcentagem de Uso</label>
                             </div>
-                            <div class="opcao">
-                                <input type="checkbox" id="checkbox_ram_livre">
-                                <label for="checkbox_ram_livre">Quantidade de GB (Gigas) Livre</label>
-                            </div>
                         </div>                        
                     </div>
                     
@@ -212,10 +211,6 @@ let segundaEtapaCadastro = `
                         </div>
 
                          <div class="opcoes-monitoramento">
-                            <div class="opcao">
-                                <input type="checkbox" id="checkbox_latencia_rede">
-                                <label for="checkbox_latencia_rede">Latência da Rede</label>
-                            </div>
                             <div class="opcao">
                                 <input type="checkbox" id="checkbox_download_rede">
                                 <label for="checkbox_download_rede">Download da Rede</label>
@@ -363,13 +358,14 @@ function transicaoSegundaEtapa() {
 
 function transicaoTerceiraEtapa() {
     // Capturando cada checkbox do cadastro de componente
+    //TODO: Integrar com BD
+
     let checkboxPorcetangemCpu = document.querySelector("#checkbox_porcentagem_cpu");
-    let checkboxFrequenciaCpu = document.querySelector("#checkbox_frequencia_cpu");
     let checkboxPorcetagemDisco = document.querySelector("#checkbox_porcentagem_disco");
     let checkboxDiscoLivre = document.querySelector("#checkbox_disco_livre");
+    let checkboxEntradaSaida = document.querySelector("#checkbox_entrada_saida")
+    let checkboxTop5 = document.querySelector("#checkbox_top_5")
     let checkboxPorcentagemRam = document.querySelector("#checkbox_porcentagem_ram");
-    let checkboxRamLivre = document.querySelector("#checkbox_ram_livre");
-    let checkboxLatenciaRede = document.querySelector("#checkbox_latencia_rede");
     let checkboxDownloadRede = document.querySelector("#checkbox_download_rede");
     let checkboxUploadRede = document.querySelector("#checkbox_upload_rede");
 
