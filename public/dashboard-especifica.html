@@ -25,18 +25,11 @@
 
             <nav class="menu">
 
-                <a href="dashboard/dashboard-geral.html" class="item ativo">
+                <a href="selecionar-servidor.html" class="item ativo">
                     <div class="icone">
                         <img src="./assets/imgs/home.png" alt="">
                     </div>
                     <span>Painel</span>
-                </a>
-
-                <a href="selecionar-servidor.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/server.png" alt="">
-                    </div>
-                    <span>Servidores Ativos</span>
                 </a>
 
                 <a href="alertas.html" class="item">
@@ -44,13 +37,6 @@
                         <img src="./assets/imgs/bell.png" alt="">
                     </div>
                     <span>Alertas</span>
-                </a>
-
-                <a href="lista-instancia.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/server.png" alt="">
-                    </div>
-                    <span>Listagem de Servidores</span>
                 </a>
 
                 <a href="permissoes.html" class="item">
@@ -83,8 +69,7 @@
                 </div>
 
                 <div class="info">
-                    <h3>Usuário</h3>
-                    <p>Cargo</p>
+                    <h3 id="id_username"></h3>
                 </div>
 
             </div>
@@ -175,6 +160,7 @@
 
 </body>
 
+<script src="./js/sidebar.js"></script>
 <script>
     function abrir_menu(){
 
