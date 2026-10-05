@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackCommerce – Dashboard Rede</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard-rede.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-img">
+                <img src="../assets/icon/logo.png" alt="Logo">
+            </div>
+            <h2>TrackCommerce</h2>
+        </div>
+
+        <nav class="menu">
+            <a href="../selecionar-servidor.html" class="item ativo">
+                <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
+                <span>Painel</span>
+            </a>
+            <a href="../alertas.html" class="item">
+                <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
+                <span>Alertas</span>
+            </a>
+            <a href="../permissoes.html" class="item">
+                <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
+                <span>Permissões de Grupos</span>
+            </a>
+            <a href="../cadastro-instancia.html" class="item">
+                <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
+                <span>Cadastro de Servidores</span>
+            </a>
+            <a href="../registroFunc.html" class="item">
+                <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
+                <span>Cadastro de Funcionários</span>
+            </a>
+        </nav>
+
+        <div class="usuario">
+            <div class="foto">
+                <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
+            </div>
+            <div class="info">
+                <h3 id="id_username"></h3>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <h1 class="title-orange">DASHBOARD REDE</h1>
+            <div class="topbar-right">
+                <div class="server-selector" role="button" tabindex="0">
+                    <div class="server-selector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <div class="server-selector-text">
+                        <span class="server-selector-title">api-prod-01</span>
+                        <span class="server-selector-sub">São Paulo • sa-east-1</span>
+                    </div>
+                    <span class="server-selector-arrow">&#9662;</span>
+                </div>
+                <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
+                    <img src="../assets/imgs/menu.svg" alt="">
+                </button>
+            </div>
+        </header>
+
+        <section class="top-grid">
+            <article class="card connections-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Conexões ativas</h2>
+                        <p>Distribuição por estado da conexão TCP</p>
+                    </div>
+                    <span class="badge-pill">200 conexões</span>
+                </div>
+
+                <div class="connections-content">
+                    <div class="connections-chart">
+                        <canvas id="grafico-conexoes"></canvas>
+                    </div>
+                    <div class="connections-legend">
+                        <div class="connection-item">
+                            <div class="connection-description">
+                                <span><i class="legend-dot dot-established"></i>ESTABLISHED</span>
+                                <small>110 conexões</small>
+                            </div>
+                            <strong>55%</strong>
+                        </div>
+                        <div class="connection-item">
+                            <div class="connection-description">
+                                <span><i class="legend-dot dot-time-wait"></i>TIME_WAIT</span>
+                                <small>50 conexões</small>
+                            </div>
+                            <strong>25%</strong>
+                        </div>
+                        <div class="connection-item">
+                            <div class="connection-description">
+                                <span><i class="legend-dot dot-close-wait"></i>CLOSE_WAIT</span>
+                                <small>40 conexões</small>
+                            </div>
+                            <strong>20%</strong>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card packet-loss-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Perda de pacotes</h2>
+                        <p>Evolução dos pacotes perdidos no período</p>
+                    </div>
+                </div>
+                <div class="main-metric">
+                    <strong>36</strong>
+                    <span>pacotes em 2025</span>
+                </div>
+                <div class="packet-chart">
+                    <canvas id="grafico-pacotes-perdidos"></canvas>
+                </div>
+                <div class="chart-caption">
+                    <i class="legend-dot dot-line"></i>Pacotes perdidos
+                </div>
+            </article>
+        </section>
+
+        <section class="card traffic-card">
+            <div class="card-header traffic-header">
+                <div>
+                    <h2>Tráfego de dados</h2>
+                    <p>Volume transferido e quantidade de pacotes de entrada e saída</p>
+                </div>
+                <span class="badge-pill">2021 — 2025</span>
+            </div>
+
+            <div class="traffic-grid">
+                <article class="traffic-metric-card">
+                    <h3>Download GB</h3>
+                    <span class="metric-label">TOTAL EM 2025</span>
+                    <div class="traffic-value"><strong>36</strong><span>GB</span></div>
+                    <div class="traffic-chart"><canvas id="grafico-download-gb"></canvas></div>
+                    <div class="chart-caption"><i class="legend-dot dot-line"></i>Dados recebidos</div>
+                </article>
+
+                <article class="traffic-metric-card">
+                    <h3>Upload GB</h3>
+                    <span class="metric-label">TOTAL EM 2025</span>
+                    <div class="traffic-value"><strong>36</strong><span>GB</span></div>
+                    <div class="traffic-chart"><canvas id="grafico-upload-gb"></canvas></div>
+                    <div class="chart-caption"><i class="legend-dot dot-line"></i>Dados enviados</div>
+                </article>
+
+                <article class="traffic-metric-card">
+                    <h3>Download pacotes</h3>
+                    <span class="metric-label">TOTAL EM 2025</span>
+                    <div class="traffic-value"><strong>36</strong><span>mil pacotes</span></div>
+                    <div class="traffic-chart"><canvas id="grafico-download-pacotes"></canvas></div>
+                    <div class="chart-caption"><i class="legend-dot dot-line"></i>Pacotes recebidos</div>
+                </article>
+
+                <article class="traffic-metric-card">
+                    <h3>Upload pacotes</h3>
+                    <span class="metric-label">TOTAL EM 2025</span>
+                    <div class="traffic-value"><strong>36</strong><span>mil pacotes</span></div>
+                    <div class="traffic-chart"><canvas id="grafico-upload-pacotes"></canvas></div>
+                    <div class="chart-caption"><i class="legend-dot dot-line"></i>Pacotes enviados</div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <div class="menu-overlay" id="menu-overlay" hidden>
+        <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
+            <a href="dashboard-cpu.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_cpu.png" alt=""></div>
+                <div class="menu-opcao-texto"><strong>CPU</strong><span>Visão de processamento</span></div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-ram.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_ram.png" alt=""></div>
+                <div class="menu-opcao-texto"><strong>RAM</strong><span>Consumo de memória</span></div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-disk.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_disco.png" alt=""></div>
+                <div class="menu-opcao-texto"><strong>Disco</strong><span>Armazenamento e I/O</span></div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-rede.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_redes.png" alt=""></div>
+                <div class="menu-opcao-texto"><strong>Rede</strong><span>Tráfego e pacotes</span></div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/dashboard-rede.js"></script>
+    <script src="../js/modal.js"></script>
+</body>
+</html>
