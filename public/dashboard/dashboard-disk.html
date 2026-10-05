@@ -20,41 +20,29 @@
             <h2>TrackCommerce</h2>
         </div>
 
-        <p class="sidebar-section-title">MONITORAMENTO</p>
-
         <nav class="menu">
-            <a href="dashboard-geral.html" class="item ativo">
-                <div class="icone"><img src="../assets/imgs/painel.svg" alt=""></div>
+            <a href="../selecionar-servidor.html" class="item ativo">
+                <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
                 <span>Painel</span>
             </a>
 
-            <a href="../selecionar-servidor.html" class="item">
-                <div class="icone"><img src="../assets/imgs/servidores.svg" alt=""></div>
-                <span>Servidores Ativos</span>
-            </a>
-
             <a href="../alertas.html" class="item">
-                <div class="icone"><img src="../assets/imgs/alertas.svg" alt=""></div>
+                <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
                 <span>Alertas</span>
             </a>
 
-            <a href="../desenvolvimento.html" class="item">
-                <div class="icone"><img src="../assets/imgs/configuracoes.svg" alt=""></div>
-                <span>Configurações</span>
-            </a>
-
             <a href="../permissoes.html" class="item">
-                <div class="icone"><img src="../assets/imgs/icon-permissoes.png" alt=""></div>
+                <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
                 <span>Permissões de Grupos</span>
             </a>
 
             <a href="../cadastro-instancia.html" class="item">
-                <div class="icone"><img src="../assets/imgs/cadastro-servidores.svg" alt=""></div>
+                <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
                 <span>Cadastro de Servidores</span>
             </a>
 
             <a href="../registroFunc.html" class="item">
-                <div class="icone"><img src="../assets/imgs/cadastro-funcionarios.svg" alt=""></div>
+                <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
                 <span>Cadastro de Funcionários</span>
             </a>
         </nav>
@@ -64,10 +52,8 @@
                 <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
             </div>
             <div class="info">
-                <h3>Administrador</h3>
-                <p>DevOps Eng</p>
+                <h3 id="id_username"></h3>
             </div>
-            <span class="user-more" aria-label="Mais opções">···</span>
         </div>
     </aside>
 
@@ -330,6 +316,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="../js/sidebar.js"></script>
     <script src="../js/dashboard-disk.js"></script>
     <script src="../js/modal.js"></script>
 </body>
