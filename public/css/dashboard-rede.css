@@ -6,14 +6,9 @@
 
 body {
     min-height: 100vh;
-    font-family: "Outfit", sans-serif;
-    background: #f7f8fa;
     color: #172036;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
+    background: #f7f8fa;
+    font-family: "Outfit", sans-serif;
 }
 
 main {
@@ -22,82 +17,67 @@ main {
     padding: 34px 36px;
 }
 
-.topbar {
+.topbar,
+.topbar-right,
+.server-selector,
+.card-header,
+.main-value,
+.metric-value,
+.chart-legend {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+}
+
+.topbar {
+    justify-content: space-between;
     margin-bottom: 32px;
 }
 
-.title-orange {
+.topbar h1 {
     color: #ff5400;
     font-size: 26px;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
 }
 
 .topbar-right {
-    display: flex;
-    align-items: center;
     gap: 14px;
 }
 
 .server-selector {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    gap: 10px;
     padding: 7px 14px;
     background: #fff;
     border: 1px solid #e2e7ef;
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-.server-selector-icon {
+.server-selector div {
     display: flex;
-    width: 32px;
-    height: 32px;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.server-selector strong {
+    font-size: 13px;
+}
+
+.server-selector small {
+    color: #8b97ae;
+    font-size: 10px;
+}
+
+.server-icon {
+    padding: 6px 9px;
     color: #2563eb;
     background: #eef4fe;
     border-radius: 8px;
 }
 
-.server-selector-icon svg {
-    width: 18px;
-    height: 18px;
-}
-
-.server-selector-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.server-selector-title {
-    color: #172036;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.server-selector-sub {
+.selector-arrow {
     color: #8b97ae;
-    font-size: 10px;
-    line-height: 1.2;
-}
-
-.server-selector-arrow {
-    margin-left: 4px;
-    color: #8b97ae;
-    font-size: 12px;
 }
 
 .menu-btn {
     display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 8px 12px;
     background: #fff;
     border: 1px solid #e2e7ef;
@@ -106,7 +86,6 @@ main {
 }
 
 .menu-btn img {
-    display: block;
     width: 22px;
 }
 
@@ -130,16 +109,13 @@ main {
 }
 
 .card-header {
-    display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
 }
 
 .card-header h2 {
-    color: #172036;
     font-size: 16px;
-    font-weight: 700;
 }
 
 .card-header p {
@@ -148,7 +124,7 @@ main {
     font-size: 12px;
 }
 
-.badge-pill {
+.badge {
     padding: 5px 12px;
     color: #1261d8;
     background: #eaf2ff;
@@ -166,13 +142,12 @@ main {
     margin-top: 22px;
 }
 
-.connections-chart {
+.pie-chart {
     position: relative;
-    width: 100%;
     height: 220px;
 }
 
-.connections-legend {
+.connection-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -185,82 +160,70 @@ main {
     gap: 14px;
 }
 
-.connection-description {
+.connection-item > div {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.connection-description span {
+.connection-item span {
     display: flex;
     align-items: center;
-    color: #28334c;
     font-size: 11px;
     font-weight: 600;
 }
 
-.connection-description small {
+.connection-item small {
     padding-left: 16px;
     color: #8490a8;
     font-size: 10px;
 }
 
-.connection-item strong {
-    color: #172036;
-    font-size: 15px;
-}
-
-.legend-dot {
+.dot {
     display: inline-block;
     width: 8px;
     height: 8px;
     margin-right: 8px;
     border-radius: 50%;
-    flex-shrink: 0;
 }
 
-.dot-established,
-.dot-line {
+.established,
+.line-dot {
     background: #3b82f6;
 }
 
-.dot-time-wait {
+.time-wait {
     background: #8755ef;
 }
 
-.dot-close-wait {
+.close-wait {
     background: #18a5dd;
 }
 
-.main-metric {
-    display: flex;
+.main-value {
     align-items: baseline;
     gap: 8px;
     margin-top: 20px;
 }
 
-.main-metric strong {
-    color: #172036;
+.main-value strong {
     font-size: 32px;
-    font-weight: 800;
     line-height: 1;
 }
 
-.main-metric span {
+.main-value span,
+.metric-value span {
     color: #7d89a1;
     font-size: 11px;
 }
 
 .packet-chart {
     position: relative;
-    width: 100%;
     height: 164px;
     margin-top: 14px;
 }
 
-.chart-caption {
-    display: flex;
-    align-items: center;
+.chart-legend {
     margin-top: 10px;
     color: #68758e;
     font-size: 11px;
@@ -280,7 +243,7 @@ main {
     gap: 14px;
 }
 
-.traffic-metric-card {
+.metric-card {
     min-width: 0;
     padding: 16px;
     background: #f7f9fc;
@@ -288,147 +251,33 @@ main {
     border-radius: 14px;
 }
 
-.traffic-metric-card h3 {
+.metric-card h3 {
     margin-bottom: 18px;
-    color: #172036;
     font-size: 14px;
-    font-weight: 700;
 }
 
-.metric-label {
-    display: block;
-    margin-bottom: 6px;
+.metric-card > small {
     color: #77849d;
     font-size: 10px;
     font-weight: 700;
 }
 
-.traffic-value {
-    display: flex;
+.metric-value {
     align-items: baseline;
     gap: 7px;
+    margin-top: 6px;
 }
 
-.traffic-value strong {
+.metric-value strong {
     color: #1761d5;
     font-size: 30px;
-    font-weight: 800;
     line-height: 1;
 }
 
-.traffic-value span {
-    color: #77849d;
-    font-size: 10px;
-}
-
-.traffic-chart {
+.metric-chart {
     position: relative;
-    width: 100%;
     height: 165px;
     margin-top: 14px;
-}
-
-.menu-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1100;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 70px 36px 1rem;
-    background: rgba(0, 0, 0, 0.55);
-}
-
-.menu-overlay[hidden] {
-    display: none;
-}
-
-.menu-modal {
-    display: flex;
-    width: 100%;
-    max-width: 365px;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    background: #f1f2f4;
-    border-radius: 18px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-    animation: menuEntrada 0.2s ease;
-}
-
-@keyframes menuEntrada {
-    from {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-.menu-opcao {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 10px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.menu-opcao:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-.menu-opcao:focus-visible {
-    outline: 2px solid #ff5400;
-    outline-offset: 2px;
-}
-
-.menu-opcao-icone {
-    display: flex;
-    width: 48px;
-    height: 48px;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    background: #646f8c;
-    border-radius: 10px;
-}
-
-.menu-opcao-icone img {
-    width: 60%;
-    height: 60%;
-}
-
-.menu-opcao-texto {
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-opcao-texto strong {
-    font-size: 18px;
-    font-weight: 800;
-}
-
-.menu-opcao-texto span {
-    font-size: 13px;
-}
-
-.menu-opcao-seta {
-    display: flex;
-    width: 38px;
-    height: 38px;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    color: #fff;
-    background: #ff5400;
-    border-radius: 50%;
-    font-size: 14px;
 }
 
 @media (max-width: 1200px) {
@@ -436,12 +285,12 @@ main {
         grid-template-columns: 1fr;
     }
 
-    .connections-chart {
+    .pie-chart {
         height: 180px;
     }
 
     .traffic-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -455,11 +304,7 @@ main {
     }
 
     .connections-content {
-        grid-template-columns: minmax(190px, 1fr) minmax(210px, 1fr);
-    }
-
-    .connections-chart {
-        height: 220px;
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -469,8 +314,8 @@ main {
     }
 
     .topbar {
-        flex-direction: column;
         align-items: flex-start;
+        flex-direction: column;
         gap: 14px;
     }
 
@@ -482,24 +327,5 @@ main {
     .connections-content,
     .traffic-grid {
         grid-template-columns: 1fr;
-    }
-
-    .connections-legend {
-        padding: 0 10px;
-    }
-
-    .menu-overlay {
-        justify-content: center;
-        padding: 70px 1rem 1rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .menu-modal {
-        animation: none;
-    }
-
-    .menu-opcao {
-        transition: none;
     }
 }

@@ -1,269 +1,300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>TrackCommerce – Dashboard CPU</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/dashboard-geral.css" />
+		<link rel="stylesheet" href="../css/sidebar.css" />
+		<link rel="stylesheet" href="../css/dashboard-cpu.css" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TrackCommerce – Dashboard CPU</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="../css/dashboard-geral.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
-    <link rel="stylesheet" href="../css/dashboard-cpu.css">
-</head>
+	<body>
+		<aside class="sidebar">
+			<div class="logo">
+				<div class="logo-img">
+					<img src="../assets/icon/logo.png" alt="Logo" />
+				</div>
+				<h2>TrackCommerce</h2>
+			</div>
 
-<body>
+			<nav class="menu">
+				<a href="../selecionar-servidor.html" class="item ativo">
+					<div class="icone"><img src="../assets/imgs/home.png" alt="" /></div>
+					<span>Painel</span>
+				</a>
+				<a href="../alertas.html" class="item">
+					<div class="icone"><img src="../assets/imgs/bell.png" alt="" /></div>
+					<span>Alertas</span>
+				</a>
+				<a href="../permissoes.html" class="item">
+					<div class="icone">
+						<img src="../assets/imgs/chave-permissao.png" alt="" />
+					</div>
+					<span>Permissões de Grupos</span>
+				</a>
+				<a href="../cadastro-instancia.html" class="item">
+					<div class="icone">
+						<img src="../assets/imgs/server.png" alt="" />
+					</div>
+					<span>Cadastro de Servidores</span>
+				</a>
+				<a href="../registroFunc.html" class="item">
+					<div class="icone">
+						<img src="../assets/imgs/cadastro.png" alt="" />
+					</div>
+					<span>Cadastro de Funcionários</span>
+				</a>
+			</nav>
 
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-img">
-                <img src="../assets/icon/logo.png" alt="Logo">
-            </div>
-            <h2>TrackCommerce</h2>
-        </div>
+			<div class="usuario">
+				<div class="foto">
+					<img src="../assets/imgs/usuario-icone.webp" alt="Usuário" />
+				</div>
+				<div class="info">
+					<h3 id="id_username"></h3>
+				</div>
+			</div>
+		</aside>
 
-        <nav class="menu">
-            <a href="../selecionar-servidor.html" class="item ativo">
-                <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
-                <span>Painel</span>
-            </a>
-            <a href="../alertas.html" class="item">
-                <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
-                <span>Alertas</span>
-            </a>
-            <a href="../permissoes.html" class="item">
-                <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
-                <span>Permissões de Grupos</span>
-            </a>
-            <a href="../cadastro-instancia.html" class="item">
-                <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
-                <span>Cadastro de Servidores</span>
-            </a>
-            <a href="../registroFunc.html" class="item">
-                <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
-                <span>Cadastro de Funcionários</span>
-            </a>
-        </nav>
+		<main>
+			<header class="topbar">
+				<h1 style="color: #ea580c; font-weight: 800">DASHBOARD CPU</h1>
+				<button
+					class="menu-btn"
+					id="btn-menu"
+					aria-label="Abrir menu"
+					aria-haspopup="dialog"
+				>
+					<img src="../assets/imgs/menu.svg" alt="" />
+				</button>
+			</header>
 
-        <div class="usuario">
-            <div class="foto">
-                <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
-            </div>
-            <div class="info">
-                <h3 id="id_username"></h3>
-            </div>
-        </div>
-    </aside>
+			<div class="dashboard-cpu-layout">
+				<div class="col-esquerda">
+					<section class="card" aria-label="Uso de CPU Principal">
+						<h2 class="card-title">PORCENTAGEM CPU</h2>
+						<div class="metric horizontal-align">
+							<div class="chart-box">
+								<canvas id="grafico-cpu-principal"></canvas>
+							</div>
+							<div class="valor-destaque">
+								<span class="big">80%</span>
+								<span class="sub-label">USO ATUAL</span>
+							</div>
+						</div>
+					</section>
 
-    <main>
-        <header class="topbar">
-            <h1 style="color: #ea580c; font-weight: 800;">DASHBOARD CPU</h1>
-            <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
-                <img src="../assets/imgs/menu.svg" alt="">
-            </button>
-        </header>
+					<section class="card" aria-label="Load Average">
+						<h2 class="card-title">LOAD AVERAGE</h2>
+						<div class="chart-box full-width">
+							<canvas id="grafico-load-average"></canvas>
+						</div>
+					</section>
 
-        <div class="dashboard-cpu-layout">
+					<section class="card" aria-label="Top 5 processos CPU">
+						<h2 class="card-title">TOP 5 PROCESSOS CPU</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>PID</th>
+									<th>NAME</th>
+									<th class="num">CPU%</th>
+									<th class="num">RAM%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="pid">1094</td>
+									<td>Server 01</td>
+									<td class="num">32.4%</td>
+									<td class="num">18.1%</td>
+								</tr>
+								<tr>
+									<td class="pid">3029</td>
+									<td>node /app/server.js</td>
+									<td class="num">28.1%</td>
+									<td class="num">22.5%</td>
+								</tr>
+								<tr>
+									<td class="pid">4810</td>
+									<td>Server 02</td>
+									<td class="num">12.5%</td>
+									<td class="num">14.2%</td>
+								</tr>
+								<tr>
+									<td class="pid">847</td>
+									<td>Server 03</td>
+									<td class="num">4.2%</td>
+									<td class="num">8.4%</td>
+								</tr>
+								<tr>
+									<td class="pid">5221</td>
+									<td>Server 04</td>
+									<td class="num">2.8%</td>
+									<td class="num">3.8%</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+				</div>
 
-            <div class="col-esquerda">
+				<div class="col-direita">
+					<section class="card" aria-label="Uso de CPU por Núcleo">
+						<h2 class="card-title">USO POR NÚCLEO</h2>
+						<div class="cores-container">
+							<!-- Núcleo 1 -->
+							<div class="core-item">
+								<div class="core-header">
+									<span class="core-name">Core 1</span>
+									<span class="core-value">80%</span>
+								</div>
+								<div class="core-bar-bg">
+									<div
+										class="core-bar-fill"
+										style="width: 80%; background-color: #3b82f6"
+									></div>
+								</div>
+							</div>
 
-                <section class="card" aria-label="Uso de CPU Principal">
-                    <h2 class="card-title">PORCENTAGEM CPU</h2>
-                    <div class="metric horizontal-align">
-                        <div class="chart-box">
-                            <canvas id="grafico-cpu-principal"></canvas>
-                        </div>
-                        <div class="valor-destaque">
-                            <span class="big">80%</span>
-                            <span class="sub-label">USO ATUAL</span>
-                        </div>
-                    </div>
-                </section>
+							<!-- Núcleo 2 -->
+							<div class="core-item">
+								<div class="core-header">
+									<span class="core-name">Core 2</span>
+									<span class="core-value">45%</span>
+								</div>
+								<div class="core-bar-bg">
+									<div
+										class="core-bar-fill"
+										style="width: 45%; background-color: #8b5cf6"
+									></div>
+								</div>
+							</div>
 
-                <section class="card" aria-label="Load Average">
-                    <h2 class="card-title">LOAD AVERAGE</h2>
-                    <div class="chart-box full-width">
-                        <canvas id="grafico-load-average"></canvas>
-                    </div>
-                </section>
+							<!-- Núcleo 3 -->
+							<div class="core-item">
+								<div class="core-header">
+									<span class="core-name">Core 3</span>
+									<span class="core-value">60%</span>
+								</div>
+								<div class="core-bar-bg">
+									<div
+										class="core-bar-fill"
+										style="width: 60%; background-color: #f59e0b"
+									></div>
+								</div>
+							</div>
 
-                <section class="card" aria-label="Top 5 processos CPU">
-                    <h2 class="card-title">TOP 5 PROCESSOS CPU</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>PID</th>
-                                <th>NAME</th>
-                                <th class="num">CPU%</th>
-                                <th class="num">RAM%</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="pid">1094</td>
-                                <td>Server 01</td>
-                                <td class="num">32.4%</td>
-                                <td class="num">18.1%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">3029</td>
-                                <td>node /app/server.js</td>
-                                <td class="num">28.1%</td>
-                                <td class="num">22.5%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">4810</td>
-                                <td>Server 02</td>
-                                <td class="num">12.5%</td>
-                                <td class="num">14.2%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">847</td>
-                                <td>Server 03</td>
-                                <td class="num">4.2%</td>
-                                <td class="num">8.4%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">5221</td>
-                                <td>Server 04</td>
-                                <td class="num">2.8%</td>
-                                <td class="num">3.8%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
+							<!-- Núcleo 4 -->
+							<div class="core-item">
+								<div class="core-header">
+									<span class="core-name">Core 4</span>
+									<span class="core-value">10%</span>
+								</div>
+								<div class="core-bar-bg">
+									<div
+										class="core-bar-fill"
+										style="width: 10%; background-color: #10b981"
+									></div>
+								</div>
+							</div>
+						</div>
+					</section>
 
-            </div>
+					<section class="card" aria-label="Uso de CPU por Modo">
+						<h2 class="card-title">USO POR MODO</h2>
+						<div class="modo-container">
+							<div class="chart-box doughnut-box">
+								<canvas id="grafico-uso-modo"></canvas>
+							</div>
+							<div class="legend-list">
+								<div class="legend-item">
+									<div class="leg-left">
+										<span class="dot" style="background: #3b82f6"></span> User
+									</div>
+									<span class="leg-right">55%</span>
+								</div>
+								<div class="legend-item">
+									<div class="leg-left">
+										<span class="dot" style="background: #8b5cf6"></span> System
+									</div>
+									<span class="leg-right">25%</span>
+								</div>
+								<div class="legend-item">
+									<div class="leg-left">
+										<span class="dot" style="background: #f59e0b"></span> Idle
+									</div>
+									<span class="leg-right">15%</span>
+								</div>
+								<div class="legend-item">
+									<div class="leg-left">
+										<span class="dot" style="background: #10b981"></span> IOWait
+									</div>
+									<span class="leg-right">5%</span>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
 
-            <div class="col-direita">
+		<div class="menu-overlay" id="menu-overlay" hidden>
+			<div
+				class="menu-modal"
+				role="dialog"
+				aria-modal="true"
+				aria-label="Escolher métrica"
+			>
+				<a href="dashboard-cpu.html" class="menu-opcao">
+					<div class="menu-opcao-icone">
+						<img src="../assets/imgs/icon_cpu.png" alt="" />
+					</div>
+					<div class="menu-opcao-texto">
+						<strong>CPU</strong><span>Visão de processamento</span>
+					</div>
+					<span class="menu-opcao-seta" aria-hidden="true">➜</span>
+				</a>
+				<a href="dashboard-ram.html" class="menu-opcao">
+					<div class="menu-opcao-icone">
+						<img src="../assets/imgs/icon_ram.png" alt="" />
+					</div>
+					<div class="menu-opcao-texto">
+						<strong>RAM</strong><span>Consumo de memória</span>
+					</div>
+					<span class="menu-opcao-seta" aria-hidden="true">➜</span>
+				</a>
+				<a href="dashboard-disk.html" class="menu-opcao">
+					<div class="menu-opcao-icone">
+						<img src="../assets/imgs/icon_disco.png" alt="" />
+					</div>
+					<div class="menu-opcao-texto">
+						<strong>Disco</strong><span>Armazenamento e I/O</span>
+					</div>
+					<span class="menu-opcao-seta" aria-hidden="true">➜</span>
+				</a>
+				<a href="dashboard-rede.html" class="menu-opcao">
+					<div class="menu-opcao-icone">
+						<img src="../assets/imgs/icon_redes.png" alt="" />
+					</div>
+					<div class="menu-opcao-texto">
+						<strong>Rede</strong><span>Tráfego e pacotes</span>
+					</div>
+					<span class="menu-opcao-seta" aria-hidden="true">➜</span>
+				</a>
+			</div>
+		</div>
 
-                <section class="card" aria-label="Uso de CPU por Núcleo">
-                    <h2 class="card-title">USO POR NÚCLEO</h2>
-                    <div class="cores-container">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
-                        <!-- Núcleo 1 -->
-                        <div class="core-item">
-                            <div class="core-header">
-                                <span class="core-name">Core 1</span>
-                                <span class="core-value">80%</span>
-                            </div>
-                            <div class="core-bar-bg">
-                                <div class="core-bar-fill" style="width: 80%; background-color: #3b82f6;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Núcleo 2 -->
-                        <div class="core-item">
-                            <div class="core-header">
-                                <span class="core-name">Core 2</span>
-                                <span class="core-value">45%</span>
-                            </div>
-                            <div class="core-bar-bg">
-                                <div class="core-bar-fill" style="width: 45%; background-color: #8b5cf6;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Núcleo 3 -->
-                        <div class="core-item">
-                            <div class="core-header">
-                                <span class="core-name">Core 3</span>
-                                <span class="core-value">60%</span>
-                            </div>
-                            <div class="core-bar-bg">
-                                <div class="core-bar-fill" style="width: 60%; background-color: #f59e0b;"></div>
-                            </div>
-                        </div>
-
-                        <!-- Núcleo 4 -->
-                        <div class="core-item">
-                            <div class="core-header">
-                                <span class="core-name">Core 4</span>
-                                <span class="core-value">10%</span>
-                            </div>
-                            <div class="core-bar-bg">
-                                <div class="core-bar-fill" style="width: 10%; background-color: #10b981;"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <section class="card" aria-label="Uso de CPU por Modo">
-                    <h2 class="card-title">USO POR MODO</h2>
-                    <div class="modo-container">
-                        <div class="chart-box doughnut-box">
-                            <canvas id="grafico-uso-modo"></canvas>
-                        </div>
-                        <div class="legend-list">
-                            <div class="legend-item">
-                                <div class="leg-left"><span class="dot" style="background:#3b82f6"></span> User</div>
-                                <span class="leg-right">55%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="leg-left"><span class="dot" style="background:#8b5cf6"></span> System</div>
-                                <span class="leg-right">25%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="leg-left"><span class="dot" style="background:#f59e0b"></span> Idle</div>
-                                <span class="leg-right">15%</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="leg-left"><span class="dot" style="background:#10b981"></span> IOWait</div>
-                                <span class="leg-right">5%</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </main>
-
-    <div class="menu-overlay" id="menu-overlay" hidden>
-        <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
-            <a href="./dashboard-cpu.html" class="menu-opcao">
-                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_cpu.png" alt=""></div>
-                <div class="menu-opcao-texto">
-                    <strong>CPU</strong>
-                    <span>Descrição</span>
-                </div>
-                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-            </a>
-            <a href="dashboard-ram.html" class="menu-opcao">
-                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_ram.png" alt=""></div>
-                <div class="menu-opcao-texto">
-                    <strong>RAM</strong>
-                    <span>Descrição</span>
-                </div>
-                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-            </a>
-            <a href="dashboard-disk.html" class="menu-opcao">
-                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_disco.png" alt=""></div>
-                <div class="menu-opcao-texto">
-                    <strong>Disco</strong>
-                    <span>Descrição</span>
-                </div>
-                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-            </a>
-            <a href="dashboard-rede.html" class="menu-opcao">
-                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_redes.png" alt=""></div>
-                <div class="menu-opcao-texto">
-                    <strong>Rede</strong>
-                    <span>Descrição</span>
-                </div>
-                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-            </a>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-    <script src="../js/sidebar.js"></script>
-    <script src="../js/dashboard-cpu.js"></script>
-    <script src="../js/modal.js"></script>
-</body>
-
+		<script src="../js/sidebar.js"></script>
+		<script src="../js/dashboard-cpu.js"></script>
+		<script src="../js/modal.js"></script>
+	</body>
 </html>

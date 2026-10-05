@@ -32,9 +32,9 @@ function listarInstancias() {
                                 <p>${resposta[i].descricao || 'Nenhuma descrição definida ainda.'}</p>
                             </div>
                             
-                            <button class="botao" onclick="redirecionar(${resposta[i].id_instancia})">
-                                <img src="./assets/imgs/arrow-right.png" alt="">
-                            </button>
+                            <a href="dashboard/dashboard-geral.html">
+                                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+                            </a>    
                         </div>
                     `;
                 }
