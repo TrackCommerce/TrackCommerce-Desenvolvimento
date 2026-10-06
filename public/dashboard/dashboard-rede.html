@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackCommerce – Dashboard Rede</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard-rede.css">
     <link rel="stylesheet" href="../css/dashboard-menu.css">
     <link rel="stylesheet" href="../css/sidebar.css">
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="logo">
@@ -43,7 +47,9 @@
 
         <div class="usuario">
             <div class="foto"><img src="../assets/imgs/usuario-icone.webp" alt="Usuário"></div>
-            <div class="info"><h3 id="id_username"></h3></div>
+            <div class="info">
+                <h3 id="id_username"></h3>
+            </div>
         </div>
     </aside>
 
@@ -59,6 +65,9 @@
                     </div>
                     <span class="selector-arrow">▾</span>
                 </div>
+                <button class="menu-btn-back" onclick="window.location.href = './dashboard-geral.html'">
+                    <img src="../assets/imgs/btn-seta.png" alt="">
+                </button>
                 <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
                     <img src="../assets/imgs/menu.svg" alt="">
                 </button>
@@ -78,7 +87,8 @@
                     <div class="pie-chart"><canvas id="grafico-conexoes"></canvas></div>
                     <div class="connection-list">
                         <div class="connection-item">
-                            <div><span><i class="dot established"></i>ESTABLISHED</span><small>110 conexões</small></div>
+                            <div><span><i class="dot established"></i>ESTABLISHED</span><small>110 conexões</small>
+                            </div>
                             <strong>55%</strong>
                         </div>
                         <div class="connection-item">
@@ -178,4 +188,5 @@
     <script src="../js/dashboard-rede.js"></script>
     <script src="../js/modal.js"></script>
 </body>
+
 </html>

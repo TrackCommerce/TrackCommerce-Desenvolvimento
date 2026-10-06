@@ -72,10 +72,14 @@
         <header class="topbar">
             <h1 class="title-orange">DASHBOARD RAM</h1>
             <div class="topbar-right">
-                <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
-                    <img src="../assets/imgs/menu.svg" alt="Menu">
-                </button>
-            </div>
+                <div>
+                    <button class="menu-btn-back" onclick="window.location.href = 'dashboard-geral.html'">
+                        <img src="../assets/imgs/btn-seta.png" alt="">
+                    </button>
+                    <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
+                        <img src="../assets/imgs/menu.svg" alt="">
+                    </button>
+                </div>
         </header>
 
         <div class="dashboard-grid">
@@ -204,13 +208,15 @@
                             <div class="legend-item-inline"><span><span class="dot c-cached"></span> Cached</span> <span
                                     class="val-bold">25%</span></div>
                             <div class="legend-item-inline"><span><span class="dot c-buffers"></span> Buffers</span>
-                                <span class="val-bold">15%</span></div>
+                                <span class="val-bold">15%</span>
+                            </div>
                             <div class="legend-item-inline"><span><span class="dot c-shared"></span> Shared</span> <span
                                     class="val-bold">5%</span></div>
                             <div class="legend-item-inline"><span><span class="dot c-slab"></span> Slab</span> <span
                                     class="val-bold">10%</span></div>
                             <div class="legend-item-inline"><span><span class="dot c-available"></span> Available</span>
-                                <span class="val-bold">45%</span></div>
+                                <span class="val-bold">45%</span>
+                            </div>
                         </div>
                     </section>
                 </div>

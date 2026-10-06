@@ -89,6 +89,19 @@ main {
     width: 22px;
 }
 
+.menu-btn-back {
+    background: #e54d15;
+    border: 1px solid #e6e9ef;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.menu-btn-back img {
+    width: 22px;
+    display: block;
+}
+
 .top-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -103,7 +116,7 @@ main {
     box-shadow: 0 5px 14px rgba(24, 39, 75, 0.035);
 }
 
-.top-grid > .card {
+.top-grid>.card {
     min-height: 350px;
     padding: 22px;
 }
@@ -160,7 +173,7 @@ main {
     gap: 14px;
 }
 
-.connection-item > div {
+.connection-item>div {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -256,7 +269,7 @@ main {
     font-size: 14px;
 }
 
-.metric-card > small {
+.metric-card>small {
     color: #77849d;
     font-size: 10px;
     font-weight: 700;
