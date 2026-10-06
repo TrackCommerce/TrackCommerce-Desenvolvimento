@@ -52,6 +52,20 @@ h1 {
   display: block;
 }
 
+.menu-btn-back {
+  background: #e54d15;
+  border: 1px solid #e6e9ef;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.menu-btn-back img {
+  width: 22px;
+  display: block;
+}
+
+
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -139,7 +153,7 @@ h1 {
   margin-top: 14px;
 }
 
-.io-grid > div {
+.io-grid>div {
   min-width: 0;
 }
 

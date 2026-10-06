@@ -20,7 +20,7 @@ main {
     padding: 34px 36px;
 }
 
-main > * {
+main>* {
     margin-bottom: 24px;
 }
 
@@ -108,6 +108,19 @@ main > * {
 }
 
 .menu-btn img {
+    width: 22px;
+    display: block;
+}
+
+.menu-btn-back {
+    background: #e54d15;
+    border: 1px solid #e6e9ef;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.menu-btn-back img {
     width: 22px;
     display: block;
 }
@@ -464,6 +477,7 @@ main > * {
         opacity: 0;
         transform: translateY(-10px) scale(0.97);
     }
+
     to {
         opacity: 1;
         transform: none;
@@ -538,9 +552,11 @@ main > * {
     main {
         margin-left: 80px;
     }
+
     .row {
         grid-template-columns: 1fr;
     }
+
     .performance-grid {
         grid-template-columns: 1fr;
     }
@@ -550,24 +566,29 @@ main > * {
     main {
         padding: 20px 16px;
     }
+
     .topbar {
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
     }
+
     .topbar-right {
         width: 100%;
         justify-content: space-between;
     }
+
     .disk-usage-content {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .disk-metric-container {
         align-items: flex-start;
         text-align: left;
         margin-top: 16px;
     }
+
     .menu-overlay {
         padding: 70px 1rem 1rem;
         justify-content: center;
@@ -578,6 +599,7 @@ main > * {
     .menu-modal {
         animation: none;
     }
+
     .menu-opcao {
         transition: none;
     }

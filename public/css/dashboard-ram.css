@@ -42,6 +42,19 @@ main {
     border-radius: 8px;
 }
 
+.menu-btn-back {
+    background: #e54d15;
+    border: 1px solid #e6e9ef;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.menu-btn-back img {
+    width: 22px;
+    display: block;
+}
+
 .menu-btn img {
     width: 24px;
     display: block;

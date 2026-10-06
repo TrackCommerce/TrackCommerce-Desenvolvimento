@@ -1,15 +1,20 @@
-z<!DOCTYPE html>
+z
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackCommerce – Dashboard Disk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard-disk.css">
     <link rel="stylesheet" href="../css/sidebar.css">
 </head>
+
 <body>
 
     <aside class="sidebar">
@@ -63,7 +68,8 @@ z<!DOCTYPE html>
             <div class="topbar-right">
                 <div class="server-selector" role="button" tabindex="0">
                     <div class="server-selector-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
                             <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
                             <line x1="6" y1="6" x2="6.01" y2="6"></line>
@@ -76,9 +82,14 @@ z<!DOCTYPE html>
                     </div>
                     <span class="server-selector-arrow">&#9662;</span>
                 </div>
-                <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
-                    <img src="../assets/imgs/menu.svg" alt="Menu">
+
+                <button class="menu-btn-back" onclick="window.location.href = './dashboard-geral.html'">
+                    <img src="../assets/imgs/btn-seta.png" alt="">
                 </button>
+                <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
+                    <img src="../assets/imgs/menu.svg" alt="">
+                </button>
+
             </div>
         </header>
 
@@ -320,4 +331,5 @@ z<!DOCTYPE html>
     <script src="../js/dashboard-disk.js"></script>
     <script src="../js/modal.js"></script>
 </body>
+
 </html>
