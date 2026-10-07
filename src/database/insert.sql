@@ -87,13 +87,18 @@ INSERT INTO `TrackCommerce`.`usuario`
 -- Inserção na Tabela instancia
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`instancia`
+INSERT INTO `TrackCommerce`.`instancias`
 (`id_instancia`, `fk_empresa`, `nome`, `identificador`, `ativo`) VALUES
 (1, 1, 'VM Producao Web', 'lojacerta-prod-web-01', 1),
 (2, 1, 'VM Banco de Dados', 'lojacerta-prod-db-01', 1),
 (3, 2, 'VM Producao Web', 'mercadorapido-prod-web-01', 1),
 (4, 2, 'VM Cache/Redis', 'mercadorapido-prod-cache-01', 1),
 (5, 3, 'VM Producao Web', 'boracomprar-prod-web-01', 1);
+
+INSERT INTO `TrackCommerce`.`instancias`
+(`id_instancia`, `fk_empresa`, `nome`, `identificador`, `ativo`) VALUES
+(6, 1, 'VM Test', 'lojacerta-Test-db-01', 1),
+(7, 1, 'VM Test', 'lojacerta-Test-web-01', 1);
 
 
 -- -----------------------------------------------------
