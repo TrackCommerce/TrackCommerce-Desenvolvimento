@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestores cadastrados - TrackCommerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/barra-lateral-gestor.css">
+  <link rel="stylesheet" href="./css/pagina-gestores.css">
+</head>
+<body>
+
+  <aside class="barra-lateral">
+    <div class="logo">
+      <img class="icone logo-icone" src="icones/caixa.svg" alt="">
+      <span class="logo-nome">TrackCommerce</span>
+    </div>
+
+    <p class="menu-titulo">MONITORAMENTO</p>
+    <nav class="menu">
+      <a href="#" class="menu-item"><img class="icone" src="icones/painel.svg" alt=""><span>Painel</span></a>
+      <a href="paginaUsuarios.html" class="menu-item ativo"><img class="icone" src="icones/usuarios.svg" alt=""><span>Usuários cadastrados</span></a>
+    </nav>
+
+    <div class="perfil">
+      <span class="perfil-foto"></span>
+      <span class="perfil-nome">Administradora<br>TrackCommerce</span>
+      <span class="perfil-opcoes">···</span>
+    </div>
+  </aside>
+
+  <main class="conteudo">
+    <p class="caminho">Painel &gt; <strong>Usuários</strong></p>
+
+    <header class="cabecalho">
+      <h1 class="titulo">GESTORES CADASTRADOS</h1>
+      <a href="paginaCadastro.html" class="botao-laranja"><img class="icone" src="icones/mais.svg" alt=""> Novo cadastro</a>
+    </header>
+
+    <section class="cartao">
+      <div class="cartao-topo">
+        <h2 class="cartao-titulo">Gestores Cadastrados</h2>
+        <span class="etiqueta-azul">14 usuários</span>
+      </div>
+
+      <div class="filtros">
+        <label class="filtro filtro-busca">
+          <span class="filtro-nome">Pesquisar usuário</span>
+          <span class="filtro-caixa">
+            <img class="icone filtro-icone" src="icones/lupa.svg" alt="">
+            <input type="text" placeholder="Buscar por nome ou e-mail">
+          </span>
+        </label>
+
+        <label class="filtro filtro-cargo">
+          <span class="filtro-nome">Filtrar por cargo</span>
+          <span class="filtro-caixa">
+            <img class="icone filtro-icone" src="icones/maleta.svg" alt="">
+            <select>
+              <option>Todos os cargos</option>
+              <option>Administradora</option>
+            </select>
+            <img class="icone filtro-seta" src="icones/seta-baixo.svg" alt="">
+          </span>
+        </label>
+      </div>
+
+      <div class="tabela-rolagem">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>USUÁRIO ↑</th>
+              <th>E-MAIL</th>
+              <th>CARGO</th>
+              <th>TOKEN API <img class="icone icone-pequeno" src="icones/cadeado.svg" alt=""></th>
+              <th class="direita">AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="usuario"><span class="avatar laranja">AR</span><div><p class="usuario-nome">Ana Paula Ribeiro</p><p class="usuario-codigo">TC-001</p></div></div></td>
+              <td class="email">ana.ribeiro@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">BC</span><div><p class="usuario-nome">Bruna Costa</p><p class="usuario-codigo">TC-002</p></div></div></td>
+              <td class="email">bruna.costa@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">CO</span><div><p class="usuario-nome">Camila Oliveira</p><p class="usuario-codigo">TC-003</p></div></div></td>
+              <td class="email">camila.oliveira@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">CL</span><div><p class="usuario-nome">Carla Eduarda Lima</p><p class="usuario-codigo">TC-004</p></div></div></td>
+              <td class="email">carla.lima@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">FS</span><div><p class="usuario-nome">Fernanda Santos</p><p class="usuario-codigo">TC-005</p></div></div></td>
+              <td class="email">fernanda.santos@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">GM</span><div><p class="usuario-nome">Gabriela Martins</p><p class="usuario-codigo">TC-006</p></div></div></td>
+              <td class="email">gabriela.martins@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+            <tr>
+              <td><div class="usuario"><span class="avatar">JA</span><div><p class="usuario-nome">Juliana Almeida</p><p class="usuario-codigo">TC-007</p></div></div></td>
+              <td class="email">juliana.almeida@loja.com</td>
+              <td><span class="etiqueta-cargo">Administradora</span></td>
+              <td class="token">•••• •••• ••••</td>
+              <td class="acoes"><button class="botao-icone" aria-label="Ver"><img class="icone" src="icones/olho.svg" alt=""></button><button class="botao-icone" aria-label="Editar"><img class="icone" src="icones/editar.svg" alt=""></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="paginacao">
+        <span class="paginacao-texto">Exibindo 1–7 de 14 usuários</span>
+        <div class="paginacao-botoes">
+          <button class="pagina-botao"><img class="icone" src="icones/esquerda.svg" alt=""> Anterior</button>
+          <button class="pagina-botao pagina-atual">1</button>
+          <button class="pagina-botao">2</button>
+          <button class="pagina-botao">Próxima <img class="icone" src="icones/direita.svg" alt=""></button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+</body>
+</html>
