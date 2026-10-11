@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --azul-escuro: #12213f;
+  --laranja: #ff4a05;
+  --fundo: #f6f7fb;
+  --branco: #ffffff;
+  --texto: #12213f;
+  --cinza: #6b7790;
+  --borda: #e1e5ee;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+/* ----- Conteúdo ----- */
+.conteudo {
+  flex: 1;
+  padding: 32px 48px;
+}
+
+.botao-voltar {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: 28px;
+  padding: 7px 16px;
+  border: 1px solid var(--texto);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.cartao {
+  background: var(--branco);
+  max-width: 710px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(18, 33, 63, 0.1);
+}
+
+.titulo {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.subtitulo {
+  font-size: 12px;
+  color: var(--cinza);
+  margin: 6px 0 16px;
+}
+
+/* ----- Formulário ----- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-nome {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.campo-caixa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--branco);
+}
+
+.campo-caixa:focus-within {
+  border-color: var(--laranja);
+}
+
+.campo-icone,
+.campo-olho {
+  font-size: 13px;
+  color: var(--cinza);
+}
+
+.campo-caixa input,
+.campo-caixa select {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--texto);
+}
+
+.formulario-rodape {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.botao-laranja {
+  background: var(--laranja);
+  color: var(--branco);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-laranja:hover {
+  background: #e04100;
+}
+
+/* ----- Celular ----- */
+@media (max-width: 700px) {
+  body { flex-direction: column; }
+  .conteudo { padding: 20px 14px; }
+}
+
+/* ----- Ícones e detalhes ----- */
+.botao-voltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.botao-voltar .icone { width: 14px; height: 14px; }
+
+.campo-seta { color: var(--cinza); }
+
+.campo-caixa select {
+  appearance: none;
+  cursor: pointer;
+}
