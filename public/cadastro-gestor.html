@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criar conta - TrackCommerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/barra-lateral-gestor.css">
+  <link rel="stylesheet" href="./css/pagina-cadastro-gestor.css">
+</head>
+<body>
+
+  <aside class="barra-lateral">
+    <div class="logo">
+      <img class="icone logo-icone" src="icones/caixa.svg" alt="">
+      <span class="logo-nome">TrackCommerce</span>
+    </div>
+
+    <p class="menu-titulo">MONITORAMENTO</p>
+    <nav class="menu">
+      <a href="#" class="menu-item ativo"><img class="icone" src="icones/painel.svg" alt=""><span>Painel</span></a>
+      <a href="paginaUsuarios.html" class="menu-item"><img class="icone" src="icones/usuarios.svg" alt=""><span>Usuários cadastrados</span></a>
+    </nav>
+
+    <div class="perfil">
+      <span class="perfil-foto"></span>
+      <span class="perfil-nome">Administradora<br>TrackCommerce</span>
+      <span class="perfil-opcoes">···</span>
+    </div>
+  </aside>
+
+  <main class="conteudo">
+    <a href="paginaUsuarios.html" class="botao-voltar"><img class="icone" src="icones/esquerda.svg" alt=""> Voltar para o início</a>
+
+    <section class="cartao">
+      <h1 class="titulo">Criar conta</h1>
+      <p class="subtitulo">Página de cadastro de Gestores que utilizam o TrackCommerce</p>
+
+      <form class="formulario">
+        <label class="campo">
+          <span class="campo-nome">Nome</span>
+          <span class="campo-caixa">
+            <img class="icone campo-icone" src="icones/usuario.svg" alt="">
+            <input type="text" placeholder="Nome gestor">
+          </span>
+        </label>
+
+        <label class="campo">
+          <span class="campo-nome">E-mail</span>
+          <span class="campo-caixa">
+            <img class="icone campo-icone" src="icones/email.svg" alt="">
+            <input type="email" placeholder="nome@empresa.com">
+          </span>
+        </label>
+
+        <label class="campo">
+          <span class="campo-nome">Senha</span>
+          <span class="campo-caixa">
+            <img class="icone campo-icone" src="icones/cadeado.svg" alt="">
+            <input type="password" placeholder="Criar senha">
+            <img class="icone campo-olho" src="icones/olho.svg" alt="">
+          </span>
+        </label>
+
+        <label class="campo">
+          <span class="campo-nome">Cargo</span>
+          <span class="campo-caixa">
+            <img class="icone campo-icone" src="icones/maleta.svg" alt="">
+            <select>
+              <option value="">Selecione cargo</option>
+              <option>Administradora</option>
+              <option>Gestora</option>
+            </select>
+            <img class="icone campo-seta" src="icones/seta-baixo.svg" alt="">
+          </span>
+        </label>
+
+        <label class="campo">
+          <span class="campo-nome">Token Jira</span>
+          <span class="campo-caixa">
+            <img class="icone campo-icone" src="icones/chave.svg" alt="">
+            <input type="text" placeholder="Insira token de acesso">
+          </span>
+        </label>
+
+        <div class="formulario-rodape">
+          <button type="submit" class="botao-laranja">Criar conta</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+</body>
+</html>
