@@ -102,10 +102,11 @@ INSERT INTO `TrackCommerce`.`instancias`
 
 
 -- -----------------------------------------------------
--- Inserção na Tabela componente
+-- -----------------------------------------------------
+-- Inserção na Tabela componentes
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`componente`
+INSERT INTO `TrackCommerce`.`componentes`
 (`id_componente`, `nome`, `dt_atribuicao`) VALUES
 (1, 'CPU', NOW()),
 (2, 'Memoria RAM', NOW()),
@@ -118,11 +119,11 @@ INSERT INTO `TrackCommerce`.`componente`
 
 
 -- -----------------------------------------------------
--- Inserção na Tabela parametro
+-- Inserção na Tabela parametros
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`parametro`
-(`id_parametro`, `nome`, `unidade_medida`, `dt_atribuicao`, `fk_componente`) VALUES
+INSERT INTO `TrackCommerce`.`parametros`
+(`id_parametro`, `nome`, `unidade_medida`, `dt_atribuicao`, `Componentes_id_componente`) VALUES
 (1, 'Uso de Processador', '%', NOW(), 1),
 (2, 'Consumo de Memoria', '%', NOW(), 2),
 (3, 'Espaco em Disco', '%', NOW(), 3),
@@ -134,10 +135,10 @@ INSERT INTO `TrackCommerce`.`parametro`
 
 
 -- -----------------------------------------------------
--- Inserção na Tabela parametro_alerta
+-- Inserção na Tabela parametros_alertas
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`parametro_alerta`
+INSERT INTO `TrackCommerce`.`parametros_alertas`
 (`id_parametro_alerta`, `alerta_moderado`, `alerta_critico`, `dt_edicao`, `fk_parametro`) VALUES
 (1, 70.0, 85.0, NOW(), 1),
 (2, 75.0, 90.0, NOW(), 2),
@@ -150,25 +151,25 @@ INSERT INTO `TrackCommerce`.`parametro_alerta`
 
 
 -- -----------------------------------------------------
--- Inserção na Tabela componente_instancia
+-- Inserção na Tabela instancias_componentes
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`componente_instancia`
-(`fk_instancia`, `fk_componente`, `fk_parametro_alerta`, `ativo`, `dt_edicao`) VALUES
-(1, 1, 1, 1, NOW()),
-(1, 2, 2, 1, NOW()),
-(2, 3, 3, 1, NOW()),
-(3, 1, 1, 1, NOW()),
-(3, 8, 8, 1, NOW()),
-(4, 2, 2, 1, NOW()),
-(5, 1, 1, 1, NOW());
+INSERT INTO `TrackCommerce`.`instancias_componentes`
+(`id_instancia_componente`, `fk_instancia`, `fk_componentes`, `fk_parametros_alertas`, `Status`, `dt_edicao`) VALUES
+(1, 1, 1, 1, 1, NOW()),
+(2, 1, 2, 2, 1, NOW()),
+(3, 2, 3, 3, 1, NOW()),
+(4, 3, 1, 1, 1, NOW()),
+(5, 3, 8, 8, 1, NOW()),
+(6, 4, 2, 2, 1, NOW()),
+(7, 5, 1, 1, 1, NOW());
 
 
 -- -----------------------------------------------------
--- Inserção na Tabela api_jira
+-- Inserção na Tabela apijira
 -- -----------------------------------------------------
 
-INSERT INTO `TrackCommerce`.`api_jira`
+INSERT INTO `TrackCommerce`.`apijira`
 (`id_api_jira`, `codigo_api`, `fk_empresa`) VALUES
 (1, 'JIRA-API-KEY-LOJACERTA-89213', 1),
 (2, 'JIRA-API-KEY-MERCADORAPIDO-44123', 2),
@@ -185,9 +186,9 @@ SELECT * FROM `cargo`;
 SELECT * FROM `permissao`;
 SELECT * FROM `cargo_permissao`;
 SELECT * FROM `usuario`;
-SELECT * FROM `instancia`;
-SELECT * FROM `componente`;
-SELECT * FROM `parametro`;
-SELECT * FROM `parametro_alerta`;
-SELECT * FROM `componente_instancia`;
-SELECT * FROM `api_jira`;
+SELECT * FROM `instancias`;
+SELECT * FROM `componentes`;
+SELECT * FROM `parametros`;
+SELECT * FROM `parametros_alertas`;
+SELECT * FROM `instancias_componentes`;
+SELECT * FROM `apijira`;

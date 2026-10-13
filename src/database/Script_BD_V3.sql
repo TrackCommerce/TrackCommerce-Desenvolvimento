@@ -353,6 +353,10 @@ CREATE TABLE IF NOT EXISTS `apijira` (
   `id_api_jira` INT NOT NULL,
   `codigo_api` VARCHAR(500) NOT NULL,
   `fk_empresa` INT NOT NULL,
+  `jira_url` VARCHAR(200) NULL,
+  `jira_email` VARCHAR(200) NULL,
+  `jira_project_key` VARCHAR(200) NULL,
+  `slack_webhook` VARCHAR(200) NULL,
 
   PRIMARY KEY (`id_api_jira`),
 
