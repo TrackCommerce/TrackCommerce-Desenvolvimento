@@ -87,25 +87,151 @@ h1 {
   color: #6b7486;
 }
 
-/* Status */
-.stat {
-  display: grid;
-  gap: 9px;
-  justify-items: center;
+/* Resumo */
+.resumo-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-.badge {
-  padding: 5px 16px;
+.resumo-header h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a2233;
+}
+
+.resumo-meta {
+  font-size: 11px;
+  color: #8c97b0;
+  font-weight: 500;
+}
+
+.resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.resumo-item {
+  background: #f7f9fb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resumo-desc {
+  font-size: 11px;
+  color: #8c97b0;
+  margin-top: auto;
+  line-height: 1.4;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
   border-radius: 999px;
-  background: #d9f5e8;
-  color: #10b981;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.status-badge.atencao {
+  background: #fef3c7;
+  color: #d97706;
 }
 
 .uptime {
   font-size: 21px;
   font-weight: 700;
+}
+
+.uptime small {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.alertas-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mini-badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mini-badge.critico {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.mini-badge.atencao {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.previsao-val {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.previsao-val strong {
+  font-size: 21px;
+  font-weight: 800;
+  color: #1a2233;
+}
+
+.previsao-val span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a2233;
+}
+
+.saude-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.saude-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.saude-item.atencao {
+  background: #fef3c7;
+}
+
+.saude-item span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6b7486;
+}
+
+.saude-item strong {
+  font-size: 11px;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.saude-item strong.normal {
+  color: #10b981;
 }
 
 /* CPU e RAM */
@@ -328,7 +454,8 @@ th {
 @media (max-width: 1024px) {
 
   .row,
-  .io-grid {
+  .io-grid,
+  .resumo-grid {
     grid-template-columns: 1fr;
   }
 

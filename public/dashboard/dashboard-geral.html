@@ -79,14 +79,69 @@
     </header>
 
 
-    <section class="row" aria-label="Resumo do sistema">
-      <div class="card stat">
-        <span class="label">Status do sistema</span>
-        <span class="badge">ESTÁVEL</span>
+    <section class="card" aria-label="Resumo do sistema">
+      <div class="resumo-header">
+        <h2>Resumo</h2>
+        <span class="resumo-meta">Servidor 01 &bull; últimas 24 horas &bull; leitura em 10 segundos</span>
       </div>
-      <div class="card stat">
-        <span class="label">Uptime do servidor</span>
-        <span class="uptime">2d : 4h : 25m : 30s</span>
+
+      <div class="resumo-grid">
+        <div class="resumo-item">
+          <span class="label">Status do sistema</span>
+          <span class="status-badge atencao">&bull; ATENÇÃO</span>
+          <p class="resumo-desc">CPU acima de 75% há 25 minutos. RAM, disco e rede estão dentro do normal.</p>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Uptime do servidor</span>
+          <span class="uptime">2d : 4h : 25m : 30s</span>
+          <p class="resumo-desc">Ligado sem reinicialização</p>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Disponibilidade (7 dias)</span>
+          <span class="uptime">99,8<small>%</small></span>
+          <p class="resumo-desc">Meta: 99,5%</p>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Alertas ativos</span>
+          <div class="alertas-badges">
+            <span class="mini-badge critico">0 críticos</span>
+            <span class="mini-badge atencao">1 atenção</span>
+          </div>
+          <p class="resumo-desc">Último alerta há 25 min</p>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Previsão de disco</span>
+          <div class="previsao-val">
+            <strong>~18</strong> <span>dias até encher</span>
+          </div>
+          <p class="resumo-desc">Disco em 71% de uso</p>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Saúde por componente</span>
+          <div class="saude-grid">
+            <div class="saude-item atencao">
+              <span>CPU</span>
+              <strong>Atenção</strong>
+            </div>
+            <div class="saude-item">
+              <span>RAM</span>
+              <strong class="normal">Normal</strong>
+            </div>
+            <div class="saude-item">
+              <span>Disco</span>
+              <strong class="normal">Normal</strong>
+            </div>
+            <div class="saude-item">
+              <span>Rede</span>
+              <strong class="normal">Normal</strong>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
