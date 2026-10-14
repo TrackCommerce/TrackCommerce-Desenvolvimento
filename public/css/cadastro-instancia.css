@@ -47,6 +47,89 @@ body {
     padding: 30px 40px;
 }
 
+.instalacao-automatica {
+    width: min(900px, 90%);
+    margin: 0 auto 32px;
+    padding: 24px;
+    border: 1px solid rgba(229, 77, 21, 0.35);
+    border-radius: 12px;
+    background: rgba(229, 77, 21, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+.instalacao-automatica h2 {
+    margin: 8px 0;
+    color: #202020;
+}
+
+.instalacao-automatica p {
+    max-width: 620px;
+    margin-bottom: 12px;
+    color: #4a4a4a;
+    line-height: 1.5;
+}
+
+.instalacao-automatica code {
+    color: #f5a17f;
+    overflow-wrap: anywhere;
+}
+
+.instalacao-automatica__etiqueta {
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: #fff;
+    background: #e54d15;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.instalacao-automatica__acao {
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.instalacao-automatica__acao .botao {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 30px;
+    color: #fff;
+    background: #cc5429;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.instalacao-automatica__acao small {
+    min-height: 34px;
+    color: #555;
+    line-height: 1.35;
+}
+
+.instalacao-automatica__acao button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+@media (max-width: 768px) {
+    .instalacao-automatica {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .instalacao-automatica__acao {
+        min-width: 0;
+    }
+}
+
 
 /* ICONE */
 
