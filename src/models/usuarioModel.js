@@ -79,11 +79,32 @@ function redefinirSenha(idUsuario, novaSenha) {
     return database.executar(instrucaoSql);
 }
 
+function buscarPermissoes(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL - buscarPermissoes():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT 
+            cp.fk_cargo,
+            c.nome_cargo,
+            cp.fk_permissao,
+            p.nome_permissao
+        FROM cargo_permissao cp
+        JOIN cargo c ON cp.fk_cargo = c.id_cargo
+        JOIN permissao p ON cp.fk_permissao = p.id_permissao
+        WHERE cp.fk_cargo = (
+            SELECT fk_cargo FROM usuario WHERE id_usuario = ${idUsuario} LIMIT 1
+        ) OR cp.fk_cargo = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
     deletar,
     autenticar,
-    redefinirSenha
+    redefinirSenha,
+    buscarPermissoes
 };

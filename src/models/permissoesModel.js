@@ -21,6 +21,10 @@ function buscarPermissoes(idCargo) {
 }
 
 async function editarPermissoes(idCargo, permissoes) {
+  if (idCargo == 1) {
+    return Promise.reject({ sqlMessage: "Não é permitido alterar as permissões do cargo de Administrador." });
+  }
+
   var deleteSql = `DELETE FROM cargo_permissao WHERE fk_cargo = ${idCargo};`;
   console.log("Executando a instrução SQL: \n" + deleteSql);
   var resultado = await database.executar(deleteSql);
@@ -37,6 +41,10 @@ async function editarPermissoes(idCargo, permissoes) {
 }
 
 async function deletarCargo(idCargo) {
+  if (idCargo == 1) {
+    return Promise.reject({ sqlMessage: "Não é permitido excluir o cargo de Administrador." });
+  }
+
   var deleteCpSql = `DELETE FROM cargo_permissao WHERE fk_cargo = ${idCargo};`;
   console.log("Executando a instrução SQL: \n" + deleteCpSql);
   await database.executar(deleteCpSql);
@@ -72,9 +80,28 @@ async function adicionarCargo(nome, experiencia, permissoes) {
 }
 
 
+function buscarPermissoesUsuario(idUsuario) {
+  var instrucaoSql = `
+    SELECT 
+        cp.fk_cargo,
+        c.nome_cargo,
+        cp.fk_permissao,
+        p.nome_permissao
+    FROM cargo_permissao cp
+    JOIN cargo c ON cp.fk_cargo = c.id_cargo
+    JOIN permissao p ON cp.fk_permissao = p.id_permissao
+    WHERE cp.fk_cargo = (
+        SELECT fk_cargo FROM usuario WHERE id_usuario = ${idUsuario} LIMIT 1
+    ) OR cp.fk_cargo = ${idUsuario};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarCargos,
   buscarPermissoes,
+  buscarPermissoesUsuario,
   editarPermissoes,
   deletarCargo,
   adicionarCargo

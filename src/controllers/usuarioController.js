@@ -171,11 +171,30 @@ function redefinirSenha(req, res) {
     }
 }
 
+function buscarPermissoes(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("ID do usuário está undefined!");
+    } else {
+        usuarioModel.buscarPermissoes(idUsuario)
+            .then(function (resultado) {
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao buscar permissões! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     cadastrar,
     listarTodos,
     editar,
     deletar,
     autenticar,
-    redefinirSenha
+    redefinirSenha,
+    buscarPermissoes
 }
