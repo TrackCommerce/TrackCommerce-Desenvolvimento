@@ -259,6 +259,11 @@
         }
 
         function abrirModal() {
+            if (document.body.classList.contains('sem-permissao-edicao') || 
+                (window.permissoesUsuario && !window.permissoesUsuario.includes(2))) {
+                alert("Acesso restrito: seu grupo não possui permissão para customizar servidores.");
+                return;
+            }
             document.getElementById('modalEditar').style.display = 'flex';
         }
         function fecharModal() {

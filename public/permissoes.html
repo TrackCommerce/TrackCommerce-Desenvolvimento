@@ -5,78 +5,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastro de permissões - TrackCommerce</title>
-  
+
   <link rel="stylesheet" href="./css/permissoes.css" />
   <link rel="stylesheet" href="./css/sidebar.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-  
+
 </head>
 
 <body onload="carregarCargos()">
   <div class="container">
-       
-         <aside class="sidebar">
 
-            <div class="logo">
-                <div class="logo-img">
-                    <img src="./assets/icon/logo.png" alt="Logo"> 
-                </div>
+    <aside class="sidebar">
 
-                <h2>TrackCommerce</h2>
-            </div>
+      <div class="logo">
+        <div class="logo-img">
+          <img src="./assets/icon/logo.png" alt="Logo">
+        </div>
 
-            <nav class="menu">
+        <h2>TrackCommerce</h2>
+      </div>
 
-                <a href="selecionar-servidor.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/home.png" alt="">
-                    </div>
-                    <span>Painel</span>
-                </a>
+      <nav class="menu">
 
-                <a href="alertas.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/bell.png" alt="">
-                    </div>
-                    <span>Alertas</span>
-                </a>
+        <a href="selecionar-servidor.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/home.png" alt="">
+          </div>
+          <span>Painel</span>
+        </a>
 
-                <a href="permissoes.html" class="item ativo">
-                    <div class="icone">
-                        <img src="./assets/imgs/chave-permissao.png" alt="">
-                    </div>
-                    <span>Permissões de Grupos</span>
-                </a>
+        <a href="alertas.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/bell.png" alt="">
+          </div>
+          <span>Alertas</span>
+        </a>
 
-                <a href="cadastro-instancia.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/server.png" alt="">
-                    </div>
-                    <span>Cadastro de Servidores</span>
-                </a>
+        <a href="permissoes.html" class="item ativo">
+          <div class="icone">
+            <img src="./assets/imgs/chave-permissao.png" alt="">
+          </div>
+          <span>Permissões de Grupos</span>
+        </a>
 
-                <a href="registroFunc.html" class="item">
-                    <div class="icone">
-                        <img src="./assets/imgs/cadastro.png" alt="">
-                    </div>
-                    <span>Cadastro de Funcionários</span>
-                </a>
+        <a href="cadastro-instancia.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/server.png" alt="">
+          </div>
+          <span>Cadastro de Servidores</span>
+        </a>
 
-            </nav>
+        <a href="registroFunc.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/cadastro.png" alt="">
+          </div>
+          <span>Cadastro de Funcionários</span>
+        </a>
 
-            <div class="usuario">
+      </nav>
 
-                <div class="foto">
-                    <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
-                </div>
+      <div class="usuario">
 
-                <div class="info">
-                    <h3 id="id_username"></h3>
-                </div>
+        <div class="foto">
+          <img src="./assets/imgs/usuario-icone.webp" alt="Usuário">
+        </div>
 
-            </div>
+        <div class="info">
+          <h3 id="id_username"></h3>
+        </div>
 
-        </aside>
+      </div>
+
+    </aside>
 
 
     <div class="conteudo">
@@ -87,6 +87,11 @@
 
         <div class="card permissoes desabilitado" id="permissoesCargo">
           <h2 style="margin-top: 0">Permissões</h2>
+          <div id="avisoAdminProtegido"
+            style="display: none; padding: 12px; border-radius: 8px; background: rgba(255, 165, 0, 0.15); border: 1px solid #ffa500; color: #ffca28; font-size: 13px; margin-bottom: 15px;">
+            <b>Cargo Administrador:</b> Permissões totais protegidas. Não é permitido alterar as permissões nem excluir
+            este cargo.
+          </div>
 
           <label class="permissao-item">
             <div>
@@ -141,7 +146,7 @@
               <b>Visualização</b>
               <p>O usuário pode apenas visualizar o conteúdo da VM</p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="1"/>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="1" />
           </label>
 
           <label class="permissao-item">
@@ -151,7 +156,7 @@
                 O usuário pode alterar, adicionar e excluir o conteúdo da VM
               </p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="2"/>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="2" />
           </label>
 
           <label class="permissao-item">
@@ -162,7 +167,7 @@
                 excluir o conteúdo da mesma
               </p>
             </div>
-            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="3"/>
+            <input type="checkbox" name="permissao2" class="radio" data-permissao-id="3" />
           </label>
         </div>
       </div>
@@ -183,6 +188,9 @@
           container.innerHTML = " "
           for (let i = 0; i < resposta.length; i++) {
             let cargo = resposta[i];
+            let badgeAdmin = (cargo.id_cargo == 1 || cargo.nome_cargo.toLowerCase() === 'administrador')
+              ? ' <span style="font-size: 11px; color: #ff9800; font-weight: bold; margin-left: 6px;">(Protegido)</span>'
+              : '';
 
             container.innerHTML += `
 
@@ -191,7 +199,7 @@
                 <div class="cargo-avatar"></div>
 
                 <div>
-                  <div><b>Cargo:</b> ${cargo.nome_cargo}</div>
+                  <div><b>Cargo:</b> ${cargo.nome_cargo}${badgeAdmin}</div>
                   <div><b>Experiência:</b> ${cargo.nivel}</div>
                 </div>
                 
@@ -213,16 +221,51 @@
 
   // Os IDs das permissões devem ser visualização(1), edição(2), Criação(3) no banco de dados
   function buscarPermissaoCargo(idCargo) {
+    let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
+    let btnEditar = document.querySelector('#permissoesCargo .botao.editar');
+    let btnExcluir = document.querySelector('#permissoesCargo .botao.excluir');
+    let avisoAdmin = document.getElementById("avisoAdminProtegido");
+
+    if (idCargo == 1) {
+      // Cargo Administrador: sempre tem todas as permissões e não pode ser editado nem excluído
+      checkboxesPermissoes.forEach(cb => {
+        cb.checked = true;
+        cb.disabled = true;
+      });
+      if (btnEditar) {
+        btnEditar.disabled = true;
+        btnEditar.style.opacity = '0.5';
+        btnEditar.style.cursor = 'not-allowed';
+      }
+      if (btnExcluir) {
+        btnExcluir.disabled = true;
+        btnExcluir.style.opacity = '0.5';
+        btnExcluir.style.cursor = 'not-allowed';
+      }
+      if (avisoAdmin) avisoAdmin.style.display = 'block';
+      return;
+    }
+
+    // Para outros cargos, habilita checkboxes e botões
+    checkboxesPermissoes.forEach(cb => {
+      cb.disabled = false;
+      cb.checked = false;
+    });
+    if (btnEditar) {
+      btnEditar.disabled = false;
+      btnEditar.style.opacity = '1';
+      btnEditar.style.cursor = 'pointer';
+    }
+    if (btnExcluir) {
+      btnExcluir.disabled = false;
+      btnExcluir.style.opacity = '1';
+      btnExcluir.style.cursor = 'pointer';
+    }
+    if (avisoAdmin) avisoAdmin.style.display = 'none';
+
     fetch(`/permissoes/buscarPermissoes/${idCargo}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
-
-          let checkboxesPermissoes = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
-
-          for (let i = 0; i < checkboxesPermissoes.length; i++) {
-            checkboxesPermissoes[i].checked = false;
-          }
-
           for (let i = 0; i < resposta.length; i++) {
             let permissao = resposta[i];
             let checkbox = document.querySelector(`[data-permissao-id="${permissao.id_permissao}"]`);
@@ -245,10 +288,18 @@
 
   function editarPermissoes() {
     let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    if (!cargoSelecionado) {
+      alert('Selecione um cargo para editar.');
+      return;
+    }
     let idCargo = cargoSelecionado.value;
 
-    let permissoesMarcadas = document.querySelectorAll('#permissoesCargo input[type="checkbox"]')
+    if (idCargo == 1) {
+      alert('As permissões do cargo de Administrador são protegidas e não podem ser alteradas.');
+      return;
+    }
 
+    let permissoesMarcadas = document.querySelectorAll('#permissoesCargo input[type="checkbox"]');
     let permissoesSelecionadas = [];
 
     for (let i = 0; i < permissoesMarcadas.length; i++) {
@@ -273,8 +324,11 @@
         if (response.ok) {
           alert('Permissões atualizadas com sucesso!');
         } else {
-          console.error('Erro ao atualizar permissões na API');
-          alert('Erro ao atualizar as permissões.');
+          response.json().then(json => {
+            alert(json.erro || 'Erro ao atualizar as permissões.');
+          }).catch(() => {
+            alert('Erro ao atualizar as permissões.');
+          });
         }
       })
       .catch(function (error) {
@@ -283,10 +337,19 @@
 
   }
 
-  
+
   async function excluirCargo() {
     let cargoSelecionado = document.querySelector('input[name="cargo"]:checked');
+    if (!cargoSelecionado) {
+      alert('Selecione um cargo para excluir.');
+      return;
+    }
     let idCargo = cargoSelecionado.value;
+
+    if (idCargo == 1) {
+      alert('O cargo de Administrador é essencial para o sistema e não pode ser excluído.');
+      return;
+    }
 
     fetch(`/permissoes/deletarCargo/${idCargo}`, {
       method: 'DELETE',
@@ -305,7 +368,11 @@
 
           carregarCargos();
         } else {
-          console.error('Erro ao tentar deletar o cargo na API');
+          response.json().then(json => {
+            alert(json.erro || 'Erro ao tentar deletar o cargo na API');
+          }).catch(() => {
+            alert('Erro ao tentar deletar o cargo na API');
+          });
         }
       })
       .catch(function (error) {
@@ -324,7 +391,7 @@
 
     let permissoesMarcadas = document.querySelectorAll('#permissoesCargoNovo input[type="checkbox"]')
 
-    
+
     let permissoesSelecionadas = [];
 
     for (let i = 0; i < permissoesMarcadas.length; i++) {
@@ -344,7 +411,7 @@
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        nomeServer: nome, 
+        nomeServer: nome,
         experienciaServer: experiencia,
         permissoesServer: permissoesSelecionadas
       }
@@ -370,7 +437,7 @@
       .catch(function (error) {
         console.error(`Erro na requisição de salvamento: ${error.message}`);
       });
-      carregarCargos()
+    carregarCargos()
   }
 
 

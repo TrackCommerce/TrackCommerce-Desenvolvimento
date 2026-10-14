@@ -22,5 +22,8 @@ router.post("/redefinirSenha", function (req, res) {
     usuarioController.redefinirSenha(req, res);
 });
 
+router.get("/permissoes/:idUsuario", function (req, res) {
+    usuarioController.buscarPermissoes(req, res);
+});
 
 module.exports = router;

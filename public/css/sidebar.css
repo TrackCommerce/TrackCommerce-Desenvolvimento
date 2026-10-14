@@ -190,3 +190,8 @@
     }
 
 }
+
+/* Itens bloqueados por permissão */
+.sidebar .item.bloqueado {
+    display: none !important;
+}

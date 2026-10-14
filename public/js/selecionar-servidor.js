@@ -5,7 +5,37 @@ let idInstanciaAtual = null;
 
 window.onload = listarInstancias;
 
-function listarInstancias() {
+async function listarInstancias() {
+    // Obtém as permissões do usuário
+    let permissoes = [];
+    if (typeof window.obterPermissoesUsuario === "function") {
+        permissoes = await window.obterPermissoesUsuario();
+    } else {
+        const idUsuario = sessionStorage.getItem("ID_USUARIO") || sessionStorage.getItem("FK_CARGO");
+        if (idUsuario) {
+            try {
+                const res = await fetch(`/usuario/permissoes/${idUsuario}`);
+                if (res.ok) {
+                    const dados = await res.json();
+                    permissoes = dados.map(item => Number(item.fk_permissao)).filter(n => !isNaN(n));
+                }
+            } catch (e) {
+                console.error("Erro ao obter permissões no selecionar-servidor:", e);
+            }
+        }
+    }
+
+    const podeEditar = permissoes.includes(2);
+
+    // Se não tem permissão 2, aplica bloqueio visual a todos os botões de edição
+    if (!podeEditar) {
+        document.body.classList.add("sem-permissao-edicao");
+        document.querySelectorAll(".btn-editar").forEach(btn => {
+            btn.classList.add("bloqueado");
+            btn.style.setProperty("display", "none", "important");
+        });
+    }
+
     fetch(`/instancia/listar/${id}`)
         .then(resposta => resposta.json())
         .then(resposta => {
@@ -15,12 +45,15 @@ function listarInstancias() {
 
             if (resposta != null && resposta.length > 0) {
                 for (let i = 0; i < resposta.length; i++) {
-                
+                    const botaoEditarHtml = podeEditar ? `
+                        <button class="btn-editar" onclick="prepararEdicao(${resposta[i].id_instancia})">
+                            <img src="./assets/imgs/edit.svg" alt="Editar">
+                        </button>
+                    ` : '';
+
                     card.innerHTML += `
                         <div class="card">
-                            <button class="btn-editar" onclick="prepararEdicao(${resposta[i].id_instancia})">
-                                <img src="./assets/imgs/edit.svg" alt="Editar">
-                            </button>
+                            ${botaoEditarHtml}
                             
                             <div class="icone verde"><img src="./assets/imgs/server.png" alt=""></div>
                             
@@ -41,6 +74,14 @@ function listarInstancias() {
             } else {
                 card.innerHTML = `<h1>Sem instâncias cadastradas</h1>`;
             }
+
+            // Garante que cards existentes/estáticos também respeitem o bloqueio
+            if (!podeEditar) {
+                document.querySelectorAll(".btn-editar").forEach(btn => {
+                    btn.classList.add("bloqueado");
+                    btn.style.setProperty("display", "none", "important");
+                });
+            }
         })
         .catch(erro => {
             console.error("Erro ao listar instâncias:", erro);
@@ -48,11 +89,22 @@ function listarInstancias() {
 }
 
 function prepararEdicao(idDaInstanciaClicada) {
+    if (document.body.classList.contains("sem-permissao-edicao") || 
+        (window.permissoesUsuario && !window.permissoesUsuario.includes(2))) {
+        alert("Acesso restrito: seu grupo não possui permissão para customizar servidores.");
+        return;
+    }
     idInstanciaAtual = idDaInstanciaClicada;
     abrirModal(); 
 }
 
 function salvarEdicao() {
+    if (document.body.classList.contains("sem-permissao-edicao") || 
+        (window.permissoesUsuario && !window.permissoesUsuario.includes(2))) {
+        alert("Acesso restrito: seu grupo não possui permissão para customizar servidores.");
+        return;
+    }
+
     var nomeVar = document.getElementById('ipt_nome').value;
     var identificadorVar = document.getElementById('ipt_identificador').value;
     var descricaoVar = document.getElementById('ipt_descricao').value;
