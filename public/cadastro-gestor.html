@@ -1,95 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Criar conta - TrackCommerce</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="./assets/icon/logo.png">
   <link rel="stylesheet" href="./css/barra-lateral-gestor.css">
   <link rel="stylesheet" href="./css/pagina-cadastro-gestor.css">
+  <script src="./js/cadastro-gestor.js" defer></script>
 </head>
+
 <body>
 
   <aside class="barra-lateral">
-    <div class="logo">
-      <img class="icone logo-icone" src="icones/caixa.svg" alt="">
+    <a href="index.html" class="logo">
+      <img class="icone logo-icone" src="./assets/icon/logo.png" alt="Logo TrackCommerce">
       <span class="logo-nome">TrackCommerce</span>
-    </div>
+    </a>
 
     <p class="menu-titulo">MONITORAMENTO</p>
     <nav class="menu">
-      <a href="#" class="menu-item ativo"><img class="icone" src="icones/painel.svg" alt=""><span>Painel</span></a>
-      <a href="paginaUsuarios.html" class="menu-item"><img class="icone" src="icones/usuarios.svg" alt=""><span>Usuários cadastrados</span></a>
+      <a href="cadastro-gestor.html" class="menu-item ativo"><img class="icone" src="./assets/imgs/painel.svg"
+          alt=""><span>Painel</span></a>
+      <a href="pagina-gestores.html" class="menu-item"><img class="icone" src="./assets/imgs/usuarios.svg"
+          alt=""><span>Usuários cadastrados</span></a>
     </nav>
 
     <div class="perfil">
       <span class="perfil-foto"></span>
-      <span class="perfil-nome">Administradora<br>TrackCommerce</span>
+      <span class="perfil-nome" id="perfil_nome">Funcionário<br>TrackCommerce</span>
       <span class="perfil-opcoes">···</span>
     </div>
   </aside>
 
   <main class="conteudo">
-    <a href="paginaUsuarios.html" class="botao-voltar"><img class="icone" src="icones/esquerda.svg" alt=""> Voltar para o início</a>
+    <a href="pagina-gestores.html" class="botao-voltar"><img class="icone" src="./assets/imgs/esquerda.svg" alt="">
+      Voltar para o início</a>
 
     <section class="cartao">
       <h1 class="titulo">Criar conta</h1>
       <p class="subtitulo">Página de cadastro de Gestores que utilizam o TrackCommerce</p>
 
-      <form class="formulario">
+      <form class="formulario" id="form_cadastro_gestor" onsubmit="event.preventDefault(); cadastrarGestor();">
         <label class="campo">
           <span class="campo-nome">Nome</span>
           <span class="campo-caixa">
-            <img class="icone campo-icone" src="icones/usuario.svg" alt="">
-            <input type="text" placeholder="Nome gestor">
+            <img class="icone campo-icone" src="./assets/imgs/usuario.svg" alt="">
+            <input type="text" id="ipt_nome" placeholder="Nome gestor" required>
           </span>
         </label>
 
         <label class="campo">
           <span class="campo-nome">E-mail</span>
           <span class="campo-caixa">
-            <img class="icone campo-icone" src="icones/email.svg" alt="">
-            <input type="email" placeholder="nome@empresa.com">
+            <img class="icone campo-icone" src="./assets/imgs/email.svg" alt="">
+            <input type="email" id="ipt_email" placeholder="nome@empresa.com" required>
           </span>
         </label>
 
         <label class="campo">
           <span class="campo-nome">Senha</span>
           <span class="campo-caixa">
-            <img class="icone campo-icone" src="icones/cadeado.svg" alt="">
-            <input type="password" placeholder="Criar senha">
-            <img class="icone campo-olho" src="icones/olho.svg" alt="">
+            <img class="icone campo-icone" src="./assets/imgs/cadeado.svg" alt="">
+            <input type="password" id="ipt_senha" placeholder="Criar senha" required>
+            <img class="icone campo-olho" id="img_olho" src="./assets/imgs/olho.svg" alt="Mostrar senha"
+              onclick="mostrarSenha()" style="cursor: pointer;">
           </span>
         </label>
 
         <label class="campo">
-          <span class="campo-nome">Cargo</span>
+          <span class="campo-nome">Empresa</span>
           <span class="campo-caixa">
-            <img class="icone campo-icone" src="icones/maleta.svg" alt="">
-            <select>
-              <option value="">Selecione cargo</option>
-              <option>Administradora</option>
-              <option>Gestora</option>
+            <img class="icone campo-icone" src="./assets/imgs/maleta.svg" alt="">
+            <select id="slct_empresa" required>
+              <option value="">Carregando empresas...</option>
             </select>
-            <img class="icone campo-seta" src="icones/seta-baixo.svg" alt="">
+            <img class="icone campo-seta" src="./assets/imgs/seta-baixo.svg" alt="">
           </span>
         </label>
 
         <label class="campo">
-          <span class="campo-nome">Token Jira</span>
+          <span class="campo-nome">Token Jira <span style="font-weight: 400; color: var(--cinza);">(opcional, altera token da empresa caso já tenha um)</span></span>
           <span class="campo-caixa">
-            <img class="icone campo-icone" src="icones/chave.svg" alt="">
-            <input type="text" placeholder="Insira token de acesso">
+            <img class="icone campo-icone" src="./assets/imgs/chave.svg" alt="">
+            <input type="text" id="ipt_token_jira" placeholder="Deixe em branco para manter o token atual">
           </span>
         </label>
 
         <div class="formulario-rodape">
-          <button type="submit" class="botao-laranja">Criar conta</button>
+          <button type="submit" id="btn_cadastrar" class="botao-laranja">Criar conta</button>
         </div>
       </form>
     </section>
   </main>
 
 </body>
+
 </html>

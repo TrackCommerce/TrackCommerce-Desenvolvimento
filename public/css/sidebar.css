@@ -21,6 +21,8 @@
     align-items: center;
     gap: 14px;
     margin-bottom: 35px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .sidebar .logo-img {

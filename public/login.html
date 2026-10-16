@@ -150,7 +150,11 @@
                         idUsuarioTemporario = json.id_usuario;
                         document.getElementById("modal_trocar_senha").style.display = "flex";
                     } else {
-                        window.location.href = "selecionar-servidor.html";
+                        if (json.email && json.email.toLowerCase().endsWith("@trackcommerce.com")) {
+                            window.location.href = "cadastro-gestor.html";
+                        } else {
+                            window.location.href = "selecionar-servidor.html";
+                        }
                     }
                 });
 
@@ -197,7 +201,12 @@
         }).then(function (resposta) {
             if (resposta.ok) {
                 alert("Senha alterada com sucesso!");
-                window.location.href = "selecionar-servidor.html";
+                let emailSessao = sessionStorage.getItem("EMAIL_USUARIO") || "";
+                if (emailSessao.toLowerCase().endsWith("@trackcommerce.com")) {
+                    window.location.href = "cadastro-gestor.html";
+                } else {
+                    window.location.href = "selecionar-servidor.html";
+                }
             } else {
                 msgModal.innerText = "Houve um erro ao atualizar a senha.";
             }
