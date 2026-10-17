@@ -22,6 +22,7 @@ var instanciaRouter = require("./src/routes/instancia");
 var agenteRouter = require("./src/routes/agente");
 let cadastrarInstanciaRouter = require("./src/routes/cadastro-instancia");
 let buscarInstancia = require("./src/routes/lista-instancia")
+var gestorRouter = require("./src/routes/gestor");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,9 @@ app.use("/agente", agenteRouter);
 app.use("/cadastrarInstancia", cadastrarInstanciaRouter);
 app.use("/listarInstancias", buscarInstancia);
 app.use("/cargo", cargoRouter);
+app.use("/gestor", gestorRouter);
+app.use("/gestores", gestorRouter);
+
 
 
 app.listen(PORTA_APP, function () {
