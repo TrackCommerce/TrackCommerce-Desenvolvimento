@@ -80,9 +80,27 @@
                 </button>
             </div>
 
-            <div id="instancia"></div>
-
-                        <div class="card">
+                
+            <div class="card">
+                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
+                        alt="Editar"></button>
+                <div class="icone vermelho"><img src="./assets/imgs/gateway.png" alt=""></div>
+                <div class="texto">
+                    <div class="titulo-status">
+                        <h3>Gateway de API</h3>
+                        <span class="status vermelho-texto">CRÍTICO</span>
+                    </div>
+                    <p>
+                        Distribui regras de roteamento para microsserviços
+                        principais. Camada de cache operando normalmente.
+                    </p>
+                </div>
+                <a href="dashboard/dashboard-geral.html">
+                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+                </a>
+            </div>
+            
+            <div class="card">
                 <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
                         alt="Editar"></button>
                 <div class="icone amarelo"><img src="./assets/imgs/banco-de-dados.png" alt=""></div>
@@ -122,26 +140,7 @@
                 </a>
             </div>
 
-
-
-            <div class="card">
-                <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
-                        alt="Editar"></button>
-                <div class="icone verde"><img src="./assets/imgs/gateway.png" alt=""></div>
-                <div class="texto">
-                    <div class="titulo-status">
-                        <h3>Gateway de API</h3>
-                        <span class="status verde-texto">SAUDÁVEL</span>
-                    </div>
-                    <p>
-                        Distribui regras de roteamento para microsserviços
-                        principais. Camada de cache operando normalmente.
-                    </p>
-                </div>
-                <a href="dashboard/dashboard-geral.html">
-                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
-                </a>
-            </div>
+            <div id="instancia"></div>
         </main>
 
     </div>
