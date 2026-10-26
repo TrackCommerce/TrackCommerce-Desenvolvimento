@@ -27,18 +27,7 @@ function buscarUsuarioPorEmail(email) {
 async function cadastrarGestor(nome, email, senha, fkEmpresa) {
     console.log("ACESSEI O GESTOR MODEL - cadastrarGestor():", nome, email, fkEmpresa);
 
-    // Garante que o cargo padrão de nível mais alto (Administrador) tenha a permissão 1 (gerenciar_usuarios)
-    var sqlGarantirPermissao = `
-        INSERT IGNORE INTO cargo_permissao (fk_cargo, fk_permissao) 
-        VALUES (1, 1);
-    `;
-    try {
-        await database.executar(sqlGarantirPermissao);
-    } catch (e) {
-        console.log("Aviso ao assegurar cargo_permissao: ", e.sqlMessage || e);
-    }
-
-    // Inserção do gestor com fk_cargo = 1 (cargo associado à permissão nível mais alto)
+    // Inserção do gestor com fk_cargo = 1 (cargo Administrador padrão)
     var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, celular, fk_empresa, fk_cargo) 
         VALUES (
@@ -47,7 +36,7 @@ async function cadastrarGestor(nome, email, senha, fkEmpresa) {
             '${senha}', 
             NULL, 
             ${fkEmpresa}, 
-            COALESCE((SELECT fk_cargo FROM cargo_permissao WHERE fk_permissao = 1 LIMIT 1), 1)
+            1
         );
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -58,8 +47,8 @@ async function salvarOuAtualizarTokenJira(fkEmpresa, tokenJira) {
     console.log("ACESSEI O GESTOR MODEL - salvarOuAtualizarTokenJira():", fkEmpresa);
 
     var sqlVerificar = `
-        SELECT id_api_jira 
-        FROM apijira 
+        SELECT id_integracao 
+        FROM integracao 
         WHERE fk_empresa = ${fkEmpresa} 
         LIMIT 1;
     `;
@@ -67,19 +56,18 @@ async function salvarOuAtualizarTokenJira(fkEmpresa, tokenJira) {
 
     if (resultadoVerificar && resultadoVerificar.length > 0) {
         var sqlUpdate = `
-            UPDATE apijira 
+            UPDATE integracao 
             SET codigo_api = '${tokenJira}' 
             WHERE fk_empresa = ${fkEmpresa};
         `;
-        console.log("Executando a instrução SQL (Update Jira): \n" + sqlUpdate);
+        console.log("Executando a instrução SQL (Update Integracao): \n" + sqlUpdate);
         return database.executar(sqlUpdate);
     } else {
         var sqlInsert = `
-            INSERT INTO apijira (id_api_jira, codigo_api, fk_empresa) 
-            SELECT COALESCE(MAX(id_api_jira), 0) + 1, '${tokenJira}', ${fkEmpresa} 
-            FROM apijira;
+            INSERT INTO integracao (codigo_api, fk_empresa) 
+            VALUES ('${tokenJira}', ${fkEmpresa});
         `;
-        console.log("Executando a instrução SQL (Insert Jira): \n" + sqlInsert);
+        console.log("Executando a instrução SQL (Insert Integracao): \n" + sqlInsert);
         return database.executar(sqlInsert);
     }
 }
@@ -95,13 +83,12 @@ function listarGestores() {
             u.fk_empresa,
             e.razao_social AS empresa,
             c.nome_cargo AS cargo,
-            COALESCE(aj.codigo_api, '') AS token_jira
+            COALESCE(ig.codigo_api, '') AS token_jira
         FROM usuario u
         JOIN cargo c ON u.fk_cargo = c.id_cargo
-        JOIN cargo_permissao cp ON c.id_cargo = cp.fk_cargo
         JOIN empresa e ON u.fk_empresa = e.id_empresa
-        LEFT JOIN apijira aj ON e.id_empresa = aj.fk_empresa
-        WHERE cp.fk_permissao = 1
+        LEFT JOIN integracao ig ON e.id_empresa = ig.fk_empresa
+        WHERE u.fk_cargo = 1
           AND LOWER(u.email) NOT LIKE '%@trackcommerce.com'
           AND LOWER(e.razao_social) NOT LIKE '%trackcommerce%'
         ORDER BY u.nome ASC;
@@ -117,4 +104,3 @@ module.exports = {
     salvarOuAtualizarTokenJira,
     listarGestores
 };
-

@@ -37,14 +37,19 @@ function cadastrar(req, res) {
     }
 }
 
-function listarTodos(req,res){
-    usuarioModel.listarTodos().then((resultado) => {
+function listarTodos(req, res) {
+    var fkEmpresa = req.params.fkEmpresa || req.query.fkEmpresa;
+    var idUsuarioLogado = req.query.ignorarUsuario || req.query.idUsuarioLogado;
+    usuarioModel.listarTodos(fkEmpresa, idUsuarioLogado).then((resultado) => {
         if(resultado.length > 0){
             res.status(200).json(resultado)
         }else{
             res.status(204).json("Nenhum resultado encontrado")
         }
-    })
+    }).catch((erro) => {
+        console.error("Erro ao listar usuários:", erro);
+        res.status(500).json(erro.sqlMessage || erro);
+    });
 }
 
 function editar(req, res){

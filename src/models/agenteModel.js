@@ -27,21 +27,21 @@ function buscarEmpresaPorToken(token) {
 function buscarInstanciaPorIdentificador(identificador) {
     return database.executar(`
         SELECT id_instancia, fk_empresa, nome, identificador, ativo
-        FROM instancias
+        FROM instancia
         WHERE identificador = ?;
     `, [identificador]);
 }
 
 function cadastrarInstanciaAutomatica(empresa, nome, descricao, identificador) {
     return database.executar(`
-        INSERT INTO instancias (fk_empresa, nome, descricao, identificador, ativo)
+        INSERT INTO instancia (fk_empresa, nome, descricao, identificador, ativo)
         VALUES (?, ?, ?, ?, 1);
     `, [empresa, nome, descricao, identificador]);
 }
 
 function reativarInstancia(idInstancia, empresa, nome, descricao) {
     return database.executar(`
-        UPDATE instancias
+        UPDATE instancia
         SET nome = ?, descricao = ?, ativo = 1
         WHERE id_instancia = ? AND fk_empresa = ?;
     `, [nome, descricao, idInstancia, empresa]);
