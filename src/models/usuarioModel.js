@@ -17,13 +17,24 @@ function cadastrar(nome, email, contato, senha, cargo, fk_empresa) {
     return database.executar(instrucaoSql);
 }
 
-function listarTodos(){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n")
+function listarTodos(fkEmpresa, idUsuarioLogado) {
+    console.log("ACESSEI O USUARIO MODEL - listarTodos():", fkEmpresa, idUsuarioLogado);
+
+    var filtros = [];
+    if (fkEmpresa && fkEmpresa !== "undefined" && fkEmpresa !== "null" && !isNaN(fkEmpresa)) {
+        filtros.push(`u.fk_empresa = ${fkEmpresa}`);
+    }
+    if (idUsuarioLogado && idUsuarioLogado !== "undefined" && idUsuarioLogado !== "null" && !isNaN(idUsuarioLogado)) {
+        filtros.push(`u.id_usuario != ${idUsuarioLogado}`);
+    }
+
+    var clausulaWhere = filtros.length > 0 ? `WHERE ${filtros.join(" AND ")}` : "";
 
     var instrucaoSql = `
         SELECT u.id_usuario, u.nome, u.email, u.celular, u.fk_empresa, u.fk_cargo, c.nome_cargo, c.nivel 
         FROM usuario AS u 
-        JOIN cargo AS c ON u.fk_cargo = c.id_cargo;
+        JOIN cargo AS c ON u.fk_cargo = c.id_cargo
+        ${clausulaWhere};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -50,7 +61,6 @@ function editar(id, nome, email, contato, cargo){
 }
 
 function deletar(id) {
-
     var instrucaoSql = `
         DELETE FROM usuario
         WHERE id_usuario = ${id};

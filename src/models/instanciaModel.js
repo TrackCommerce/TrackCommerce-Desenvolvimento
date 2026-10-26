@@ -10,7 +10,7 @@ function listar(id) {
                i.identificador,
                i.ativo,
                i.fk_empresa
-        FROM instancias AS i
+        FROM instancia AS i
         JOIN empresa AS e ON i.fk_empresa = e.id_empresa
         JOIN usuario AS u ON u.fk_empresa = e.id_empresa
         WHERE u.id_usuario = ${id};
@@ -23,7 +23,7 @@ function editar(idInstancia, nome, identificador, descricao) {
     console.log("ACESSEI O INSTANCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar():", idInstancia, nome, identificador, descricao);
 
     var instrucao = `
-        UPDATE instancias 
+        UPDATE instancia 
         SET nome = '${nome}', 
             identificador = '${identificador}', 
             descricao = '${descricao}'

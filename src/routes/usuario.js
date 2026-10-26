@@ -7,8 +7,11 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 router.get("/listar", function(req,res) {
-    usuarioController.listarTodos(req,res)
-})
+    usuarioController.listarTodos(req,res);
+});
+router.get("/listar/:fkEmpresa", function(req,res) {
+    usuarioController.listarTodos(req,res);
+});
 router.put("/editar", function(req,res) {
     usuarioController.editar(req,res)
 })
