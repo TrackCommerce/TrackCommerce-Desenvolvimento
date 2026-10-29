@@ -151,6 +151,7 @@ body {
 
 .tabela-rolagem {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tabela {
@@ -174,6 +175,7 @@ body {
   padding: 10px 14px;
   border-bottom: 1px solid var(--borda);
   font-size: 11px;
+  vertical-align: middle;
 }
 
 .tabela .direita { text-align: right; }
@@ -219,12 +221,14 @@ body {
 }
 
 .acoes {
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .botao-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 26px;
   height: 26px;
   border: 1px solid var(--borda);
@@ -233,6 +237,8 @@ body {
   font-size: 12px;
   color: var(--texto);
   cursor: pointer;
+  vertical-align: middle;
+  transition: background 0.15s ease;
 }
 
 .botao-icone:hover {
@@ -275,12 +281,100 @@ body {
 }
 
 
-@media (max-width: 800px) {
-  body { flex-direction: column; }
-  .conteudo { padding: 16px 12px 32px; }
-  .filtros { flex-direction: column; }
-  .filtro-cargo { width: 100%; }
-  .titulo { font-size: 20px; }
+@media (max-width: 1024px) {
+  .conteudo {
+    padding: 20px 18px 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .conteudo {
+    padding: 16px 12px 32px;
+  }
+
+  .cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .cabecalho .botao-laranja {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .titulo {
+    font-size: 20px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filtro-cargo {
+    width: 100%;
+  }
+
+  .cartao {
+    padding: 14px 10px;
+    border-radius: 14px;
+  }
+
+  .paginacao {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .paginacao-botoes {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .conteudo {
+    padding: 14px 8px 24px;
+  }
+
+  .titulo {
+    font-size: 17px;
+  }
+
+  .cartao {
+    padding: 12px 8px;
+    border-radius: 12px;
+  }
+
+  .cartao-topo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .cartao-titulo {
+    font-size: 14px;
+  }
+
+  .filtro-caixa {
+    height: 34px;
+    padding: 0 10px;
+  }
+
+  .filtro-caixa input {
+    font-size: 11px;
+  }
+
+  .pagina-botao {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
 }
 
 
@@ -301,12 +395,6 @@ body {
   width: 11px;
   height: 11px;
   vertical-align: -1px;
-}
-
-.botao-icone {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .botao-icone .icone { width: 13px; height: 13px; }

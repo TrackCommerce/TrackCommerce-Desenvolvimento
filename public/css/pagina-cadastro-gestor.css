@@ -25,6 +25,7 @@ body {
 /* ----- Conteúdo ----- */
 .conteudo {
   flex: 1;
+  min-width: 0;
   padding: 32px 48px;
 }
 
@@ -133,10 +134,78 @@ body {
   background: #e04100;
 }
 
-/* ----- Celular ----- */
-@media (max-width: 700px) {
-  body { flex-direction: column; }
-  .conteudo { padding: 20px 14px; }
+/* ----- Responsividade ----- */
+@media (max-width: 1024px) {
+  .conteudo {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .conteudo {
+    padding: 20px 14px;
+  }
+
+  .botao-voltar {
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+
+  .cartao {
+    padding: 22px 16px;
+    border-radius: 16px;
+  }
+
+  .titulo {
+    font-size: 21px;
+  }
+
+  .subtitulo {
+    font-size: 11px;
+    margin: 4px 0 14px;
+  }
+
+  .formulario-rodape {
+    margin-top: 16px;
+  }
+
+  .botao-laranja {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .conteudo {
+    padding: 16px 10px;
+  }
+
+  .cartao {
+    padding: 18px 12px;
+    border-radius: 12px;
+  }
+
+  .titulo {
+    font-size: 18px;
+  }
+
+  .campo-caixa {
+    height: 38px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .campo-nome {
+    font-size: 10.5px;
+  }
+
+  .campo-caixa input,
+  .campo-caixa select {
+    font-size: 11.5px;
+  }
 }
 
 /* ----- Ícones e detalhes ----- */
