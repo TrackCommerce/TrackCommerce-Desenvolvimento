@@ -10,10 +10,7 @@
 
     <link rel="icon" href="assets/icon/logo.png">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <title>TrackCommerce | Cadastro de novo servidor</title>
 </head>
@@ -88,10 +85,29 @@
 
         <main class="container-cadastro">
 
-            <!--
-                O conteúdo das etapas do cadastro
-                será inserido pelo JavaScript.
-            -->
+            <section class="sessao-titulo">
+                <h1 class="titulo">
+                    Cadastro de novo servidor
+                </h1>
+            </section>
+
+            <section class="instalacao-automatica" aria-labelledby="titulo-instalacao-automatica">
+                <div>
+
+                    <h2 id="titulo-instalacao-automatica">Cadastrar esta máquina automaticamente</h2>
+                    <p>
+                        Baixe o agente, instale as dependências e execute o arquivo na máquina que será monitorada.
+                        O identificador e o vínculo com sua empresa serão criados automaticamente.
+                    </p>
+                    <code>pip install psutil python-dotenv boto3</code>
+                </div>
+                <div class="instalacao-automatica__acao">
+                    <button type="button" class="botao avancar" id="btn_baixar_agente" onclick="baixarAgente()">
+                        Baixar agente Python
+                    </button>
+                    <small id="status_download_agente" aria-live="polite"></small>
+                </div>
+            </section>
 
         </main>
 
