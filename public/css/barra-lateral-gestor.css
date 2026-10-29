@@ -108,11 +108,48 @@
 .perfil-nome   { flex: 1; line-height: 1.3; }
 .perfil-opcoes { color: #8f9bb5; }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) {
   .barra-lateral {
-    width: 100%;
-    height: auto;
-    position: static;
+    width: 80px;
+    height: 100vh;
+    padding: 18px 8px;
+    align-items: center;
+    position: sticky;
+    top: 0;
   }
-  .perfil { margin-top: 20px; }
+
+  .barra-lateral .logo-nome,
+  .barra-lateral .menu-titulo,
+  .barra-lateral .menu-item span,
+  .barra-lateral .perfil-nome,
+  .barra-lateral .perfil-opcoes {
+    display: none;
+  }
+
+  .barra-lateral .logo {
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .barra-lateral .menu {
+    width: 100%;
+    align-items: center;
+  }
+
+  .barra-lateral .menu-item {
+    justify-content: center;
+    width: 100%;
+    padding: 12px 5px;
+  }
+
+  .barra-lateral .menu-item.ativo::after {
+    right: 2px;
+  }
+
+  .barra-lateral .perfil {
+    width: 100%;
+    justify-content: center;
+    padding-top: 14px;
+    margin-top: auto;
+  }
 }

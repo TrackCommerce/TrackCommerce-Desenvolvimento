@@ -65,8 +65,8 @@ function cadastrarGestor() {
     const nome = document.getElementById("ipt_nome").value.trim();
     const email = document.getElementById("ipt_email").value.trim();
     const senha = document.getElementById("ipt_senha").value;
-    const fkEmpresa = document.getElementById("slct_empresa").value;
-    const tokenJira = document.getElementById("ipt_token_jira").value.trim();
+    const iptTokenJira = document.getElementById("ipt_token_jira");
+    const tokenJira = iptTokenJira ? iptTokenJira.value.trim() : "";
     const emailSolicitante = sessionStorage.getItem("EMAIL_USUARIO");
 
     if (!validarAcesso()) return;
