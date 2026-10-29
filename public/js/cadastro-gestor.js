@@ -1,21 +1,21 @@
 // Validação de acesso restrito a funcionários da TrackCommerce (@TrackCommerce.com)
-function validarAcesso() {
-    const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO;
-    const nomeUsuario = sessionStorage.getItem("NOME_USUARIO") || sessionStorage.NOME_USUARIO;
+// function validarAcesso() {
+//     const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO;
+//     const nomeUsuario = sessionStorage.getItem("NOME_USUARIO") || sessionStorage.NOME_USUARIO;
 
-    if (!emailUsuario || !emailUsuario.trim().toLowerCase().endsWith("@trackcommerce.com")) {
-        alert("Acesso restrito! Esta página só pode ser acessada por funcionários da TrackCommerce (@TrackCommerce.com).");
-        window.location.href = "login.html";
-        return false;
-    }
+//     if (!emailUsuario || !emailUsuario.trim().toLowerCase().endsWith("@trackcommerce.com")) {
+//         alert("Acesso restrito! Esta página só pode ser acessada por funcionários da TrackCommerce (@TrackCommerce.com).");
+//         window.location.href = "login.html";
+//         return false;
+//     }
 
-    const perfilNome = document.getElementById("perfil_nome");
-    if (perfilNome) {
-        perfilNome.innerHTML = `${nomeUsuario || "Funcionário"}<br>TrackCommerce`;
-    }
+//     const perfilNome = document.getElementById("perfil_nome");
+//     if (perfilNome) {
+//         perfilNome.innerHTML = `${nomeUsuario || "Funcionário"}<br>TrackCommerce`;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 // Carregar empresas disponíveis no <select>
 function carregarEmpresas() {
@@ -75,7 +75,7 @@ function cadastrarGestor() {
     const tokenJira = iptTokenJira ? iptTokenJira.value.trim() : "";
     const emailSolicitante = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO || "";
 
-    if (!validarAcesso()) return;
+    // if (!validarAcesso()) return;
 
     if (!nome) {
         alert("Por favor, insira o nome do gestor.");
@@ -121,35 +121,36 @@ function cadastrarGestor() {
             emailSolicitanteServer: emailSolicitante
         })
     })
-    .then(async function (resposta) {
-        const dados = await resposta.json().catch(() => ({}));
+        .then(async function (resposta) {
+            const dados = await resposta.json().catch(() => ({}));
 
-        if (resposta.status === 201) {
-            alert("Gestor cadastrado com sucesso!");
-            const form = document.getElementById("form_cadastro_gestor");
-            if (form) form.reset();
-        } else if (resposta.status === 403) {
-            alert(dados.mensagem || "Acesso negado: apenas funcionários da TrackCommerce (@TrackCommerce.com) podem realizar esta ação.");
-        } else if (resposta.status === 409) {
-            alert(dados.mensagem || "Este e-mail já está cadastrado no sistema.");
-        } else {
-            alert(dados.mensagem || "Houve um erro ao realizar o cadastro. Tente novamente.");
-        }
-    })
-    .catch(function (erro) {
-        console.error("Erro na requisição de cadastro:", erro);
-        alert("Erro de conexão com o servidor. Verifique se o servidor está ativo.");
-    })
-    .finally(function () {
-        if (btnCadastrar) {
-            btnCadastrar.disabled = false;
-            btnCadastrar.textContent = "Criar conta";
-        }
-    });
+            if (resposta.status === 201) {
+                alert("Gestor cadastrado com sucesso!");
+                const form = document.getElementById("form_cadastro_gestor");
+                if (form) form.reset();
+            } else if (resposta.status === 403) {
+                alert(dados.mensagem || "Acesso negado: apenas funcionários da TrackCommerce (@TrackCommerce.com) podem realizar esta ação.");
+            } else if (resposta.status === 409) {
+                alert(dados.mensagem || "Este e-mail já está cadastrado no sistema.");
+            } else {
+                alert(dados.mensagem || "Houve um erro ao realizar o cadastro. Tente novamente.");
+            }
+        })
+        .catch(function (erro) {
+            console.error("Erro na requisição de cadastro:", erro);
+            alert("Erro de conexão com o servidor. Verifique se o servidor está ativo.");
+        })
+        .finally(function () {
+            if (btnCadastrar) {
+                btnCadastrar.disabled = false;
+                btnCadastrar.textContent = "Criar conta";
+            }
+        });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (validarAcesso()) {
-        carregarEmpresas();
-    }
+    // if (validarAcesso()) {
+    //     carregarEmpresas();
+    // }
+    carregarEmpresas();
 });
