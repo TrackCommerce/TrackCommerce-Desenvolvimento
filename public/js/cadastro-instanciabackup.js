@@ -1,0 +1,670 @@
+// Colocando a primeira estrutura do HTML em uma variável
+let primeiraEtapaCadastro = `
+            <section class="sessao-titulo">
+                <h1 class="titulo">
+                    Cadastro de novo servidor
+                </h1>
+                <p class="sub-titulo">
+                    Complete os campos abaixo para cadastrar o servidor para ser monitorado!
+                </p>
+            </section>
+    
+            <section class="sessao-processo">
+                <div class="processo processo-completo">
+                    <h2 class="numero">
+                        1
+    
+                    </h2>
+                    <h2 class="titulo-processo">
+                        Identificação
+                    </h2>
+                </div>
+                <div class="processo processo-incompleto">
+                    <h2 class="numero">
+                        2
+    
+                    </h2>
+                    <h2 class="titulo-processo">
+                        Componentes
+                    </h2>
+                </div>
+                <div class="processo processo-incompleto">
+                    <h2 class="numero">
+                        3
+                    </h2>
+                    <h2 class="titulo-processo">
+                        Paramêtros
+                    </h2>
+                </div>
+            </section>
+
+            <section class="instalacao-automatica" aria-labelledby="titulo-instalacao-automatica">
+                <div>
+                    <span class="instalacao-automatica__etiqueta">Recomendado</span>
+                    <h2 id="titulo-instalacao-automatica">Cadastrar esta máquina automaticamente</h2>
+                    <p>
+                        Baixe o agente, instale as dependências e execute o arquivo na máquina que será monitorada.
+                        O identificador e o vínculo com sua empresa serão criados automaticamente.
+                    </p>
+                    <code>pip install psutil python-dotenv boto3</code>
+                </div>
+                <div class="instalacao-automatica__acao">
+                    <button type="button" class="botao avancar" id="btn_baixar_agente" onclick="baixarAgente()">
+                        Baixar agente Python
+                    </button>
+                    <small id="status_download_agente" aria-live="polite"></small>
+                </div>
+            </section>
+    
+            <section class="sessao-card">
+                <h2 class="titulo-sessao">
+                    Identificação do Servidor
+                </h2>
+    
+                <div class="caixa-explicacao">
+                    Preencha os campos baixo para que o sistema possa identificar qual servidor precisa ser monitorado. Além de adicionar um apelido para melhor organização e facilidade na procura.
+                </div>
+    
+                <div class="formulario">
+                    <div class="caixa-texto">
+                        <div class="sub-titulo-formulario">
+                            <figure>
+                                <img 
+                                src="assets/imgs/computador-cadastro-instância.png" 
+                                alt="Imagem de Exemplo de um Computador">
+                            </figure>
+                            <h3>
+                                Apelido para o servidor
+                            </h3>
+                        </div>
+                        <input 
+                        type="text" 
+                        id="ipt_apelido_servidor" 
+                        placeholder="Insira um apelido para melhor organização de servidores">
+                    </div>
+                    <div class="caixa-texto">
+                        <div class="sub-titulo-formulario">
+                            <figure>
+                                <img 
+                                src="assets/imgs/id-usuario.png" 
+                                alt="Imagem de Exemplo para um identificador do servidor">
+                            </figure>
+                            <h3>
+                                Identificador do servidor
+                            </h3>
+                        </div>
+                        <input 
+                        type="text" 
+                        id="ipt_identificador_servidor" 
+                        placeholder="Insira um identificador para o servidor ser monitorado">
+                    </div>
+                </div>
+            </section>
+    
+            <section class="botoes">
+                <button class="botao cancelar">
+                    Cancelar
+                </button>
+                <button class="botao avancar" onclick="transicaoSegundaEtapa()">
+                    Avançar
+                </button>
+            </section>
+        `
+
+// Colocando a segunda estrutura do HTML em uma variável
+let segundaEtapaCadastro = `
+            <section class="sessao-titulo">
+                <h1 class="titulo">
+                    Cadastro de novo servidor
+                </h1>
+                <p class="sub-titulo">
+                    Complete os campos abaixo para cadastrar o servidor para ser monitorado!
+                </p>
+            </section>
+    
+            <section class="sessao-processo">
+                <div class="processo-completo">
+                    <div class="processo">
+                        <h2 class="numero">
+                            1
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Identificação
+                        </h2>
+                    </div>
+                    <div class="processo">
+                        <h2 class="numero">
+                            2
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Componentes
+                        </h2>
+                    </div>
+                </div>
+                <div class="processo processo-incompleto">
+                    <h2 class="numero">
+                        3
+                    </h2>
+                    <h2 class="titulo-processo">
+                        Paramêtros
+                    </h2>
+                </div>
+            </section>
+    
+            <section class="sessao-card">
+                <h2 class="titulo-sessao">
+                    Componentes Físicos
+                </h2>
+    
+                <div class="caixa-explicacao">
+                    Escolha quais e as opções para o monitoramento dos componentes físicos (hardwares) do seu servidor.
+                </div>
+    
+                <div class="opcoes-componentes">
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/processador-icon.png" alt="Icone de exemplo para um processador">
+                            </figure>
+                            <h2>Processador</h2>
+                        </div>
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_porcentagem_cpu">
+                                <label for="checkbox_porcentagem_cpu">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_frequencia_cpu">
+                                <label for="checkbox_frequencia_cpu">Frequência do Processador</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/armazenamento-disco-icon.png" alt="Icone de exemplo para um armazenamento em disco">
+                            </figure>
+                            <h2>Armazenamento</h2>
+                        </div>
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_porcentagem_disco">
+                                <label for="checkbox_porcentagem_disco">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_disco_livre">
+                                <label for="checkbox_disco_livre">Quantidade de GB (Gigas) Livre</label>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/memoria-ram-icon.png" alt="Icone para representar a memória ram">
+                            </figure>
+                            <h2>Memória RAM</h2>
+                        </div>
+
+                        <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_porcentagem_ram">
+                                <label for="checkbox_porcentagem_ram">Porcentagem de Uso</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_ram_livre">
+                                <label for="checkbox_ram_livre">Quantidade de GB (Gigas) Livre</label>
+                            </div>
+                        </div>                        
+                    </div>
+                    
+                    <div class="opcao-componente">
+                        <div class="titulo-componente">
+                            <figure>
+                                <img src="assets/imgs/rede-icon.png" alt="Iconde de exemplo para representar a rede">
+                            </figure>
+                            <h2>Rede</h2>
+                        </div>
+
+                         <div class="opcoes-monitoramento">
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_latencia_rede">
+                                <label for="checkbox_latencia_rede">Latência da Rede</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_download_rede">
+                                <label for="checkbox_download_rede">Download da Rede</label>
+                            </div>
+                            <div class="opcao">
+                                <input type="checkbox" id="checkbox_upload_rede">
+                                <label for="checkbox_upload_rede">Upload da Rede</label>
+                            </div>                            
+                        </div>                        
+                    </div>
+                </div>
+            </section>
+    
+            <section class="botoes">
+                <button class="botao cancelar" onclick="trocaTela(primeiraEtapaCadastro)">
+                    Voltar
+                </button>
+                <button class="botao avancar" onclick="transicaoTerceiraEtapa()">
+                    Avançar
+                </button>
+            </section>
+`
+
+// Colocando a estrutura HTML da terceira etapa do cadastro em uma variável
+let terceiraEtapaCadastro = `
+            <section class="sessao-titulo">
+                <h1 class="titulo">
+                    Cadastro de novo servidor
+                </h1>
+                <p class="sub-titulo">
+                    Complete os campos abaixo para cadastrar o servidor para ser monitorado!
+                </p>
+            </section>
+    
+            <section class="sessao-processo">
+                <div class="processo-completo">
+                    <div class="processo">
+                        <h2 class="numero">
+                            1
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Identificação
+                        </h2>
+                    </div>
+                    <div class="processo">
+                        <h2 class="numero">
+                            2
+        
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Componentes
+                        </h2>
+                    </div>
+                    <div class="processo">
+                        <h2 class="numero">
+                            3
+                        </h2>
+                        <h2 class="titulo-processo">
+                            Paramêtros
+                        </h2>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sessao-card">
+                <h2 class="titulo-sessao">
+                    Paramêtros
+                </h2>
+    
+                <div class="caixa-explicacao">
+                    Escolha o limite de porcentagem de uso para que o sistema solte um alerta. <strong>Utilize apenas números!</strong>
+                </div>
+                
+                <div class="caixa_parametros">
+                    <div id="especificacoes_parametros"></div>
+                </div>
+            </section>
+    
+            <section class="botoes">
+                <button class="botao cancelar" onclick="trocaTela(segundaEtapaCadastro)">
+                    Voltar
+                </button>
+                <button class="botao avancar" onclick="confirmacaoParametro()">
+                    Concluir
+                </button>
+            </section>
+`
+
+// Colocando a estrutura HTML para a confirmação 
+let containerPopUpConfirmacao = `
+            <div class="pop_up pop_up_confirmacao">
+                <div class="texto_alerta">
+                    <p>
+                        Você tem certeza que gostaria de criar esse serviço com esses paramêtros?
+                    </p>
+                </div>
+                <div class="botoes_alerta">
+                    <button class="botao_cancelar" onclick="fecharPopUp(containerPopUp)">Cancelar</button>
+                    <button class="botao_aceitar" onclick="cadastrarServidor()">Aceitar</button>
+                </div>
+            </div>
+`
+
+let cadastroServidor = {
+    apelido: "",
+    identificador: "",
+    componentes_instancia: [
+
+    ]
+}
+
+// Pegando o elemento usando o DOM a partir classe chamada "container-cadastro"
+let containerCadastro = document.querySelector('.container-cadastro');
+
+// Pegando o elemento usando o DOM a partir classe chamada "container_pop_up"
+let containerPopUp = document.querySelector('.container_pop_up');
+
+// Array de suporte para armazenar todos os componentes
+let arrayComponentes = [];
+
+// Incializando a aplicação com a primeira etapa do cadastro
+containerCadastro.innerHTML = primeiraEtapaCadastro;
+
+// Sobreescrevendo o containerPopUP usando a função de criar um pop-up
+containerPopUp.innerHTML = criarPopUpBasico("Você não preencheu todos os campos! <br> Preencha eles corretamente!");
+
+// Função para validar a primeira etapa do cadastro
+function transicaoSegundaEtapa() {
+    let iptApelidoServidor = ipt_apelido_servidor.value;
+    let iptIdentificadorServidor = ipt_identificador_servidor.value;
+
+    // Verificando um dos campos estão vazios
+    if (iptApelidoServidor == "" || iptIdentificadorServidor == "") {
+        containerPopUp.style.display = "block";
+    } else {
+
+        cadastroServidor.apelido = iptApelidoServidor;
+        cadastroServidor.identificador = iptIdentificadorServidor;
+
+        fecharPopUp(containerPopUp);
+        trocaTela(segundaEtapaCadastro);
+    }
+}
+
+function transicaoTerceiraEtapa() {
+    // Capturando cada checkbox do cadastro de componente
+    //TODO: Integrar com BD
+
+    let checkboxPorcetangemCpu = document.querySelector("#checkbox_porcentagem_cpu");
+    let checkboxFrequenciaCpu = document.querySelector("#checkbox_frequencia_cpu");
+    let checkboxPorcetagemDisco = document.querySelector("#checkbox_porcentagem_disco");
+    let checkboxDiscoLivre = document.querySelector("#checkbox_disco_livre");
+    let checkboxPorcentagemRam = document.querySelector("#checkbox_porcentagem_ram");
+    let checkboxRamLivre = document.querySelector("#checkbox_ram_livre");
+    let checkboxLatenciaRede = document.querySelector("#checkbox_latencia_rede");
+    let checkboxDownloadRede = document.querySelector("#checkbox_download_rede");
+    let checkboxUploadRede = document.querySelector("#checkbox_upload_rede");
+
+    // Verificando se todos os componentes não estão selecionandos
+    if(!checkboxPorcetangemCpu.checked && !checkboxFrequenciaCpu.checked && !checkboxPorcetagemDisco.checked && !checkboxDiscoLivre.checked && !checkboxPorcentagemRam.checked && !checkboxRamLivre.checked && !checkboxLatenciaRede.checked && !checkboxDownloadRede.checked && !checkboxUploadRede.checked) {
+        containerPopUp.style.display = "block";
+        containerPopUp.innerHTML = criarPopUpBasico("Selecione pelo menos um componente para ser monitorado!");    
+    } else {
+        function criarCampoDeParametro(componente, idComponente, placeholder) {
+            containerEspecificacoesParametros.innerHTML += `
+                <h3 class="titulo-parametro">
+                    Paramêtro para ${componente}
+                </h3>
+                <input 
+                    type="number" 
+                    id="${idComponente}" 
+                    placeholder="${placeholder}"
+                >
+            `
+        }
+
+        fecharPopUp(containerPopUp);
+        trocaTela(terceiraEtapaCadastro);     
+
+        let containerEspecificacoesParametros = document.querySelector('#especificacoes_parametros');
+
+        if (checkboxPorcetangemCpu.checked) {
+            criarCampoDeParametro("porcentual de uso CPU", "id_parametro_porcentagem_cpu", "Exemplo: 60 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_cpu");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 1
+            })
+
+        }
+
+        if (checkboxFrequenciaCpu.checked) {
+            criarCampoDeParametro("frequência da CPU", "id_parametro_frequencia_cpu", "Exemplo: 2.4 (Unidade: Gigahertz GHz)")
+            arrayComponentes.push("id_parametro_frequencia_cpu");
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 2
+            })
+        }
+
+        if (checkboxPorcetagemDisco.checked) {
+            criarCampoDeParametro("porcentual do armazenamento", "id_parametro_porcentagem_armazenamento", "Exemplo: 70 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_armazenamento");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 3
+            })
+        }
+
+        if (checkboxDiscoLivre.checked) {
+            criarCampoDeParametro("a quantidade de Gigas (Gb) Livre no Armazenamento", "id_parametro_quantidade_livre_disco", "Exemplo: 120 (Unidade: Gigabyte GB)")
+            arrayComponentes.push("id_parametro_quantidade_livre_disco");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 4
+            })
+        }
+
+        if (checkboxPorcentagemRam.checked) {
+            criarCampoDeParametro("porcentual de uso da memória RAM", "id_parametro_porcentagem_ram", "Exemplo: 80 (Unidade: Porcentagem %)")
+            arrayComponentes.push("id_parametro_porcentagem_ram");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 5
+            })
+        }
+
+        if (checkboxRamLivre.checked) {
+            criarCampoDeParametro("a quantidade em MegaByes (MB) de memória RAM", "id_parametro_quantidade_livre_ram", "Exemplo: 4 (Unidade: Gigabyte GB)")
+            arrayComponentes.push("id_parametro_quantidade_livre_ram");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 6
+            })
+        }
+
+        if (checkboxLatenciaRede.checked) {
+            criarCampoDeParametro("latência de rede", "id_parametro_latencia_rede", "Exemplo: 200 (Unidade: Milissegundo ms)")
+            arrayComponentes.push("id_parametro_latencia_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 7
+            })
+        }
+
+        if(checkboxDownloadRede.checked) {
+            criarCampoDeParametro("download de rede", "id_parametro_download_rede", "Exemplo: 300 (Unidade: Megabits por Segundo Mbps)")
+            arrayComponentes.push("id_parametro_download_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 8
+            })
+        }
+
+        if(checkboxUploadRede.checked) {
+            criarCampoDeParametro("upload de rede", "id_parametro_upload_rede", "Exemplo: 100 (Unidade: Megabits por Segundo Mbps)")
+            arrayComponentes.push("id_parametro_upload_rede");
+
+            cadastroServidor.componentes_instancia.push({
+                fk_componente: 9
+            })
+        }
+
+        return arrayComponentes;  
+    }
+}
+
+function confirmacaoParametro() {
+    for (let i = 0; i < arrayComponentes.length; i++) {
+        let idInput = document.getElementById(arrayComponentes[i]);
+        let valorDoInput = idInput.value;
+
+        if (valorDoInput !== "" && !isNaN(valorDoInput)) {
+            containerPopUp.style.display = "block";
+            containerPopUp.innerHTML = containerPopUpConfirmacao;
+        } else {
+            containerPopUp.style.display = "block";
+            containerPopUp.innerHTML = criarPopUpBasico("Você colocou algo mais que números! Por favor, utilize apenas números!");
+        }
+    }
+}
+
+function trocaTela(telaDestino) {
+    containerCadastro.innerHTML = telaDestino;
+}
+
+function criarPopUpBasico(textoAlerta) {
+    return `
+            <div class="pop_up">
+                <div class="botao-saida" onclick="fecharPopUp(containerPopUp)">
+                    <button>X</button>
+                </div>
+                <div class="texto_alerta">
+                    <p>
+                        ${textoAlerta}
+                    </p>
+                </div>
+            </div>
+    `
+}
+
+function fecharPopUp(classeDoPopUp) {
+    classeDoPopUp.style.display = "none";
+}
+
+
+function cadastrarServidor() {
+    var idInstancia;
+    let contador = 0;
+
+    fetch("/cadastrarInstancia/cadastrarInstancia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServidor: cadastroServidor.apelido,
+            identificadorServidor: cadastroServidor.identificador,
+            empresaServidor: Number(sessionStorage.getItem("FK_EMPRESA"))
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                let identificadorServidor = cadastroServidor.identificador;
+                {
+                    console.log(cadastroServidor.componentes_instancia.length)
+                    fetch(`/cadastrarInstancia/buscarIdInstancia/${identificadorServidor}`, {
+                        method: "GET",
+                    })
+                        .then(function (resposta) {
+                            resposta.json().then((ids) => {
+                                ids.forEach(id => {
+                                    idInstancia = id.id_instancia
+                                });
+
+                                for (let i = 0; i < cadastroServidor.componentes_instancia.length; i++) {
+                                    let id_input = document.getElementById(arrayComponentes[i]);
+                                    let valor_input = id_input.value;
+
+                                    console.log("entramos no for")
+                                    fetch("/cadastrarInstancia/cadastrarComponenteInstancia", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            // crie um atributo que recebe o valor recuperado aqui
+                                            // Agora vá para o arquivo routes/usuario.js
+                                            componenteServidor: cadastroServidor.componentes_instancia[i].fk_componente,
+                                            instanciaServidor: idInstancia,
+                                            parametroServidor: valor_input
+
+                                        }),
+
+                                    })
+                                    
+                                    contador ++;
+                                    console.log(cadastroServidor.componentes_instancia[0].fk_componente);
+                                }
+                                
+                            });
+
+                            fecharPopUp(containerPopUp)
+                            setInterval(() => {
+                                trocaTela(primeiraEtapaCadastro)    
+                            }, 500);
+
+                            console.log(contador + " " + cadastroServidor.componentes_instancia.length)
+                        })
+                        .catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+                        });
+
+                }
+
+
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+
+
+
+    console.log(cadastroServidor)
+}
+
+async function baixarAgente() {
+    const botao = document.getElementById("btn_baixar_agente");
+    const status = document.getElementById("status_download_agente");
+    const empresa = Number(sessionStorage.getItem("FK_EMPRESA"));
+
+    if (!Number.isSafeInteger(empresa) || empresa <= 0) {
+        status.textContent = "Faça login novamente para identificar sua empresa.";
+        return;
+    }
+
+    botao.disabled = true;
+    status.textContent = "Preparando o agente...";
+
+    try {
+        const resposta = await fetch("/agente/download", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ empresaServidor: empresa })
+        });
+
+        if (!resposta.ok) {
+            throw new Error(await resposta.text() || "Não foi possível baixar o agente.");
+        }
+
+        const arquivo = await resposta.blob();
+        const url = URL.createObjectURL(arquivo);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "trackcommerce-agente.py";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        status.textContent = "Download iniciado. Execute o arquivo na máquina monitorada.";
+    } catch (erro) {
+        status.textContent = erro.message || "Não foi possível baixar o agente.";
+    } finally {
+        botao.disabled = false;
+    }
+}
