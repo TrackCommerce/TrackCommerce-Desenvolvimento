@@ -150,7 +150,7 @@
                         idUsuarioTemporario = json.id_usuario;
                         document.getElementById("modal_trocar_senha").style.display = "flex";
                     } else {
-                        if (json.email && json.email.toLowerCase().endsWith("@trackcommerce.com")) {
+                        if (json.email && json.fk_empresa == 1) {
                             window.location.href = "cadastro-gestor.html";
                         } else {
                             window.location.href = "selecionar-servidor.html";

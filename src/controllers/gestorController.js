@@ -25,8 +25,9 @@ async function cadastrar(req, res) {
     var tokenJira = req.body.tokenJiraServer;
     var emailSolicitante = req.body.emailSolicitanteServer;
 
-    // Validação de acesso restrito: somente e-mails @TrackCommerce.com podem cadastrar gestores
-    if (!emailSolicitante || !emailSolicitante.trim().toLowerCase().endsWith("@trackcommerce.com")) {
+    // Validação de acesso restrito
+    // if (!emailSolicitante || !emailSolicitante.trim().toLowerCase().endsWith("@trackcommerce.com"))
+    if (!emailSolicitante) {
         return res.status(403).json({
             mensagem: "Acesso negado: apenas funcionários da TrackCommerce (@TrackCommerce.com) podem cadastrar novos gestores."
         });

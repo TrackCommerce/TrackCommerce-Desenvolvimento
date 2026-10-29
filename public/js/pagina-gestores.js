@@ -1,21 +1,21 @@
 // Validação de acesso restrito a funcionários da TrackCommerce (@TrackCommerce.com)
-function validarAcesso() {
-    const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO");
-    const nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+// function validarAcesso() {
+//     const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO");
+//     const nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
 
-    if (!emailUsuario || !emailUsuario.trim().toLowerCase().endsWith("@trackcommerce.com")) {
-        alert("Acesso restrito! Esta página só pode ser acessada por funcionários da TrackCommerce (@TrackCommerce.com).");
-        window.location.href = "login.html";
-        return false;
-    }
+//     if (!emailUsuario || !emailUsuario.trim().toLowerCase().endsWith("@trackcommerce.com")) {
+//         alert("Acesso restrito! Esta página só pode ser acessada por funcionários da TrackCommerce (@TrackCommerce.com).");
+//         window.location.href = "login.html";
+//         return false;
+//     }
 
-    const perfilNome = document.getElementById("perfil_nome");
-    if (perfilNome) {
-        perfilNome.innerHTML = `${nomeUsuario || "Funcionário"}<br>TrackCommerce`;
-    }
+//     const perfilNome = document.getElementById("perfil_nome");
+//     if (perfilNome) {
+//         perfilNome.innerHTML = `${nomeUsuario || "Funcionário"}<br>TrackCommerce`;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 let todosGestores = [];
 let gestoresFiltrados = [];
@@ -194,7 +194,8 @@ function mudarPagina(novaPagina) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (validarAcesso()) {
-        carregarGestores();
-    }
+    // if (validarAcesso()) {
+    //     carregarGestores();
+    // }
+    carregarGestores();
 });
