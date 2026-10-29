@@ -1,7 +1,7 @@
 // Validação de acesso restrito a funcionários da TrackCommerce (@TrackCommerce.com)
 function validarAcesso() {
-    const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO");
-    const nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+    const emailUsuario = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO;
+    const nomeUsuario = sessionStorage.getItem("NOME_USUARIO") || sessionStorage.NOME_USUARIO;
 
     if (!emailUsuario || !emailUsuario.trim().toLowerCase().endsWith("@trackcommerce.com")) {
         alert("Acesso restrito! Esta página só pode ser acessada por funcionários da TrackCommerce (@TrackCommerce.com).");
@@ -62,42 +62,50 @@ function mostrarSenha() {
 
 // Cadastrar novo gestor
 function cadastrarGestor() {
-    const nome = document.getElementById("ipt_nome").value.trim();
-    const email = document.getElementById("ipt_email").value.trim();
-    const senha = document.getElementById("ipt_senha").value;
+    const iptNome = document.getElementById("ipt_nome");
+    const iptEmail = document.getElementById("ipt_email");
+    const iptSenha = document.getElementById("ipt_senha");
+    const slctEmpresa = document.getElementById("slct_empresa");
     const iptTokenJira = document.getElementById("ipt_token_jira");
+
+    const nome = iptNome ? iptNome.value.trim() : "";
+    const email = iptEmail ? iptEmail.value.trim() : "";
+    const senha = iptSenha ? iptSenha.value : "";
+    const fkEmpresa = slctEmpresa ? slctEmpresa.value : "";
     const tokenJira = iptTokenJira ? iptTokenJira.value.trim() : "";
-    const emailSolicitante = sessionStorage.getItem("EMAIL_USUARIO");
+    const emailSolicitante = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO || "";
 
     if (!validarAcesso()) return;
 
     if (!nome) {
         alert("Por favor, insira o nome do gestor.");
-        document.getElementById("ipt_nome").focus();
+        if (iptNome) iptNome.focus();
         return;
     }
 
     if (!email) {
         alert("Por favor, insira o e-mail do gestor.");
-        document.getElementById("ipt_email").focus();
+        if (iptEmail) iptEmail.focus();
         return;
     }
 
     if (!senha) {
         alert("Por favor, crie uma senha para o gestor.");
-        document.getElementById("ipt_senha").focus();
+        if (iptSenha) iptSenha.focus();
         return;
     }
 
     if (!fkEmpresa) {
         alert("Por favor, selecione a empresa correspondente.");
-        document.getElementById("slct_empresa").focus();
+        if (slctEmpresa) slctEmpresa.focus();
         return;
     }
 
     const btnCadastrar = document.getElementById("btn_cadastrar");
-    btnCadastrar.disabled = true;
-    btnCadastrar.textContent = "Cadastrando...";
+    if (btnCadastrar) {
+        btnCadastrar.disabled = true;
+        btnCadastrar.textContent = "Cadastrando...";
+    }
 
     fetch("/gestor/cadastrar", {
         method: "POST",
@@ -118,7 +126,8 @@ function cadastrarGestor() {
 
         if (resposta.status === 201) {
             alert("Gestor cadastrado com sucesso!");
-            document.getElementById("form_cadastro_gestor").reset();
+            const form = document.getElementById("form_cadastro_gestor");
+            if (form) form.reset();
         } else if (resposta.status === 403) {
             alert(dados.mensagem || "Acesso negado: apenas funcionários da TrackCommerce (@TrackCommerce.com) podem realizar esta ação.");
         } else if (resposta.status === 409) {
@@ -132,8 +141,10 @@ function cadastrarGestor() {
         alert("Erro de conexão com o servidor. Verifique se o servidor está ativo.");
     })
     .finally(function () {
-        btnCadastrar.disabled = false;
-        btnCadastrar.textContent = "Criar conta";
+        if (btnCadastrar) {
+            btnCadastrar.disabled = false;
+            btnCadastrar.textContent = "Criar conta";
+        }
     });
 }
 
