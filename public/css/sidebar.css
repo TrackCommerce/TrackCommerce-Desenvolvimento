@@ -5,13 +5,35 @@
     top: 0;
     left: 0;
     width: 250px;
+    min-width: 250px;
+    max-width: 250px;
     height: 100vh;
+    height: 100dvh;
     background: #14213D;
-    padding: 22px 18px;
+    padding: 20px 12px;
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
     z-index: 1000;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    flex-shrink: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
 }
 
 /* LOGO */
@@ -19,28 +41,39 @@
 .sidebar .logo {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 35px;
+    gap: 12px;
+    margin-bottom: 22px;
     text-decoration: none;
     cursor: pointer;
+    flex-shrink: 0;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 .sidebar .logo-img {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     border-radius: 12px;
+    flex-shrink: 0;
+    min-width: 38px;
 }
 
 .sidebar .logo-img img {
     width: 100%;
     height: 100%;
     border-radius: 12px;
+    display: block;
 }
 
 .sidebar .logo h2 {
     color: white;
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 /* MENU */
@@ -48,19 +81,26 @@
 .sidebar .menu {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 20px;
+    gap: 6px;
+    margin-top: 4px;
+    flex: 1 0 auto;
+    width: 100%;
+    min-width: 0;
 }
 
 .sidebar .item {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px 14px;
-    border-radius: 12px;
+    gap: 10px;
+    padding: 10px 10px;
+    border-radius: 10px;
     color: #AEB8CE;
     text-decoration: none;
     position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .sidebar .item:hover {
@@ -70,21 +110,29 @@
 }
 
 .sidebar .item img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
 }
 
 .sidebar .item span {
-    font-size: 16px;
+    font-size: 13.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1 1 auto;
+    letter-spacing: -0.2px;
 }
 
 /* ICONE */
 
 .sidebar .icone {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,8 +140,8 @@
 }
 
 .sidebar .icone img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
 }
 
 /* ITEM ATIVO */
@@ -106,30 +154,35 @@
 .sidebar .ativo::after {
     content: "";
     width: 4px;
-    height: 18px;
-    background: orangered;
+    height: 16px;
+    background: #e54d15;
     border-radius: 4px;
     position: absolute;
-    right: 12px;
+    right: 8px;
 }
 
 /* USUÁRIO */
 
 .sidebar .usuario {
-    position: absolute;
-    bottom: 25px;
-    left: 18px;
-    right: 18px;
-    padding-top: 18px;
+    position: relative;
+    margin-top: auto;
+    padding-top: 14px;
+    padding-bottom: 4px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-shrink: 0;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .sidebar .foto {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
     border-radius: 50%;
     background: #D9D9D9;
     flex-shrink: 0;
@@ -139,58 +192,111 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    display: block;
+}
+
+.sidebar .info {
+    overflow: hidden;
+    min-width: 0;
+    flex: 1 1 auto;
 }
 
 .sidebar .info h3 {
     color: white;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 600;
     margin-bottom: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .sidebar .info p {
     color: #8C97B0;
-    font-size: 13px;
+    font-size: 11px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 0;
 }
 
-
+/* Ponto de colapso para modo ícones (<= 1024px e alta escala) */
+/* Não muda mais com o zoom além deste ponto para manter estabilidade absoluta */
 @media (max-width: 1024px) {
-
     .sidebar {
-        width: 80px;
-        height: 100vh;
-        padding: 15px 8px;
-        align-items: center;
+        width: 80px !important;
+        min-width: 80px !important;
+        max-width: 80px !important;
+        padding: 14px 6px !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+        overflow-x: hidden !important;
     }
 
     .sidebar .logo h2,
     .sidebar .item span,
     .sidebar .info {
-        display: none;
+        display: none !important;
     }
 
     .sidebar .logo {
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
+        width: 100%;
+        gap: 0;
+    }
+
+    .sidebar .logo-img {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
     }
 
     .sidebar .menu {
         width: 100%;
+        align-items: center;
+        margin-top: 4px;
+        gap: 4px;
     }
 
     .sidebar .item {
-        justify-content: center;
-        width: 100%;
-        padding: 12px 5px;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 8px 0 !important;
+        gap: 0 !important;
+    }
+
+    .sidebar .icone {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+    }
+
+    .sidebar .ativo::after {
+        right: 2px !important;
+        height: 16px !important;
     }
 
     .sidebar .usuario {
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        bottom: 15px;
-        justify-content: center;
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin-top: auto !important;
+        padding-top: 10px !important;
+        padding-bottom: 4px !important;
+        justify-content: center !important;
+        width: 100% !important;
+        gap: 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
     }
 
+    .sidebar .foto {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+    }
 }
 
 /* Itens bloqueados por permissão */
