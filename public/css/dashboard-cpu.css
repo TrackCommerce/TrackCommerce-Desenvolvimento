@@ -120,6 +120,47 @@ main {
     flex-direction: column;
 }
 
+.col-esquerda .card:last-child table {
+    width: 100%;
+    flex: 1;
+    display: table;
+    height: 100%;
+    margin-top: 4px;
+    border-collapse: collapse;
+}
+
+.col-esquerda .card:last-child thead {
+    flex-shrink: 0;
+}
+
+.col-esquerda .card:last-child tbody {
+    height: 100%;
+}
+
+.col-esquerda .card:last-child tbody tr {
+    height: 20%;
+    transition: background-color 0.15s ease;
+}
+
+.col-esquerda .card:last-child tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.col-esquerda .card:last-child td {
+    vertical-align: middle;
+    padding: 10px 10px;
+    font-size: 12px;
+}
+
+.col-esquerda .card:last-child tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.col-esquerda .card:last-child td.pid {
+    font-weight: 700;
+    color: #4b5563;
+}
+
 .card-title {
     text-align: left;
     margin-bottom: 16px;
@@ -215,52 +256,68 @@ main {
 
 .modo-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-evenly;
+    gap: 24px;
     flex: 1;
+    width: 100%;
+    padding: 10px 16px;
+    box-sizing: border-box;
 }
 
 .doughnut-box {
-    width: 190px;
-    height: 190px;
+    width: 230px;
+    height: 230px;
     position: relative;
+    flex-shrink: 0;
 }
 
 .legend-list {
     width: 100%;
-    max-width: 280px;
+    max-width: 290px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .legend-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border: 1px solid #e6e9ef;
+    border-radius: 10px;
+    font-size: 13px;
     font-weight: 600;
-    color: #6b7486;
+    color: #4b5563;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.legend-item:hover {
+    background: #f1f4f9;
+    border-color: #d8dde6;
 }
 
 .leg-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     display: inline-block;
+    flex-shrink: 0;
 }
 
 .leg-right {
     color: #1a2233;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 14px;
 }
 
 /* RESPONSIVIDADE */
@@ -280,6 +337,10 @@ main {
     .col-esquerda .card:last-child,
     .col-direita .card:last-child {
         flex: auto;
+    }
+
+    .modo-container {
+        padding: 10px 0;
     }
 }
 
@@ -315,9 +376,20 @@ main {
         padding: 16px;
     }
 
+    .modo-container {
+        flex-direction: column;
+        justify-content: center;
+        gap: 18px;
+        padding: 8px 0;
+    }
+
     .doughnut-box {
-        width: 170px;
-        height: 170px;
+        width: 180px;
+        height: 180px;
+    }
+
+    .legend-list {
+        max-width: 100%;
     }
 }
 

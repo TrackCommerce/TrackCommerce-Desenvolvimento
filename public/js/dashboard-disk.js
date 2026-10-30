@@ -1,15 +1,15 @@
-function criarGraficoUsoDisco(idCanvas) {
+function criarGraficoUsoDisco(idCanvas, dados = [35, 48, 62, 74, 80]) {
   const ctx = document.getElementById(idCanvas);
   if (!ctx) return null;
 
   return new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      labels: ['12:00', '12:15', '12:30', '12:45', 'Agora'],
       datasets: [
         {
           label: 'Limite (85%)',
-          data: [85, 85, 85, 85, 85, 85, 85, 85, 85],
+          data: [85, 85, 85, 85, 85],
           borderColor: '#ea580c',
           borderWidth: 1.5,
           borderDash: [4, 4],
@@ -20,14 +20,12 @@ function criarGraficoUsoDisco(idCanvas) {
         },
         {
           label: 'Uso atual',
-          data: [20, 34, 45, 48, 52, 62, 74, 78, 80],
+          data: dados,
           borderColor: '#0284c7',
           backgroundColor: '#0284c7',
           borderWidth: 2.5,
           fill: false,
-          tension: 0.15,
-          borderJoinStyle: 'round',
-          borderCapStyle: 'round',
+          tension: 0,
           pointRadius: 0,
           pointHoverRadius: 4,
           pointHoverBackgroundColor: '#0284c7'
@@ -86,7 +84,7 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
   return new Chart(ctx, {
     type: 'line',
     data: {
-      labels: dados1.map((_, i) => i),
+      labels: ['12:00', '12:15', '12:30', '12:45', 'Agora'],
       datasets: [
         {
           label: label1,
@@ -95,9 +93,7 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
           backgroundColor: cor1,
           borderWidth: 2,
           fill: false,
-          tension: 0.15,
-          borderJoinStyle: 'round',
-          borderCapStyle: 'round',
+          tension: 0,
           pointRadius: 0,
           pointHoverRadius: 4,
           pointHoverBackgroundColor: cor1
@@ -109,9 +105,7 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
           backgroundColor: cor2,
           borderWidth: 2,
           fill: false,
-          tension: 0.15,
-          borderJoinStyle: 'round',
-          borderCapStyle: 'round',
+          tension: 0,
           pointRadius: 0,
           pointHoverRadius: 4,
           pointHoverBackgroundColor: cor2
@@ -162,12 +156,33 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  criarGraficoUsoDisco('grafico-uso-disco');
+  const servidor = (typeof obterServidorAtual === 'function')
+    ? obterServidorAtual()
+    : (window.DADOS_MOCKADOS ? window.DADOS_MOCKADOS.atencao : null);
+
+  const dadosDisco = servidor ? servidor.disco : {
+    usoAtual: "80%",
+    usadosTexto: "916 GB usados • 584 GB livres",
+    evolucao: [70, 72, 75, 78, 80],
+    ioBytes: { read: [42, 55, 68, 62, 70], write: [35, 45, 58, 52, 60] },
+    ioIops: { read: [50, 65, 80, 72, 85], write: [40, 52, 65, 58, 70] },
+    ioLatency: { read: [4, 6, 8, 7, 9], write: [5, 8, 11, 9, 12] }
+  };
+
+  // Atualiza valor destaque
+  const elUsoAtual = document.getElementById('disco-uso-atual');
+  if (elUsoAtual) elUsoAtual.textContent = dadosDisco.usoAtual;
+
+  // Atualiza footer da partição
+  const elFooter = document.getElementById('disco-footer-usados');
+  if (elFooter) elFooter.textContent = dadosDisco.usadosTexto;
+
+  criarGraficoUsoDisco('grafico-uso-disco', dadosDisco.evolucao);
   criarGraficoDuasLinhas(
     'grafico-io-bytes',
-    [15, 28, 25, 42, 38, 58, 56, 75],
+    dadosDisco.ioBytes.read,
     '#10b981',
-    [12, 24, 21, 38, 34, 54, 52, 70],
+    dadosDisco.ioBytes.write,
     '#ea580c',
     'Leitura',
     'Gravação',
@@ -175,9 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   criarGraficoDuasLinhas(
     'grafico-io-iops',
-    [16, 29, 26, 44, 39, 60, 57, 78],
+    dadosDisco.ioIops.read,
     '#10b981',
-    [13, 25, 22, 39, 35, 55, 53, 72],
+    dadosDisco.ioIops.write,
     '#ea580c',
     'Leitura',
     'Gravação',
@@ -185,9 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   criarGraficoDuasLinhas(
     'grafico-io-latency',
-    [14, 26, 22, 36, 32, 52, 50, 72],
+    dadosDisco.ioLatency.read,
     '#0284c7',
-    [16, 30, 25, 42, 38, 60, 56, 76],
+    dadosDisco.ioLatency.write,
     '#ea580c',
     'Média',
     'Percentil 95',

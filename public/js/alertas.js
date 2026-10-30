@@ -89,12 +89,6 @@ function renderizarTabela() {
         else if (alerta.status === "Em Investigação") classeStatus = "status-investigacao";
         else if (alerta.status === "Resolvido") classeStatus = "status-resolvido";
 
-        let acao = "";
-        let classeAcao = "";
-        if (alerta.status === "Pendente") { acao = "Tratar"; classeAcao = ""; }
-        else if (alerta.status === "Em Investigação") { acao = "Ver"; classeAcao = "ver"; }
-        else { acao = "Histórico"; classeAcao = "historico"; }
-
         tr.innerHTML = `
             <td>${alerta.data}</td>
             <td><strong>${alerta.servidor}</strong></td>
@@ -102,7 +96,6 @@ function renderizarTabela() {
             <td>${alerta.tipo}</td>
             <td><span class="${classeSev}">${alerta.severidade}</span></td>
             <td><span class="status-badge ${classeStatus}">${alerta.status}</span></td>
-            <td><a href="#" class="action-link ${classeAcao}">${acao}</a></td>
         `;
         tbody.appendChild(tr);
     });

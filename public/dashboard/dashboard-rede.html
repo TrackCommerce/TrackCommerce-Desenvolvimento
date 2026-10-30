@@ -71,25 +71,25 @@
                 <div class="card-header">
                     <div>
                         <h2>Conexões ativas</h2>
-                        <p>Distribuição por estado da conexão TCP nas últimas 24 horas</p>
+                        <p>Distribuição por estado da conexão TCP nos últimos 15 minutos</p>
                     </div>
-                    <span class="badge">Últimas 24 horas</span>
+                    <span class="badge">Últimos 15 minutos</span>
                 </div>
                 <div class="connections-content">
                     <div class="pie-chart"><canvas id="grafico-conexoes"></canvas></div>
                     <div class="connection-list">
                         <div class="connection-item">
-                            <div><span><i class="dot established"></i>ESTABLISHED</span><small>110 conexões</small>
+                            <div><span><i class="dot established"></i>ESTABLISHED</span><small id="conexoes-est-small">110 conexões</small>
                             </div>
-                            <strong>55%</strong>
+                            <strong id="conexoes-est-perc">55%</strong>
                         </div>
                         <div class="connection-item">
-                            <div><span><i class="dot time-wait"></i>TIME_WAIT</span><small>50 conexões</small></div>
-                            <strong>25%</strong>
+                            <div><span><i class="dot time-wait"></i>TIME_WAIT</span><small id="conexoes-time-small">50 conexões</small></div>
+                            <strong id="conexoes-time-perc">25%</strong>
                         </div>
                         <div class="connection-item">
-                            <div><span><i class="dot close-wait"></i>CLOSE_WAIT</span><small>40 conexões</small></div>
-                            <strong>20%</strong>
+                            <div><span><i class="dot close-wait"></i>CLOSE_WAIT</span><small id="conexoes-close-small">40 conexões</small></div>
+                            <strong id="conexoes-close-perc">20%</strong>
                         </div>
                     </div>
                 </div>
@@ -103,8 +103,15 @@
                     </div>
                     <span class="badge">Última hora</span>
                 </div>
-                <div class="main-value"><strong>36</strong><span>pacotes na última hora</span></div>
+                <div class="main-value"><strong id="rede-pacotes-perdidos-num">36</strong><span>pacotes na última hora</span></div>
                 <div class="packet-chart"><canvas id="grafico-pacotes-perdidos"></canvas></div>
+                <div class="axis">
+                    <span>12:00</span>
+                    <span>12:15</span>
+                    <span>12:30</span>
+                    <span>12:45</span>
+                    <span>Agora</span>
+                </div>
                 <div class="chart-legend"><i class="dot line-dot-loss"></i>Pacotes perdidos</div>
             </article>
         </section>
@@ -113,39 +120,76 @@
             <div class="card-header traffic-header">
                 <div>
                     <h2>Tráfego de dados</h2>
-                    <p>Volume transferido e quantidade de pacotes em MB/m na última hora</p>
+                    <p>Volume transferido e quantidade de pacotes na última hora</p>
                 </div>
-                <span class="badge">Taxa em MB/m</span>
+                <span class="badge">Última hora</span>
             </div>
 
             <div class="traffic-grid">
                 <article class="metric-card">
-                    <h3>Download</h3>
-                    <small>MÉDIA NA ÚLTIMA HORA</small>
-                    <div class="metric-value"><strong>75</strong><span>MB/m</span></div>
-                    <div class="metric-chart"><canvas id="grafico-download-gb"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot-download"></i>Dados recebidos</div>
+                    <div class="metric-card-header">
+                        <div class="metric-title-group">
+                            <h3>Volume de dados</h3>
+                            <small>MÉDIA NA ÚLTIMA HORA</small>
+                        </div>
+                        <div class="metric-dual-values">
+                            <div class="dual-val-box">
+                                <span class="dual-label"><i class="dot line-dot-download"></i>Download</span>
+                                <div class="dual-num"><strong id="rede-vol-download">75</strong><span>MB/m</span></div>
+                            </div>
+                            <div class="dual-val-box">
+                                <span class="dual-label"><i class="dot line-dot-upload"></i>Upload</span>
+                                <div class="dual-num"><strong id="rede-vol-upload">30</strong><span>MB/m</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric-chart">
+                        <canvas id="grafico-trafego-mb"></canvas>
+                    </div>
+                    <div class="axis">
+                        <span>12:00</span>
+                        <span>12:15</span>
+                        <span>12:30</span>
+                        <span>12:45</span>
+                        <span>Agora</span>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item"><i class="dot line-dot-download"></i>Download (recebidos)</span>
+                        <span class="legend-item"><i class="dot line-dot-upload"></i>Upload (enviados)</span>
+                    </div>
                 </article>
+
                 <article class="metric-card">
-                    <h3>Upload</h3>
-                    <small>MÉDIA NA ÚLTIMA HORA</small>
-                    <div class="metric-value"><strong>30</strong><span>MB/m</span></div>
-                    <div class="metric-chart"><canvas id="grafico-upload-gb"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot-upload"></i>Dados enviados</div>
-                </article>
-                <article class="metric-card">
-                    <h3>Download pacotes</h3>
-                    <small>MÉDIA NA ÚLTIMA HORA</small>
-                    <div class="metric-value"><strong>36</strong><span>mil pacotes/m</span></div>
-                    <div class="metric-chart"><canvas id="grafico-download-pacotes"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot-download"></i>Pacotes recebidos</div>
-                </article>
-                <article class="metric-card">
-                    <h3>Upload pacotes</h3>
-                    <small>MÉDIA NA ÚLTIMA HORA</small>
-                    <div class="metric-value"><strong>18</strong><span>mil pacotes/m</span></div>
-                    <div class="metric-chart"><canvas id="grafico-upload-pacotes"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot-upload"></i>Pacotes enviados</div>
+                    <div class="metric-card-header">
+                        <div class="metric-title-group">
+                            <h3>Pacotes de rede</h3>
+                            <small>MÉDIA NA ÚLTIMA HORA</small>
+                        </div>
+                        <div class="metric-dual-values">
+                            <div class="dual-val-box">
+                                <span class="dual-label"><i class="dot line-dot-download"></i>Download</span>
+                                <div class="dual-num"><strong id="rede-pac-download">36</strong><span>mil pacotes/m</span></div>
+                            </div>
+                            <div class="dual-val-box">
+                                <span class="dual-label"><i class="dot line-dot-upload"></i>Upload</span>
+                                <div class="dual-num"><strong id="rede-pac-upload">18</strong><span>mil pacotes/m</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric-chart">
+                        <canvas id="grafico-trafego-pacotes"></canvas>
+                    </div>
+                    <div class="axis">
+                        <span>12:00</span>
+                        <span>12:15</span>
+                        <span>12:30</span>
+                        <span>12:45</span>
+                        <span>Agora</span>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item"><i class="dot line-dot-download"></i>Download (recebidos)</span>
+                        <span class="legend-item"><i class="dot line-dot-upload"></i>Upload (enviados)</span>
+                    </div>
                 </article>
             </div>
         </section>
@@ -178,6 +222,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/dados-mockados.js"></script>
     <script src="../js/dashboard-rede.js"></script>
     <script src="../js/modal.js"></script>
 </body>

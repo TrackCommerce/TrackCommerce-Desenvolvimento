@@ -65,7 +65,7 @@
 
 	<main>
 		<header class="topbar">
-			<h1 style="color: #ea580c; font-weight: 800">DASHBOARD CPU</h1>
+			<h1>DASHBOARD CPU</h1>
 			<div>
 				<button class="menu-btn-back" onclick="window.location.href = 'dashboard-geral.html'">
 					<img src="../assets/imgs/btn-seta.png" alt="">
@@ -85,7 +85,7 @@
 							<canvas id="grafico-cpu-principal"></canvas>
 						</div>
 						<div class="valor-destaque">
-							<span class="big">80%</span>
+							<span class="big" id="cpu-uso-atual">80%</span>
 							<span class="sub-label">USO ATUAL</span>
 						</div>
 					</div>
@@ -109,7 +109,7 @@
 								<th class="num">RAM%</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tabela-processos-cpu">
 							<tr>
 								<td class="pid">1094</td>
 								<td>Server 01</td>
@@ -277,6 +277,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 	<script src="../js/sidebar.js"></script>
+	<script src="../js/dados-mockados.js"></script>
 	<script src="../js/dashboard-cpu.js"></script>
 	<script src="../js/modal.js"></script>
 </body>
