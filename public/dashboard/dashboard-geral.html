@@ -82,7 +82,7 @@
     <section class="card resumo-card" aria-label="Resumo do sistema">
       <div class="resumo-header">
         <h2>Resumo</h2>
-        <span class="resumo-meta">Servidor 01 &bull; últimas 24 horas &bull; leitura em 10 segundos</span>
+        <span class="resumo-meta" id="resumo-meta">Servidor 01 &bull; últimas 24 horas &bull; leitura em 10 segundos</span>
       </div>
 
       <div class="resumo-grid">
@@ -98,22 +98,22 @@
 
         <div class="resumo-item">
           <span class="label">Saúde por componente</span>
-          <div class="saude-grid">
-            <div class="saude-item atencao">
+          <div class="saude-grid" id="saude-grid">
+            <div class="saude-item atencao" id="saude-cpu">
               <span>CPU</span>
-              <strong>Atenção</strong>
+              <strong id="saude-cpu-val">Atenção</strong>
             </div>
-            <div class="saude-item">
+            <div class="saude-item" id="saude-ram">
               <span>RAM</span>
-              <strong class="normal">Normal</strong>
+              <strong class="normal" id="saude-ram-val">Normal</strong>
             </div>
-            <div class="saude-item">
+            <div class="saude-item" id="saude-disco">
               <span>Disco</span>
-              <strong class="normal">Normal</strong>
+              <strong class="normal" id="saude-disco-val">Normal</strong>
             </div>
-            <div class="saude-item">
+            <div class="saude-item" id="saude-rede">
               <span>Rede</span>
-              <strong class="normal">Normal</strong>
+              <strong class="normal" id="saude-rede-val">Normal</strong>
             </div>
           </div>
         </div>
@@ -121,40 +121,88 @@
     </section>
 
     <div class="dashboard-geral-grid">
-      <!-- Metade da esquerda: KPIs de CPU e RAM, e Volume I/O embaixo -->
-      <div class="col-esquerda">
-        <section class="kpis-row" aria-label="Uso de CPU e RAM">
-          <div class="card kpi-card">
+      <!-- Linha superior: 4 KPIs (CPU, RAM, Disco e Rede) -->
+      <section class="kpis-row" aria-label="Uso de CPU, RAM, Disco e Rede">
+        <div class="card kpi-card">
+          <div class="kpi-header">
             <h2 class="card-title">CPU</h2>
-            <div class="metric">
-              <span class="big" id="valor-cpu">80%</span>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
             </div>
           </div>
-          <div class="card kpi-card">
+          <div class="metric">
+            <span class="big atencao" id="valor-cpu">80%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
             <h2 class="card-title">RAM</h2>
-            <div class="metric">
-              <span class="big" id="valor-ram">67%</span>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 75%</span>
+              <span class="limite-tag critico">Crítico: 85%</span>
             </div>
           </div>
-        </section>
+          <div class="metric">
+            <span class="big" id="valor-ram">67%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">DISCO</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-disco">54%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">REDE</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 250ms</span>
+              <span class="limite-tag critico">Crítico: 500ms</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-rede">150<small>ms</small></span>
+          </div>
+        </div>
+      </section>
 
+      <!-- Linha inferior: Volume I/O e Top 5 Processos no mesmo nível e mesma altura -->
+      <div class="detalhes-row">
         <section class="card volume-io-card" aria-label="Volume de entrada e saída">
           <h2 class="card-title">Volume I/O</h2>
           <div class="io-grid">
             <div class="io-chart-group">
               <span class="label">Disco (Read / Write MB/m)</span>
               <div class="chart-box"><canvas id="grafico-disco"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
             </div>
             <div class="io-chart-group">
               <span class="label">Rede (Download / Upload MB/m)</span>
               <div class="chart-box"><canvas id="grafico-rede"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
             </div>
           </div>
         </section>
-      </div>
 
-
-      <div class="col-direita">
         <section class="card processes-card" aria-label="Top 5 processos de CPU">
           <h2 class="card-title">Top 5 processos de CPU</h2>
 
@@ -167,7 +215,7 @@
                 <th class="num">RAM%</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tabela-processos-geral">
               <tr>
                 <td class="pid">1094</td>
                 <td>Server 01</td>
@@ -244,6 +292,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script src="../js/sidebar.js"></script>
+  <script src="../js/dados-mockados.js"></script>
   <script src="../js/dashboard-geral.js"></script>
   <script src="../js/modal.js"></script>
 </body>

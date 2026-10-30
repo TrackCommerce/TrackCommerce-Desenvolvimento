@@ -18,14 +18,16 @@ main {
     margin-left: 250px;
     padding: 18px 28px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     min-width: 0;
 }
 
-main > * {
+main>* {
     margin-bottom: 16px;
 }
 
-main > *:last-child {
+main>*:last-child {
     margin-bottom: 0;
 }
 
@@ -124,11 +126,13 @@ main > *:last-child {
 
 .top-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     gap: 16px;
     margin-bottom: 16px;
     width: 100%;
     min-width: 0;
+    flex: 0.55 1 30%;
+    align-items: stretch;
 }
 
 .card {
@@ -141,9 +145,12 @@ main > *:last-child {
     overflow: hidden;
 }
 
-.top-grid > .card {
-    min-height: 270px;
+.top-grid>.card {
     padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .card-header {
@@ -178,28 +185,31 @@ main > *:last-child {
 }
 
 .connections-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    display: flex;
     align-items: center;
+    justify-content: space-evenly;
     gap: 20px;
     margin-top: 14px;
     width: 100%;
+    flex: 1;
     min-width: 0;
 }
 
 .pie-chart {
     position: relative;
-    height: 160px;
-    width: 100%;
+    height: 175px;
+    width: 175px;
+    flex-shrink: 0;
     min-width: 0;
-    max-width: 100%;
     overflow: hidden;
 }
 
 .connection-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
+    flex: 1;
+    max-width: 290px;
     min-width: 0;
 }
 
@@ -207,11 +217,20 @@ main > *:last-child {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 9px 13px;
+    background: #f8fafc;
+    border: 1px solid #e6e9ef;
+    border-radius: 9px;
     gap: 10px;
-    flex-wrap: wrap;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.connection-item > div {
+.connection-item:hover {
+    background: #f1f4f9;
+    border-color: #d8dde6;
+}
+
+.connection-item>div {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -295,12 +314,24 @@ main > *:last-child {
 
 .packet-chart {
     position: relative;
-    height: 130px;
+    flex: 1;
+    min-height: 130px;
     margin-top: 12px;
     width: 100%;
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
+}
+
+.axis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #8c97b0;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    width: 100%;
+    font-weight: 600;
 }
 
 .chart-legend {
@@ -315,6 +346,11 @@ main > *:last-child {
 
 .traffic-card {
     padding: 18px 20px;
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
 }
 
 .traffic-header {
@@ -323,25 +359,45 @@ main > *:last-child {
 
 .traffic-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
     width: 100%;
+    flex: 1;
     min-width: 0;
+    align-items: stretch;
 }
 
 .metric-card {
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
-    padding: 14px 16px;
+    padding: 16px 18px;
     background: #f8fafc;
     border: 1px solid #e6e9ef;
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-.metric-card h3 {
+.metric-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.metric-title-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-title-group h3 {
     margin-bottom: 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #1a2233;
     white-space: nowrap;
@@ -349,7 +405,7 @@ main > *:last-child {
     text-overflow: ellipsis;
 }
 
-.metric-card > small {
+.metric-title-group small {
     color: #8c97b0;
     font-size: 10px;
     font-weight: 700;
@@ -358,34 +414,65 @@ main > *:last-child {
     white-space: nowrap;
 }
 
-.metric-value {
-    align-items: baseline;
-    gap: 6px;
-    margin-top: 8px;
+.metric-dual-values {
+    display: flex;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
-.metric-value strong {
+.dual-val-box {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 12px;
+    background: #ffffff;
+    border: 1px solid #e6e9ef;
+    border-radius: 8px;
+    min-width: 85px;
+}
+
+.dual-label {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #6b7486;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.dual-num {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.dual-num strong {
     color: #1a2233;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 800;
     line-height: 1;
 }
 
-.metric-value span {
+.dual-num span {
     color: #7d89a1;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
 }
 
 .metric-chart {
     position: relative;
-    height: 120px;
-    margin-top: 10px;
+    flex: 1;
+    min-height: 120px;
+    margin-top: 8px;
     width: 100%;
     min-width: 0;
     max-width: 100%;
     overflow: hidden;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
 }
 
 canvas {
@@ -401,11 +488,12 @@ canvas {
     }
 
     .connections-content {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 
     .pie-chart {
         height: 150px;
+        width: 150px;
     }
 }
 
@@ -417,6 +505,11 @@ canvas {
 
     .top-grid {
         grid-template-columns: 1fr;
+        flex: auto;
+    }
+
+    .traffic-card {
+        flex: auto;
     }
 }
 

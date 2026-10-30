@@ -95,7 +95,7 @@
                         principais. Camada de cache operando normalmente.
                     </p>
                 </div>
-                <a href="dashboard/dashboard-geral.html">
+                <a href="javascript:void(0)" onclick="selecionarServidor('critico', 'Gateway de API')">
                 <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
@@ -115,7 +115,7 @@
                         podem apresentar lentidão.
                     </p>
                 </div>
-                <a href="dashboard/dashboard-geral.html">
+                <a href="javascript:void(0)" onclick="selecionarServidor('atencao', 'Servidor de Banco de Dados')">
                 <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
@@ -135,7 +135,7 @@
                         de pagamento em tempo real.
                     </p>
                 </div>
-                <a href="dashboard/dashboard-geral.html">
+                <a href="javascript:void(0)" onclick="selecionarServidor('estavel', 'Servidor de Checkout')">
                 <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
@@ -170,43 +170,83 @@
                 </div>
 
                 <div class="caixa-grupo">
-                    <label class="titulo-grupo">Editar componentes monitorados:</label>
+                    <label class="titulo-grupo">Selecionar componentes que acionam alertas:</label>
                     <div class="componentes-lista">
                         <label class="componente-item">
                             <div class="caixa-comp">CPU</div>
-                            <input type="checkbox" name="comp">
+                            <input type="checkbox" name="comp" id="chk_comp_cpu" value="cpu" checked>
                         </label>
                         <label class="componente-item">
                             <div class="caixa-comp">RAM</div>
-                            <input type="checkbox" name="comp">
+                            <input type="checkbox" name="comp" id="chk_comp_ram" value="ram" checked>
+                        </label>
+                        <label class="componente-item">
+                            <div class="caixa-comp">Disco</div>
+                            <input type="checkbox" name="comp" id="chk_comp_disco" value="disco" checked>
                         </label>
                         <label class="componente-item">
                             <div class="caixa-comp">Rede</div>
-                            <input type="checkbox" name="comp">
+                            <input type="checkbox" name="comp" id="chk_comp_rede" value="rede" checked>
                         </label>
                     </div>
                 </div>
 
                 <div class="caixa-grupo">
                     <label class="titulo-grupo">Editar regras de alertas:</label>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Alerta percentual CPU:</label>
-                            <input type="text" placeholder="Ex: 80%">
-                        </div>
-                        <div class="form-group">
-                            <label>Alerta percentual RAM:</label>
-                            <input type="text" placeholder="Ex: 85%">
+
+                    <div class="regra-bloco">
+                        <span class="regra-titulo">CPU</span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label-atencao">Atenção:</label>
+                                <input type="text" id="ipt_alerta_cpu_atencao" placeholder="Ex: 80%">
+                            </div>
+                            <div class="form-group">
+                                <label class="label-critico">Crítico:</label>
+                                <input type="text" id="ipt_alerta_cpu_critico" placeholder="Ex: 90%">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Alerta percentual Disco:</label>
-                            <input type="text" placeholder="Ex: 90%">
+
+                    <div class="regra-bloco">
+                        <span class="regra-titulo">RAM</span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label-atencao">Atenção:</label>
+                                <input type="text" id="ipt_alerta_ram_atencao" placeholder="Ex: 75%">
+                            </div>
+                            <div class="form-group">
+                                <label class="label-critico">Crítico:</label>
+                                <input type="text" id="ipt_alerta_ram_critico" placeholder="Ex: 85%">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Alerta Request rede:</label>
-                            <input type="text" placeholder="Ex: 500ms">
+                    </div>
+
+                    <div class="regra-bloco">
+                        <span class="regra-titulo">Disco</span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label-atencao">Atenção:</label>
+                                <input type="text" id="ipt_alerta_disco_atencao" placeholder="Ex: 80%">
+                            </div>
+                            <div class="form-group">
+                                <label class="label-critico">Crítico:</label>
+                                <input type="text" id="ipt_alerta_disco_critico" placeholder="Ex: 90%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="regra-bloco">
+                        <span class="regra-titulo">Rede (Request)</span>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label-atencao">Atenção:</label>
+                                <input type="text" id="ipt_alerta_rede_atencao" placeholder="Ex: 250ms">
+                            </div>
+                            <div class="form-group">
+                                <label class="label-critico">Crítico:</label>
+                                <input type="text" id="ipt_alerta_rede_critico" placeholder="Ex: 500ms">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -289,6 +329,7 @@
         }
     </script>
     <script src="./js/sidebar.js"></script>
+    <script src="./js/dados-mockados.js"></script>
     <script src="./js/selecionar-servidor.js"></script>
 </body>
 </html>

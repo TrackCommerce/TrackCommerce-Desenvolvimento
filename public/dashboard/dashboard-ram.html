@@ -87,21 +87,21 @@
                 <section class="card card-uso-total">
                     <h2 class="card-title">USO TOTAL, DISPONÍVEL E USADO</h2>
                     <div class="bar-chart-container">
-                        <div class="bar-used" style="width: 80%;"></div>
-                        <div class="bar-free" style="width: 20%;"></div>
+                        <div class="bar-used" id="ram-bar-used" style="width: 80%;"></div>
+                        <div class="bar-free" id="ram-bar-free" style="width: 20%;"></div>
                     </div>
                     <div class="legend-list">
                         <div class="legend-item">
                             <div><span class="dot d-total"></span> Total Instalado</div>
-                            <span class="val-bold">16.0 GB</span>
+                            <span class="val-bold" id="ram-total-instalado">16.0 GB</span>
                         </div>
                         <div class="legend-item">
                             <div><span class="dot d-used"></span> Memória Usada</div>
-                            <span class="val-bold">12.8 GB</span>
+                            <span class="val-bold" id="ram-memoria-usada">10.7 GB</span>
                         </div>
                         <div class="legend-item">
                             <div><span class="dot d-free"></span> Disponível</div>
-                            <span class="val-bold">3.2 GB</span>
+                            <span class="val-bold" id="ram-memoria-livre">5.3 GB</span>
                         </div>
                     </div>
                 </section>
@@ -112,11 +112,12 @@
                     <div class="metric-container">
                         <div class="chart-box-large"><canvas id="grafico-porcentagem"></canvas></div>
                         <div class="metric-value-container">
-                            <div class="metric-value">80%</div>
+                            <div class="metric-value" id="ram-uso-atual">67%</div>
                             <div class="metric-subtitle">USO ATUAL</div>
                         </div>
                     </div>
-                    <div class="axis"><span>12:00</span><span>14:00</span><span>16:00</span></div>
+                    <div class="axis">
+                        <span>12:00</span><span>12:15</span><span>12:30</span><span>12:45</span><span>Agora</span></div>
                 </section>
 
                 <!-- TOP 5 PROCESSOS RAM -->
@@ -131,34 +132,34 @@
                                 <th class="num">RAM%</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tabela-processos-ram">
                             <tr>
                                 <td class="pid">3104</td>
-                                <td>rtgtrgrt</td>
+                                <td>mysql</td>
                                 <td class="num">12.4%</td>
                                 <td class="num">32.1%</td>
                             </tr>
                             <tr>
                                 <td class="pid">1923</td>
-                                <td>gdfgdfg</td>
+                                <td>node.js</td>
                                 <td class="num">4.2%</td>
                                 <td class="num">18.5%</td>
                             </tr>
                             <tr>
                                 <td class="pid">0844</td>
-                                <td>dgdfgdgdf</td>
+                                <td>btop</td>
                                 <td class="num">8.1%</td>
                                 <td class="num">12.0%</td>
                             </tr>
                             <tr>
                                 <td class="pid">5221</td>
-                                <td>grgdfd</td>
+                                <td>ssh</td>
                                 <td class="num">1.5%</td>
                                 <td class="num">4.7%</td>
                             </tr>
                             <tr>
                                 <td class="pid">4102</td>
-                                <td>gdfgfgdgd</td>
+                                <td>docker</td>
                                 <td class="num">0.8%</td>
                                 <td class="num">1.2%</td>
                             </tr>
@@ -185,13 +186,13 @@
                             <div class="legend-item-inline">
                                 <div><span class="dot d-usando"></span> Usando</div>
                                 <div class="val-bold">
-                                    <div style="text-align: right;">2.0 GB (25%)</div>
+                                    <div style="text-align: right;" id="ram-swap-usando">2.0 GB (25%)</div>
                                 </div>
                             </div>
                             <div class="legend-item-inline">
                                 <div><span class="dot d-livre"></span> Livre</div>
                                 <div class="val-bold">
-                                    <div style="text-align: right;">6.0 GB (75%)</div>
+                                    <div style="text-align: right;" id="ram-swap-livre">6.0 GB (75%)</div>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +273,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/dados-mockados.js"></script>
     <script src="../js/dashboard-ram.js"></script>
     <script src="../js/modal.js"></script>
 </body>
