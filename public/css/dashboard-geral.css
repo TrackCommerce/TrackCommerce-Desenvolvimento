@@ -18,23 +18,29 @@ a {
 /* Conteúdo */
 main {
   margin-left: 250px;
-  padding: 34px 36px;
+  padding: 18px 28px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 main>* {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
+}
+
+main>*:last-child {
+  margin-bottom: 0;
 }
 
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 h1 {
   color: #e54d15;
-  font-size: 26px;
+  font-size: 22px;
   text-transform: uppercase;
   font-weight: 800;
 }
@@ -73,7 +79,7 @@ h1 {
 }
 
 .card {
-  padding: 20px 18px;
+  padding: 14px 18px;
   background: white;
   border-radius: 16px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03);
@@ -88,16 +94,20 @@ h1 {
 }
 
 /* Resumo */
+.resumo-card {
+  padding: 12px 18px;
+}
+
 .resumo-header {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 
 .resumo-header h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
   color: #1a2233;
 }
@@ -111,16 +121,16 @@ h1 {
 .resumo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 12px;
 }
 
 .resumo-item {
   background: #f7f9fb;
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .resumo-desc {
@@ -234,37 +244,100 @@ h1 {
   color: #10b981;
 }
 
-/* CPU e RAM */
-.metric {
+/* Layout Geral Dashboard: 2 Colunas */
+.dashboard-geral-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.col-esquerda,
+.col-direita {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 28px;
-}
-
-.big {
-  font-size: 40px;
-  font-weight: 800;
-}
-
-.spark-wrap {
-  flex: 1;
+  flex-direction: column;
+  gap: 12px;
   min-width: 0;
 }
 
-.axis {
-  display: flex;
-  justify-content: space-between;
-  font-size: 9px;
-  color: #6b7486;
+.kpis-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.chart-box {
+.kpi-card {
+  padding: 16px 18px;
+  height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.kpi-card .card-title {
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #1a2233;
+  margin-bottom: 0;
+  letter-spacing: 0.5px;
+}
+
+.kpi-card .metric {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.kpi-card .big {
+  font-size: 54px;
+  font-weight: 800;
+  color: #1a2233;
+  line-height: 1;
+}
+
+.volume-io-card {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.volume-io-card .card-title {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #1a2233;
+  margin-bottom: 6px;
+}
+
+.volume-io-card .io-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.volume-io-card .io-chart-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.volume-io-card .io-chart-group .label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b7486;
+  margin-bottom: 2px;
+}
+
+.volume-io-card .chart-box {
   position: relative;
   width: 100%;
-  height: 100px;
+  height: 200px;
   min-width: 0;
-  overflow: hidden;
 }
 
 .chart-box canvas {
@@ -272,23 +345,7 @@ h1 {
   max-width: 100%;
 }
 
-.io-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px 40px;
-  margin-top: 14px;
-}
-
-.io-grid>div {
-  min-width: 0;
-}
-
-.io-grid .chart-box {
-  width: 100%;
-  height: 130px;
-}
-
-/* Tabela */
+/* Tabela Processos */
 table {
   width: 100%;
   margin-top: 14px;
@@ -317,21 +374,43 @@ th {
   color: #6b7486;
 }
 
+.col-direita .processes-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .processes-card .card-title {
-  font-size: 24px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #1a2233;
+  margin-bottom: 6px;
 }
 
 .processes-card table {
-  font-size: 15px;
+  font-size: 12px;
+  margin-top: 2px;
+  flex: 1;
 }
 
 .processes-card th,
 .processes-card td {
-  padding: 14px 12px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e6e9ef;
+}
+
+.processes-card tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .processes-card th {
-  font-size: 13px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7486;
+  text-transform: uppercase;
+  background: #f4f6f9;
 }
 
 
@@ -444,16 +523,9 @@ th {
   font-size: 14px;
 }
 
-@media (max-width: 600px) {
-  .menu-overlay {
-    padding: 70px 1rem 1rem;
-    justify-content: center;
-  }
-}
-
 @media (max-width: 1024px) {
-
   .row,
+  .dashboard-geral-grid,
   .io-grid,
   .resumo-grid {
     grid-template-columns: 1fr;
@@ -461,28 +533,97 @@ th {
 
   main {
     margin-left: 80px;
+    width: calc(100% - 80px);
+    max-width: calc(100% - 80px);
+    padding: 16px;
   }
 }
 
-@media (max-width: 600px) {
-  .metric {
-    position: relative;
-    display: block;
+@media (max-width: 768px) {
+  main {
+    padding: 14px 12px;
   }
 
-  .big {
-    position: absolute;
-    top: -48px;
-    right: 0;
-    font-size: 34px;
+  h1 {
+    font-size: 18px;
+  }
+
+  .topbar {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .kpi-card {
+    height: 130px;
+    padding: 14px 16px;
+  }
+
+  .kpi-card .big {
+    font-size: 40px;
+  }
+
+  .volume-io-card .chart-box {
+    height: 160px;
   }
 
   .processes-card {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .processes-card table {
-    min-width: 560px;
+    min-width: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+    max-width: calc(100% - 80px);
+    padding: 10px 8px;
+  }
+
+  .kpis-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .kpi-card {
+    height: 100px;
+    padding: 12px 14px;
+  }
+
+  .kpi-card .big {
+    font-size: 32px;
+  }
+
+  .volume-io-card .chart-box {
+    height: 140px;
+  }
+
+  .saude-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .menu-btn,
+  .menu-btn-back {
+    padding: 6px 10px;
+  }
+
+  .menu-btn img,
+  .menu-btn-back img {
+    width: 18px;
+  }
+
+  .processes-card table {
+    min-width: 320px;
+  }
+
+  .menu-overlay {
+    padding: 70px 1rem 1rem;
+    justify-content: center;
   }
 }
 

@@ -55,7 +55,7 @@
 
     <main>
         <header class="topbar">
-            <h1>DASHBOARD REDE</h1>
+            <h1 class="title-orange">Dashboard Rede</h1>
             <div class="topbar-right">
                 <button class="menu-btn-back" onclick="window.location.href = './dashboard-geral.html'">
                     <img src="../assets/imgs/btn-seta.png" alt="">
@@ -71,9 +71,9 @@
                 <div class="card-header">
                     <div>
                         <h2>Conexões ativas</h2>
-                        <p>Distribuição por estado da conexão TCP</p>
+                        <p>Distribuição por estado da conexão TCP nas últimas 24 horas</p>
                     </div>
-                    <span class="badge">200 conexões</span>
+                    <span class="badge">Últimas 24 horas</span>
                 </div>
                 <div class="connections-content">
                     <div class="pie-chart"><canvas id="grafico-conexoes"></canvas></div>
@@ -99,12 +99,13 @@
                 <div class="card-header">
                     <div>
                         <h2>Perda de pacotes</h2>
-                        <p>Evolução dos pacotes perdidos no período</p>
+                        <p>Evolução dos pacotes perdidos na última hora</p>
                     </div>
+                    <span class="badge">Última hora</span>
                 </div>
-                <div class="main-value"><strong>36</strong><span>pacotes em 2025</span></div>
+                <div class="main-value"><strong>36</strong><span>pacotes na última hora</span></div>
                 <div class="packet-chart"><canvas id="grafico-pacotes-perdidos"></canvas></div>
-                <div class="chart-legend"><i class="dot line-dot"></i>Pacotes perdidos</div>
+                <div class="chart-legend"><i class="dot line-dot-loss"></i>Pacotes perdidos</div>
             </article>
         </section>
 
@@ -112,39 +113,39 @@
             <div class="card-header traffic-header">
                 <div>
                     <h2>Tráfego de dados</h2>
-                    <p>Volume transferido e quantidade de pacotes de entrada e saída</p>
+                    <p>Volume transferido e quantidade de pacotes em MB/m na última hora</p>
                 </div>
-                <span class="badge">2021 — 2025</span>
+                <span class="badge">Taxa em MB/m</span>
             </div>
 
             <div class="traffic-grid">
                 <article class="metric-card">
-                    <h3>Download GB</h3>
-                    <small>TOTAL EM 2025</small>
-                    <div class="metric-value"><strong>36</strong><span>GB</span></div>
+                    <h3>Download</h3>
+                    <small>MÉDIA NA ÚLTIMA HORA</small>
+                    <div class="metric-value"><strong>75</strong><span>MB/m</span></div>
                     <div class="metric-chart"><canvas id="grafico-download-gb"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot"></i>Dados recebidos</div>
+                    <div class="chart-legend"><i class="dot line-dot-download"></i>Dados recebidos</div>
                 </article>
                 <article class="metric-card">
-                    <h3>Upload GB</h3>
-                    <small>TOTAL EM 2025</small>
-                    <div class="metric-value"><strong>36</strong><span>GB</span></div>
+                    <h3>Upload</h3>
+                    <small>MÉDIA NA ÚLTIMA HORA</small>
+                    <div class="metric-value"><strong>30</strong><span>MB/m</span></div>
                     <div class="metric-chart"><canvas id="grafico-upload-gb"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot"></i>Dados enviados</div>
+                    <div class="chart-legend"><i class="dot line-dot-upload"></i>Dados enviados</div>
                 </article>
                 <article class="metric-card">
                     <h3>Download pacotes</h3>
-                    <small>TOTAL EM 2025</small>
-                    <div class="metric-value"><strong>36</strong><span>mil pacotes</span></div>
+                    <small>MÉDIA NA ÚLTIMA HORA</small>
+                    <div class="metric-value"><strong>36</strong><span>mil pacotes/m</span></div>
                     <div class="metric-chart"><canvas id="grafico-download-pacotes"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot"></i>Pacotes recebidos</div>
+                    <div class="chart-legend"><i class="dot line-dot-download"></i>Pacotes recebidos</div>
                 </article>
                 <article class="metric-card">
                     <h3>Upload pacotes</h3>
-                    <small>TOTAL EM 2025</small>
-                    <div class="metric-value"><strong>36</strong><span>mil pacotes</span></div>
+                    <small>MÉDIA NA ÚLTIMA HORA</small>
+                    <div class="metric-value"><strong>18</strong><span>mil pacotes/m</span></div>
                     <div class="metric-chart"><canvas id="grafico-upload-pacotes"></canvas></div>
-                    <div class="chart-legend"><i class="dot line-dot"></i>Pacotes enviados</div>
+                    <div class="chart-legend"><i class="dot line-dot-upload"></i>Pacotes enviados</div>
                 </article>
             </div>
         </section>
