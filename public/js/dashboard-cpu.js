@@ -37,12 +37,22 @@ function criarGraficoLinha(idCanvas, dados, labelsX) {
       scales: {
         x: { 
           grid: { display: false },
-          ticks: { color: '#8c97b0', font: { size: 10, family: "'Outfit', sans-serif" } }
+          ticks: { color: '#8c97b0', font: { size: 10, family: "'Outfit', sans-serif" } },
+          border: { color: '#e6e9ef', width: 1.5 }
         },
         y: { 
-          display: false, 
+          display: true, 
           min: 0,
-          max: 100
+          max: 100,
+          ticks: { 
+            stepSize: 25,
+            color: '#8c97b0', 
+            font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+            padding: 4,
+            callback: (v) => v + '%'
+          },
+          grid: { color: '#e6e9ef', drawTicks: false },
+          border: { display: false }
         }
       }
     }

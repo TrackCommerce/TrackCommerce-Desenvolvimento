@@ -138,7 +138,7 @@
                         <h2 class="card-title-disk">Uso do disco</h2>
                         <p class="card-subtitle">Ocupação agregada do volume principal</p>
                     </div>
-                    <span class="badge-pill">Limite 85%</span>
+                    <!-- <span class="badge-pill">Limite 85%</span> -->
                 </div>
 
                 <div class="disk-usage-content">
@@ -171,7 +171,7 @@
                 <div class="card-title-group">
                     <h2 class="card-title-disk">Performance I/O de disco</h2>
                 </div>
-                <span class="badge-pill">Coleta 30s</span>
+                <span class="badge-pill">Coleta 15s</span>
             </div>
 
             <div class="performance-grid">
@@ -183,11 +183,11 @@
                     <div class="subcard-stats">
                         <div class="stat-box active-stat">
                             <span class="stat-label">LEITURA</span>
-                            <span class="stat-value text-green">86,4 MB/s</span>
+                            <span class="stat-value text-green" id="disco-bytes-read">55 MB/s</span>
                         </div>
                         <div class="stat-box">
                             <span class="stat-label">GRAVAÇÃO</span>
-                            <span class="stat-value text-orange">41,8 MB/s</span>
+                            <span class="stat-value text-orange" id="disco-bytes-write">35 MB/s</span>
                         </div>
                     </div>
                     <div class="chart-box-subcard">
@@ -214,11 +214,11 @@
                     <div class="subcard-stats">
                         <div class="stat-box active-stat">
                             <span class="stat-label">LEITURA</span>
-                            <span class="stat-value text-green">2.840 IOPS</span>
+                            <span class="stat-value text-green" id="disco-iops-read">70 IOPS</span>
                         </div>
                         <div class="stat-box">
                             <span class="stat-label">GRAVAÇÃO</span>
-                            <span class="stat-value text-orange">1.260 IOPS</span>
+                            <span class="stat-value text-orange" id="disco-iops-write">60 IOPS</span>
                         </div>
                     </div>
                     <div class="chart-box-subcard">
@@ -245,7 +245,11 @@
                     <div class="subcard-stats">
                         <div class="stat-box active-stat">
                             <span class="stat-label">MÉDIA</span>
-                            <span class="stat-value text-blue">8,6 ms</span>
+                            <span class="stat-value text-blue" id="disco-lat-media">9 ms</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">PERCENTIL 95</span>
+                            <span class="stat-value text-orange" id="disco-lat-p95">12 ms</span>
                         </div>
                     </div>
                     <div class="chart-box-subcard">

@@ -429,6 +429,9 @@ h1 {
   width: 100%;
   font-weight: 600;
   flex-shrink: 0;
+  padding-left: 28px;
+  padding-right: 6px;
+  box-sizing: border-box;
 }
 
 /* Tabela Processos */

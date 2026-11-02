@@ -53,8 +53,15 @@ function criarGraficoRede(idCanvas, dados, { cor = '#0284c7', label = 'Tráfego'
                 },
                 y: {
                     min: 0,
-                    max: max || undefined,
-                    ticks: { display: false, stepSize: passo || undefined },
+                    suggestedMax: max || undefined,
+                    ticks: { 
+                        display: true, 
+                        stepSize: passo || undefined,
+                        color: '#8c97b0',
+                        font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+                        padding: 4,
+                        callback: (v) => Number.isInteger(v) ? v : ''
+                    },
                     grid: { color: '#e6e9ef', drawTicks: false },
                     border: { display: false, dash: [4, 4] }
                 }
@@ -98,11 +105,13 @@ function criarGraficoConexoes(dados = [110, 50, 40]) {
     });
 }
 
-function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidade = 'MB/m') {
+function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidade = 'MB/m', passo = null) {
     const canvas = document.getElementById(idCanvas);
     if (!canvas) return null;
 
     const labels = ['12:00', '12:15', '12:30', '12:45', 'Agora'];
+    const maxVal = Math.max(...dadosDownload, ...dadosUpload);
+    const suggestedMax = Math.ceil((maxVal * 1.2) / 10) * 10;
 
     return new Chart(canvas, {
         type: "line",
@@ -144,7 +153,7 @@ function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidad
                 mode: 'index',
                 intersect: false
             },
-            layout: { padding: { top: 4, right: 4, bottom: 0, left: 0 } },
+            layout: { padding: { top: 4, right: 6, bottom: 0, left: 0 } },
             plugins: {
                 legend: { display: false },
                 tooltip: {
@@ -167,7 +176,15 @@ function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidad
                 },
                 y: {
                     min: 0,
-                    ticks: { display: false },
+                    suggestedMax: suggestedMax,
+                    ticks: { 
+                        display: true,
+                        stepSize: passo || undefined,
+                        color: '#8c97b0',
+                        font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+                        padding: 4,
+                        callback: (v) => Number.isInteger(v) ? v : ''
+                    },
                     grid: { color: '#e6e9ef', drawTicks: false },
                     border: { display: false, dash: [4, 4] }
                 }

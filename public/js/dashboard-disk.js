@@ -65,7 +65,14 @@ function criarGraficoUsoDisco(idCanvas, dados = [35, 48, 62, 74, 80]) {
         y: {
           min: 0,
           max: 100,
-          ticks: { display: false, stepSize: 25 },
+          ticks: { 
+            display: true, 
+            stepSize: 25,
+            color: '#8c97b0',
+            font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+            padding: 4,
+            callback: (v) => v + '%'
+          },
           grid: {
             color: '#e6e9ef',
             drawTicks: false
@@ -77,9 +84,12 @@ function criarGraficoUsoDisco(idCanvas, dados = [35, 48, 62, 74, 80]) {
   });
 }
 
-function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = 'Leitura', label2 = 'Gravação', unidade = 'MB/s') {
+function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = 'Leitura', label2 = 'Gravação', unidade = 'MB/s', passo = null) {
   const ctx = document.getElementById(idCanvas);
   if (!ctx) return null;
+
+  const maxVal = Math.max(...dados1, ...dados2);
+  const suggestedMax = Math.ceil((maxVal * 1.2) / 10) * 10;
 
   return new Chart(ctx, {
     type: 'line',
@@ -121,7 +131,7 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
         mode: 'index',
         intersect: false
       },
-      layout: { padding: { top: 2, right: 4, bottom: 0, left: 0 } },
+      layout: { padding: { top: 2, right: 6, bottom: 0, left: 0 } },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -143,7 +153,16 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
           border: { color: '#e6e9ef', width: 1.5 }
         },
         y: {
-          ticks: { display: false },
+          min: 0,
+          suggestedMax: suggestedMax,
+          ticks: { 
+            display: true,
+            stepSize: passo || undefined,
+            color: '#8c97b0',
+            font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+            padding: 4,
+            callback: (v) => Number.isInteger(v) ? v : ''
+          },
           grid: {
             color: '#e6e9ef',
             drawTicks: false
@@ -176,6 +195,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Atualiza footer da partição
   const elFooter = document.getElementById('disco-footer-usados');
   if (elFooter) elFooter.textContent = dadosDisco.usadosTexto;
+
+  // Atualiza KPIs de performance de disco com o último ponto do gráfico correspondente
+  const lastByteRead = dadosDisco.ioBytes.read.slice(-1)[0];
+  const lastByteWrite = dadosDisco.ioBytes.write.slice(-1)[0];
+  const elByteRead = document.getElementById('disco-bytes-read');
+  const elByteWrite = document.getElementById('disco-bytes-write');
+  if (elByteRead) elByteRead.textContent = `${lastByteRead} MB/s`;
+  if (elByteWrite) elByteWrite.textContent = `${lastByteWrite} MB/s`;
+
+  const lastIopsRead = dadosDisco.ioIops.read.slice(-1)[0];
+  const lastIopsWrite = dadosDisco.ioIops.write.slice(-1)[0];
+  const elIopsRead = document.getElementById('disco-iops-read');
+  const elIopsWrite = document.getElementById('disco-iops-write');
+  if (elIopsRead) elIopsRead.textContent = `${lastIopsRead} IOPS`;
+  if (elIopsWrite) elIopsWrite.textContent = `${lastIopsWrite} IOPS`;
+
+  const lastLatMedia = dadosDisco.ioLatency.read.slice(-1)[0];
+  const lastLatP95 = dadosDisco.ioLatency.write.slice(-1)[0];
+  const elLatMedia = document.getElementById('disco-lat-media');
+  const elLatP95 = document.getElementById('disco-lat-p95');
+  if (elLatMedia) elLatMedia.textContent = `${lastLatMedia} ms`;
+  if (elLatP95) elLatP95.textContent = `${lastLatP95} ms`;
 
   criarGraficoUsoDisco('grafico-uso-disco', dadosDisco.evolucao);
   criarGraficoDuasLinhas(

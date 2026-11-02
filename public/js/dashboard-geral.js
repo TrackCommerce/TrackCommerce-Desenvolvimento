@@ -1,4 +1,4 @@
-function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25 } = {}) {
+function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25, unidade = 'MB/m' } = {}) {
   const ctx = document.getElementById(idCanvas);
   if (!ctx) return null;
 
@@ -29,7 +29,7 @@ function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25 } = {}) {
         mode: 'index',
         intersect: false
       },
-      layout: { padding: { top: 0, right: 4, bottom: 0, left: 0 } },
+      layout: { padding: { top: 0, right: 6, bottom: 0, left: 0 } },
       plugins: {
         legend: {
           display: true,
@@ -42,7 +42,18 @@ function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25 } = {}) {
             pointStyle: 'circle',
             font: { size: 9, family: "'Outfit', sans-serif", weight: '600' },
             color: '#6b7486',
-            padding: 6
+            padding: 8,
+            generateLabels: function (chart) {
+              const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+              return original.map(item => {
+                const ds = chart.data.datasets[item.datasetIndex];
+                const lastVal = ds.data && ds.data.length ? ds.data[ds.data.length - 1] : '';
+                return {
+                  ...item,
+                  text: `${item.text}: ${lastVal} ${unidade}`
+                };
+              });
+            }
           }
         },
         tooltip: {
@@ -52,7 +63,7 @@ function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25 } = {}) {
           usePointStyle: true,
           callbacks: {
             label: function (context) {
-              return ` ${context.dataset.label}: ${context.parsed.y} MB/m`;
+              return ` ${context.dataset.label}: ${context.parsed.y} ${unidade}`;
             }
           }
         }
@@ -65,8 +76,14 @@ function criarGraficoDuplo(idCanvas, datasets, { max = 100, passo = 25 } = {}) {
         },
         y: {
           min: 0,
-          max: max,
-          ticks: { display: false, stepSize: passo },
+          suggestedMax: max,
+          ticks: { 
+            display: true, 
+            stepSize: passo,
+            color: '#8c97b0',
+            font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+            padding: 4
+          },
           grid: {
             color: '#e6e9ef',
             drawTicks: false

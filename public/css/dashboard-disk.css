@@ -347,6 +347,9 @@ main>*:last-child {
     width: 100%;
     overflow: hidden;
     gap: 4px;
+    padding-left: 28px;
+    padding-right: 6px;
+    box-sizing: border-box;
 }
 
 .card-performance {

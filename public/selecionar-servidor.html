@@ -75,12 +75,12 @@
                         Monitore a saúde, configurações e distribuição de carga nos servidores ativos.
                     </p>
                 </div>
-                <button class="btn-sino" onclick="abrirModalNotificacoes()">
+                <!-- <button class="btn-sino" onclick="abrirModalNotificacoes()">
                     <img src="./assets/imgs/bell.svg" alt="Notificações">
-                </button>
+                </button> -->
             </div>
 
-                
+
             <div class="card">
                 <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
                         alt="Editar"></button>
@@ -96,10 +96,10 @@
                     </p>
                 </div>
                 <a href="javascript:void(0)" onclick="selecionarServidor('critico', 'Gateway de API')">
-                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+                    <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
-            
+
             <div class="card">
                 <button class="btn-editar" onclick="abrirModal()"><img src="./assets/imgs/edit.svg"
                         alt="Editar"></button>
@@ -116,7 +116,7 @@
                     </p>
                 </div>
                 <a href="javascript:void(0)" onclick="selecionarServidor('atencao', 'Servidor de Banco de Dados')">
-                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+                    <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
 
@@ -136,7 +136,7 @@
                     </p>
                 </div>
                 <a href="javascript:void(0)" onclick="selecionarServidor('estavel', 'Servidor de Checkout')">
-                <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
+                    <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                 </a>
             </div>
 
@@ -298,7 +298,7 @@
         }
 
         function abrirModal() {
-            if (document.body.classList.contains('sem-permissao-edicao') || 
+            if (document.body.classList.contains('sem-permissao-edicao') ||
                 (window.permissoesUsuario && !window.permissoesUsuario.includes(2))) {
                 alert("Acesso restrito: seu grupo não possui permissão para customizar servidores.");
                 return;
@@ -332,4 +332,5 @@
     <script src="./js/dados-mockados.js"></script>
     <script src="./js/selecionar-servidor.js"></script>
 </body>
+
 </html>
