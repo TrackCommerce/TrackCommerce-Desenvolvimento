@@ -332,6 +332,9 @@ main>*:last-child {
     margin-bottom: 4px;
     width: 100%;
     font-weight: 600;
+    padding-left: 28px;
+    padding-right: 6px;
+    box-sizing: border-box;
 }
 
 .chart-legend {

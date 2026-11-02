@@ -21,6 +21,12 @@ function criarGraficoLinha(idCanvas, dados, cor = '#0284c7') {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: { duration: 400 },
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      layout: { padding: { top: 4, right: 6, bottom: 0, left: 0 } },
       plugins: { 
         legend: { display: false },
         tooltip: {
@@ -33,8 +39,25 @@ function criarGraficoLinha(idCanvas, dados, cor = '#0284c7') {
         }
       },
       scales: {
-        x: { display: false },
-        y: { display: false, min: 0, max: 100 }
+        x: {
+          ticks: { display: false },
+          grid: { display: false },
+          border: { color: '#e6e9ef', width: 1.5 }
+        },
+        y: { 
+          display: true, 
+          min: 0, 
+          max: 100,
+          ticks: { 
+            stepSize: 25,
+            color: '#8c97b0', 
+            font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+            padding: 4,
+            callback: (v) => v + '%'
+          },
+          grid: { color: '#e6e9ef', drawTicks: false },
+          border: { display: false }
+        }
       }
     }
   });

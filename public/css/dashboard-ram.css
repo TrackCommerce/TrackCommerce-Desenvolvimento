@@ -105,7 +105,7 @@ main > *:last-child {
 }
 
 .card-porcentagem {
-    flex: 0.85 1 23%;
+    flex: 1 1 27%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -203,18 +203,22 @@ main > *:last-child {
 .metric-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-height: 0;
 }
 
 .chart-box-large {
-    width: 60%;
-    height: 70px;
+    width: 65%;
+    height: 110px;
     position: relative;
     min-width: 0;
 }
 
 .metric-value-container {
     text-align: right;
+    flex-shrink: 0;
 }
 
 .metric-value {
@@ -234,15 +238,18 @@ main > *:last-child {
 .axis {
     display: flex;
     justify-content: space-between;
-    width: 60%;
-    margin-top: 8px;
-    font-size: 11px;
+    width: 65%;
+    margin-top: 6px;
+    font-size: 10px;
     color: #8c97b0;
+    padding-left: 28px;
+    padding-right: 4px;
+    box-sizing: border-box;
 }
 
 /* Tabela */
 .card-processes {
-    flex: 1.3 1 54%;
+    flex: 1.15 1 50%;
     padding: 14px 18px;
     display: flex;
     flex-direction: column;
