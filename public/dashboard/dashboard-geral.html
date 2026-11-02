@@ -1,221 +1,300 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Geral</title>
-    <link rel="stylesheet" href="../css/dashboard-geral.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrackCommerce – Dashboard Geral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/dashboard-geral.css">
+  <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
 <body>
-    <div class="pagina">
-        <div class="sidebar">
-            <a href="../index.html" class="logo">
-                <img src="/public/assets/icon/logo.png" alt="">
-                <p class="titulo_logo">TrackCommerce</p>
 
+  <aside class="sidebar">
 
-            </a>
-            <div class="links-gerais">
-<<<<<<< HEAD
-                <a href="./dashboard-geral.html" class="link-unico">
-                    <img src="../assets/imgs/icon-painel.png" alt="">
-=======
-                <a href="/public/dashboard/dashboard-geral.html" class="link-unico">
-                    <img src="/public/assets/imgs/icon-painel.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-                    <p>Painel</p>
-                </a>
+    <a href="../index.html" class="logo">
+      <div class="logo-img">
+        <img src="../assets/icon/logo.png" alt="Logo">
+      </div>
+      <h2>TrackCommerce</h2>
+    </a>
 
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-servidores.png" alt="">
-                    <p>Servidores Ativos</p>
-                </a>
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-alertas.png" alt="">
-                    <p>Alertas</p>
-                </a>
-<<<<<<< HEAD
-                <a href="../permissoes.html" class="link-unico">
-                    <img src="../assets/imgs/icon-permissoes.png" alt="">
-                    <p>Permissões de grupo</p>
-                </a>
-                <a href="../cadastro-instancia.html" class="link-unico">
-                    <img src="../assets/imgs/icon-servidores.png" alt="">
-                    <p>Cadastro de servidores</p>
-                </a>
-                <a href="../registroFunc.html" class="link-unico">
-                    <img src="../assets/imgs/icon-cadastrar-user.png" alt="">
-=======
-                <a href="" class="link-unico">
-                    <img src="/public/assets/imgs/icon-permissoes.png" alt="">
-                    <p>Permissões de grupo</p>
-                </a>
-<<<<<<< HEAD
-                <a href="../cadastro-instancia.html" class="link-unico">
-                    <img src="../assets/imgs/icon-servidores.png" alt="">
-=======
-                <a href="/public/cadastro-instancia.html" class="link-unico">
-                    <img src="/public/assets/imgs/icon-servidores.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-                    <p>Cadastro de servidores</p>
-                </a>
-                <a href="../lista-instancia.html" class="link-unico">
-                    <img src="../assets/imgs/icon-servidores.png" alt="">
-                    <p>Servidores</p>
-                </a>
-                <a href="" class="link-unico">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    <img src="/public/assets/imgs/icon-cadastrar-user.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-=======
-                    <img src="../assets/imgs/icon-cadastrar-user.png" alt="">
->>>>>>> 5e6a99c (feat: adiciona exclusão de servidor)
-=======
-                    <img src="/public/assets/imgs/icon-cadastrar-user.png" alt="">
->>>>>>> 0682acb (feat: Inicio back-end cadastro servidor)
-                    <p>Cadastro de Funcionários</p>
-                </a>
-                
-            </div>
+    <nav class="menu">
+      <a href="../selecionar-servidor.html" class="item ativo">
+        <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
+        <span>Painel</span>
+      </a>
 
-            <hr class="linha-hr">
-            <div class="usuario">
-                <img src="/public/assets/imgs/icon-perfil.png" alt="">
-                <div class="info-usuario">
-                    <p class="nome-usuario"><b>Ema</b></p>
-                    <p class="cargo-usuario">Gestor(a)</p>
-                </div>
-            </div>
-        </div>
-        <main class="main-info-dash">
+      <a href="../alertas.html" class="item">
+        <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
+        <span>Alertas</span>
+      </a>
 
-            <div class="div_ambientes_geral">
-                <div class="ambiente_titulo_geral">
-                    <p class="ambiente_titulo">Selecionar Ambiente do Servidor</p>
-                    <p class="ambiete_desc">Monitore a saúde, configurações e distribuição de carga nos servidores
-                        ativos.</p>
-                </div>
+      <a href="../permissoes.html" class="item">
+        <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
+        <span>Permissões de Grupos</span>
+      </a>
 
-                <div class="card-geral-servidores">
-                    <div class="card-unico-servidor">
-                        <img class="cor-verde-servidor" src="../assets/imgs/icon-shopping-cart.png" alt="">
-                        <div class="info-geral-card">
-                            <div class="info-superior-card">
-                                <p class="titulo-card">Servidor de Checkout</p>
-                                <p class="status-card cor-verde-servidor">SAUDÁVEL</p>
-                            </div>
-                            <p class="desc-card">Processa pagamentos do carrinho do usuário, gerenciando gateways de
-                                pedidos e verificações de pagamento em tempo real.</p>
-                        </div>
-                        <a href="dashboard-especifica.html">➜</a>
-                    </div>
-                    <div class="card-unico-servidor">
-                        <img class="cor-amarela-servidor" src="../assets/imgs/icon-bd.png" alt="">
-                        <div class="info-geral-card ">
-                            <div class="info-superior-card">
-                                <p class="titulo-card">Servidor de Banco de Dados</p>
-                                <p class="status-card cor-amarela-servidor">ATENÇÃO</p>
-                            </div>
-                            <p class="desc-card">Cluster principal do banco de dados com logs mestres e credenciais de
-                                clientes. Processos de reindexação podem apresentar lentidão.</p>
-                        </div>
-                        <a href="dashboard-especifica.html">➜</a>
-                    </div>
-                    <div class="card-unico-servidor">
-                        <img class="cor-verde-servidor" src="../assets/imgs/icon-graph-line.png" alt="">
-                        <div class="info-geral-card">
-                            <div class="info-superior-card">
-                                <p class="titulo-card">Servidor de Checkout</p>
-                                <p class="status-card cor-verde-servidor">SAUDÁVEL</p>
-                            </div>
-                            <p class="desc-card">Processa pagamentos do carrinho do usuário, gerenciando gateways de
-                                pedidos e verificações de pagamento em tempo real.</p>
-                        </div>
-                        <a href="dashboard-especifica.html">➜</a>
-                    </div>
-                </div>
-            </div>
+      <a href="../cadastro-instancia.html" class="item">
+        <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
+        <span>Cadastro de Servidores</span>
+      </a>
 
+      <a href="../registroFunc.html" class="item">
+        <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
+        <span>Cadastro de Funcionários</span>
+      </a>
+    </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="div-alerta-geral">
-                <div class="titulo-geral-alerta">
-                    <div class="titulo-inicial-alerta">Alertas Recentes</div>
-                    <a href="#">Ver todos</a>
-                </div>
-                <div class="alertas-geral">
-                    <div class="card-alerta-unico">
-                        
-                        <div class="info-superior-card-alerta">
-                            <div class="reparticao-info-superior">
-                                <div class="alerta-status cor-vermelha-alerta"></div>
-                            <p class="card-titulo-alerta">Espaço em Disco do BD Alto</p>
-                            </div>
-                            
-                            <p class="card-horario-alerta">4min atrás</p>
-                        </div>
-                        <p class="desc-alerta">Partição do cluster primário do banco de dados reportando uso em 91% do limite de capacidade.</p>
-                    </div>
-                    <div class="card-alerta-unico">
-                        
-                        <div class="info-superior-card-alerta">
-                            <div class="reparticao-info-superior">
-                                <div class="alerta-status cor-amarela-alerta"></div>
-                            <p class="card-titulo-alerta">Pico de Latência</p>
-                            </div>
-                            
-                            <p class="card-horario-alerta">12min atrás</p>
-                        </div>
-                        <p class="desc-alerta">Endpoint do gateway do servidor de checkout retornou um tempo médio de resposta de 412ms.</p>
-                    </div>
-
-
-                    <div class="card-alerta-unico">
-                        
-                        <div class="info-superior-card-alerta">
-                            <div class="reparticao-info-superior">
-                                <div class="alerta-status cor-verde-alerta"></div>
-                            <p class="card-titulo-alerta">Backup Concluído</p>
-                            </div>
-                            
-                            <p class="card-horario-alerta">1h atrás</p>
-                        </div>
-                        <p class="desc-alerta">Rotina de snapshot de armazenamento global executada e verificada com sucesso.</p>
-                    </div>
-                </div>
-            </div>
-
-
-        </main>
+    <div class="usuario">
+      <div class="foto">
+        <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
+      </div>
+      <div class="info">
+        <h3 id="id_username"></h3>
+      </div>
     </div>
+
+  </aside>
+
+
+  <main>
+    <header class="topbar">
+      <h1>Dashboard Geral</h1>
+      <div>
+        <button class="menu-btn-back" onclick="window.location.href = '../selecionar-servidor.html'">
+          <img src="../assets/imgs/btn-seta.png" alt="">
+        </button>
+        <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
+          <img src="../assets/imgs/menu.svg" alt="">
+        </button>
+      </div>
+
+    </header>
+
+
+    <section class="card resumo-card" aria-label="Resumo do sistema">
+      <div class="resumo-header">
+        <h2>Resumo</h2>
+        <span class="resumo-meta" id="resumo-meta">Servidor 01 &bull; últimas 24 horas &bull; leitura em 10 segundos</span>
+      </div>
+
+      <div class="resumo-grid">
+        <div class="resumo-item">
+          <span class="label">Uptime / última atualização</span>
+          <span class="uptime">2d : 4h : 25m : 30s</span>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Disponibilidade (7 dias)</span>
+          <span class="uptime">99,8<small>%</small></span>
+        </div>
+
+        <div class="resumo-item">
+          <span class="label">Saúde por componente</span>
+          <div class="saude-grid" id="saude-grid">
+            <div class="saude-item atencao" id="saude-cpu">
+              <span>CPU</span>
+              <strong id="saude-cpu-val">Atenção</strong>
+            </div>
+            <div class="saude-item" id="saude-ram">
+              <span>RAM</span>
+              <strong class="normal" id="saude-ram-val">Normal</strong>
+            </div>
+            <div class="saude-item" id="saude-disco">
+              <span>Disco</span>
+              <strong class="normal" id="saude-disco-val">Normal</strong>
+            </div>
+            <div class="saude-item" id="saude-rede">
+              <span>Rede</span>
+              <strong class="normal" id="saude-rede-val">Normal</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dashboard-geral-grid">
+      <!-- Linha superior: 4 KPIs (CPU, RAM, Disco e Rede) -->
+      <section class="kpis-row" aria-label="Uso de CPU, RAM, Disco e Rede">
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">CPU</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big atencao" id="valor-cpu">80%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">RAM</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 75%</span>
+              <span class="limite-tag critico">Crítico: 85%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-ram">67%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">DISCO</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-disco">54%</span>
+          </div>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">REDE</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 250ms</span>
+              <span class="limite-tag critico">Crítico: 500ms</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-rede">150<small>ms</small></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Linha inferior: Volume I/O e Top 5 Processos no mesmo nível e mesma altura -->
+      <div class="detalhes-row">
+        <section class="card volume-io-card" aria-label="Volume de entrada e saída">
+          <h2 class="card-title">Volume I/O</h2>
+          <div class="io-grid">
+            <div class="io-chart-group">
+              <span class="label">Disco (Read / Write MB/m)</span>
+              <div class="chart-box"><canvas id="grafico-disco"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
+            </div>
+            <div class="io-chart-group">
+              <span class="label">Rede (Download / Upload MB/m)</span>
+              <div class="chart-box"><canvas id="grafico-rede"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card processes-card" aria-label="Top 5 processos de CPU">
+          <h2 class="card-title">Top 5 processos de CPU</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>NOME</th>
+                <th class="num">CPU%</th>
+                <th class="num">RAM%</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-processos-geral">
+              <tr>
+                <td class="pid">1094</td>
+                <td>Server 01</td>
+                <td class="num">32.4%</td>
+                <td class="num">18.1%</td>
+              </tr>
+              <tr>
+                <td class="pid">3029</td>
+                <td>node /app/server.js</td>
+                <td class="num">28.1%</td>
+                <td class="num">22.5%</td>
+              </tr>
+              <tr>
+                <td class="pid">4810</td>
+                <td>Server 02</td>
+                <td class="num">12.5%</td>
+                <td class="num">14.2%</td>
+              </tr>
+              <tr>
+                <td class="pid">847</td>
+                <td>Server 03</td>
+                <td class="num">4.2%</td>
+                <td class="num">8.4%</td>
+              </tr>
+              <tr>
+                <td class="pid">5221</td>
+                <td>Server 04</td>
+                <td class="num">2.8%</td>
+                <td class="num">3.8%</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="menu-overlay" id="menu-overlay" hidden>
+    <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
+      <a href="dashboard-cpu.html" class="menu-opcao">
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_cpu.png" alt=""></div>
+        <div class="menu-opcao-texto">
+          <strong>CPU</strong>
+          <span>Visão de processamento</span>
+        </div>
+        <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+      </a>
+      <a href="dashboard-ram.html" class="menu-opcao">
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_ram.png" alt=""></div>
+        <div class="menu-opcao-texto">
+          <strong>RAM</strong>
+          <span>Consumo de memória</span>
+        </div>
+        <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+      </a>
+      <a href="dashboard-disk.html" class="menu-opcao">
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_disco.png" alt=""></div>
+        <div class="menu-opcao-texto">
+          <strong>Disco</strong>
+          <span>Armazenamento e I/O</span>
+        </div>
+        <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+      </a>
+      <a href="dashboard-rede.html" class="menu-opcao">
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_redes.png" alt=""></div>
+        <div class="menu-opcao-texto">
+          <strong>Rede</strong>
+          <span>Tráfego e pacotes</span>
+        </div>
+        <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/dados-mockados.js"></script>
+  <script src="../js/dashboard-geral.js"></script>
+  <script src="../js/modal.js"></script>
 </body>
 
 </html>

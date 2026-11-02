@@ -1,0 +1,155 @@
+
+.icone {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.barra-lateral {
+  width: 220px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  background: #12213f;
+  color: #ffffff;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.logo-icone {
+  width: 26px;
+  height: 26px;
+}
+
+.logo-nome {
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.menu-titulo {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #8f9bb5;
+  margin-bottom: 8px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #9aa6c0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  color: #ffffff;
+}
+
+.menu-item.ativo {
+  color: #ffffff;
+  background: #1b2d52;
+}
+
+.menu-item.ativo::after {
+  content: "";
+  position: absolute;
+  right: -16px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 3px;
+  background: #ff4a05;
+}
+
+.perfil {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid #2a3a5c;
+  font-size: 12px;
+}
+
+.perfil-foto {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5b6b8c, #1c2a4a);
+}
+
+.perfil-nome   { flex: 1; line-height: 1.3; }
+.perfil-opcoes { color: #8f9bb5; }
+
+@media (max-width: 1024px) {
+  .barra-lateral {
+    width: 80px;
+    height: 100vh;
+    padding: 18px 8px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+  }
+
+  .barra-lateral .logo-nome,
+  .barra-lateral .menu-titulo,
+  .barra-lateral .menu-item span,
+  .barra-lateral .perfil-nome,
+  .barra-lateral .perfil-opcoes {
+    display: none;
+  }
+
+  .barra-lateral .logo {
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .barra-lateral .menu {
+    width: 100%;
+    align-items: center;
+  }
+
+  .barra-lateral .menu-item {
+    justify-content: center;
+    width: 100%;
+    padding: 12px 5px;
+  }
+
+  .barra-lateral .menu-item.ativo::after {
+    right: 2px;
+  }
+
+  .barra-lateral .perfil {
+    width: 100%;
+    justify-content: center;
+    padding-top: 14px;
+    margin-top: auto;
+  }
+}

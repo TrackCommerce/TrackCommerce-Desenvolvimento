@@ -22,11 +22,20 @@ window.onload = function () {
 }
 
 function listarFunc() {
-    fetch("/usuario/listar").then(function (resposta) {
+    const fkEmpresa = sessionStorage.getItem("FK_EMPRESA") || sessionStorage.FK_EMPRESA || sessionStorage.fk_empresa;
+    const idLogado = sessionStorage.getItem("ID_USUARIO") || sessionStorage.ID_USUARIO;
+    const emailLogado = sessionStorage.getItem("EMAIL_USUARIO") || sessionStorage.EMAIL_USUARIO;
+
+    const queryParams = idLogado ? `?ignorarUsuario=${idLogado}` : "";
+    const url = fkEmpresa ? `/usuario/listar/${fkEmpresa}${queryParams}` : `/usuario/listar${queryParams}`;
+
+    fetch(url).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 const aviso = document.getElementById('aviso');
                 if (aviso) aviso.innerText = "Nenhum resultado encontrado";
+                funcionarios.length = 0;
+                divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
                 return;
             }
 
@@ -35,12 +44,15 @@ function listarFunc() {
 
                 funcionarios.length = 0; 
 
-                if (resposta.length === 0) {
-                    divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum funcionário encontrado.</p>';
-                    return;
-                }
-
                 resposta.forEach(func => {
+                    // Impede que o próprio usuário logado apareça na lista de edição
+                    const ehMesmoId = idLogado && Number(func.id_usuario) === Number(idLogado);
+                    const ehMesmoEmail = emailLogado && func.email && func.email.toLowerCase() === emailLogado.toLowerCase();
+
+                    if (ehMesmoId || ehMesmoEmail) {
+                        return;
+                    }
+
                     funcionarios.push({
                         id: func.id_usuario,
                         nome: func.nome,
@@ -50,6 +62,11 @@ function listarFunc() {
                         contato: func.celular
                     });
                 });
+
+                if (funcionarios.length === 0) {
+                    divLista.innerHTML = '<p style="text-align:center; margin-top:20px; color:#555;">Nenhum outro funcionário cadastrado nesta empresa.</p>';
+                    return;
+                }
 
                 renderizarLista(funcionarios);
             });
@@ -192,7 +209,7 @@ function registrarFunc() {
             emailServer: emailReg,
             contatoServer: contatoReg,
             cargoServer: cargoReg,
-            fkEmpresaServer: sessionStorage.fk_empresa
+            fkEmpresaServer: sessionStorage.getItem("FK_EMPRESA") || sessionStorage.FK_EMPRESA
         }),
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -226,7 +243,11 @@ function atualizarFunc() {
     let cargoAtt = document.getElementById('registro-cargo').value.trim();
     let contatoAtt = document.getElementById('registro-ctt').value.replace(/\D/g, "");
     let emailAtt = document.getElementById('registro-email').value.trim();
-    let aviso = document.getElementById('aviso');
+    let idLogado = sessionStorage.getItem("ID_USUARIO") || sessionStorage.ID_USUARIO;
+    if (idLogado && Number(idEditando) === Number(idLogado)) {
+        aviso.innerText = "Você não pode alterar o cargo ou permissões da sua própria conta.";
+        return;
+    }
 
     if (nomeAtt.length < 2) {
         aviso.innerText = "Funcionário sem nome";
@@ -284,6 +305,12 @@ function atualizarFunc() {
 function deletarFunc() {
     if (idEditando === null) {
         alert("Nenhum funcionário selecionado.");
+        return;
+    }
+
+    let idLogado = sessionStorage.getItem("ID_USUARIO") || sessionStorage.ID_USUARIO;
+    if (idLogado && Number(idEditando) === Number(idLogado)) {
+        alert("Você não pode excluir a sua própria conta.");
         return;
     }
 

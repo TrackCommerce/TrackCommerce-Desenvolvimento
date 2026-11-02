@@ -913,3 +913,9 @@ strong {
         text-align: center;
     }
 }
+
+@media (max-width: 1040px){
+    .navbar-centro {
+        display: none;
+    }
+}

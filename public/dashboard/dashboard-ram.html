@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard-ram.css">
+    <link rel="stylesheet" href="../css/dashboard-menu.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+
+        <a href="../index.html" class="logo">
+            <div class="logo-img">
+                <img src="../assets/icon/logo.png" alt="Logo">
+            </div>
+            <h2>TrackCommerce</h2>
+        </a>
+
+        <nav class="menu">
+
+            <a href="../selecionar-servidor.html" class="item ativo">
+                <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
+                <span>Painel</span>
+            </a>
+
+            <a href="../alertas.html" class="item">
+                <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
+                <span>Alertas</span>
+            </a>
+
+            <a href="../permissoes.html" class="item">
+                <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
+                <span>Permissões de Grupos</span>
+            </a>
+
+            <a href="../cadastro-instancia.html" class="item">
+                <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
+                <span>Cadastro de Servidores</span>
+            </a>
+
+            <a href="../registroFunc.html" class="item">
+                <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
+                <span>Cadastro de Funcionários</span>
+            </a>
+
+        </nav>
+
+        <div class="usuario">
+
+            <div class="foto">
+                <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
+            </div>
+
+            <div class="info">
+                <h3 id="id_username"></h3>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <h1 class="title-orange">DASHBOARD RAM</h1>
+            <div class="topbar-right">
+                <button class="menu-btn-back" onclick="window.location.href = 'dashboard-geral.html'">
+                    <img src="../assets/imgs/btn-seta.png" alt="">
+                </button>
+                <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
+                    <img src="../assets/imgs/menu.svg" alt="">
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="col-left">
+                <!-- USO TOTAL, DISPONIVEL E USADO -->
+                <section class="card card-uso-total">
+                    <h2 class="card-title">USO TOTAL, DISPONÍVEL E USADO</h2>
+                    <div class="bar-chart-container">
+                        <div class="bar-used" id="ram-bar-used" style="width: 80%;"></div>
+                        <div class="bar-free" id="ram-bar-free" style="width: 20%;"></div>
+                    </div>
+                    <div class="legend-list">
+                        <div class="legend-item">
+                            <div><span class="dot d-total"></span> Total Instalado</div>
+                            <span class="val-bold" id="ram-total-instalado">16.0 GB</span>
+                        </div>
+                        <div class="legend-item">
+                            <div><span class="dot d-used"></span> Memória Usada</div>
+                            <span class="val-bold" id="ram-memoria-usada">10.7 GB</span>
+                        </div>
+                        <div class="legend-item">
+                            <div><span class="dot d-free"></span> Disponível</div>
+                            <span class="val-bold" id="ram-memoria-livre">5.3 GB</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PORCENTAGEM RAM -->
+                <section class="card card-porcentagem">
+                    <h2 class="card-title">PORCENTAGEM RAM</h2>
+                    <div class="metric-container">
+                        <div class="chart-box-large"><canvas id="grafico-porcentagem"></canvas></div>
+                        <div class="metric-value-container">
+                            <div class="metric-value" id="ram-uso-atual">67%</div>
+                            <div class="metric-subtitle">USO ATUAL</div>
+                        </div>
+                    </div>
+                    <div class="axis">
+                        <span>12:00</span><span>12:15</span><span>12:30</span><span>12:45</span><span>Agora</span></div>
+                </section>
+
+                <!-- TOP 5 PROCESSOS RAM -->
+                <section class="card card-processes">
+                    <h2 class="card-title">TOP 5 PROCESSOS RAM</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PID</th>
+                                <th>NAME</th>
+                                <th class="num">CPU%</th>
+                                <th class="num">RAM%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-processos-ram">
+                            <tr>
+                                <td class="pid">3104</td>
+                                <td>mysql</td>
+                                <td class="num">12.4%</td>
+                                <td class="num">32.1%</td>
+                            </tr>
+                            <tr>
+                                <td class="pid">1923</td>
+                                <td>node.js</td>
+                                <td class="num">4.2%</td>
+                                <td class="num">18.5%</td>
+                            </tr>
+                            <tr>
+                                <td class="pid">0844</td>
+                                <td>btop</td>
+                                <td class="num">8.1%</td>
+                                <td class="num">12.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="pid">5221</td>
+                                <td>ssh</td>
+                                <td class="num">1.5%</td>
+                                <td class="num">4.7%</td>
+                            </tr>
+                            <tr>
+                                <td class="pid">4102</td>
+                                <td>docker</td>
+                                <td class="num">0.8%</td>
+                                <td class="num">1.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+
+            <div class="col-right">
+                <div class="top-row-right">
+                    <!-- SWAP -->
+                    <section class="card card-swap">
+                        <h2 class="card-title">SWAP</h2>
+                        <div class="doughnut-container">
+                            <div class="doughnut-chart-box-swap"><canvas id="grafico-swap"></canvas></div>
+                            <div class="total-center">
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="total-val">8GB</span>
+                                    <span class="total-lbl">TOTAL</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swap-legend">
+                            <div class="legend-item-inline">
+                                <div><span class="dot d-usando"></span> Usando</div>
+                                <div class="val-bold">
+                                    <div style="text-align: right;" id="ram-swap-usando">2.0 GB (25%)</div>
+                                </div>
+                            </div>
+                            <div class="legend-item-inline">
+                                <div><span class="dot d-livre"></span> Livre</div>
+                                <div class="val-bold">
+                                    <div style="text-align: right;" id="ram-swap-livre">6.0 GB (75%)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- USO POR MODO -->
+                    <section class="card card-modo">
+                        <h2 class="card-title">USO POR MODO</h2>
+                        <div class="doughnut-container">
+                            <div class="doughnut-chart-box-modo"><canvas id="grafico-modo"></canvas></div>
+                        </div>
+                        <div class="modo-legend">
+                            <div class="legend-item-inline"><span><span class="dot c-cached"></span> Cached</span> <span
+                                    class="val-bold">25%</span></div>
+                            <div class="legend-item-inline"><span><span class="dot c-buffers"></span> Buffers</span>
+                                <span class="val-bold">15%</span>
+                            </div>
+                            <div class="legend-item-inline"><span><span class="dot c-shared"></span> Shared</span> <span
+                                    class="val-bold">5%</span></div>
+                            <div class="legend-item-inline"><span><span class="dot c-slab"></span> Slab</span> <span
+                                    class="val-bold">10%</span></div>
+                            <div class="legend-item-inline"><span><span class="dot c-available"></span> Available</span>
+                                <span class="val-bold">45%</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- BUFFERS E CACHE -->
+                <section class="card card-buffers">
+                    <h2 class="card-title">BUFFERS & CACHE</h2>
+                    <div class="legend-load">
+                        <span><span class="dot d-used-line"></span> USED</span>
+                        <span><span class="dot d-buffer-line"></span> BUFFER & CACHE</span>
+                    </div>
+                    <div class="chart-box-buffers"><canvas id="grafico-buffers"></canvas></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div class="menu-overlay" id="menu-overlay" hidden>
+        <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
+            <a href="dashboard-cpu.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_cpu.png" alt=""></div>
+                <div class="menu-opcao-texto">
+                    <strong>CPU</strong>
+                    <span>Visão de processamento</span>
+                </div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-ram.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_ram.png" alt=""></div>
+                <div class="menu-opcao-texto">
+                    <strong>RAM</strong>
+                    <span>Consumo de memória</span>
+                </div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-disk.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_disco.png" alt=""></div>
+                <div class="menu-opcao-texto">
+                    <strong>Disco</strong>
+                    <span>Armazenamento e I/O</span>
+                </div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+            <a href="dashboard-rede.html" class="menu-opcao">
+                <div class="menu-opcao-icone"><img src="../assets/imgs/icon_redes.png" alt=""></div>
+                <div class="menu-opcao-texto">
+                    <strong>Rede</strong>
+                    <span>Tráfego e pacotes</span>
+                </div>
+                <span class="menu-opcao-seta" aria-hidden="true">➜</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/dados-mockados.js"></script>
+    <script src="../js/dashboard-ram.js"></script>
+    <script src="../js/modal.js"></script>
+</body>
+
+</html>

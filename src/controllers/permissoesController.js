@@ -33,6 +33,12 @@ function editarPermissoes(req, res){
     let idCargo = req.params.idCargo;
     let permissoes = req.body.permissoes;
 
+    if (idCargo == 1) {
+        return res.status(403).json({
+            erro: "As permissões do cargo de Administrador são protegidas e não podem ser alteradas."
+        });
+    }
+
     permissoesModel.editarPermissoes(idCargo, permissoes).then(function (resultado){
         res.json(resultado);
     }).catch(function (erro) {
@@ -44,6 +50,12 @@ function editarPermissoes(req, res){
 
 function deletarCargo(req, res) {
     var idCargo = req.params.idCargo;
+
+    if (idCargo == 1) {
+        return res.status(403).json({
+            erro: "O cargo de Administrador é essencial para o sistema e não pode ser excluído."
+        });
+    }
 
     permissoesModel.deletarCargo(idCargo)
         .then(
@@ -84,9 +96,26 @@ function adicionarCargo(req, res) {
             );
     }
 
+function buscarPermissoesUsuario(req, res) {
+    let idUsuario = req.params.idUsuario;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("ID do usuário está undefined!");
+    } else {
+        permissoesModel.buscarPermissoesUsuario(idUsuario).then(function (resultado) {
+            res.status(200).json(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as permissões do usuário.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
 module.exports = {
     buscarCargos,
     buscarPermissoes,
+    buscarPermissoesUsuario,
     editarPermissoes,
     deletarCargo,
     adicionarCargo

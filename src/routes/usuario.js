@@ -7,8 +7,11 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 router.get("/listar", function(req,res) {
-    usuarioController.listarTodos(req,res)
-})
+    usuarioController.listarTodos(req,res);
+});
+router.get("/listar/:fkEmpresa", function(req,res) {
+    usuarioController.listarTodos(req,res);
+});
 router.put("/editar", function(req,res) {
     usuarioController.editar(req,res)
 })
@@ -22,5 +25,8 @@ router.post("/redefinirSenha", function (req, res) {
     usuarioController.redefinirSenha(req, res);
 });
 
+router.get("/permissoes/:idUsuario", function (req, res) {
+    usuarioController.buscarPermissoes(req, res);
+});
 
 module.exports = router;

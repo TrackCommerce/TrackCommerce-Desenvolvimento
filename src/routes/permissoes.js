@@ -22,4 +22,9 @@ router.delete("/deletarCargo/:idCargo", function (req, res){
 router.post("/adicionarCargo", function (req, res){
     permissoesController.adicionarCargo(req, res);
 });
+
+router.get("/usuario/:idUsuario", function (req, res) {
+    permissoesController.buscarPermissoesUsuario(req, res);
+});
+
 module.exports = router;
