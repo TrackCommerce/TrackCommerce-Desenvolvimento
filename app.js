@@ -1,5 +1,9 @@
 var ambiente_processo = 'producao';
+<<<<<<< Updated upstream
 // var ambiente_processo = 'desenvolvimento';
+=======
+//var ambiente_processo = 'desenvolvimento';
+>>>>>>> Stashed changes
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env

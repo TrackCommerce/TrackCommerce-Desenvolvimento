@@ -9,7 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/dashboard-geral.css">
 </head>
+<<<<<<< Updated upstream
 <body>
+=======
+
+<body class="pagina-dashboard-geral">
+>>>>>>> Stashed changes
 
 <aside class="sidebar">
 
@@ -65,15 +70,54 @@
       <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
     </div>
 
+<<<<<<< Updated upstream
     <div class="info">
       <h3>Douglas Santos</h3>
       <p>Admin</p>
     </div>
+=======
+  </aside>
+
+
+  <main>
+    <header class="topbar">
+      <div><h1>Dashboard principal</h1><p>Visão da última captura e histórico de utilização dos recursos do servidor.</p></div>
+      <div class="top-actions">
+        <button class="icon-button" id="btn-atualizar" aria-label="Atualizar dashboard" title="Atualizar">↻</button>
+        <button class="icon-button" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog"><img src="../assets/imgs/menu.svg" alt=""></button>
+      </div>
+    </header>
+
+    <section class="card server-card" aria-label="Servidor selecionado">
+      <div class="server-info"><span class="server-icon" aria-hidden="true">▤</span><div><div class="server-heading"><h2 id="servidor-nome">Servidor</h2><span class="badge" id="servidor-status">—</span></div><p>Monitoramento dos recursos do servidor</p></div></div>
+      <div class="capture"><span>Última captura</span><strong>Data não disponível</strong></div>
+    </section>
+
+    <section class="kpis-row" aria-label="Uso dos recursos">
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">⚙</span> CPU</h2><span class="badge" id="status-cpu">—</span></div><strong class="big" id="valor-cpu">—</strong><p>Atenção 80% <span>•</span> Crítico 90%</p><div class="progress"><span id="progresso-cpu"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">▥</span> RAM</h2><span class="badge" id="status-ram">—</span></div><strong class="big" id="valor-ram">—</strong><p>Atenção 75% <span>•</span> Crítico 85%</p><div class="progress"><span id="progresso-ram"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">▱</span> Disco</h2><span class="badge" id="status-disco">—</span></div><strong class="big" id="valor-disco">—</strong><p>Atenção 80% <span>•</span> Crítico 90%</p><div class="progress"><span id="progresso-disco"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">♧</span> Rede (Tráfego)</h2><span class="badge" id="status-rede">—</span></div><div class="network-values"><div><strong><i>↓</i> <span id="rede-download">—</span></strong><small>Recebido</small></div><div><strong><i>↑</i> <span id="rede-upload">—</span></strong><small>Enviado</small></div></div><p>Tráfego na última captura</p></article>
+    </section>
+
+    <div class="details-row">
+      <section class="card history-card"><h2>Histórico de utilização</h2><p id="historico-descricao">Horários e tráfego de rede ilustrativos.</p><div class="tabs" role="tablist" aria-label="Recurso do histórico"><button role="tab" aria-selected="false" data-metrica="cpu">CPU</button><button role="tab" aria-selected="false" data-metrica="ram">RAM</button><button role="tab" aria-selected="false" data-metrica="disco">Disco</button><button class="active" role="tab" aria-selected="true" data-metrica="rede">Rede</button></div><div class="chart-box"><canvas id="grafico-historico" aria-label="Histórico de utilização" role="img"></canvas></div></section>
+      <section class="card processes-card"><h2>Processos em execução</h2><p>Consumo de recursos na última captura.</p><label class="search"><span aria-hidden="true">⌕</span><input id="busca-processo" type="search" placeholder="Buscar processo..." aria-label="Buscar processo"></label><div class="table-wrap"><table><thead><tr><th>PID</th><th>Processo</th><th>CPU (%)</th><th>RAM (%)</th></tr></thead><tbody id="tabela-processos-geral"></tbody></table><p id="sem-processos" hidden>Nenhum processo encontrado.</p></div></section>
+    </div>
+    <section class="card dashboards-card"><h2>Acessar dashboards específicos</h2><p>Análise detalhada de cada recurso.</p><div class="dashboard-links">
+      <a href="dashboard-cpu.html"><strong><span>⚙</span> CPU <span class="badge" id="link-status-cpu">—</span><b>→</b></strong><small>Análise de processamento</small></a>
+      <a href="dashboard-ram.html"><strong><span>▥</span> RAM <span class="badge" id="link-status-ram">—</span><b>→</b></strong><small>Análise de memória</small></a>
+      <a href="dashboard-disk.html"><strong><span>▱</span> Disco <span class="badge" id="link-status-disco">—</span><b>→</b></strong><small>Análise de armazenamento</small></a>
+      <a href="dashboard-rede.html"><strong><span>♧</span> Rede <span class="badge" id="link-status-rede">—</span><b>→</b></strong><small>Análise de tráfego de rede</small></a>
+    </div></section>
+  </main>
+>>>>>>> Stashed changes
 
   </div>
 
 </aside>
 
+<<<<<<< Updated upstream
 <main>
   <header class="topbar">
     <h1>Dashboard Geral</h1>
@@ -150,3 +194,6 @@
 
 </body>
 </html>
+=======
+</html>
+>>>>>>> Stashed changes
