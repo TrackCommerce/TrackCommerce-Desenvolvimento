@@ -65,7 +65,7 @@ async function listarInstancias() {
                                 <p>${resposta[i].descricao || 'Nenhuma descrição definida ainda.'}</p>
                             </div>
                             
-                            <a href="javascript:void(0)" onclick="selecionarServidor('estavel', '${resposta[i].nome}')">
+                            <a href="javascript:void(0)" onclick="selecionarServidor('estavel', '${resposta[i].nome}', null, '${resposta[i].identificador || ''}')">
                                 <button class="botao"><img src="./assets/imgs/arrow-right.png" alt=""></button>
                             </a>    
                         </div>

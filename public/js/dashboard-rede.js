@@ -1,25 +1,79 @@
-function criarGraficoRede(idCanvas, dados, { cor = '#0284c7', label = 'Tráfego', unidade = 'MB/m', max = null, passo = null } = {}) {
+function criarGraficoRede(
+    idCanvas,
+    dados,
+    {
+        cor = '#0284c7',
+        label = 'Pacotes perdidos (interno)',
+        unidade = 'pacotes',
+        max = null,
+        passo = null,
+        dadosExternos = null,
+        corExterna = '#7c3aed',
+        labelExterna = 'Pacotes perdidos externos (Globalping)',
+        unidadeExterna = 'pacotes'
+    } = {}
+) {
     const canvas = document.getElementById(idCanvas);
-    if (!canvas) return;
+    if (!canvas) return null;
 
     const labels = ['12:00', '12:15', '12:30', '12:45', 'Agora'];
+    const datasets = [{
+        label: label,
+        data: dados,
+        borderColor: cor,
+        backgroundColor: cor,
+        borderWidth: 2,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointHoverBackgroundColor: cor,
+        fill: false
+    }];
+
+    const temExterno = Array.isArray(dadosExternos) && dadosExternos.length > 0;
+    if (temExterno) {
+        datasets.push({
+            label: labelExterna,
+            data: dadosExternos,
+            borderColor: corExterna,
+            backgroundColor: corExterna,
+            borderWidth: 2,
+            borderDash: [5, 5],
+            tension: 0,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            pointHoverBackgroundColor: corExterna,
+            fill: false
+        });
+    }
+
+    const scales = {
+        x: {
+            ticks: { display: false },
+            grid: { display: false },
+            border: { color: '#e6e9ef', width: 1.5 }
+        },
+        y: {
+            min: 0,
+            suggestedMax: max || undefined,
+            ticks: {
+                display: true,
+                stepSize: passo || undefined,
+                color: '#8c97b0',
+                font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
+                padding: 4,
+                callback: (v) => Number.isInteger(v) ? v : ''
+            },
+            grid: { color: '#e6e9ef', drawTicks: false },
+            border: { display: false, dash: [4, 4] }
+        }
+    };
 
     return new Chart(canvas, {
         type: "line",
         data: {
             labels: labels,
-            datasets: [{
-                label: label,
-                data: dados,
-                borderColor: cor,
-                backgroundColor: cor,
-                borderWidth: 2,
-                tension: 0,
-                pointRadius: 0,
-                pointHoverRadius: 4,
-                pointHoverBackgroundColor: cor,
-                fill: false
-            }]
+            datasets: datasets
         },
         options: {
             responsive: true,
@@ -40,32 +94,13 @@ function criarGraficoRede(idCanvas, dados, { cor = '#0284c7', label = 'Tráfego'
                     usePointStyle: true,
                     callbacks: {
                         label: function (context) {
-                            return ` ${label}: ${context.parsed.y} ${unidade}`;
+                            const un = context.datasetIndex === 1 ? unidadeExterna : unidade;
+                            return ` ${context.dataset.label}: ${context.parsed.y} ${un}`.trimEnd();
                         }
                     }
                 }
             },
-            scales: {
-                x: {
-                    ticks: { display: false },
-                    grid: { display: false },
-                    border: { color: '#e6e9ef', width: 1.5 }
-                },
-                y: {
-                    min: 0,
-                    suggestedMax: max || undefined,
-                    ticks: { 
-                        display: true, 
-                        stepSize: passo || undefined,
-                        color: '#8c97b0',
-                        font: { size: 9, family: "'Outfit', sans-serif", weight: '500' },
-                        padding: 4,
-                        callback: (v) => Number.isInteger(v) ? v : ''
-                    },
-                    grid: { color: '#e6e9ef', drawTicks: false },
-                    border: { display: false, dash: [4, 4] }
-                }
-            }
+            scales: scales
         }
     });
 }
@@ -193,7 +228,122 @@ function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidad
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function aplicarBadgeTendencia(idBadge, serie, variacaoExplicita = null, { menorPior = false } = {}) {
+    const el = document.getElementById(idBadge);
+    if (!el) return;
+
+    const info = (typeof calcularVariacaoUltimaHora === 'function')
+        ? calcularVariacaoUltimaHora(serie, variacaoExplicita)
+        : { texto: 'Tendência desde última hora: 0%', direcao: 'estavel' };
+
+    el.textContent = info.texto;
+    el.classList.remove('trend-alta', 'trend-baixa');
+
+    if (info.direcao === 'alta') {
+        el.classList.add(menorPior ? 'trend-baixa' : 'trend-alta');
+    } else if (info.direcao === 'baixa') {
+        el.classList.add(menorPior ? 'trend-alta' : 'trend-baixa');
+    }
+}
+
+function aplicarBadgesLimite(idAtencao, idCritico, limiteConfig, prefixo = '') {
+    if (!limiteConfig) return;
+    const elAtencao = document.getElementById(idAtencao);
+    const elCritico = document.getElementById(idCritico);
+    const formatar = (typeof formatarTextoLimite === 'function')
+        ? formatarTextoLimite
+        : (rotulo, valor, cfg) => {
+            const op = cfg.operador === '<=' ? '≤' : '≥';
+            const un = cfg.unidade ? (cfg.unidade === '%' || cfg.unidade === 'ms' ? cfg.unidade : ` ${cfg.unidade}`) : '';
+            return `${rotulo} ${op} ${valor}${un}`;
+        };
+
+    if (elAtencao && limiteConfig.atencao !== undefined) {
+        elAtencao.textContent = `${prefixo}${formatar('Atenção', limiteConfig.atencao, limiteConfig)}`;
+    }
+    if (elCritico && limiteConfig.critico !== undefined) {
+        elCritico.textContent = `${prefixo}${formatar('Crítico', limiteConfig.critico, limiteConfig)}`;
+    }
+}
+
+function atualizarStatusGlobalping(globalping) {
+    const avaliacao = (typeof avaliarRotaExternaGlobalping === 'function')
+        ? avaliarRotaExternaGlobalping(globalping)
+        : {
+            classe: 'normal',
+            textoPill: 'Rota Externa BR: Normal (22ms)',
+            textoSubtitulo: 'Rota externa: 0% perda (22ms)'
+        };
+
+    const elPill = document.getElementById('globalping-status-pill');
+    const elPillText = document.getElementById('globalping-status-text');
+    const elSub = document.getElementById('rede-rota-externa-sub');
+    const elExtNum = document.getElementById('rede-pacotes-externos-num');
+
+    if (elPill) {
+        elPill.className = `status-pill ${avaliacao.classe}`;
+    }
+    if (elPillText) {
+        elPillText.textContent = avaliacao.textoPill;
+    }
+    if (elSub) {
+        elSub.textContent = avaliacao.textoSubtitulo;
+    }
+    if (elExtNum) {
+        elExtNum.textContent = globalping?.perdaExternaPacotes ?? 0;
+    }
+}
+
+/**
+ * Integração pronta com a API pública api.globalping.io (v1/measurements).
+ * Executada automaticamente quando o servidor possuir `globalping.targetHost` definido.
+ */
+async function consultarGlobalpingAoVivo(targetHost, regiao = 'BR') {
+    if (!targetHost) return null;
+    try {
+        const createRes = await fetch('https://api.globalping.io/v1/measurements', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: 'ping',
+                target: targetHost,
+                measurementOptions: { packets: 16 },
+                locations: [{ country: regiao, limit: 3 }]
+            })
+        });
+        if (!createRes.ok) return null;
+        const { id } = await createRes.json();
+        if (!id) return null;
+
+        for (let tentativa = 0; tentativa < 5; tentativa++) {
+            await new Promise(resolve => setTimeout(resolve, 600));
+            const pollRes = await fetch(`https://api.globalping.io/v1/measurements/${id}`);
+            if (!pollRes.ok) continue;
+            const measurement = await pollRes.json();
+            if (measurement.status === 'finished' && Array.isArray(measurement.results) && measurement.results.length) {
+                const stats = measurement.results
+                    .map(r => r.result?.stats)
+                    .filter(Boolean);
+                if (!stats.length) return null;
+
+                const latenciaMedia = Math.round(stats.reduce((acc, s) => acc + (s.avg || 0), 0) / stats.length);
+                const perdaMediaPorc = Math.round(stats.reduce((acc, s) => acc + (s.loss || 0), 0) / stats.length);
+                const perdaPacotes = stats.reduce((acc, s) => acc + (s.drop || 0), 0);
+                return {
+                    regiao,
+                    latenciaExternaMs: latenciaMedia,
+                    perdaExternaPorc: perdaMediaPorc,
+                    perdaExternaPacotes: perdaPacotes
+                };
+            }
+        }
+    } catch (erro) {
+        console.warn('Falha ao consultar api.globalping.io, mantendo telemetria local:', erro);
+    }
+    return null;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
     const servidor = (typeof obterServidorAtual === 'function')
         ? obterServidorAtual()
         : (window.DADOS_MOCKADOS ? window.DADOS_MOCKADOS.atencao : null);
@@ -202,11 +352,12 @@ document.addEventListener("DOMContentLoaded", () => {
         conexoesEst: 110,
         conexoesTime: 50,
         conexoesClose: 40,
+        conexoesEstPorcGrafico: [51, 52, 53, 54, 55],
         conexoesPorcEst: "55%",
         conexoesPorcTime: "25%",
         conexoesPorcClose: "20%",
-        perdaPacotesTotal: "36",
-        perdaPacotesGrafico: [14, 25, 20, 28, 36],
+        perdaPacotesTotal: "2",
+        perdaPacotesGrafico: [1, 2, 2, 1, 2],
         volumeDownload: "75",
         volumeUpload: "30",
         volumeDownloadGrafico: [45, 52, 60, 68, 75],
@@ -214,7 +365,39 @@ document.addEventListener("DOMContentLoaded", () => {
         pacotesDownload: "36",
         pacotesUpload: "18",
         pacotesDownloadGrafico: [20, 26, 31, 29, 36],
-        pacotesUploadGrafico: [11, 14, 16, 15, 18]
+        pacotesUploadGrafico: [11, 14, 16, 15, 18],
+        limites: {
+            conexoesEstablished: { atencao: 40, critico: 20, operador: "<=", unidade: "%", inverso: true },
+            perdaPacotesInterna: { atencao: 3, critico: 10, operador: ">=", unidade: "pacotes", inverso: false },
+            perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
+            pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
+            volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
+            pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+        },
+        globalping: {
+            regiao: "BR",
+            targetHost: null,
+            perdaExternaPacotes: 0,
+            perdaExternaPorc: 0,
+            latenciaExternaMs: 22,
+            perdaExternaPacotesGrafico: [0, 0, 0, 0, 0]
+        }
+    };
+
+    const limites = dadosRede.limites || {
+        conexoesEstablished: { atencao: 40, critico: 20, operador: "<=", unidade: "%", inverso: true },
+        perdaPacotesInterna: { atencao: 3, critico: 10, operador: ">=", unidade: "pacotes", inverso: false },
+        perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
+        pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
+        volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
+        pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+    };
+    const globalping = dadosRede.globalping || {
+        regiao: "BR",
+        perdaExternaPacotes: 0,
+        perdaExternaPorc: 0,
+        latenciaExternaMs: 22,
+        perdaExternaPacotesGrafico: [0, 0, 0, 0, 0]
     };
 
     // Atualiza itens de conexões
@@ -248,11 +431,34 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elPacDown) elPacDown.textContent = dadosRede.pacotesDownload;
     if (elPacUp) elPacUp.textContent = dadosRede.pacotesUpload;
 
+    // Atualiza indicadores extras de KPI (tendência da última hora + limites com unidade)
+    aplicarBadgeTendencia('conexoes-variacao-badge', dadosRede.conexoesEstPorcGrafico, dadosRede.conexoesVariacao, { menorPior: true });
+    aplicarBadgesLimite('conexoes-limite-atencao', 'conexoes-limite-critico', limites.conexoesEstablished);
+
+    aplicarBadgeTendencia('perda-local-variacao-badge', dadosRede.perdaPacotesGrafico, dadosRede.perdaPacotesVariacao);
+    aplicarBadgeTendencia('perda-externa-variacao-badge', globalping.perdaExternaPacotesGrafico, globalping.perdaExternaVariacao);
+    aplicarBadgesLimite('perda-int-limite-atencao', 'perda-int-limite-critico', limites.perdaPacotesInterna);
+    aplicarBadgesLimite('perda-ext-limite-atencao', 'perda-ext-limite-critico', limites.perdaPacotesExterna);
+    aplicarBadgesLimite('ping-ext-limite-atencao', 'ping-ext-limite-critico', limites.pingRotaExterna, 'Ping Ext: ');
+
+    aplicarBadgeTendencia('vol-variacao-badge', dadosRede.volumeDownloadGrafico, dadosRede.volumeVariacao, { menorPior: true });
+    aplicarBadgesLimite('vol-limite-atencao', 'vol-limite-critico', limites.volumeDownload);
+
+    aplicarBadgeTendencia('pac-variacao-badge', dadosRede.pacotesDownloadGrafico, dadosRede.pacotesVariacao, { menorPior: true });
+    aplicarBadgesLimite('pac-limite-atencao', 'pac-limite-critico', limites.pacotesDownload);
+
+    // Atualiza pílula do topo e subtítulo externo (Globalping)
+    atualizarStatusGlobalping(globalping);
+
     criarGraficoConexoes([dadosRede.conexoesEst, dadosRede.conexoesTime, dadosRede.conexoesClose]);
-    criarGraficoRede("grafico-pacotes-perdidos", dadosRede.perdaPacotesGrafico, {
+    const graficoPerda = criarGraficoRede("grafico-pacotes-perdidos", dadosRede.perdaPacotesGrafico, {
         cor: "#e54d15",
-        label: "Pacotes perdidos",
-        unidade: "pacotes"
+        label: "Pacotes perdidos (interno)",
+        unidade: "pacotes",
+        dadosExternos: globalping.perdaExternaPacotesGrafico,
+        corExterna: "#7c3aed",
+        labelExterna: "Pacotes perdidos externos (Globalping)",
+        unidadeExterna: "pacotes"
     });
     criarGraficoRedeDuasLinhas(
         "grafico-trafego-mb",
@@ -266,6 +472,21 @@ document.addEventListener("DOMContentLoaded", () => {
         dadosRede.pacotesUploadGrafico,
         "mil pacotes/m"
     );
+
+    // Se houver host público configurado, atualiza ao vivo pela api.globalping.io
+    if (globalping.targetHost) {
+        const leituraAoVivo = await consultarGlobalpingAoVivo(globalping.targetHost, globalping.regiao || 'BR');
+        if (leituraAoVivo) {
+            const globalpingAtualizado = { ...globalping, ...leituraAoVivo };
+            atualizarStatusGlobalping(globalpingAtualizado);
+            if (graficoPerda && graficoPerda.data.datasets[1]) {
+                const serie = graficoPerda.data.datasets[1].data;
+                serie[serie.length - 1] = leituraAoVivo.perdaExternaPacotes;
+                graficoPerda.update();
+                aplicarBadgeTendencia('perda-externa-variacao-badge', serie, globalping.perdaExternaVariacao);
+            }
+        }
+    }
 
     window.addEventListener('resize', () => {
         if (window.scrollX > 0) {
