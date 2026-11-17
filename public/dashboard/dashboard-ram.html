@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard RAM - TrackCommerce</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard-ram.css">
     <link rel="stylesheet" href="../css/dashboard-menu.css">
     <link rel="stylesheet" href="../css/sidebar.css">
@@ -61,7 +59,8 @@
             </div>
 
             <div class="info">
-                <h3 id="id_username"></h3>
+                <h3 id="id_username">Luciana</h3>
+                <span>Analista</span>
             </div>
 
         </div>
@@ -70,8 +69,18 @@
 
     <main>
         <header class="topbar">
-            <h1 class="title-orange">DASHBOARD RAM</h1>
+            <div class="topbar-left">
+                <h1 class="title-orange">DASHBOARD RAM</h1>
+                <span class="subtitle">Última atualização: 14:30</span>
+            </div>
             <div class="topbar-right">
+                <div class="server-selector">
+                    <span class="server-icon"></span>
+                    <div class="server-info">
+                        <strong>api-prod-01</strong>
+                        <span>São Paulo - sa-east-1</span>
+                    </div>
+                </div>
                 <button class="menu-btn-back" onclick="window.location.href = 'dashboard-geral.html'">
                     <img src="../assets/imgs/btn-seta.png" alt="">
                 </button>
@@ -81,157 +90,141 @@
             </div>
         </header>
 
-        <div class="dashboard-grid">
-            <div class="col-left">
-                <!-- USO TOTAL, DISPONIVEL E USADO -->
-                <section class="card card-uso-total">
-                    <h2 class="card-title">USO TOTAL, DISPONÍVEL E USADO</h2>
-                    <div class="bar-chart-container">
-                        <div class="bar-used" id="ram-bar-used" style="width: 80%;"></div>
-                        <div class="bar-free" id="ram-bar-free" style="width: 20%;"></div>
-                    </div>
-                    <div class="legend-list">
-                        <div class="legend-item">
-                            <div><span class="dot d-total"></span> Total Instalado</div>
-                            <span class="val-bold" id="ram-total-instalado">16.0 GB</span>
-                        </div>
-                        <div class="legend-item">
-                            <div><span class="dot d-used"></span> Memória Usada</div>
-                            <span class="val-bold" id="ram-memoria-usada">10.7 GB</span>
-                        </div>
-                        <div class="legend-item">
-                            <div><span class="dot d-free"></span> Disponível</div>
-                            <span class="val-bold" id="ram-memoria-livre">5.3 GB</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PORCENTAGEM RAM -->
-                <section class="card card-porcentagem">
-                    <h2 class="card-title">PORCENTAGEM RAM</h2>
-                    <div class="metric-container">
-                        <div class="chart-box-large"><canvas id="grafico-porcentagem"></canvas></div>
-                        <div class="metric-value-container">
-                            <div class="metric-value" id="ram-uso-atual">67%</div>
-                            <div class="metric-subtitle">USO ATUAL</div>
-                        </div>
-                    </div>
-                    <div class="axis">
-                        <span>12:00</span><span>12:15</span><span>12:30</span><span>12:45</span><span>Agora</span></div>
-                </section>
-
-                <!-- TOP 5 PROCESSOS RAM -->
-                <section class="card card-processes">
-                    <h2 class="card-title">TOP 5 PROCESSOS RAM</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>PID</th>
-                                <th>NAME</th>
-                                <th class="num">CPU%</th>
-                                <th class="num">RAM%</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela-processos-ram">
-                            <tr>
-                                <td class="pid">3104</td>
-                                <td>mysql</td>
-                                <td class="num">12.4%</td>
-                                <td class="num">32.1%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">1923</td>
-                                <td>node.js</td>
-                                <td class="num">4.2%</td>
-                                <td class="num">18.5%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">0844</td>
-                                <td>btop</td>
-                                <td class="num">8.1%</td>
-                                <td class="num">12.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">5221</td>
-                                <td>ssh</td>
-                                <td class="num">1.5%</td>
-                                <td class="num">4.7%</td>
-                            </tr>
-                            <tr>
-                                <td class="pid">4102</td>
-                                <td>docker</td>
-                                <td class="num">0.8%</td>
-                                <td class="num">1.2%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-
-            <div class="col-right">
-                <div class="top-row-right">
-                    <!-- SWAP -->
-                    <section class="card card-swap">
-                        <h2 class="card-title">SWAP</h2>
-                        <div class="doughnut-container">
-                            <div class="doughnut-chart-box-swap"><canvas id="grafico-swap"></canvas></div>
-                            <div class="total-center">
-                                <div style="display: flex; flex-direction: column; align-items: center;">
-                                    <span class="total-val">8GB</span>
-                                    <span class="total-lbl">TOTAL</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swap-legend">
-                            <div class="legend-item-inline">
-                                <div><span class="dot d-usando"></span> Usando</div>
-                                <div class="val-bold">
-                                    <div style="text-align: right;" id="ram-swap-usando">2.0 GB (25%)</div>
-                                </div>
-                            </div>
-                            <div class="legend-item-inline">
-                                <div><span class="dot d-livre"></span> Livre</div>
-                                <div class="val-bold">
-                                    <div style="text-align: right;" id="ram-swap-livre">6.0 GB (75%)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- USO POR MODO -->
-                    <section class="card card-modo">
-                        <h2 class="card-title">USO POR MODO</h2>
-                        <div class="doughnut-container">
-                            <div class="doughnut-chart-box-modo"><canvas id="grafico-modo"></canvas></div>
-                        </div>
-                        <div class="modo-legend">
-                            <div class="legend-item-inline"><span><span class="dot c-cached"></span> Cached</span> <span
-                                    class="val-bold">25%</span></div>
-                            <div class="legend-item-inline"><span><span class="dot c-buffers"></span> Buffers</span>
-                                <span class="val-bold">15%</span>
-                            </div>
-                            <div class="legend-item-inline"><span><span class="dot c-shared"></span> Shared</span> <span
-                                    class="val-bold">5%</span></div>
-                            <div class="legend-item-inline"><span><span class="dot c-slab"></span> Slab</span> <span
-                                    class="val-bold">10%</span></div>
-                            <div class="legend-item-inline"><span><span class="dot c-available"></span> Available</span>
-                                <span class="val-bold">45%</span>
-                            </div>
-                        </div>
-                    </section>
+        <!-- LINHA 1: KPIs -->
+        <div class="kpi-grid">
+            <section class="kpi-card kpi-highlight">
+                <div class="kpi-title">TEMPO ESTIMADO ATÉ O LIMITE </div>
+                <div class="kpi-value">≈ 2h 30min</div>
+                <div class="kpi-sub">até atingir 85% (crítico)</div>
+            </section>
+            
+            <section class="kpi-card">
+                <div class="kpi-title">USO ATUAL DE RAM</div>
+                <div class="kpi-value-row">
+                    <span class="kpi-value orange">80%</span>
+                    <span class="kpi-tag warning">ATENÇÃO</span>
                 </div>
+                <div class="kpi-sub">Limites: atenção 70% - crítico 85%</div>
+            </section>
 
-                <!-- BUFFERS E CACHE -->
-                <section class="card card-buffers">
-                    <h2 class="card-title">BUFFERS & CACHE</h2>
-                    <div class="legend-load">
-                        <span><span class="dot d-used-line"></span> USED</span>
-                        <span><span class="dot d-buffer-line"></span> BUFFER & CACHE</span>
-                    </div>
-                    <div class="chart-box-buffers"><canvas id="grafico-buffers"></canvas></div>
-                </section>
+            <section class="kpi-card">
+                <div class="kpi-title">MEMÓRIA DISPONÍVEL</div>
+                <div class="kpi-value">3,2 GB</div>
+                <div class="kpi-sub">12,8 GB usados de 16,0 GB</div>
+            </section>
+
+            <section class="kpi-card">
+                <div class="kpi-title">SWAP USADO</div>
+                <div class="kpi-value">25%</div>
+                <div class="kpi-sub">2,0 GB de 8,0 GB</div>
+            </section>
+
+            <section class="kpi-card">
+                <div class="kpi-title">ALERTAS DE RAM (24H)</div>
+                <div class="kpi-value">3</div>
+                <div class="kpi-sub">2 de atenção - 1 crítico</div>
+            </section>
+        </div>
+
+        <!-- BANNER DE ALERTA -->
+        <div class="alert-banner">
+            <div class="alert-content">
+                <span class="alert-icon"></span>
+                <strong>ALERTA DE ALTA DEMANDA:</strong>
+                <span>Próximo pico esperado: <strong>Black Friday, sexta 27/11</strong> · em 10 dias</span>
             </div>
         </div>
+
+        <!-- LINHA 2: GRÁFICOS -->
+        <div class="charts-grid">
+            <section class="chart-card chart-large">
+                <div class="chart-header">
+                    <h2>USO DE RAM (%) AO LONGO DO TEMPO</h2>
+                    <span>Últimas 24h com projeção tracejada e linhas de limite</span>
+                </div>
+                <div class="chart-body">
+                    <canvas id="grafico-ram-projecao"></canvas>
+                </div>
+            </section>
+
+            <section class="chart-card chart-small">
+                <div class="chart-header">
+                    <h2>TAXA DE PAGINAÇÃO (SWAP-IN / SWAP-OUT)</h2>
+                    <span>Movimento entre RAM e disco, em MB/s</span>
+                </div>
+                <div class="chart-body">
+                    <canvas id="grafico-paginacao"></canvas>
+                </div>
+                <div class="chart-footer-tags">
+                    <span class="tag">Swap-out agora: <strong>4,2 MB/s</strong></span>
+                    <span class="tag">Swap-in agora: <strong>1,8 MB/s</strong></span>
+                    <span class="tag alert">Alto sustentado há ~2h</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- LINHA 3: TABELA DE PROCESSOS -->
+        <section class="table-card">
+            <div class="table-header">
+                <h2>PROCESSOS</h2>
+                <div class="table-tabs">
+                    <button class="tab active">Maior uso</button>
+                    <button class="tab">Maior crescimento</button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>PID</th>
+                        <th>PROCESSO</th>
+                        <th class="num">RAM</th>
+                        <th class="num">RAM %</th>
+                        <th>TENDÊNCIA</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-processos-tendencia">
+                    <tr>
+                        <td class="pid">3029</td>
+                        <td>java (checkout-api)</td>
+                        <td class="num">4.820 MB</td>
+                        <td class="num">30,1%</td>
+                        <td class="tendency up">↑ +380 MB/h</td>
+                    </tr>
+                    <tr>
+                        <td class="pid">1094</td>
+                        <td>mysqld</td>
+                        <td class="num">3.150 MB</td>
+                        <td class="num">19,7%</td>
+                        <td class="tendency stable">→ estável</td>
+                    </tr>
+                    <tr>
+                        <td class="pid">4810</td>
+                        <td>node (api-gateway)</td>
+                        <td class="num">1.620 MB</td>
+                        <td class="num">10,1%</td>
+                        <td class="tendency up">↗ +45 MB/h</td>
+                    </tr>
+                    <tr>
+                        <td class="pid">847</td>
+                        <td>python3 (agente-captura)</td>
+                        <td class="num">410 MB</td>
+                        <td class="num">2,6%</td>
+                        <td class="tendency stable">→ estável</td>
+                    </tr>
+                    <tr>
+                        <td class="pid">5221</td>
+                        <td>containerd</td>
+                        <td class="num">290 MB</td>
+                        <td class="num">1,8%</td>
+                        <td class="tendency down">↘ -12 MB/h</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                A tendência é a inclinação do uso de cada processo. Crescimento contínuo é só uma suspeita de memory leak.
+            </div>
+        </section>
+
     </main>
 
     <div class="menu-overlay" id="menu-overlay" hidden>
@@ -274,7 +267,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/dados-mockados.js"></script>
-    <script src="../js/dashboard-ram.js"></script>
+    <script src="../js/dashboard-ram-v2.js"></script>
     <script src="../js/modal.js"></script>
 </body>
 
