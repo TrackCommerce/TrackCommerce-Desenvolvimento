@@ -1,7 +1,11 @@
 const usernameElement = document.querySelector("#id_username");
 
 if (usernameElement) {
+
     usernameElement.textContent = sessionStorage.getItem("NOME_USUARIO") || "";
+
+    usernameElement.textContent = sessionStorage.getItem("NOME_USUARIO") || "Usuário";
+
 }
 
 /**
@@ -102,6 +106,20 @@ async function aplicarControleDeAcesso() {
     const ehAdmin = (fkCargo === 1);
     const temPermissao1 = permissoes.includes(1); // visualização (Painel / Dashboards)
     const temPermissao3 = permissoes.includes(3); // cadastro de servidores
+
+
+    // Sem sessão identificada, preserva o menu das dashboards como referência visual,
+    // mas não permite navegar por ele até que o usuário faça login.
+    if (!idUsuario && window.location.pathname.toLowerCase().includes("/dashboard/")) {
+        document.querySelectorAll(".sidebar .menu .item").forEach(item => {
+            if ((item.getAttribute("href") || "").toLowerCase().includes("alertas.html")) return;
+            item.setAttribute("aria-disabled", "true");
+            item.title = "Entre na sua conta para acessar";
+            item.addEventListener("click", event => event.preventDefault());
+        });
+        return;
+    }
+
 
     // 1. Ocultar itens no menu aside
     const itensMenu = document.querySelectorAll(".sidebar .menu .item, .sidebar nav a, aside .menu a");
