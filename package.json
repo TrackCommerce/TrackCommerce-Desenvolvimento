@@ -1,3 +1,4 @@
+
 {
   "name": "web-data-viz",
   "version": "1.0.0",
@@ -10,7 +11,6 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1176.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.17.1",

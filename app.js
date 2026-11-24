@@ -2,6 +2,11 @@
 //  var ambiente_processo = 'producao';
 var ambiente_processo = 'desenvolvimento';
 
+var ambiente_processo = 'producao';
+
+// var ambiente_processo = 'desenvolvimento';
+
+//var ambiente_processo = 'desenvolvimento';
 
 
 
@@ -14,11 +19,6 @@ require("dotenv").config({ path: caminho_env });
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
-
-const s3 = new S3Client({
-    region: process.env.AWS_REGION
-});
 var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
@@ -49,53 +49,6 @@ app.use("/cargo", cargoRouter);
 app.use("/gestor", gestorRouter);
 app.use("/gestores", gestorRouter);
 
-app.get("/api/dashboard/local", async (req, res) => {
-    try {
-        const identificador = req.query.identificador;
-
-        if (!identificador ||
-            !/^[a-f0-9]{8}(?:[-_][a-f0-9]{4}){3}[-_][a-f0-9]{12}$/i.test(identificador)) {
-            return res.status(400).json({
-                erro: "Identificador inválido"
-            });
-        }
-
-        const nomeArquivo =
-            `${identificador.replace(/-/g, "_")}_metricas.json`;
-
-        const prefixo = (
-            process.env.AWS_GOLD_PREFIX || "track-commerce/gold"
-        ).replace(/^\/+|\/+$/g, "");
-
-        const resposta = await s3.send(
-            new GetObjectCommand({
-                Bucket: process.env.AWS_BUCKET,
-                Key: `${prefixo}/${nomeArquivo}`
-            })
-        );
-
-        const conteudo = await resposta.Body.transformToString();
-
-        return res.json(JSON.parse(conteudo));
-
-    } catch (erro) {
-        console.error("Erro ao consultar Gold:", erro);
-
-        return res.status(500).json({
-            erro: "Erro ao buscar dados do S3"
-        });
-    }
-});
-
-//app.get("/api/dashboard/local", (req, res) => {
-   // const arquivo = path.join(
-        //__dirname,
-        //"dados-locais",
-      //  "dashboard-local.json"
-    //);
-
-  //  res.sendFile(arquivo);
-//});
 
 
 app.listen(PORTA_APP, function () {
