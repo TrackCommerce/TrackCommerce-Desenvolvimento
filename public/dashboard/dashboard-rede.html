@@ -86,10 +86,10 @@
                 <div class="card-header">
                     <div>
                         <h2>Perda de pacotes</h2>
-                        <p>Registro do momento da captura</p>
+                        <p>Dados atualizados a cada 3 minutos</p>
                     </div>
                     <div class="card-header-badges">
-                        <span class="badge badge-scope">Captura 15s</span>
+                        <span class="badge badge-scope">Atualização 3m</span>
                     </div>
                 </div>
                 <div class="packet-kpi-grid">
@@ -99,7 +99,7 @@
                             <strong id="rede-pacotes-perdidos-num">2</strong>
                             <span>pacotes</span>
                         </div>
-                        <small class="packet-kpi-sub">Captura atual</small>
+                        <small class="packet-kpi-sub">Últimos 3 minutos</small>
                         <span class="badge badge-trend packet-kpi-trend" id="perda-local-variacao-badge">Tendência desde última hora: +33%</span>
                     </div>
                     <div class="packet-kpi-box">
@@ -108,18 +108,18 @@
                             <strong id="rede-pacotes-externos-num">0</strong>
                             <span>pacotes</span>
                         </div>
-                        <small class="packet-kpi-sub" id="rede-rota-externa-sub">Captura atual • 0% (22ms)</small>
+                        <small class="packet-kpi-sub" id="rede-rota-externa-sub">Últimos 3 minutos • 0% (22ms)</small>
                         <span class="badge badge-trend packet-kpi-trend" id="perda-externa-variacao-badge">Tendência desde última hora: 0%</span>
                     </div>
                 </div>
                 <div class="kpi-limites-duplo">
                     <div class="limite-grupo">
-                        <span class="limite-grupo-titulo">Local (captura):</span>
+                        <span class="limite-grupo-titulo">Local (3m):</span>
                         <span class="badge badge-atencao" id="perda-int-limite-atencao">Atenção ≥ 3 pacotes</span>
                         <span class="badge badge-critico" id="perda-int-limite-critico">Crítico ≥ 10 pacotes</span>
                     </div>
                     <div class="limite-grupo">
-                        <span class="limite-grupo-titulo">Externo (captura):</span>
+                        <span class="limite-grupo-titulo">Externo (3m):</span>
                         <span class="badge badge-atencao" id="perda-ext-limite-atencao">Atenção ≥ 3 pacotes</span>
                         <span class="badge badge-critico" id="perda-ext-limite-critico">Crítico ≥ 8 pacotes</span>
                     </div>
@@ -127,9 +127,9 @@
                 <div class="packet-chart"><canvas id="grafico-pacotes-perdidos"></canvas></div>
                 <div class="axis">
                     <span>12:00</span>
-                    <span>12:15</span>
-                    <span>12:30</span>
-                    <span>12:45</span>
+                    <span>12:03</span>
+                    <span>12:06</span>
+                    <span>12:09</span>
                     <span>Agora</span>
                 </div>
                 <div class="chart-legend">
@@ -142,10 +142,10 @@
                 <div class="card-header">
                     <div>
                         <h2>Conexões ativas</h2>
-                        <p>Distribuição TCP (15m) • Alertas e tendência medidos apenas em <strong>ESTABLISHED (%)</strong></p>
+                        <p>Distribuição TCP (3m) • Alertas e tendência medidos apenas em <strong>ESTABLISHED (%)</strong></p>
                     </div>
                     <div class="card-header-badges">
-                        <span class="badge">Últimos 15 minutos</span>
+                        <span class="badge">Últimos 3 minutos</span>
                         <span class="badge badge-scope">Apenas ESTABLISHED (%)</span>
                         <span class="badge badge-trend" id="conexoes-variacao-badge">Tendência desde última hora: +5%</span>
                         <span class="badge badge-atencao" id="conexoes-limite-atencao">Atenção ≤ 40%</span>
@@ -177,9 +177,9 @@
             <div class="card-header traffic-header">
                 <div>
                     <h2>Tráfego de dados</h2>
-                    <p>Registros capturados na última hora</p>
+                    <p>Dados atualizados a cada 3 minutos</p>
                 </div>
-                <span class="badge">Captura 15s</span>
+                <span class="badge">Atualização 3m</span>
             </div>
 
             <div class="traffic-grid">
@@ -187,22 +187,31 @@
                     <div class="metric-card-header">
                         <div class="metric-title-group">
                             <h3>Volume de dados</h3>
-                            <small>ÚLTIMA CAPTURA</small>
-                            <div class="metric-kpi-badges">
-                                <span class="badge badge-trend" id="vol-variacao-badge">Tendência desde última hora: +33%</span>
-                                <span class="badge badge-atencao" id="vol-limite-atencao">Atenção ≤ 15 MB/m</span>
-                                <span class="badge badge-critico" id="vol-limite-critico">Crítico ≤ 5 MB/m</span>
-                            </div>
+                            <small>ÚLTIMOS 3 MINUTOS</small>
                         </div>
                         <div class="metric-dual-values">
                             <div class="dual-val-box">
                                 <span class="dual-label"><i class="dot line-dot-download"></i>Download</span>
                                 <div class="dual-num"><strong id="rede-vol-download">75</strong><span>MB/m</span></div>
+                                <span class="badge badge-trend dual-kpi-trend" id="vol-down-variacao-badge">Tendência desde última hora: +33%</span>
                             </div>
                             <div class="dual-val-box">
                                 <span class="dual-label"><i class="dot line-dot-upload"></i>Upload</span>
                                 <div class="dual-num"><strong id="rede-vol-upload">30</strong><span>MB/m</span></div>
+                                <span class="badge badge-trend dual-kpi-trend" id="vol-up-variacao-badge">Tendência desde última hora: +29%</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="kpi-limites-duplo">
+                        <div class="limite-grupo">
+                            <span class="limite-grupo-titulo">Download:</span>
+                            <span class="badge badge-atencao" id="vol-down-limite-atencao">Atenção ≤ 15 MB/m</span>
+                            <span class="badge badge-critico" id="vol-down-limite-critico">Crítico ≤ 5 MB/m</span>
+                        </div>
+                        <div class="limite-grupo">
+                            <span class="limite-grupo-titulo">Upload:</span>
+                            <span class="badge badge-atencao" id="vol-up-limite-atencao">Atenção ≤ 8 MB/m</span>
+                            <span class="badge badge-critico" id="vol-up-limite-critico">Crítico ≤ 3 MB/m</span>
                         </div>
                     </div>
                     <div class="metric-chart">
@@ -210,9 +219,9 @@
                     </div>
                     <div class="axis">
                         <span>12:00</span>
-                        <span>12:15</span>
-                        <span>12:30</span>
-                        <span>12:45</span>
+                        <span>12:03</span>
+                        <span>12:06</span>
+                        <span>12:09</span>
                         <span>Agora</span>
                     </div>
                     <div class="chart-legend">
@@ -225,22 +234,31 @@
                     <div class="metric-card-header">
                         <div class="metric-title-group">
                             <h3>Pacotes de rede</h3>
-                            <small>ÚLTIMA CAPTURA</small>
-                            <div class="metric-kpi-badges">
-                                <span class="badge badge-trend" id="pac-variacao-badge">Tendência desde última hora: +36%</span>
-                                <span class="badge badge-atencao" id="pac-limite-atencao">Atenção ≤ 10 mil pacotes</span>
-                                <span class="badge badge-critico" id="pac-limite-critico">Crítico ≤ 3 mil pacotes</span>
-                            </div>
+                            <small>ÚLTIMOS 3 MINUTOS</small>
                         </div>
                         <div class="metric-dual-values">
                             <div class="dual-val-box">
                                 <span class="dual-label"><i class="dot line-dot-download"></i>Download</span>
                                 <div class="dual-num"><strong id="rede-pac-download">36</strong><span>mil pacotes/m</span></div>
+                                <span class="badge badge-trend dual-kpi-trend" id="pac-down-variacao-badge">Tendência desde última hora: +36%</span>
                             </div>
                             <div class="dual-val-box">
                                 <span class="dual-label"><i class="dot line-dot-upload"></i>Upload</span>
                                 <div class="dual-num"><strong id="rede-pac-upload">18</strong><span>mil pacotes/m</span></div>
+                                <span class="badge badge-trend dual-kpi-trend" id="pac-up-variacao-badge">Tendência desde última hora: +29%</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="kpi-limites-duplo">
+                        <div class="limite-grupo">
+                            <span class="limite-grupo-titulo">Download:</span>
+                            <span class="badge badge-atencao" id="pac-down-limite-atencao">Atenção ≤ 10 mil pacotes</span>
+                            <span class="badge badge-critico" id="pac-down-limite-critico">Crítico ≤ 3 mil pacotes</span>
+                        </div>
+                        <div class="limite-grupo">
+                            <span class="limite-grupo-titulo">Upload:</span>
+                            <span class="badge badge-atencao" id="pac-up-limite-atencao">Atenção ≤ 5 mil pacotes</span>
+                            <span class="badge badge-critico" id="pac-up-limite-critico">Crítico ≤ 2 mil pacotes</span>
                         </div>
                     </div>
                     <div class="metric-chart">
@@ -248,9 +266,9 @@
                     </div>
                     <div class="axis">
                         <span>12:00</span>
-                        <span>12:15</span>
-                        <span>12:30</span>
-                        <span>12:45</span>
+                        <span>12:03</span>
+                        <span>12:06</span>
+                        <span>12:09</span>
                         <span>Agora</span>
                     </div>
                     <div class="chart-legend">

@@ -722,6 +722,13 @@ main>*:last-child {
     font-weight: 600;
 }
 
+.dual-kpi-trend {
+    align-self: flex-start;
+    margin-top: 5px;
+    padding: 2px 7px;
+    font-size: 9.5px;
+}
+
 .metric-chart {
     position: relative;
     flex: 1;

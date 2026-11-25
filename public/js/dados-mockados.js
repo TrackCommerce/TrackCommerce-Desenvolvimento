@@ -109,7 +109,9 @@ const CRITICO_REDE = {
     perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
     pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
     volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
-    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
   },
   globalping: {
     regiao: "BR",
@@ -235,7 +237,9 @@ const ATENCAO_REDE = {
     perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
     pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
     volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
-    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
   },
   globalping: {
     regiao: "BR",
@@ -361,7 +365,9 @@ const ESTAVEL_REDE = {
     perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
     pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
     volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
-    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
   },
   globalping: {
     regiao: "BR",
@@ -646,7 +652,7 @@ function avaliarRotaExternaGlobalping(globalping) {
     perdaCriticoPorc: 15
   };
 
-  const subtitulo = `Captura atual • ${perdaPorc}% (${latencia}ms)`;
+  const subtitulo = `Últimos 3 minutos • ${perdaPorc}% (${latencia}ms)`;
 
   if (perdaPacotes >= limites.perdaCriticoPacotes || perdaPorc >= limites.perdaCriticoPorc || latencia >= limites.latenciaCriticoMs) {
     return {
@@ -672,11 +678,11 @@ function avaliarRotaExternaGlobalping(globalping) {
 }
 
 /**
- * Gera veredito automático para a janela de 15 minutos do ETL combinando
+ * Gera veredito automático para a janela de 3 minutos do ETL combinando
  * métricas internas do agente com sondas externas da api.globalping.io.
  */
 function gerarDiagnosticoRedeETL({
-  horario = "12:45",
+  horario = "12:09",
   perdaInterna = 0,
   limiteCriticoInterno = 100,
   variacaoDownloadPorc = 0,

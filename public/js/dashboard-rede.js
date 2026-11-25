@@ -16,7 +16,7 @@ function criarGraficoRede(
     const canvas = document.getElementById(idCanvas);
     if (!canvas) return null;
 
-    const labels = ['12:00', '12:15', '12:30', '12:45', 'Agora'];
+    const labels = ['12:00', '12:03', '12:06', '12:09', 'Agora'];
     const datasets = [{
         label: label,
         data: dados,
@@ -144,7 +144,7 @@ function criarGraficoRedeDuasLinhas(idCanvas, dadosDownload, dadosUpload, unidad
     const canvas = document.getElementById(idCanvas);
     if (!canvas) return null;
 
-    const labels = ['12:00', '12:15', '12:30', '12:45', 'Agora'];
+    const labels = ['12:00', '12:03', '12:06', '12:09', 'Agora'];
     const maxVal = Math.max(...dadosDownload, ...dadosUpload);
     const suggestedMax = Math.ceil((maxVal * 1.2) / 10) * 10;
 
@@ -372,7 +372,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
             pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
             volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
-            pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+            volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+            pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+            pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
         },
         globalping: {
             regiao: "BR",
@@ -390,7 +392,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
         pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
         volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
-        pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true }
+        volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+        pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+        pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
     };
     const globalping = dadosRede.globalping || {
         regiao: "BR",
@@ -441,11 +445,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     aplicarBadgesLimite('perda-ext-limite-atencao', 'perda-ext-limite-critico', limites.perdaPacotesExterna);
     aplicarBadgesLimite('ping-ext-limite-atencao', 'ping-ext-limite-critico', limites.pingRotaExterna, 'Ping Ext: ');
 
-    aplicarBadgeTendencia('vol-variacao-badge', dadosRede.volumeDownloadGrafico, dadosRede.volumeVariacao, { menorPior: true });
-    aplicarBadgesLimite('vol-limite-atencao', 'vol-limite-critico', limites.volumeDownload);
+    aplicarBadgeTendencia('vol-down-variacao-badge', dadosRede.volumeDownloadGrafico, dadosRede.volumeDownloadVariacao, { menorPior: true });
+    aplicarBadgeTendencia('vol-up-variacao-badge', dadosRede.volumeUploadGrafico, dadosRede.volumeUploadVariacao, { menorPior: true });
+    aplicarBadgesLimite('vol-down-limite-atencao', 'vol-down-limite-critico', limites.volumeDownload);
+    aplicarBadgesLimite('vol-up-limite-atencao', 'vol-up-limite-critico', limites.volumeUpload);
 
-    aplicarBadgeTendencia('pac-variacao-badge', dadosRede.pacotesDownloadGrafico, dadosRede.pacotesVariacao, { menorPior: true });
-    aplicarBadgesLimite('pac-limite-atencao', 'pac-limite-critico', limites.pacotesDownload);
+    aplicarBadgeTendencia('pac-down-variacao-badge', dadosRede.pacotesDownloadGrafico, dadosRede.pacotesDownloadVariacao, { menorPior: true });
+    aplicarBadgeTendencia('pac-up-variacao-badge', dadosRede.pacotesUploadGrafico, dadosRede.pacotesUploadVariacao, { menorPior: true });
+    aplicarBadgesLimite('pac-down-limite-atencao', 'pac-down-limite-critico', limites.pacotesDownload);
+    aplicarBadgesLimite('pac-up-limite-atencao', 'pac-up-limite-critico', limites.pacotesUpload);
 
     // Atualiza pílula do topo e subtítulo externo (Globalping)
     atualizarStatusGlobalping(globalping);

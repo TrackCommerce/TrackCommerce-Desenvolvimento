@@ -52,7 +52,7 @@ Este repositório é um projeto de uma aplicação web de monitoramento de servi
 
 ## 2. Objetivo
 
-Com a aplicação trazer dashboards inteligentes que atualizam de 15 em 15 minutos que traz métricas de hardware dos servidores, junto da customização de quando se há alertas de cada componente,
+Com a aplicação trazer dashboards inteligentes que atualizam de 3 em 3 minutos que traz métricas de hardware dos servidores, junto da customização de quando se há alertas de cada componente,
 habilidade de adicionar instâncias e gerenciar usuários.
 
 ## 3. Escopo
