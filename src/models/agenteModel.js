@@ -47,11 +47,29 @@ function reativarInstancia(idInstancia, empresa, nome, descricao) {
     `, [nome, descricao, idInstancia, empresa]);
 }
 
+function buscarInstanciaComEmpresaPorIdentificador(identificadorNormalizado) {
+    return database.executar(`
+        SELECT
+            i.id_instancia,
+            i.fk_empresa AS id_empresa,
+            i.nome,
+            i.descricao,
+            i.identificador,
+            i.ativo,
+            e.razao_social AS empresa
+        FROM instancia i
+        INNER JOIN empresa e ON e.id_empresa = i.fk_empresa
+        WHERE REPLACE(REPLACE(LOWER(i.identificador), '-', ''), '_', '') = ?
+        LIMIT 1;
+    `, [identificadorNormalizado]);
+}
+
 module.exports = {
     buscarEmpresaPorId,
     definirTokenInstalacao,
     buscarEmpresaPorToken,
     buscarInstanciaPorIdentificador,
     cadastrarInstanciaAutomatica,
-    reativarInstancia
+    reativarInstancia,
+    buscarInstanciaComEmpresaPorIdentificador
 };

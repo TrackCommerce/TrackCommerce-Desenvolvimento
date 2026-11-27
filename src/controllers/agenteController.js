@@ -120,4 +120,59 @@ async function ativar(req, res) {
     }
 }
 
-module.exports = { baixar, ativar };
+function chaveInternaValida(chaveRecebida, chaveEsperada) {
+    if (typeof chaveRecebida !== "string" || typeof chaveEsperada !== "string") {
+        return false;
+    }
+    var bufRecebida = Buffer.from(chaveRecebida.trim(), "utf8");
+    var bufEsperada = Buffer.from(chaveEsperada.trim(), "utf8");
+    if (bufRecebida.length === 0 || bufRecebida.length !== bufEsperada.length) {
+        return false;
+    }
+    return crypto.timingSafeEqual(bufRecebida, bufEsperada);
+}
+
+function normalizarIdentificador(valor) {
+    if (typeof valor !== "string") return "";
+    return valor.trim().toLowerCase().replace(/[-_]/g, "");
+}
+
+async function resolverInstancia(req, res) {
+    var chaveConfigurada = (process.env.API_INTERNAL_KEY || "").trim();
+    if (!chaveConfigurada) {
+        console.error("API_INTERNAL_KEY não configurada no ambiente da API.");
+        return res.status(503).json({ mensagem: "Rota interna indisponível: API_INTERNAL_KEY não configurada." });
+    }
+
+    var chaveRecebida = req.get("x-api-key") || "";
+    if (!chaveInternaValida(chaveRecebida, chaveConfigurada)) {
+        return res.status(401).json({ mensagem: "Chave interna ausente ou inválida." });
+    }
+
+    var identificadorNorm = normalizarIdentificador(req.params && req.params.identificador);
+    if (!identificadorNorm || identificadorNorm.length > 255) {
+        return res.status(400).json({ mensagem: "Informe um identificador de instância válido." });
+    }
+
+    try {
+        var instancias = await agenteModel.buscarInstanciaComEmpresaPorIdentificador(identificadorNorm);
+        if (!instancias || instancias.length === 0) {
+            return res.status(404).json({ mensagem: "Instância não encontrada." });
+        }
+
+        var inst = instancias[0];
+        return res.status(200).json({
+            id_instancia: inst.id_instancia,
+            id_empresa: inst.id_empresa,
+            empresa: inst.empresa,
+            nome: inst.nome,
+            identificador: inst.identificador,
+            ativo: inst.ativo
+        });
+    } catch (erro) {
+        console.error("Erro ao resolver instância para o ETL:", erro.message);
+        return res.status(500).json({ mensagem: "Não foi possível consultar a instância." });
+    }
+}
+
+module.exports = { baixar, ativar, resolverInstancia };
