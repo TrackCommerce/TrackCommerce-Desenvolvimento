@@ -89,19 +89,47 @@ const CRITICO_REDE = {
   conexoesTime: 150,
   conexoesClose: 90,
   conexoesTotal: 620,
+  conexoesEstPorcGrafico: [69, 67, 65, 63, 61],
   conexoesPorcEst: "61%",
   conexoesPorcTime: "24%",
   conexoesPorcClose: "15%",
-  perdaPacotesTotal: "68",
-  perdaPacotesGrafico: [30, 42, 50, 58, 68],
-  volumeDownload: "120",
-  volumeUpload: "65",
-  volumeDownloadGrafico: [80, 95, 105, 112, 120],
-  volumeUploadGrafico: [40, 48, 55, 60, 65],
-  pacotesDownload: "58",
-  pacotesUpload: "32",
-  pacotesDownloadGrafico: [35, 42, 48, 52, 58],
-  pacotesUploadGrafico: [18, 22, 26, 28, 32]
+  perdaPacotesTotal: "14",
+  perdaPacotesGrafico: [4, 7, 10, 12, 14],
+  volumeDownload: "12",
+  volumeUpload: "6",
+  volumeDownloadGrafico: [85, 68, 42, 24, 12],
+  volumeUploadGrafico: [40, 32, 20, 11, 6],
+  pacotesDownload: "8",
+  pacotesUpload: "4",
+  pacotesDownloadGrafico: [45, 34, 22, 14, 8],
+  pacotesUploadGrafico: [20, 15, 10, 6, 4],
+  limites: {
+    conexoesEstablished: { atencao: 40, critico: 20, operador: "<=", unidade: "%", inverso: true },
+    perdaPacotesInterna: { atencao: 3, critico: 10, operador: ">=", unidade: "pacotes", inverso: false },
+    perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
+    pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
+    volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
+  },
+  globalping: {
+    regiao: "BR",
+    targetHost: null,
+    perdaExternaPacotes: 12,
+    perdaExternaPorc: 25,
+    latenciaExternaMs: 180,
+    perdaExternaPacotesGrafico: [2, 4, 7, 10, 12],
+    latenciaExternaGrafico: [45, 78, 125, 160, 180],
+    limites: {
+      latenciaAtencaoMs: 100,
+      latenciaCriticoMs: 250,
+      perdaAtencaoPacotes: 3,
+      perdaCriticoPacotes: 8,
+      perdaAtencaoPorc: 5,
+      perdaCriticoPorc: 15
+    }
+  }
 };
 
 // ==========================================
@@ -189,11 +217,12 @@ const ATENCAO_REDE = {
   conexoesTime: 50,
   conexoesClose: 40,
   conexoesTotal: 200,
+  conexoesEstPorcGrafico: [51, 52, 53, 54, 55],
   conexoesPorcEst: "55%",
   conexoesPorcTime: "25%",
   conexoesPorcClose: "20%",
-  perdaPacotesTotal: "36",
-  perdaPacotesGrafico: [14, 25, 20, 28, 36],
+  perdaPacotesTotal: "2",
+  perdaPacotesGrafico: [1, 2, 2, 1, 2],
   volumeDownload: "75",
   volumeUpload: "30",
   volumeDownloadGrafico: [45, 52, 60, 68, 75],
@@ -201,7 +230,34 @@ const ATENCAO_REDE = {
   pacotesDownload: "36",
   pacotesUpload: "18",
   pacotesDownloadGrafico: [20, 26, 31, 29, 36],
-  pacotesUploadGrafico: [11, 14, 16, 15, 18]
+  pacotesUploadGrafico: [11, 14, 16, 15, 18],
+  limites: {
+    conexoesEstablished: { atencao: 40, critico: 20, operador: "<=", unidade: "%", inverso: true },
+    perdaPacotesInterna: { atencao: 3, critico: 10, operador: ">=", unidade: "pacotes", inverso: false },
+    perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
+    pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
+    volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
+  },
+  globalping: {
+    regiao: "BR",
+    targetHost: null,
+    perdaExternaPacotes: 0,
+    perdaExternaPorc: 0,
+    latenciaExternaMs: 22,
+    perdaExternaPacotesGrafico: [0, 0, 0, 0, 0],
+    latenciaExternaGrafico: [20, 22, 21, 23, 22],
+    limites: {
+      latenciaAtencaoMs: 100,
+      latenciaCriticoMs: 250,
+      perdaAtencaoPacotes: 3,
+      perdaCriticoPacotes: 8,
+      perdaAtencaoPorc: 5,
+      perdaCriticoPorc: 15
+    }
+  }
 };
 
 // ==========================================
@@ -289,19 +345,47 @@ const ESTAVEL_REDE = {
   conexoesTime: 25,
   conexoesClose: 15,
   conexoesTotal: 85,
+  conexoesEstPorcGrafico: [62, 60, 58, 55, 53],
   conexoesPorcEst: "53%",
   conexoesPorcTime: "29%",
   conexoesPorcClose: "18%",
-  perdaPacotesTotal: "2",
-  perdaPacotesGrafico: [0, 1, 0, 1, 2],
-  volumeDownload: "32",
-  volumeUpload: "14",
-  volumeDownloadGrafico: [20, 25, 30, 28, 32],
-  volumeUploadGrafico: [8, 12, 15, 11, 14],
-  pacotesDownload: "15",
-  pacotesUpload: "7",
-  pacotesDownloadGrafico: [10, 12, 13, 14, 15],
-  pacotesUploadGrafico: [4, 5, 6, 6, 7]
+  perdaPacotesTotal: "1",
+  perdaPacotesGrafico: [1, 1, 2, 1, 1],
+  volumeDownload: "48",
+  volumeUpload: "20",
+  volumeDownloadGrafico: [40, 42, 45, 46, 48],
+  volumeUploadGrafico: [16, 17, 19, 18, 20],
+  pacotesDownload: "24",
+  pacotesUpload: "11",
+  pacotesDownloadGrafico: [20, 21, 22, 23, 24],
+  pacotesUploadGrafico: [9, 9, 10, 10, 11],
+  limites: {
+    conexoesEstablished: { atencao: 40, critico: 20, operador: "<=", unidade: "%", inverso: true },
+    perdaPacotesInterna: { atencao: 3, critico: 10, operador: ">=", unidade: "pacotes", inverso: false },
+    perdaPacotesExterna: { atencao: 3, critico: 8, operador: ">=", unidade: "pacotes", inverso: false },
+    pingRotaExterna: { atencao: 100, critico: 250, operador: ">=", unidade: "ms", inverso: false },
+    volumeDownload: { atencao: 15, critico: 5, operador: "<=", unidade: "MB/m", inverso: true },
+    volumeUpload: { atencao: 8, critico: 3, operador: "<=", unidade: "MB/m", inverso: true },
+    pacotesDownload: { atencao: 10, critico: 3, operador: "<=", unidade: "mil pacotes", inverso: true },
+    pacotesUpload: { atencao: 5, critico: 2, operador: "<=", unidade: "mil pacotes", inverso: true }
+  },
+  globalping: {
+    regiao: "BR",
+    targetHost: null,
+    perdaExternaPacotes: 0,
+    perdaExternaPorc: 0,
+    latenciaExternaMs: 18,
+    perdaExternaPacotesGrafico: [0, 0, 0, 0, 0],
+    latenciaExternaGrafico: [17, 18, 19, 18, 18],
+    limites: {
+      latenciaAtencaoMs: 100,
+      latenciaCriticoMs: 250,
+      perdaAtencaoPacotes: 3,
+      perdaCriticoPacotes: 8,
+      perdaAtencaoPorc: 5,
+      perdaCriticoPorc: 15
+    }
+  }
 };
 
 // ==========================================
@@ -312,6 +396,8 @@ const ESTAVEL_REDE = {
 const DADOS_MOCKADOS = {
   critico: {
     nome: "Gateway de API",
+    identificador: "mercadorapido-prod-web-01",
+    empresa: "Mercado Rapido E-commerce S.A.",
     status: "critico",
     statusTexto: "CRÍTICO",
     geral: {
@@ -348,6 +434,8 @@ const DADOS_MOCKADOS = {
 
   atencao: {
     nome: "Servidor de Banco de Dados",
+    identificador: "lojacerta-prod-db-01",
+    empresa: "LojaCerta Comercio Eletronico LTDA",
     status: "atencao",
     statusTexto: "ATENÇÃO",
     geral: {
@@ -384,6 +472,8 @@ const DADOS_MOCKADOS = {
 
   estavel: {
     nome: "Servidor de Checkout",
+    identificador: "ef7050f0-9d76-49ff-ae93-a7b5581ff629",
+    empresa: "LojaCerta Comercio Eletronico LTDA",
     status: "estavel",
     statusTexto: "SAUDÁVEL",
     geral: {
@@ -425,6 +515,7 @@ const DADOS_MOCKADOS = {
 function obterServidorAtual() {
   const status = sessionStorage.getItem("SERVIDOR_SELECIONADO_STATUS") || "atencao";
   const nomePersonalizado = sessionStorage.getItem("SERVIDOR_SELECIONADO_NOME");
+  const identificadorPersonalizado = sessionStorage.getItem("SERVIDOR_SELECIONADO_IDENTIFICADOR");
   
   const base = DADOS_MOCKADOS[status] || DADOS_MOCKADOS["atencao"];
   const dados = JSON.parse(JSON.stringify(base));
@@ -433,21 +524,197 @@ function obterServidorAtual() {
     dados.nome = nomePersonalizado;
     dados.geral.resumoMeta = `${nomePersonalizado} • últimas 24 horas • leitura em 10 segundos`;
   }
+  if (identificadorPersonalizado) {
+    dados.identificador = identificadorPersonalizado;
+  }
   return dados;
 }
 
 /**
  * Salva a seleção do servidor e redireciona para a dashboard
  */
-function selecionarServidor(status, nome, redirecionarPara) {
+function selecionarServidor(status, nome, redirecionarPara, identificador) {
   sessionStorage.setItem("SERVIDOR_SELECIONADO_STATUS", status);
   if (nome) {
     sessionStorage.setItem("SERVIDOR_SELECIONADO_NOME", nome);
   } else {
     sessionStorage.removeItem("SERVIDOR_SELECIONADO_NOME");
   }
+  if (identificador) {
+    sessionStorage.setItem("SERVIDOR_SELECIONADO_IDENTIFICADOR", identificador);
+  } else {
+    sessionStorage.removeItem("SERVIDOR_SELECIONADO_IDENTIFICADOR");
+  }
 
   const emDashboard = window.location.pathname.includes("/dashboard/");
   const destino = redirecionarPara || (emDashboard ? "dashboard-geral.html" : "dashboard/dashboard-geral.html");
   window.location.href = destino;
+}
+
+/**
+ * Atualiza a pílula no topo das dashboards indicando qual instância/servidor está sendo monitorada.
+ * Usa dado mockado automaticamente quando não há seleção ativa / backend rodando.
+ */
+function renderizarServidorMonitoradoTopbar() {
+  const badge = document.getElementById("servidor-monitorado-badge");
+  if (!badge) return;
+
+  const servidor = obterServidorAtual();
+  const elNome = document.getElementById("servidor-monitorado-nome");
+  const elId = document.getElementById("servidor-monitorado-id");
+
+  badge.classList.remove("critico", "atencao", "estavel");
+  if (servidor.status) {
+    badge.classList.add(servidor.status);
+  }
+
+  if (elNome) {
+    elNome.textContent = servidor.nome || "VM Producao Web";
+  }
+  if (elId) {
+    elId.textContent = servidor.identificador ? `• ${servidor.identificador}` : "";
+  }
+}
+
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", renderizarServidorMonitoradoTopbar);
+}
+
+/**
+ * Calcula a variação percentual da última hora comparando o registro atual
+ * com a média dos registros anteriores da mesma janela horária.
+ * Retorna objeto padronizado para uso direto com dados reais ou mockados.
+ */
+function calcularVariacaoUltimaHora(serie, variacaoExplicita = null) {
+  if (typeof variacaoExplicita === "number" && Number.isFinite(variacaoExplicita)) {
+    const arredondado = Math.round(variacaoExplicita);
+    const sinal = arredondado > 0 ? "+" : "";
+    return {
+      valor: arredondado,
+      texto: `Tendência desde última hora: ${sinal}${arredondado}%`,
+      direcao: arredondado > 0 ? "alta" : (arredondado < 0 ? "baixa" : "estavel")
+    };
+  }
+
+  if (!Array.isArray(serie) || serie.length < 2) {
+    return { valor: 0, texto: "Tendência desde última hora: 0%", direcao: "estavel" };
+  }
+
+  const valores = serie.map(Number).filter(Number.isFinite);
+  if (valores.length < 2) {
+    return { valor: 0, texto: "Tendência desde última hora: 0%", direcao: "estavel" };
+  }
+
+  const atual = valores[valores.length - 1];
+  const anteriores = valores.slice(0, -1);
+  const mediaAnterior = anteriores.reduce((acc, v) => acc + v, 0) / anteriores.length;
+
+  let percentual = 0;
+  if (mediaAnterior === 0) {
+    percentual = atual > 0 ? 100 : 0;
+  } else {
+    percentual = Math.round(((atual - mediaAnterior) / mediaAnterior) * 100);
+  }
+
+  const sinal = percentual > 0 ? "+" : "";
+  return {
+    valor: percentual,
+    texto: `Tendência desde última hora: ${sinal}${percentual}%`,
+    direcao: percentual > 0 ? "alta" : (percentual < 0 ? "baixa" : "estavel")
+  };
+}
+
+/**
+ * Formata o texto do limite de alerta respeitando operador (<= ou >=) e unidade da métrica.
+ */
+function formatarTextoLimite(rotulo, valor, limiteConfig = {}) {
+  const op = limiteConfig.operador === "<=" ? "≤" : "≥";
+  const un = limiteConfig.unidade ? (limiteConfig.unidade === "%" || limiteConfig.unidade === "ms" ? limiteConfig.unidade : ` ${limiteConfig.unidade}`) : "";
+  return `${rotulo} ${op} ${valor}${un}`;
+}
+
+/**
+ * Classifica o status da rota externa Globalping (BR) em Verde (normal),
+ * Amarelo (atencao) ou Vermelho (critico) a partir dos limites configurados.
+ */
+function avaliarRotaExternaGlobalping(globalping) {
+  const gp = globalping || {};
+  const regiao = gp.regiao || "BR";
+  const perdaPacotes = Number(gp.perdaExternaPacotes ?? 0);
+  const perdaPorc = Number(gp.perdaExternaPorc ?? 0);
+  const latencia = Number(gp.latenciaExternaMs ?? 0);
+  const limites = gp.limites || {
+    latenciaAtencaoMs: 100,
+    latenciaCriticoMs: 250,
+    perdaAtencaoPacotes: 3,
+    perdaCriticoPacotes: 8,
+    perdaAtencaoPorc: 5,
+    perdaCriticoPorc: 15
+  };
+
+  const subtitulo = `Últimos 3 minutos • ${perdaPorc}% (${latencia}ms)`;
+
+  if (perdaPacotes >= limites.perdaCriticoPacotes || perdaPorc >= limites.perdaCriticoPorc || latencia >= limites.latenciaCriticoMs) {
+    return {
+      classe: "critico",
+      textoPill: `Rota Externa ${regiao}: Perda de Pacotes (${perdaPacotes} pct / ${perdaPorc}%)`,
+      textoSubtitulo: subtitulo
+    };
+  }
+
+  if (latencia >= limites.latenciaAtencaoMs || perdaPacotes >= limites.perdaAtencaoPacotes || perdaPorc >= limites.perdaAtencaoPorc) {
+    return {
+      classe: "atencao",
+      textoPill: `Rota Externa ${regiao}: Latência Alta (${latencia}ms)`,
+      textoSubtitulo: subtitulo
+    };
+  }
+
+  return {
+    classe: "normal",
+    textoPill: `Rota Externa ${regiao}: Normal (${latencia}ms)`,
+    textoSubtitulo: subtitulo
+  };
+}
+
+/**
+ * Gera veredito automático para a janela de 3 minutos do ETL combinando
+ * métricas internas do agente com sondas externas da api.globalping.io.
+ */
+function gerarDiagnosticoRedeETL({
+  horario = "12:09",
+  perdaInterna = 0,
+  limiteCriticoInterno = 100,
+  variacaoDownloadPorc = 0,
+  perdaExternaPorc = 0,
+  latenciaExternaMs = 0,
+  regiao = "BR"
+} = {}) {
+  const rotaExternaNormal = perdaExternaPorc < 10 && latenciaExternaMs < 120;
+
+  if (perdaInterna >= limiteCriticoInterno && rotaExternaNormal) {
+    return {
+      severidade: "Crítico",
+      titulo: "Gargalo Interno na Instância",
+      mensagem: `Alerta Crítico de Rede (${horario}): Perda de pacotes interna subiu para ${perdaInterna}, mas a rota externa Globalping está normal (${latenciaExternaMs}ms). Diagnóstico: Gargalo na instância EC2 ou aplicação.`
+    };
+  }
+
+  if (variacaoDownloadPorc <= -25 && perdaExternaPorc >= 25) {
+    return {
+      severidade: "Aviso",
+      titulo: "Instabilidade de Rota Externa",
+      mensagem: `Alerta de Tráfego (${horario}): Queda brusca de download e ${perdaExternaPorc}% de perda externa nas sondas ${regiao}. Diagnóstico: Instabilidade de rota/operadora fora do servidor.`
+    };
+  }
+
+  if (latenciaExternaMs >= 120) {
+    return {
+      severidade: "Aviso",
+      titulo: "Latência Externa Elevada",
+      mensagem: `Alerta de Rota (${horario}): Latência externa nas sondas ${regiao} atingiu ${latenciaExternaMs}ms com ${perdaExternaPorc}% de perda. Diagnóstico: Degradação no trajeto externo até a instância.`
+    };
+  }
+
+  return null;
 }
