@@ -66,11 +66,22 @@
         <div class="header-block">
             <header class="topbar">
                 <div class="topbar-heading">
-                    <span class="topbar-eyebrow" id="disco-servidor-eyebrow">TrackCommerce · Servidor de Banco de Dados</span>
-                    <h1 class="title-orange">Dashboard Disco</h1>
+                    <div class="topbar-eyebrow-row">
+                        <span class="topbar-eyebrow" id="disco-servidor-eyebrow">TrackCommerce · Servidor de Banco de Dados</span>
+                        <span class="page-meta" id="disco-meta">· 1500 GB provisionados · Limites BD: 70% atenção / 80% crítico</span>
+                    </div>
+                    <div class="title-row">
+                        <h1 class="title-orange">Dashboard Disco</h1>
+                    </div>
                 </div>
 
                 <div class="topbar-right">
+                    <div class="period-group" role="group" aria-label="Janela de histórico">
+                        <button type="button" class="period-btn active" data-period="1h">1h</button>
+                        <button type="button" class="period-btn" data-period="6h">6h</button>
+                        <button type="button" class="period-btn" data-period="24h">24h</button>
+                        <button type="button" class="period-btn" data-period="7d">7d</button>
+                    </div>
                     <a href="./dashboard-geral.html" class="menu-btn-back" aria-label="Voltar para dashboard geral" title="Voltar para dashboard geral">
                         <img src="../assets/imgs/btn-seta.png" alt="">
                     </a>
@@ -82,26 +93,33 @@
                     </button>
                 </div>
             </header>
-
-            <p class="page-meta" id="disco-meta">Servidor de Banco de Dados · 1500 GB provisionados · coleta a cada 15s</p>
         </div>
 
         <section class="kpi-strip" aria-label="Indicadores principais de disco">
             <div class="kpi-cell">
                 <span class="kpi-label">Estado do armazenamento</span>
                 <strong class="kpi-value" id="kpi-disco-estado">Operação normal</strong>
+                <span class="kpi-sub" id="kpi-disco-estado-sub">Abaixo dos limites (70% / 80%)</span>
             </div>
             <div class="kpi-cell">
-                <span class="kpi-label">Capacidade utilizada</span>
+                <span class="kpi-label">Capacidade &amp; previsão</span>
                 <strong class="kpi-value" id="kpi-disco-espaco">810 GB de 1500 GB</strong>
+                <span class="kpi-sub" id="kpi-disco-previsao">+18 GB/dia · Próx. pico: Black Friday (3d)</span>
             </div>
             <div class="kpi-cell">
-                <span class="kpi-label">Taxa de I/O (L / G)</span>
+                <span class="kpi-label">Taxa I/O (L / G) &amp; bloco</span>
                 <strong class="kpi-value" id="kpi-disco-io">55 MB/s · 35 MB/s</strong>
+                <span class="kpi-sub" id="kpi-disco-bloco">~692 KB/op · dp60 estável</span>
             </div>
             <div class="kpi-cell">
                 <span class="kpi-label">Latência (média / P95)</span>
                 <strong class="kpi-value" id="kpi-disco-latencia">9 ms · 12 ms</strong>
+                <span class="kpi-sub" id="kpi-disco-latencia-sub">L: 7 ms · G: 11 ms</span>
+            </div>
+            <div class="kpi-cell">
+                <span class="kpi-label">Pressão IOwait &amp; Swap</span>
+                <strong class="kpi-value" id="kpi-disco-iowait">IOwait 4.2% · 0.0 MB/s</strong>
+                <span class="kpi-sub" id="kpi-disco-iowait-sub">Sem gargalo de espera/paginação</span>
             </div>
         </section>
 
