@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./css/central-status.css" />
 </head>
 
-<body>
+<body class="validando-acesso">
   <div class="container">
     <aside class="sidebar">
       <a href="index.html" class="logo">
@@ -26,7 +26,10 @@
       <nav class="menu">
         <a href="central-status.html" class="item ativo">
           <div class="icone">
-            <img src="./assets/imgs/painel.svg" alt="" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
           </div>
           <span>Central</span>
         </a>
@@ -112,6 +115,10 @@
               <button type="button" id="acaoResetarFiltros">Restaurar filtros padrão</button>
             </div>
           </div>
+
+          <button type="button" class="fullscreen-btn" id="btn-tela-cheia" aria-pressed="false">
+            Tela cheia
+          </button>
         </div>
       </header>
 

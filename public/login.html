@@ -108,6 +108,16 @@
         }
     }
 
+    function redirecionarPosLogin(fkEmpresa, email, ehGestor) {
+        if (email && Number(fkEmpresa) === 1) {
+            window.location.href = "cadastro-gestor.html";
+        } else if (ehGestor) {
+            window.location.href = "central-status.html";
+        } else {
+            window.location.href = "selecionar-servidor.html";
+        }
+    }
+
     var idUsuarioTemporario = null;
     function validacao_login() {
         let ipt_email = document.getElementById("ipt_email");
@@ -145,16 +155,14 @@
                     sessionStorage.ID_USUARIO = json.id_usuario;
                     sessionStorage.FK_EMPRESA = json.fk_empresa;
                     sessionStorage.FK_CARGO = json.fk_cargo;
+                    sessionStorage.NOME_CARGO = json.nome_cargo || "";
+                    sessionStorage.EH_GESTOR = json.ehGestor ? "true" : "false";
 
                     if (json.primeiroAcesso) {
                         idUsuarioTemporario = json.id_usuario;
                         document.getElementById("modal_trocar_senha").style.display = "flex";
                     } else {
-                        if (json.email && json.fk_empresa == 1) {
-                            window.location.href = "cadastro-gestor.html";
-                        } else {
-                            window.location.href = "selecionar-servidor.html";
-                        }
+                        redirecionarPosLogin(json.fk_empresa, json.email, json.ehGestor);
                     }
                 });
 
@@ -202,11 +210,9 @@
             if (resposta.ok) {
                 alert("Senha alterada com sucesso!");
                 let emailSessao = sessionStorage.getItem("EMAIL_USUARIO") || "";
-                if (emailSessao.toLowerCase().endsWith("@trackcommerce.com")) {
-                    window.location.href = "cadastro-gestor.html";
-                } else {
-                    window.location.href = "selecionar-servidor.html";
-                }
+                let fkEmpresaSessao = sessionStorage.getItem("FK_EMPRESA");
+                let ehGestorSessao = sessionStorage.getItem("EH_GESTOR") === "true";
+                redirecionarPosLogin(fkEmpresaSessao, emailSessao, ehGestorSessao);
             } else {
                 msgModal.innerText = "Houve um erro ao atualizar a senha.";
             }

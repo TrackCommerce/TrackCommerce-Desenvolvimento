@@ -905,7 +905,108 @@ function configurarEventos() {
   });
 }
 
+function redimensionarGraficos() {
+  setTimeout(() => {
+    [graficoLinha, graficoModerados, graficoCriticos, graficoBarraComponentes].forEach(grafico => {
+      if (grafico && typeof grafico.resize === 'function') {
+        grafico.resize();
+      }
+    });
+  }, 60);
+}
+
+function configurarBotaoTelaCheia() {
+  const btn = document.getElementById('btn-tela-cheia');
+  const raizTelaCheia = document.documentElement;
+  if (!btn || !raizTelaCheia) return;
+
+  function obterElementoFullscreen() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+
+  function estaEmTelaCheia() {
+    return Boolean(obterElementoFullscreen()) || document.body.classList.contains('modo-tela-cheia');
+  }
+
+  function sincronizarEstado() {
+    const ativo = estaEmTelaCheia();
+    btn.textContent = ativo ? 'Sair da tela cheia' : 'Tela cheia';
+    btn.setAttribute('aria-pressed', String(ativo));
+    btn.classList.toggle('is-fullscreen', ativo);
+    redimensionarGraficos();
+  }
+
+  async function sairTelaCheia() {
+    if (obterElementoFullscreen()) {
+      try {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      } catch (erro) {
+        console.warn('Erro ao sair da tela cheia:', erro);
+      }
+    }
+    document.body.classList.remove('modo-tela-cheia');
+    sincronizarEstado();
+  }
+
+  async function entrarTelaCheia() {
+    document.body.classList.add('modo-tela-cheia');
+    try {
+      if (raizTelaCheia.requestFullscreen) {
+        await raizTelaCheia.requestFullscreen();
+      } else if (raizTelaCheia.webkitRequestFullscreen) {
+        raizTelaCheia.webkitRequestFullscreen();
+      }
+    } catch (erro) {
+      console.warn('Fallback para modo tela cheia sem API nativa:', erro);
+    }
+    sincronizarEstado();
+  }
+
+  btn.addEventListener('click', () => {
+    if (estaEmTelaCheia()) {
+      sairTelaCheia();
+    } else {
+      entrarTelaCheia();
+    }
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    if (!obterElementoFullscreen()) {
+      document.body.classList.remove('modo-tela-cheia');
+    }
+    sincronizarEstado();
+  });
+
+  document.addEventListener('webkitfullscreenchange', () => {
+    if (!obterElementoFullscreen()) {
+      document.body.classList.remove('modo-tela-cheia');
+    }
+    sincronizarEstado();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F11' && estaEmTelaCheia()) {
+      e.preventDefault();
+      sairTelaCheia();
+      return;
+    }
+
+    const modalReqAberto = !document.getElementById('modalPrejuizoReq').hidden;
+    const modalRelAberto = !document.getElementById('modalRelatorio').hidden;
+    if (e.key === 'Escape' && document.body.classList.contains('modo-tela-cheia') && !modalReqAberto && !modalRelAberto) {
+      sairTelaCheia();
+    }
+  });
+
+  sincronizarEstado();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   configurarEventos();
+  configurarBotaoTelaCheia();
   renderizarTudo();
 });
