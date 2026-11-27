@@ -439,7 +439,14 @@ function configurarBotaoTelaCheia() {
   sincronizarEstado();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function definirTexto(id, texto) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = texto;
+}
+
+function renderizarDashboardDisco(periodo) {
+  periodoAtual = periodo || periodoAtual;
+
   const servidor = (typeof obterServidorAtual === 'function')
     ? obterServidorAtual()
     : (window.DADOS_MOCKADOS ? window.DADOS_MOCKADOS.atencao : null);
@@ -456,125 +463,160 @@ document.addEventListener('DOMContentLoaded', () => {
     usadosTexto: '810 GB usados • 690 GB livres',
     evolucao: [42, 45, 48, 51, 54],
     ioBytes: { read: [30, 42, 60, 51, 55], write: [25, 33, 40, 35, 35] },
-    ioIops: { read: [40, 52, 65, 58, 70], write: [30, 42, 55, 48, 60] },
-    ioLatency: { read: [4, 6, 8, 7, 9], write: [5, 8, 11, 9, 12] }
+    ioIops: { read: [40, 52, 65, 58, 70], write: [30, 42, 55, 48, 60] }
   };
+  const extras = EXTRAS_DISCO_POR_STATUS[statusServidor] || EXTRAS_DISCO_POR_STATUS.atencao;
+  const labels = LABELS_POR_PERIODO[periodoAtual] || LABELS_POR_PERIODO['1h'];
 
-  // Cabeçalho e metadados do servidor
-  const elEyebrow = document.getElementById('disco-servidor-eyebrow');
-  if (elEyebrow) elEyebrow.textContent = `TrackCommerce · ${nomeServidor}`;
-
-  const elMeta = document.getElementById('disco-meta');
+  // Cabeçalho e metadados
   const totalGbTexto = dadosDisco.totalGb || '1500 GB';
-  if (elMeta) elMeta.textContent = `${nomeServidor} · ${totalGbTexto} provisionados · coleta a cada 15s`;
+  definirTexto('disco-servidor-eyebrow', `TrackCommerce · ${nomeServidor}`);
+  definirTexto('disco-meta', `· ${totalGbTexto} provisionados · Limites BD: ${LIMITE_MODERADO_DISCO}% atenção / ${LIMITE_CRITICO_DISCO}% crítico`);
+  definirTexto('disco-total-badge', `${totalGbTexto} total`);
+  definirTexto('disco-pico-badge', extras.proximoPico);
+  definirTexto('disco-perf-badge', `Janela: ${periodoAtual} · ${extras.dp60Texto}`);
 
-  const elBadgeTotal = document.getElementById('disco-total-badge');
-  if (elBadgeTotal) elBadgeTotal.textContent = `${totalGbTexto} total`;
+  // Séries ajustadas ao período selecionado
+  const serieUso = escalarSerieParaPeriodo(dadosDisco.evolucao, periodoAtual);
+  const serieBytesL = escalarSerieParaPeriodo(dadosDisco.ioBytes.read, periodoAtual);
+  const serieBytesG = escalarSerieParaPeriodo(dadosDisco.ioBytes.write, periodoAtual);
+  const serieIopsL = escalarSerieParaPeriodo(dadosDisco.ioIops.read, periodoAtual);
+  const serieIopsG = escalarSerieParaPeriodo(dadosDisco.ioIops.write, periodoAtual);
+  const serieLatMedia = escalarSerieParaPeriodo(extras.latencia.media, periodoAtual);
+  const serieLatP95 = escalarSerieParaPeriodo(extras.latencia.p95, periodoAtual);
 
-  // KPIs de performance de disco com o último ponto do gráfico correspondente
-  const lastByteRead = dadosDisco.ioBytes.read.slice(-1)[0];
-  const lastByteWrite = dadosDisco.ioBytes.write.slice(-1)[0];
-  const lastIopsRead = dadosDisco.ioIops.read.slice(-1)[0];
-  const lastIopsWrite = dadosDisco.ioIops.write.slice(-1)[0];
-  const lastLatMedia = dadosDisco.ioLatency.read.slice(-1)[0];
-  const lastLatP95 = dadosDisco.ioLatency.write.slice(-1)[0];
+  const lastByteRead = serieBytesL.slice(-1)[0];
+  const lastByteWrite = serieBytesG.slice(-1)[0];
+  const lastIopsRead = Math.round(serieIopsL.slice(-1)[0]);
+  const lastIopsWrite = Math.round(serieIopsG.slice(-1)[0]);
+  const lastLatMedia = serieLatMedia.slice(-1)[0];
+  const lastLatP95 = serieLatP95.slice(-1)[0];
 
-  // Faixa de KPIs no topo
+  // Tamanho médio por operação (KB/op) a partir de throughput / IOPS
+  const totalMbS = lastByteRead + lastByteWrite;
+  const totalIops = lastIopsRead + lastIopsWrite;
+  const kbPorOp = totalIops > 0 ? Math.round((totalMbS * 1000) / totalIops) : 0;
+
+  // KPI 1: Estado unificado com limites do Script_BD2.sql (70% / 80%)
+  const usoNum = parseInt(dadosDisco.usoAtual, 10) || 0;
   const elKpiEstado = document.getElementById('kpi-disco-estado');
+  const elKpiEstadoSub = document.getElementById('kpi-disco-estado-sub');
   if (elKpiEstado) {
-    const usoNumerico = parseInt(dadosDisco.usoAtual, 10) || 0;
-    let textoEstado = 'Operação normal';
-    let classeEstado = 'status-normal';
-
-    if (usoNumerico >= 90) {
-      textoEstado = 'Armazenamento crítico';
-      classeEstado = 'status-critico';
-    } else if (usoNumerico >= 80 || dadosDisco.saudeClasse === 'atencao') {
-      textoEstado = 'Volume em atenção';
-      classeEstado = 'status-atencao';
-    }
-
-    elKpiEstado.textContent = textoEstado;
     elKpiEstado.classList.remove('status-normal', 'status-atencao', 'status-critico');
-    elKpiEstado.classList.add(classeEstado);
+    if (usoNum >= LIMITE_CRITICO_DISCO) {
+      elKpiEstado.textContent = 'Armazenamento crítico';
+      elKpiEstado.classList.add('status-critico');
+      if (elKpiEstadoSub) elKpiEstadoSub.textContent = `Acima de ${LIMITE_CRITICO_DISCO}% (alerta Jira ativo)`;
+    } else if (usoNum >= LIMITE_MODERADO_DISCO) {
+      elKpiEstado.textContent = 'Volume em atenção';
+      elKpiEstado.classList.add('status-atencao');
+      if (elKpiEstadoSub) elKpiEstadoSub.textContent = `Entre ${LIMITE_MODERADO_DISCO}% e ${LIMITE_CRITICO_DISCO}%`;
+    } else {
+      elKpiEstado.textContent = 'Operação normal';
+      elKpiEstado.classList.add('status-normal');
+      if (elKpiEstadoSub) elKpiEstadoSub.textContent = `Abaixo dos limites (${LIMITE_MODERADO_DISCO}% / ${LIMITE_CRITICO_DISCO}%)`;
+    }
   }
 
-  const elKpiEspaco = document.getElementById('kpi-disco-espaco');
-  if (elKpiEspaco) elKpiEspaco.textContent = `${dadosDisco.usadosGb || '810 GB'} de ${totalGbTexto}`;
+  // KPI 2: Capacidade & Previsão
+  definirTexto('kpi-disco-espaco', `${dadosDisco.usadosGb || '810 GB'} de ${totalGbTexto}`);
+  definirTexto('kpi-disco-previsao', `+${extras.crescimentoGbDia} GB/dia · Próx. pico: ${extras.proximoPico}`);
 
-  const elKpiIo = document.getElementById('kpi-disco-io');
-  if (elKpiIo) elKpiIo.textContent = `${lastByteRead} MB/s · ${lastByteWrite} MB/s`;
+  // KPI 3: Taxa I/O & Bloco Médio
+  definirTexto('kpi-disco-io', `${lastByteRead} MB/s · ${lastByteWrite} MB/s`);
+  definirTexto('kpi-disco-bloco', `~${kbPorOp} KB/op · ${extras.dp60Texto}`);
 
-  const elKpiLatencia = document.getElementById('kpi-disco-latencia');
-  if (elKpiLatencia) elKpiLatencia.textContent = `${lastLatMedia} ms · ${lastLatP95} ms`;
+  // KPI 4: Latência Média / P95
+  definirTexto('kpi-disco-latencia', `${lastLatMedia} ms · ${lastLatP95} ms`);
+  definirTexto('kpi-disco-latencia-sub', `L: ${extras.latencia.leituraAtual} ms · G: ${extras.latencia.escritaAtual} ms`);
 
-  // Atualiza valor destaque e legenda do volume
-  const elUsoAtual = document.getElementById('disco-uso-atual');
-  if (elUsoAtual) elUsoAtual.textContent = dadosDisco.usoAtual;
-
-  const elCaption = document.getElementById('disco-uso-caption');
-  if (elCaption) {
-    const usoNum = parseInt(dadosDisco.usoAtual, 10) || 0;
-    elCaption.textContent = usoNum >= 85
-      ? `Uso em ${dadosDisco.usoAtual}, acima do limite de alerta de 85%. Considere expandir ou limpar volumes.`
-      : `Operando dentro da margem segura, abaixo do limite de alerta de 85%.`;
+  // KPI 5: Pressão IOwait & Swap
+  const elIoWait = document.getElementById('kpi-disco-iowait');
+  const elIoWaitSub = document.getElementById('kpi-disco-iowait-sub');
+  if (elIoWait) {
+    elIoWait.classList.remove('status-normal', 'status-atencao', 'status-critico');
+    elIoWait.textContent = `IOwait ${extras.iowaitPct}% · ${extras.swapIoMbS.toFixed(1)} MB/s`;
+    if (extras.iowaitPct >= 15 || extras.swapIoMbS >= 5) {
+      elIoWait.classList.add('status-critico');
+      if (elIoWaitSub) elIoWaitSub.textContent = 'CPU aguardando disco + paginação Swap';
+    } else if (extras.iowaitPct >= 7) {
+      elIoWait.classList.add('status-atencao');
+      if (elIoWaitSub) elIoWaitSub.textContent = 'Leve fila de I/O na CPU';
+    } else {
+      elIoWait.classList.add('status-normal');
+      if (elIoWaitSub) elIoWaitSub.textContent = 'Sem gargalo de CPU/RAM no disco';
+    }
   }
 
-  // Atualiza partições e footer
-  atualizarParticoes(dadosDisco, statusServidor);
+  // Card 1: Destaque, Previsão e Último Evento
+  definirTexto('disco-uso-atual', dadosDisco.usoAtual);
+  const elPrevPill = document.getElementById('disco-previsao-pill');
+  if (elPrevPill) {
+    elPrevPill.classList.remove('warn', 'crit');
+    if (usoNum >= LIMITE_CRITICO_DISCO) {
+      elPrevPill.textContent = `Limite ${LIMITE_CRITICO_DISCO}% atingido`;
+      elPrevPill.classList.add('crit');
+    } else if (extras.diasAteCritico <= 15) {
+      elPrevPill.textContent = `~${extras.diasAteCritico}d até ${LIMITE_CRITICO_DISCO}%`;
+      elPrevPill.classList.add('warn');
+    } else {
+      elPrevPill.textContent = `~${extras.diasAteCritico}d até ${LIMITE_CRITICO_DISCO}%`;
+    }
+  }
 
-  const elFooter = document.getElementById('disco-footer-usados');
-  if (elFooter) elFooter.textContent = dadosDisco.usadosTexto;
+  definirTexto('disco-ultimo-evento', extras.ultimoEvento);
+  const elEventTag = document.getElementById('disco-ultimo-evento-tag');
+  if (elEventTag) {
+    elEventTag.className = `event-tag ${extras.ultimoEventoClasse}`;
+    elEventTag.textContent = extras.ultimoEventoClasse === 'critico'
+      ? 'Crítico'
+      : (extras.ultimoEventoClasse === 'atencao' ? 'Atenção' : 'Normal');
+  }
 
-  // Atualiza KPIs dos subcards de I/O
-  const elByteRead = document.getElementById('disco-bytes-read');
-  const elByteWrite = document.getElementById('disco-bytes-write');
-  if (elByteRead) elByteRead.textContent = `${lastByteRead} MB/s`;
-  if (elByteWrite) elByteWrite.textContent = `${lastByteWrite} MB/s`;
+  // Card 2: Partições & Footer
+  renderizarParticoes(extras.particoes);
+  definirTexto('disco-footer-usados', dadosDisco.usadosTexto);
 
-  const elIopsRead = document.getElementById('disco-iops-read');
-  const elIopsWrite = document.getElementById('disco-iops-write');
-  if (elIopsRead) elIopsRead.textContent = `${lastIopsRead} IOPS`;
-  if (elIopsWrite) elIopsWrite.textContent = `${lastIopsWrite} IOPS`;
+  // Card 3: Top 5 Processos por I/O
+  renderizarProcessosDisco(extras.processos);
 
-  const elLatMedia = document.getElementById('disco-lat-media');
-  const elLatP95 = document.getElementById('disco-lat-p95');
-  if (elLatMedia) elLatMedia.textContent = `${lastLatMedia} ms`;
-  if (elLatP95) elLatP95.textContent = `${lastLatP95} ms`;
+  // Subcards I/O
+  definirTexto('disco-bytes-read', `${lastByteRead} MB/s`);
+  definirTexto('disco-bytes-write', `${lastByteWrite} MB/s`);
+  definirTexto('disco-iops-read', `${lastIopsRead} IOPS`);
+  definirTexto('disco-iops-write', `${lastIopsWrite} IOPS`);
+  definirTexto('disco-lat-media', `${lastLatMedia} ms`);
+  definirTexto('disco-lat-p95', `${lastLatP95} ms`);
 
   // Gráficos
-  criarGraficoUsoDisco('grafico-uso-disco', dadosDisco.evolucao);
-  criarGraficoDuasLinhas(
-    'grafico-io-bytes',
-    dadosDisco.ioBytes.read,
-    '#047857',
-    dadosDisco.ioBytes.write,
-    '#c2410c',
-    'Leitura',
-    'Gravação',
-    'MB/s'
+  criarGraficoUsoDisco('grafico-uso-disco', labels, serieUso);
+  chartIoBytes = criarGraficoDuasLinhas(
+    chartIoBytes, 'grafico-io-bytes', labels,
+    serieBytesL, '#047857', serieBytesG, '#c2410c',
+    'Leitura', 'Gravação', 'MB/s'
   );
-  criarGraficoDuasLinhas(
-    'grafico-io-iops',
-    dadosDisco.ioIops.read,
-    '#047857',
-    dadosDisco.ioIops.write,
-    '#c2410c',
-    'Leitura',
-    'Gravação',
-    'IOPS'
+  chartIoIops = criarGraficoDuasLinhas(
+    chartIoIops, 'grafico-io-iops', labels,
+    serieIopsL, '#047857', serieIopsG, '#c2410c',
+    'Leitura', 'Gravação', 'IOPS'
   );
-  criarGraficoDuasLinhas(
-    'grafico-io-latency',
-    dadosDisco.ioLatency.read,
-    '#0369a1',
-    dadosDisco.ioLatency.write,
-    '#c2410c',
-    'Média',
-    'Percentil 95',
-    'ms'
+  chartIoLatency = criarGraficoDuasLinhas(
+    chartIoLatency, 'grafico-io-latency', labels,
+    serieLatMedia, '#0369a1', serieLatP95, '#c2410c',
+    'Média', 'Percentil 95', 'ms'
   );
+}
 
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.period-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.period-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderizarDashboardDisco(btn.dataset.period);
+    });
+  });
+
+  renderizarDashboardDisco('1h');
   configurarBotaoTelaCheia();
 
   window.addEventListener('resize', () => {
