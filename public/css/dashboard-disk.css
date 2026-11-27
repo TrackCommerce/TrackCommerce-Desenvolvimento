@@ -459,22 +459,24 @@ body.modo-tela-cheia main {
     background: #dc2626;
 }
 
-/* CARD USO DO DISCO */
+/* CARD USO DO DISCO + PREVISÃO + ÚLTIMO EVENTO */
 
 .disk-usage-content {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    gap: 20px;
+    gap: 12px;
     width: 100%;
     min-width: 0;
-    flex: 1;
+    min-height: 0;
+    flex: 1 1 0;
 }
 
 .disk-chart-container {
-    flex: 1;
+    flex: 1 1 0;
     width: 100%;
     min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
@@ -482,22 +484,28 @@ body.modo-tela-cheia main {
 .chart-box-disk {
     position: relative;
     width: 100%;
-    height: 175px;
+    flex: 1 1 0;
+    min-height: 70px;
     min-width: 0;
 }
 
 .disk-metric-container {
-    min-width: 104px;
+    width: 112px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    padding-right: 4px;
+    gap: 3px;
+    padding: 6px 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
 }
 
 .metric-value {
-    font-size: 44px;
+    font-size: 34px;
     font-weight: 800;
     color: #0f172a;
     line-height: 1;
@@ -505,82 +513,149 @@ body.modo-tela-cheia main {
 }
 
 .metric-subtitle {
-    font-size: 10px;
+    font-size: 9px;
     color: #64748b;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
+}
+
+.forecast-pill {
+    margin-top: 3px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 9.5px;
+    font-weight: 700;
+    background: #eff6ff;
+    color: #0369a1;
+    width: 100%;
+    line-height: 1.25;
+}
+
+.forecast-pill.warn {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.forecast-pill.crit {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.event-strip {
     margin-top: 6px;
-}
-
-.card-caption {
-    margin-top: 10px;
-    font-size: 11px;
-    color: #64748b;
+    padding-top: 6px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    color: #475569;
     font-weight: 500;
-    line-height: 1.4;
+    flex-shrink: 0;
+    min-width: 0;
 }
 
-/* CARD PARTIÇÕES */
+.event-strip-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.event-tag {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    flex-shrink: 0;
+}
+
+.event-tag.atencao {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.event-tag.critico {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* CARD PARTIÇÕES DINÂMICAS */
 
 .partition-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 16px;
+    justify-content: space-evenly;
+    gap: 8px;
     width: 100%;
-    flex: 1;
-    margin-top: 4px;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .partition-item {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     width: 100%;
+    min-width: 0;
 }
 
 .partition-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 12px;
-    gap: 8px;
+    font-size: 11px;
+    gap: 6px;
+    min-width: 0;
 }
 
 .partition-label {
     display: flex;
     align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 6px;
     min-width: 0;
+    overflow: hidden;
 }
 
 .partition-name {
     font-weight: 700;
     color: #0f172a;
-    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .partition-size {
     color: #64748b;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .partition-percentage {
     font-weight: 800;
     color: #475569;
-    font-size: 12px;
+    font-size: 11px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .partition-percentage.text-orange {
     color: #c2410c;
 }
 
+.partition-percentage.text-red {
+    color: #b91c1c;
+}
+
 .progress-track {
-    height: 8px;
+    height: 7px;
     background: #e2e8f0;
     border-radius: 999px;
     overflow: hidden;
@@ -601,6 +676,10 @@ body.modo-tela-cheia main {
     background: #ea580c;
 }
 
+.bar-red {
+    background: #dc2626;
+}
+
 .bar-green {
     background: #10b981;
 }
@@ -609,97 +688,192 @@ body.modo-tela-cheia main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 14px;
-    padding-top: 10px;
+    margin-top: 6px;
+    padding-top: 6px;
     border-top: 1px solid #f1f5f9;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: #64748b;
+    flex-shrink: 0;
     flex-wrap: wrap;
     gap: 6px;
+}
+
+/* CARD TOP 5 PROCESSOS I/O DE DISCO (CAUSA RAIZ) */
+
+.process-table-wrap {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.io-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 11px;
+}
+
+.io-table th {
+    text-align: left;
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+    color: #64748b;
+    padding: 4px 4px 5px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.io-table th.num,
+.io-table td.num {
+    text-align: right;
+}
+
+.io-table td {
+    padding: 5px 4px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.io-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.io-table td.pid {
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+    font-size: 10px;
+    width: 44px;
+}
+
+.io-table th.col-pid {
+    width: 44px;
+}
+
+.io-table th.col-num {
+    width: 62px;
+}
+
+.proc-name {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.proc-read {
+    color: #047857;
+    font-variant-numeric: tabular-nums;
+}
+
+.proc-write {
+    color: #c2410c;
+    font-variant-numeric: tabular-nums;
+}
+
+.proc-total {
+    color: #0369a1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 /* PERFORMANCE I/O DE DISCO */
 
 .card-performance {
-    flex: 1 1 auto;
+    flex: 1.04 1 0;
+    min-height: 0;
 }
 
 .performance-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 10px;
     width: 100%;
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
+    min-height: 0;
     align-items: stretch;
-    margin-top: 4px;
 }
 
 .performance-subcard {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 14px 16px;
+    border-radius: 10px;
+    padding: 9px 11px;
     display: flex;
     flex-direction: column;
     min-width: 0;
+    min-height: 0;
     max-width: 100%;
+    overflow: hidden;
 }
 
 .subcard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
 }
 
 .subcard-title {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
     color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .subcard-unit {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 600;
     color: #64748b;
+    white-space: nowrap;
 }
 
 .subcard-stats {
     display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
 }
 
 .stat-box {
     display: flex;
     flex-direction: column;
-    padding: 7px 10px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 7px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     flex: 1 1 0;
-    min-width: 90px;
+    min-width: 0;
 }
 
 .stat-label {
-    font-size: 9px;
+    font-size: 8.5px;
     font-weight: 700;
     color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.35px;
-    margin-bottom: 2px;
+    letter-spacing: 0.3px;
 }
 
 .stat-value {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stat-value.text-green {
@@ -717,9 +891,9 @@ body.modo-tela-cheia main {
 .chart-box-subcard {
     position: relative;
     width: 100%;
-    height: 155px;
+    flex: 1 1 0;
+    min-height: 68px;
     min-width: 0;
-    margin-top: auto;
 }
 
 canvas {
