@@ -123,174 +123,173 @@
             </div>
         </section>
 
-        <section class="row">
-            <div class="card">
+        <div class="dashboard-rows">
+            <section class="row-top">
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <h2 class="card-title-disk">Uso do disco · evolução recente</h2>
+                            <p class="card-subtitle" id="disco-uso-subtitulo">Ocupação do volume vs. limites de atenção (70%) e crítico (80%)</p>
+                        </div>
+                        <span class="badge-pill badge-peak" id="disco-pico-badge">Black Friday em 3d</span>
+                    </div>
+
+                    <div class="chart-legend chart-legend-top">
+                        <span class="legend-item"><span class="dot d-blue"></span> Uso atual</span>
+                        <span class="legend-item"><span class="dot d-amber"></span> Atenção (70%)</span>
+                        <span class="legend-item"><span class="dot d-red"></span> Crítico (80%)</span>
+                    </div>
+
+                    <div class="disk-usage-content">
+                        <div class="disk-chart-container">
+                            <div class="chart-box-disk">
+                                <canvas id="grafico-uso-disco" role="img" aria-label="Gráfico de evolução do uso de disco"></canvas>
+                            </div>
+                        </div>
+                        <div class="disk-metric-container">
+                            <span class="metric-value" id="disco-uso-atual">54%</span>
+                            <span class="metric-subtitle">Uso do volume</span>
+                            <span class="forecast-pill" id="disco-previsao-pill">~14 dias até 80%</span>
+                        </div>
+                    </div>
+
+                    <div class="event-strip">
+                        <span class="event-strip-text" id="disco-ultimo-evento">Último evento: operação estável sem anomalias recentes de armazenamento.</span>
+                        <span class="event-tag" id="disco-ultimo-evento-tag">Normal</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <h2 class="card-title-disk">Espaço por partição</h2>
+                            <p class="card-subtitle">Pontos de montagem monitorados · escala 0 a 100%</p>
+                        </div>
+                        <span class="badge-pill" id="disco-total-badge">1500 GB total</span>
+                    </div>
+
+                    <div class="partition-list" id="lista-particoes">
+                        <!-- Renderizado dinamicamente via JS -->
+                    </div>
+
+                    <div class="partition-footer">
+                        <span id="disco-footer-usados">810 GB usados • 690 GB livres</span>
+                        <span id="disco-footer-critica">Maior ocupação: / (82%)</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <h2 class="card-title-disk">Top 5 processos · I/O de disco</h2>
+                            <p class="card-subtitle">Investigação de causa raiz (read_bytes / write_bytes)</p>
+                        </div>
+                        <span class="badge-pill" id="disco-proc-badge">Por volume I/O</span>
+                    </div>
+
+                    <div class="process-table-wrap">
+                        <table class="io-table" aria-label="Top 5 processos consumidores de I/O de disco">
+                            <thead>
+                                <tr>
+                                    <th class="col-pid">PID</th>
+                                    <th>Processo</th>
+                                    <th class="num col-num">Leit.</th>
+                                    <th class="num col-num">Grav.</th>
+                                    <th class="num col-num">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-processos-disco">
+                                <!-- Renderizado dinamicamente via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section class="card card-performance">
                 <div class="card-header">
                     <div class="card-title-group">
-                        <h2 class="card-title-disk">Uso do disco · evolução recente</h2>
-                        <p class="card-subtitle">Ocupação agregada do volume principal em relação ao limite de 85%</p>
+                        <h2 class="card-title-disk">Performance I/O de disco</h2>
+                        <p class="card-subtitle" id="disco-perf-subtitulo">Throughput (MB/s), operações por segundo (IOPS) e latência (Média vs. P95) na janela selecionada</p>
                     </div>
+                    <span class="badge-pill" id="disco-perf-badge">Janela: 1h · dp60 normal</span>
                 </div>
 
-                <div class="chart-legend chart-legend-top">
-                    <span class="legend-item"><span class="dot d-blue"></span> Uso atual</span>
-                    <span class="legend-item"><span class="dot d-orange"></span> Limite (85%)</span>
-                </div>
-
-                <div class="disk-usage-content">
-                    <div class="disk-chart-container">
-                        <div class="chart-box-disk">
-                            <canvas id="grafico-uso-disco" role="img" aria-label="Gráfico de evolução do uso de disco"></canvas>
+                <div class="performance-grid">
+                    <article class="performance-subcard">
+                        <div class="subcard-header">
+                            <h3 class="subcard-title">R/W (Throughput)</h3>
+                            <span class="subcard-unit">MB/s (base 10⁶)</span>
                         </div>
-                    </div>
-                    <div class="disk-metric-container">
-                        <span class="metric-value" id="disco-uso-atual">54%</span>
-                        <span class="metric-subtitle">Uso do volume</span>
-                    </div>
-                </div>
-
-                <p class="card-caption" id="disco-uso-caption">Limite de alerta definido em 85% da capacidade total provisionada.</p>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <h2 class="card-title-disk">Espaço por partição</h2>
-                        <p class="card-subtitle">Capacidade usada por ponto de montagem · escala de 0 a 100%</p>
-                    </div>
-                    <span class="badge-pill" id="disco-total-badge">1500 GB total</span>
-                </div>
-
-                <div class="partition-list">
-                    <div class="partition-item">
-                        <div class="partition-header">
-                            <div class="partition-label">
-                                <span class="partition-name">/ (sistema)</span>
-                                <span class="partition-size" id="particao-1-size">410 GB de 500 GB</span>
+                        <div class="subcard-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Leitura</span>
+                                <span class="stat-value text-green" id="disco-bytes-read">55 MB/s</span>
                             </div>
-                            <span class="partition-percentage text-orange" id="particao-1-pct">82%</span>
-                        </div>
-                        <div class="progress-track" id="particao-1-track" role="progressbar" aria-label="Uso da partição raiz" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar bar-orange" id="particao-1-bar" style="width: 82%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="partition-item">
-                        <div class="partition-header">
-                            <div class="partition-label">
-                                <span class="partition-name">/var/lib/docker</span>
-                                <span class="partition-size" id="particao-2-size">240 GB de 400 GB</span>
+                            <div class="stat-box">
+                                <span class="stat-label">Gravação</span>
+                                <span class="stat-value text-orange" id="disco-bytes-write">35 MB/s</span>
                             </div>
-                            <span class="partition-percentage" id="particao-2-pct">60%</span>
                         </div>
-                        <div class="progress-track" id="particao-2-track" role="progressbar" aria-label="Uso da partição Docker" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar bar-blue" id="particao-2-bar" style="width: 60%;"></div>
+                        <div class="chart-legend chart-legend-subcard">
+                            <span class="legend-item"><span class="dot d-green"></span> Leitura</span>
+                            <span class="legend-item"><span class="dot d-orange"></span> Gravação</span>
                         </div>
-                    </div>
+                        <div class="chart-box-subcard">
+                            <canvas id="grafico-io-bytes" role="img" aria-label="Gráfico de leitura e gravação em MB por segundo"></canvas>
+                        </div>
+                    </article>
 
-                    <div class="partition-item">
-                        <div class="partition-header">
-                            <div class="partition-label">
-                                <span class="partition-name">/dados/transações</span>
-                                <span class="partition-size" id="particao-3-size">160 GB de 600 GB</span>
+                    <article class="performance-subcard">
+                        <div class="subcard-header">
+                            <h3 class="subcard-title">R/W (IOPS)</h3>
+                            <span class="subcard-unit">operações/s</span>
+                        </div>
+                        <div class="subcard-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Leitura</span>
+                                <span class="stat-value text-green" id="disco-iops-read">70 IOPS</span>
                             </div>
-                            <span class="partition-percentage" id="particao-3-pct">27%</span>
+                            <div class="stat-box">
+                                <span class="stat-label">Gravação</span>
+                                <span class="stat-value text-orange" id="disco-iops-write">60 IOPS</span>
+                            </div>
                         </div>
-                        <div class="progress-track" id="particao-3-track" role="progressbar" aria-label="Uso da partição de transações" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar bar-green" id="particao-3-bar" style="width: 27%;"></div>
+                        <div class="chart-legend chart-legend-subcard">
+                            <span class="legend-item"><span class="dot d-green"></span> Leitura</span>
+                            <span class="legend-item"><span class="dot d-orange"></span> Gravação</span>
                         </div>
-                    </div>
+                        <div class="chart-box-subcard">
+                            <canvas id="grafico-io-iops" role="img" aria-label="Gráfico de operações de leitura e gravação por segundo"></canvas>
+                        </div>
+                    </article>
+
+                    <article class="performance-subcard">
+                        <div class="subcard-header">
+                            <h3 class="subcard-title">Latência · Média vs P95</h3>
+                            <span class="subcard-unit">ms</span>
+                        </div>
+                        <div class="subcard-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Média</span>
+                                <span class="stat-value text-blue" id="disco-lat-media">9 ms</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Percentil 95</span>
+                                <span class="stat-value text-orange" id="disco-lat-p95">12 ms</span>
+                            </div>
+                        </div>
+                        <div class="chart-legend chart-legend-subcard">
+                            <span class="legend-item"><span class="dot d-blue"></span> Média</span>
+                            <span class="legend-item"><span class="dot d-orange"></span> Percentil 95</span>
+                        </div>
+                        <div class="chart-box-subcard">
+                            <canvas id="grafico-io-latency" role="img" aria-label="Gráfico de latência média e percentil 95"></canvas>
+                        </div>
+                    </article>
                 </div>
-
-                <div class="partition-footer">
-                    <span id="disco-footer-usados">810 GB usados • 690 GB livres</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="card card-performance">
-            <div class="card-header">
-                <div class="card-title-group">
-                    <h2 class="card-title-disk">Performance I/O de disco</h2>
-                    <p class="card-subtitle">Taxa de leitura e gravação, operações por segundo e latência das últimas amostras</p>
-                </div>
-                <span class="badge-pill">Coleta 15s</span>
-            </div>
-
-            <div class="performance-grid">
-                <article class="performance-subcard">
-                    <div class="subcard-header">
-                        <h3 class="subcard-title">R/W (bytes/s)</h3>
-                        <span class="subcard-unit">MB/s</span>
-                    </div>
-                    <div class="subcard-stats">
-                        <div class="stat-box">
-                            <span class="stat-label">Leitura</span>
-                            <span class="stat-value text-green" id="disco-bytes-read">55 MB/s</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Gravação</span>
-                            <span class="stat-value text-orange" id="disco-bytes-write">35 MB/s</span>
-                        </div>
-                    </div>
-                    <div class="chart-legend chart-legend-subcard">
-                        <span class="legend-item"><span class="dot d-green"></span> Leitura</span>
-                        <span class="legend-item"><span class="dot d-orange"></span> Gravação</span>
-                    </div>
-                    <div class="chart-box-subcard">
-                        <canvas id="grafico-io-bytes" role="img" aria-label="Gráfico de leitura e gravação em MB por segundo"></canvas>
-                    </div>
-                </article>
-
-                <article class="performance-subcard">
-                    <div class="subcard-header">
-                        <h3 class="subcard-title">R/W (IOPS)</h3>
-                        <span class="subcard-unit">operações/s</span>
-                    </div>
-                    <div class="subcard-stats">
-                        <div class="stat-box">
-                            <span class="stat-label">Leitura</span>
-                            <span class="stat-value text-green" id="disco-iops-read">70 IOPS</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Gravação</span>
-                            <span class="stat-value text-orange" id="disco-iops-write">60 IOPS</span>
-                        </div>
-                    </div>
-                    <div class="chart-legend chart-legend-subcard">
-                        <span class="legend-item"><span class="dot d-green"></span> Leitura</span>
-                        <span class="legend-item"><span class="dot d-orange"></span> Gravação</span>
-                    </div>
-                    <div class="chart-box-subcard">
-                        <canvas id="grafico-io-iops" role="img" aria-label="Gráfico de operações de leitura e gravação por segundo"></canvas>
-                    </div>
-                </article>
-
-                <article class="performance-subcard">
-                    <div class="subcard-header">
-                        <h3 class="subcard-title">Tempo de espera / latência</h3>
-                        <span class="subcard-unit">ms</span>
-                    </div>
-                    <div class="subcard-stats">
-                        <div class="stat-box">
-                            <span class="stat-label">Média</span>
-                            <span class="stat-value text-blue" id="disco-lat-media">9 ms</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">Percentil 95</span>
-                            <span class="stat-value text-orange" id="disco-lat-p95">12 ms</span>
-                        </div>
-                    </div>
-                    <div class="chart-legend chart-legend-subcard">
-                        <span class="legend-item"><span class="dot d-blue"></span> Latência média</span>
-                        <span class="legend-item"><span class="dot d-orange"></span> Percentil 95</span>
-                    </div>
-                    <div class="chart-box-subcard">
-                        <canvas id="grafico-io-latency" role="img" aria-label="Gráfico de latência média e percentil 95"></canvas>
-                    </div>
-                </article>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <div class="menu-overlay" id="menu-overlay" hidden>
             <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
