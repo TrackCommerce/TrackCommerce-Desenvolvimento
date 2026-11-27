@@ -234,25 +234,27 @@ body.modo-tela-cheia main {
     outline-offset: 2px;
 }
 
-/* FAIXA DE INDICADORES (KPI STRIP) */
+/* FAIXA DE INDICADORES (KPI STRIP - 5 KPIs) */
 
 .kpi-strip {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
+    border-radius: 12px;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     overflow: hidden;
     width: 100%;
     min-width: 0;
+    flex-shrink: 0;
 }
 
 .kpi-cell {
-    padding: 14px 18px;
+    padding: 8px 13px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
+    gap: 2px;
     min-width: 0;
     border-right: 1px solid #e2e8f0;
 }
@@ -262,50 +264,80 @@ body.modo-tela-cheia main {
 }
 
 .kpi-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.45px;
+    letter-spacing: 0.4px;
     color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .kpi-value {
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 800;
     color: #0f172a;
-    line-height: 1.25;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.kpi-value.status-atencao {
+.kpi-sub {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kpi-value.status-atencao,
+.kpi-sub.status-atencao {
     color: #c2410c;
 }
 
-.kpi-value.status-critico {
+.kpi-value.status-critico,
+.kpi-sub.status-critico {
     color: #b91c1c;
 }
 
-.kpi-value.status-normal {
+.kpi-value.status-normal,
+.kpi-sub.status-normal {
     color: #047857;
 }
 
 /* GRID PRINCIPAL E CARDS */
 
-.row {
+.dashboard-rows {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.row-top {
+    flex: 0.96 1 0;
+    min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: 16px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 10px;
     width: 100%;
     min-width: 0;
-    align-items: stretch;
 }
 
 .card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 18px 20px;
+    border-radius: 12px;
+    padding: 11px 14px;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     min-width: 0;
+    min-height: 0;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -316,9 +348,9 @@ body.modo-tela-cheia main {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-bottom: 6px;
 }
 
 .card-title-group {
@@ -328,60 +360,81 @@ body.modo-tela-cheia main {
 }
 
 .card-title-disk {
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.2px;
     color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-subtitle {
-    font-size: 11px;
+    font-size: 10px;
     color: #64748b;
-    margin-top: 3px;
+    margin-top: 1px;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .badge-pill {
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
     color: #475569;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 9999px;
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 700;
     white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.badge-pill.badge-peak {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    color: #c2410c;
+}
+
+.badge-pill.badge-crit {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #b91c1c;
 }
 
 /* LEGENDAS */
 
 .chart-legend {
     display: flex;
-    gap: 14px;
-    font-size: 11px;
+    gap: 10px;
+    font-size: 10px;
     color: #475569;
     font-weight: 600;
     flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
 .chart-legend-top {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .chart-legend-subcard {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .legend-item {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
+    white-space: nowrap;
 }
 
 .dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     flex-shrink: 0;
 }
@@ -396,6 +449,14 @@ body.modo-tela-cheia main {
 
 .d-orange {
     background: #c2410c;
+}
+
+.d-amber {
+    background: #d97706;
+}
+
+.d-red {
+    background: #dc2626;
 }
 
 /* CARD USO DO DISCO */
