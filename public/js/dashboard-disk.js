@@ -1,18 +1,145 @@
-function criarGraficoUsoDisco(idCanvas, dados = [42, 45, 48, 51, 54]) {
+const LIMITE_MODERADO_DISCO = 70;
+const LIMITE_CRITICO_DISCO = 80;
+
+let chartUsoDisco = null;
+let chartIoBytes = null;
+let chartIoIops = null;
+let chartIoLatency = null;
+let periodoAtual = '1h';
+
+const LABELS_POR_PERIODO = {
+  '1h': ['11:15', '11:30', '11:45', '12:00', 'Agora'],
+  '6h': ['06:30', '08:00', '09:30', '11:00', 'Agora'],
+  '24h': ['Ontem 12h', '18:00', '00:00', '06:00', 'Agora'],
+  '7d': ['Dia -6', 'Dia -4', 'Dia -2', 'Ontem', 'Hoje']
+};
+
+const EXTRAS_DISCO_POR_STATUS = {
+  critico: {
+    iowaitPct: 18.6,
+    swapIoMbS: 14.2,
+    dp60Texto: 'dp60 elevado (anomalia)',
+    crescimentoGbDia: 46,
+    diasAteCritico: 0,
+    proximoPico: 'Black Friday (3d)',
+    ultimoEvento: '12:08 · Disco acima do limite crítico (88% ≥ 80%). Chamado aberto no Jira.',
+    ultimoEventoClasse: 'critico',
+    particoes: [
+      { mountpoint: '/ (sistema)', device: '/dev/nvme0n1p1', usadoGb: 465, totalGb: 500 },
+      { mountpoint: '/var/lib/docker', device: '/dev/nvme0n1p2', usadoGb: 365, totalGb: 400 },
+      { mountpoint: '/dados/transacoes', device: '/dev/nvme1n1', usadoGb: 490, totalGb: 600 }
+    ],
+    processos: [
+      { pid: 1042, nome: 'api-gateway', leituraMbS: 18.4, escritaMbS: 52.6 },
+      { pid: 3029, nome: 'node /app/gateway.js', leituraMbS: 34.2, escritaMbS: 21.8 },
+      { pid: 2108, nome: 'redis-server (aof)', leituraMbS: 9.1, escritaMbS: 14.3 },
+      { pid: 847, nome: 'fluent-bit (logs)', leituraMbS: 1.5, escritaMbS: 4.9 },
+      { pid: 5221, nome: 'logger-agent', leituraMbS: 0.8, escritaMbS: 1.4 }
+    ],
+    latencia: {
+      media: [11, 14, 17, 15, 19],
+      p95: [16, 21, 26, 23, 29],
+      leituraAtual: 16,
+      escritaAtual: 22
+    }
+  },
+  atencao: {
+    iowaitPct: 4.2,
+    swapIoMbS: 0.0,
+    dp60Texto: 'dp60 estável',
+    crescimentoGbDia: 18,
+    diasAteCritico: 21,
+    proximoPico: 'Black Friday (3d)',
+    ultimoEvento: '11:45 · Partição / em 82% (acima do limite crítico de 80%).',
+    ultimoEventoClasse: 'atencao',
+    particoes: [
+      { mountpoint: '/ (sistema)', device: '/dev/xvda1', usadoGb: 410, totalGb: 500 },
+      { mountpoint: '/var/lib/docker', device: '/dev/xvdb', usadoGb: 240, totalGb: 400 },
+      { mountpoint: '/dados/transacoes', device: '/dev/xvdc', usadoGb: 160, totalGb: 600 }
+    ],
+    processos: [
+      { pid: 3104, nome: 'mysqld', leituraMbS: 31.5, escritaMbS: 22.0 },
+      { pid: 3029, nome: 'node /app/server.js', leituraMbS: 10.2, escritaMbS: 6.4 },
+      { pid: 4810, nome: 'nginx (access.log)', leituraMbS: 2.8, escritaMbS: 3.9 },
+      { pid: 1847, nome: 'dockerd', leituraMbS: 6.1, escritaMbS: 1.8 },
+      { pid: 5221, nome: 'track-agente.py', leituraMbS: 0.4, escritaMbS: 0.3 }
+    ],
+    latencia: {
+      media: [5, 6, 8, 7, 9],
+      p95: [7, 9, 12, 10, 12],
+      leituraAtual: 7,
+      escritaAtual: 11
+    }
+  },
+  estavel: {
+    iowaitPct: 1.1,
+    swapIoMbS: 0.0,
+    dp60Texto: 'dp60 estável',
+    crescimentoGbDia: 6,
+    diasAteCritico: 90,
+    proximoPico: 'Black Friday (3d)',
+    ultimoEvento: 'Sem ocorrências críticas de disco nas últimas 24h.',
+    ultimoEventoClasse: 'normal',
+    particoes: [
+      { mountpoint: '/ (sistema)', device: '/dev/nvme0n1p1', usadoGb: 250, totalGb: 500 },
+      { mountpoint: '/var/lib/docker', device: '/dev/nvme0n1p2', usadoGb: 180, totalGb: 400 },
+      { mountpoint: '/dados/transacoes', device: '/dev/nvme1n1', usadoGb: 140, totalGb: 600 }
+    ],
+    processos: [
+      { pid: 1102, nome: 'checkout-api', leituraMbS: 12.0, escritaMbS: 8.5 },
+      { pid: 2045, nome: 'payment-worker', leituraMbS: 8.4, escritaMbS: 6.2 },
+      { pid: 3310, nome: 'cart-session', leituraMbS: 5.1, escritaMbS: 4.0 },
+      { pid: 844, nome: 'nginx', leituraMbS: 2.3, escritaMbS: 1.9 },
+      { pid: 5221, nome: 'systemd-journal', leituraMbS: 0.5, escritaMbS: 0.8 }
+    ],
+    latencia: {
+      media: [2, 3, 3, 2, 3],
+      p95: [3, 4, 4, 3, 4],
+      leituraAtual: 2,
+      escritaAtual: 4
+    }
+  }
+};
+
+function escalarSerieParaPeriodo(serie, periodo) {
+  if (!Array.isArray(serie) || serie.length === 0) return [];
+  const fatores = {
+    '1h': [1, 1, 1, 1, 1],
+    '6h': [0.88, 0.92, 0.96, 0.98, 1],
+    '24h': [0.76, 0.84, 0.80, 0.94, 1],
+    '7d': [0.68, 0.75, 0.82, 0.91, 1]
+  };
+  const mults = fatores[periodo] || fatores['1h'];
+  return serie.map((v, i) => Number((v * (mults[i] ?? 1)).toFixed(1)));
+}
+
+function criarGraficoUsoDisco(idCanvas, labels, dados) {
   const ctx = document.getElementById(idCanvas);
   if (!ctx) return null;
+  if (chartUsoDisco) chartUsoDisco.destroy();
 
-  return new Chart(ctx, {
+  chartUsoDisco = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['12:00', '12:15', '12:30', '12:45', 'Agora'],
+      labels: labels,
       datasets: [
         {
-          label: 'Limite (85%)',
-          data: [85, 85, 85, 85, 85],
-          borderColor: '#c2410c',
-          borderWidth: 1.5,
+          label: `Crítico (${LIMITE_CRITICO_DISCO}%)`,
+          data: Array(labels.length).fill(LIMITE_CRITICO_DISCO),
+          borderColor: '#dc2626',
+          borderWidth: 1.4,
           borderDash: [4, 4],
+          fill: false,
+          tension: 0,
+          pointRadius: 0,
+          pointHoverRadius: 0
+        },
+        {
+          label: `Atenção (${LIMITE_MODERADO_DISCO}%)`,
+          data: Array(labels.length).fill(LIMITE_MODERADO_DISCO),
+          borderColor: '#d97706',
+          borderWidth: 1.2,
+          borderDash: [3, 3],
           fill: false,
           tension: 0,
           pointRadius: 0,
@@ -22,11 +149,11 @@ function criarGraficoUsoDisco(idCanvas, dados = [42, 45, 48, 51, 54]) {
           label: 'Uso atual',
           data: dados,
           borderColor: '#0369a1',
-          backgroundColor: '#0369a1',
+          backgroundColor: 'rgba(3, 105, 161, 0.08)',
           borderWidth: 2.2,
-          fill: false,
+          fill: true,
           tension: 0,
-          pointRadius: 0,
+          pointRadius: 2,
           pointHoverRadius: 4,
           pointHoverBackgroundColor: '#0369a1'
         }
@@ -36,11 +163,8 @@ function criarGraficoUsoDisco(idCanvas, dados = [42, 45, 48, 51, 54]) {
       responsive: true,
       maintainAspectRatio: false,
       resizeDelay: 50,
-      animation: { duration: 400 },
-      interaction: {
-        mode: 'index',
-        intersect: false
-      },
+      animation: { duration: 280 },
+      interaction: { mode: 'index', intersect: false },
       layout: { padding: { top: 4, right: 6, bottom: 0, left: 0 } },
       plugins: {
         legend: { display: false },
@@ -50,19 +174,16 @@ function criarGraficoUsoDisco(idCanvas, dados = [42, 45, 48, 51, 54]) {
           boxHeight: 6,
           usePointStyle: true,
           callbacks: {
-            label: function (context) {
-              return ` ${context.dataset.label}: ${context.parsed.y}%`;
-            }
+            label: (context) => ` ${context.dataset.label}: ${context.parsed.y}%`
           }
         }
       },
       scales: {
         x: {
           ticks: {
-            display: true,
             color: '#64748b',
-            font: { size: 10, family: "'Outfit', sans-serif", weight: '500' },
-            padding: 4
+            font: { size: 9.5, family: "'Outfit', sans-serif", weight: '600' },
+            padding: 3
           },
           grid: { display: false },
           border: { color: '#e2e8f0', width: 1 }
@@ -71,35 +192,33 @@ function criarGraficoUsoDisco(idCanvas, dados = [42, 45, 48, 51, 54]) {
           min: 0,
           max: 100,
           ticks: {
-            display: true,
             stepSize: 25,
             color: '#64748b',
-            font: { size: 10, family: "'Outfit', sans-serif", weight: '500' },
-            padding: 6,
+            font: { size: 9.5, family: "'Outfit', sans-serif", weight: '600' },
+            padding: 5,
             callback: (v) => `${v}%`
           },
-          grid: {
-            color: '#eef2f6',
-            drawTicks: false
-          },
+          grid: { color: '#eef2f6', drawTicks: false },
           border: { display: false }
         }
       }
     }
   });
+  return chartUsoDisco;
 }
 
-function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = 'Leitura', label2 = 'Gravação', unidade = 'MB/s', passo = null) {
+function criarGraficoDuasLinhas(instanciaAtual, idCanvas, labels, dados1, cor1, dados2, cor2, label1, label2, unidade) {
   const ctx = document.getElementById(idCanvas);
   if (!ctx) return null;
+  if (instanciaAtual) instanciaAtual.destroy();
 
-  const maxVal = Math.max(...dados1, ...dados2);
-  const suggestedMax = Math.ceil((maxVal * 1.2) / 10) * 10 || 10;
+  const maxVal = Math.max(...dados1, ...dados2, 1);
+  const suggestedMax = Math.ceil((maxVal * 1.2) / 5) * 5 || 10;
 
   return new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['12:00', '12:15', '12:30', '12:45', 'Agora'],
+      labels: labels,
       datasets: [
         {
           label: label1,
@@ -131,11 +250,8 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
       responsive: true,
       maintainAspectRatio: false,
       resizeDelay: 50,
-      animation: { duration: 400 },
-      interaction: {
-        mode: 'index',
-        intersect: false
-      },
+      animation: { duration: 280 },
+      interaction: { mode: 'index', intersect: false },
       layout: { padding: { top: 4, right: 6, bottom: 0, left: 0 } },
       plugins: {
         legend: { display: false },
@@ -145,19 +261,16 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
           boxHeight: 6,
           usePointStyle: true,
           callbacks: {
-            label: function (context) {
-              return ` ${context.dataset.label}: ${context.parsed.y} ${unidade}`;
-            }
+            label: (context) => ` ${context.dataset.label}: ${context.parsed.y} ${unidade}`
           }
         }
       },
       scales: {
         x: {
           ticks: {
-            display: true,
             color: '#64748b',
-            font: { size: 10, family: "'Outfit', sans-serif", weight: '500' },
-            padding: 4
+            font: { size: 9.5, family: "'Outfit', sans-serif", weight: '600' },
+            padding: 3
           },
           grid: { display: false },
           border: { color: '#e2e8f0', width: 1 }
@@ -166,17 +279,12 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
           min: 0,
           suggestedMax: suggestedMax,
           ticks: {
-            display: true,
-            stepSize: passo || undefined,
             color: '#64748b',
-            font: { size: 10, family: "'Outfit', sans-serif", weight: '500' },
-            padding: 6,
+            font: { size: 9.5, family: "'Outfit', sans-serif", weight: '600' },
+            padding: 5,
             callback: (v) => Number.isInteger(v) ? v : ''
           },
-          grid: {
-            color: '#eef2f6',
-            drawTicks: false
-          },
+          grid: { color: '#eef2f6', drawTicks: false },
           border: { display: false }
         }
       }
@@ -184,51 +292,66 @@ function criarGraficoDuasLinhas(idCanvas, dados1, cor1, dados2, cor2, label1 = '
   });
 }
 
-function atualizarParticoes(dadosDisco, status) {
-  const capacidades = [500, 400, 600];
-  const distribuicoesPorStatus = {
-    critico: [465, 365, 490],
-    atencao: [410, 240, 160],
-    estavel: [250, 180, 140]
-  };
+function renderizarParticoes(particoes) {
+  const container = document.getElementById('lista-particoes');
+  if (!container || !Array.isArray(particoes)) return;
 
-  let usados = distribuicoesPorStatus[status];
-  if (!usados) {
-    const totalUsado = parseInt(dadosDisco.usadosGb, 10) || 810;
-    const fator = Math.min(Math.max(totalUsado / 1500, 0), 1);
-    usados = capacidades.map((cap) => Math.round(cap * fator));
+  let maisCheia = { mountpoint: '/', pct: 0 };
+
+  container.innerHTML = particoes.slice(0, 3).map((p) => {
+    const pct = Math.round((p.usadoGb / p.totalGb) * 100);
+    if (pct > maisCheia.pct) maisCheia = { mountpoint: p.mountpoint, pct };
+
+    let barClass = 'bar-green';
+    let pctClass = '';
+    if (pct >= LIMITE_CRITICO_DISCO) {
+      barClass = 'bar-red';
+      pctClass = 'text-red';
+    } else if (pct >= LIMITE_MODERADO_DISCO) {
+      barClass = 'bar-orange';
+      pctClass = 'text-orange';
+    } else if (pct >= 55) {
+      barClass = 'bar-blue';
+    }
+
+    return `
+      <div class="partition-item">
+        <div class="partition-header">
+          <div class="partition-label">
+            <span class="partition-name" title="${p.device}">${p.mountpoint}</span>
+            <span class="partition-size">${p.usadoGb} GB / ${p.totalGb} GB</span>
+          </div>
+          <span class="partition-percentage ${pctClass}">${pct}%</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Uso da partição ${p.mountpoint}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar ${barClass}" style="width: ${pct}%;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const elCritica = document.getElementById('disco-footer-critica');
+  if (elCritica) {
+    elCritica.textContent = `Maior ocupação: ${maisCheia.mountpoint} (${maisCheia.pct}%)`;
   }
+}
 
-  capacidades.forEach((cap, index) => {
-    const idx = index + 1;
-    const usado = usados[index];
-    const pct = Math.round((usado / cap) * 100);
+function renderizarProcessosDisco(processos) {
+  const tbody = document.getElementById('tabela-processos-disco');
+  if (!tbody || !Array.isArray(processos)) return;
 
-    const elSize = document.getElementById(`particao-${idx}-size`);
-    const elPct = document.getElementById(`particao-${idx}-pct`);
-    const elBar = document.getElementById(`particao-${idx}-bar`);
-    const elTrack = document.getElementById(`particao-${idx}-track`);
-
-    if (elSize) elSize.textContent = `${usado} GB de ${cap} GB`;
-    if (elPct) {
-      elPct.textContent = `${pct}%`;
-      elPct.classList.toggle('text-orange', pct >= 80);
-    }
-    if (elBar) {
-      elBar.style.width = `${pct}%`;
-      elBar.classList.remove('bar-orange', 'bar-blue', 'bar-green');
-      if (pct >= 80) {
-        elBar.classList.add('bar-orange');
-      } else if (pct >= 55) {
-        elBar.classList.add('bar-blue');
-      } else {
-        elBar.classList.add('bar-green');
-      }
-    }
-    if (elTrack) {
-      elTrack.setAttribute('aria-valuenow', String(pct));
-    }
-  });
+  tbody.innerHTML = processos.slice(0, 5).map((proc) => {
+    const total = (proc.leituraMbS + proc.escritaMbS).toFixed(1);
+    return `
+      <tr>
+        <td class="pid">${proc.pid}</td>
+        <td class="proc-name" title="${proc.nome}">${proc.nome}</td>
+        <td class="num proc-read">${proc.leituraMbS.toFixed(1)} MB/s</td>
+        <td class="num proc-write">${proc.escritaMbS.toFixed(1)} MB/s</td>
+        <td class="num proc-total">${total} MB/s</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function configurarBotaoTelaCheia() {
