@@ -3,7 +3,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -633,7 +632,7 @@ main th, main td { padding: 13px 10px; }
 main .dashboard-links a { padding: 14px; }
 main .dashboard-links strong { font-size: 15px; }
 
-/* Em telas amplas, os demais cartões são compactados para priorizar o histórico. */
+/* Em telas amplas, a página inteira permanece fixa e o histórico ocupa o espaço restante. */
 @media (min-width: 1025px) and (min-height: 750px) {
   body.pagina-dashboard-geral { height: 100vh; overflow: hidden; }
   .pagina-dashboard-geral main {
@@ -642,18 +641,7 @@ main .dashboard-links strong { font-size: 15px; }
     overflow: hidden;
     display: grid;
     grid-template-rows: auto auto auto minmax(0, 1fr) auto;
-    gap: 12px;
-    padding-top: 18px;
-    padding-bottom: 18px;
   }
-  .pagina-dashboard-geral main > * { margin-bottom: 0; }
-  .pagina-dashboard-geral .server-card { min-height: 70px; padding: 12px 18px; }
-  .pagina-dashboard-geral .kpi-card { height: auto; min-height: 130px; padding: 14px 18px; }
-  .pagina-dashboard-geral .kpi-card .big { font-size: 38px; margin: 12px 0 6px; }
-  .pagina-dashboard-geral .network-values { margin: 10px 0; }
-  .pagina-dashboard-geral .dashboards-card { padding: 12px 18px; }
-  .pagina-dashboard-geral .dashboard-links { margin-top: 8px; }
-  .pagina-dashboard-geral .dashboard-links a { padding: 9px; }
   .pagina-dashboard-geral .details-row { min-height: 0; }
   .pagina-dashboard-geral .history-card { display: flex; flex-direction: column; min-height: 0; }
   .pagina-dashboard-geral .tabs { align-self: flex-start; flex-shrink: 0; }
@@ -918,83 +906,8 @@ main .dashboard-links strong { font-size: 15px; }
   }
 }
 
-.capacidade-recurso {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid #e3e9f1;
-    font-size: 12px;
-    color: #74819a;
-}
-
-.capacidade-recurso span {
-    display: flex;
-    justify-content: space-between;
-}
-
-.capacidade-recurso strong {
-    color: #17233c;
-    font-weight: 600;
-}
-
 
 @media (max-width: 1200px) { .kpis-row, .dashboard-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 1024px) { main { margin-left: 80px; padding: 20px; } .details-row { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { main { padding: 16px 12px; } h1 { font-size: 20px; } .server-card { align-items: flex-start; flex-direction: column; gap: 14px; }.capture { width: 100%; padding: 10px 0 0; border-left: 0; border-top: 1px solid #e0e7f0; }.kpis-row, .dashboard-links { grid-template-columns: 1fr; gap: 10px; }.chart-box { height: 200px; }.tabs button { padding: 7px 12px; }.menu-overlay { padding: 70px 1rem 1rem; justify-content: center; } }
 
-/* CAPACIDADE DAS KPIs DE RAM E DISCO */
-
-.pagina-dashboard-geral .kpi-card {
-    height: auto;
-    min-height: 195px;
-}
-
-.pagina-dashboard-geral .kpi-card .big {
-    font-size: 38px;
-    margin: 12px 0 6px;
-}
-
-.pagina-dashboard-geral .kpi-card p {
-    margin-top: 0;
-}
-
-.pagina-dashboard-geral .progress {
-    flex-shrink: 0;
-}
-
-.capacidade-recurso {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid #e3e9f1;
-    font-size: 11px;
-    color: #74819a;
-}
-
-.capacidade-recurso span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-}
-
-.capacidade-recurso strong {
-    color: #17233c;
-    font-weight: 600;
-}
-
-@media (max-width: 768px) {
-
-    .pagina-dashboard-geral .kpi-card .big {
-        font-size: 28px;
-    }
-
-    .pagina-dashboard-geral .kpi-card {
-        min-height: 180px;
-    }
-
-}

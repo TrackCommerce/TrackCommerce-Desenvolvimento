@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,19 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TrackCommerce – Dashboard Geral</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-
   <link rel="stylesheet" href="../css/dashboard-geral.css">
   <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 
+<body>
+
+
 <body class="pagina-dashboard-geral">
+
 
   <aside class="sidebar">
 
@@ -30,569 +30,402 @@
     </a>
 
     <nav class="menu">
-
       <a href="../selecionar-servidor.html" class="item ativo">
-        <div class="icone">
-          <img src="../assets/imgs/home.png" alt="">
-        </div>
+        <div class="icone"><img src="../assets/imgs/home.png" alt=""></div>
         <span>Painel</span>
       </a>
 
       <a href="../alertas.html" class="item">
-        <div class="icone">
-          <img src="../assets/imgs/bell.png" alt="">
-        </div>
+        <div class="icone"><img src="../assets/imgs/bell.png" alt=""></div>
         <span>Alertas</span>
       </a>
 
       <a href="../permissoes.html" class="item">
-        <div class="icone">
-          <img src="../assets/imgs/chave-permissao.png" alt="">
-        </div>
+        <div class="icone"><img src="../assets/imgs/chave-permissao.png" alt=""></div>
         <span>Permissões de Grupos</span>
       </a>
 
       <a href="../cadastro-instancia.html" class="item">
-        <div class="icone">
-          <img src="../assets/imgs/server.png" alt="">
-        </div>
+        <div class="icone"><img src="../assets/imgs/server.png" alt=""></div>
         <span>Cadastro de Servidores</span>
       </a>
 
       <a href="../registroFunc.html" class="item">
-        <div class="icone">
-          <img src="../assets/imgs/cadastro.png" alt="">
-        </div>
+        <div class="icone"><img src="../assets/imgs/cadastro.png" alt=""></div>
         <span>Cadastro de Funcionários</span>
       </a>
-
     </nav>
 
     <div class="usuario">
       <div class="foto">
         <img src="../assets/imgs/usuario-icone.webp" alt="Usuário">
       </div>
-
       <div class="info">
         <h3 id="id_username"></h3>
       </div>
     </div>
 
+
   </aside>
 
+    <div class="info">
+      <h3>Douglas Santos</h3>
+      <p>Admin</p>
+    </div>
+
+  </aside>
+
+
   <main>
-
-    <!-- CABEÇALHO -->
-
     <header class="topbar">
-
-      <div>
-        <h1>Dashboard principal</h1>
-
-        <p id="origem-dados">
-          Visão da última captura e histórico de utilização dos recursos do servidor.
-          Dados simulados.
-        </p>
-      </div>
-
+      <div><h1>Dashboard principal</h1><p>Visão da última captura e histórico de utilização dos recursos do servidor.</p></div>
       <div class="top-actions">
+        <button class="icon-button" id="btn-atualizar" aria-label="Atualizar dashboard" title="Atualizar">↻</button>
+        <button class="icon-button" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog"><img src="../assets/imgs/menu.svg" alt=""></button>
+      </div>
+    </header>
 
-        <button
-          class="icon-button"
-          id="btn-atualizar"
-          aria-label="Atualizar dashboard"
-          title="Atualizar">
-          ↻
+    <section class="card server-card" aria-label="Servidor selecionado">
+      <div class="server-info"><span class="server-icon" aria-hidden="true">▤</span><div><div class="server-heading"><h2 id="servidor-nome">Servidor</h2><span class="badge" id="servidor-status">—</span></div><p>Monitoramento dos recursos do servidor</p></div></div>
+      <div class="capture"><span>Última captura</span><strong>Data não disponível</strong></div>
+    </section>
+
+    <section class="kpis-row" aria-label="Uso dos recursos">
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">⚙</span> CPU</h2><span class="badge" id="status-cpu">—</span></div><strong class="big" id="valor-cpu">—</strong><p>Atenção 80% <span>•</span> Crítico 90%</p><div class="progress"><span id="progresso-cpu"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">▥</span> RAM</h2><span class="badge" id="status-ram">—</span></div><strong class="big" id="valor-ram">—</strong><p>Atenção 75% <span>•</span> Crítico 85%</p><div class="progress"><span id="progresso-ram"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">▱</span> Disco</h2><span class="badge" id="status-disco">—</span></div><strong class="big" id="valor-disco">—</strong><p>Atenção 80% <span>•</span> Crítico 90%</p><div class="progress"><span id="progresso-disco"></span></div></article>
+      <article class="card kpi-card"><div class="kpi-header"><h2><span aria-hidden="true">♧</span> Rede (Tráfego)</h2><span class="badge" id="status-rede">—</span></div><div class="network-values"><div><strong><i>↓</i> <span id="rede-download">—</span></strong><small>Recebido</small></div><div><strong><i>↑</i> <span id="rede-upload">—</span></strong><small>Enviado</small></div></div><p>Tráfego na última captura</p></article>
+    </section>
+
+    <div class="details-row">
+      <section class="card history-card"><h2>Histórico de utilização</h2><p id="historico-descricao">Horários e tráfego de rede ilustrativos.</p><div class="tabs" role="tablist" aria-label="Recurso do histórico"><button role="tab" aria-selected="false" data-metrica="cpu">CPU</button><button role="tab" aria-selected="false" data-metrica="ram">RAM</button><button role="tab" aria-selected="false" data-metrica="disco">Disco</button><button class="active" role="tab" aria-selected="true" data-metrica="rede">Rede</button></div><div class="chart-box"><canvas id="grafico-historico" aria-label="Histórico de utilização" role="img"></canvas></div></section>
+      <section class="card processes-card"><h2>Processos em execução</h2><p>Consumo de recursos na última captura.</p><label class="search"><span aria-hidden="true">⌕</span><input id="busca-processo" type="search" placeholder="Buscar processo..." aria-label="Buscar processo"></label><div class="table-wrap"><table><thead><tr><th>PID</th><th>Processo</th><th>CPU (%)</th><th>RAM (%)</th></tr></thead><tbody id="tabela-processos-geral"></tbody></table><p id="sem-processos" hidden>Nenhum processo encontrado.</p></div></section>
+    </div>
+    <section class="card dashboards-card"><h2>Acessar dashboards específicos</h2><p>Análise detalhada de cada recurso.</p><div class="dashboard-links">
+      <a href="dashboard-cpu.html"><strong><span>⚙</span> CPU <span class="badge" id="link-status-cpu">—</span><b>→</b></strong><small>Análise de processamento</small></a>
+      <a href="dashboard-ram.html"><strong><span>▥</span> RAM <span class="badge" id="link-status-ram">—</span><b>→</b></strong><small>Análise de memória</small></a>
+      <a href="dashboard-disk.html"><strong><span>▱</span> Disco <span class="badge" id="link-status-disco">—</span><b>→</b></strong><small>Análise de armazenamento</small></a>
+      <a href="dashboard-rede.html"><strong><span>♧</span> Rede <span class="badge" id="link-status-rede">—</span><b>→</b></strong><small>Análise de tráfego de rede</small></a>
+    </div></section>
+  </main>
+
+
+
+  <main>
+    <header class="topbar">
+      <h1>Dashboard Geral</h1>
+      <div>
+        <button class="menu-btn-back" onclick="window.location.href = '../selecionar-servidor.html'">
+          <img src="../assets/imgs/btn-seta.png" alt="">
         </button>
-
-        <button
-          class="icon-button"
-          id="btn-menu"
-          aria-label="Abrir menu"
-          aria-haspopup="dialog">
-
+        <button class="menu-btn" id="btn-menu" aria-label="Abrir menu" aria-haspopup="dialog">
           <img src="../assets/imgs/menu.svg" alt="">
-
         </button>
-
       </div>
 
     </header>
 
-    <!-- INFORMAÇÕES DO SERVIDOR -->
 
-    <section class="card server-card" aria-label="Servidor selecionado">
-
-      <div class="server-info">
-
-        <span class="server-icon" aria-hidden="true">▤</span>
-
-        <div>
-
-          <div class="server-heading">
-            <h2 id="servidor-nome">Servidor</h2>
-            <span class="badge" id="servidor-status">—</span>
-          </div>
-
-          <p>Monitoramento dos recursos do servidor</p>
-
-        </div>
-
+    <section class="card resumo-card" aria-label="Resumo do sistema">
+      <div class="resumo-header">
+        <h2>Resumo</h2>
+        <span class="resumo-meta" id="resumo-meta">Servidor 01 &bull; últimas 24 horas &bull; leitura em 10 segundos</span>
       </div>
 
-      <div class="capture">
+      <div class="resumo-grid">
+        <div class="resumo-item">
+          <span class="label">Uptime / última atualização</span>
+          <span class="uptime">2d : 4h : 25m : 30s</span>
+        </div>
 
-        <span>Última captura</span>
+        <div class="resumo-item">
+          <span class="label">Disponibilidade (7 dias)</span>
+          <span class="uptime">99,8<small>%</small></span>
+        </div>
 
-        <strong id="ultima-captura">
-          Data não disponível (dados simulados)
-        </strong>
-
+        <div class="resumo-item">
+          <span class="label">Saúde por componente</span>
+          <div class="saude-grid" id="saude-grid">
+            <div class="saude-item atencao" id="saude-cpu">
+              <span>CPU</span>
+              <strong id="saude-cpu-val">Atenção</strong>
+            </div>
+            <div class="saude-item" id="saude-ram">
+              <span>RAM</span>
+              <strong class="normal" id="saude-ram-val">Normal</strong>
+            </div>
+            <div class="saude-item" id="saude-disco">
+              <span>Disco</span>
+              <strong class="normal" id="saude-disco-val">Normal</strong>
+            </div>
+            <div class="saude-item" id="saude-rede">
+              <span>Rede</span>
+              <strong class="normal" id="saude-rede-val">Normal</strong>
+            </div>
+          </div>
+        </div>
       </div>
-
     </section>
 
-    <!-- KPIs PRINCIPAIS -->
-
-    <section class="kpis-row" aria-label="Uso dos recursos">
-
-      <!-- KPI CPU -->
-
-      <article class="card kpi-card">
-
-        <div class="kpi-header">
-
-          <h2>
-            <span aria-hidden="true">⚙</span> CPU
-          </h2>
-
-          <span class="badge" id="status-cpu">—</span>
-
-        </div>
-
-        <strong class="big" id="valor-cpu">—</strong>
-
-        <p>
-          Atenção 80% <span>•</span> Crítico 90%
-        </p>
-
-        <div class="progress">
-          <span id="progresso-cpu"></span>
-        </div>
-
-      </article>
-
-      <!-- KPI RAM -->
-
-      <article class="card kpi-card">
-
-        <div class="kpi-header">
-
-          <h2>
-            <span aria-hidden="true">▥</span> RAM
-          </h2>
-
-          <span class="badge" id="status-ram">—</span>
-
-        </div>
-
-        <strong class="big" id="valor-ram">—</strong>
-
-        <p>
-          Atenção 75% <span>•</span> Crítico 85%
-        </p>
-
-        <div class="progress">
-          <span id="progresso-ram"></span>
-        </div>
-
-        <!-- CAPACIDADE DA RAM -->
-
-        <div class="capacidade-recurso">
-
-          <span>
-            Total:
-            <strong id="ram-total">--</strong>
-          </span>
-
-          <span>
-            Utilizado:
-            <strong id="ram-usado">--</strong>
-          </span>
-
-          <span>
-            Disponível:
-            <strong id="ram-disponivel">--</strong>
-          </span>
-
-        </div>
-
-      </article>
-
-      <!-- KPI DISCO -->
-
-      <article class="card kpi-card">
-
-        <div class="kpi-header">
-
-          <h2>
-            <span aria-hidden="true">▱</span> Disco
-          </h2>
-
-          <span class="badge" id="status-disco">—</span>
-
-        </div>
-
-        <strong class="big" id="valor-disco">—</strong>
-
-        <p>
-          Atenção 80% <span>•</span> Crítico 90%
-        </p>
-
-        <div class="progress">
-          <span id="progresso-disco"></span>
-        </div>
-
-        <!-- CAPACIDADE DO DISCO -->
-
-        <div class="capacidade-recurso">
-
-          <span>
-            Total:
-            <strong id="disco-total">--</strong>
-          </span>
-
-          <span>
-            Utilizado:
-            <strong id="disco-usado">--</strong>
-          </span>
-
-          <span>
-            Livre:
-            <strong id="disco-disponivel">--</strong>
-          </span>
-
-        </div>
-
-      </article>
-
-      <!-- KPI REDE -->
-
-      <article class="card kpi-card">
-
-        <div class="kpi-header">
-
-          <h2>
-            <span aria-hidden="true">♧</span> Rede (Tráfego)
-          </h2>
-
-          <span class="badge" id="status-rede">—</span>
-
-        </div>
-
-        <div class="network-values">
-
-          <div>
-
-            <strong>
-              <i>↓</i>
-              <span id="rede-download">—</span>
-            </strong>
-
-            <small>Recebido</small>
-
+    <div class="dashboard-geral-grid">
+      <!-- Linha superior: 4 KPIs (CPU, RAM, Disco e Rede) -->
+      <section class="kpis-row" aria-label="Uso de CPU, RAM, Disco e Rede">
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">CPU</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
+            </div>
           </div>
-
-          <div>
-
-            <strong>
-              <i>↑</i>
-              <span id="rede-upload">—</span>
-            </strong>
-
-            <small>Enviado</small>
-
+          <div class="metric">
+            <span class="big atencao" id="valor-cpu">80%</span>
           </div>
-
         </div>
-
-        <p>Tráfego na última captura</p>
-
-      </article>
-
-    </section>
-
-    <!-- HISTÓRICO E PROCESSOS -->
-
-    <div class="details-row">
-
-      <!-- HISTÓRICO DE UTILIZAÇÃO -->
-
-      <section class="card history-card">
-
-        <h2>Histórico de utilização</h2>
-
-        <p id="historico-descricao">
-          Horários e tráfego de rede ilustrativos.
-        </p>
-
-        <div
-          class="tabs"
-          role="tablist"
-          aria-label="Recurso do histórico">
-
-          <button
-            role="tab"
-            aria-selected="false"
-            data-metrica="cpu">
-            CPU
-          </button>
-
-          <button
-            role="tab"
-            aria-selected="false"
-            data-metrica="ram">
-            RAM
-          </button>
-
-          <button
-            role="tab"
-            aria-selected="false"
-            data-metrica="disco">
-            Disco
-          </button>
-
-          <button
-            class="active"
-            role="tab"
-            aria-selected="true"
-            data-metrica="rede">
-            Rede
-          </button>
-
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">RAM</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 75%</span>
+              <span class="limite-tag critico">Crítico: 85%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-ram">67%</span>
+          </div>
         </div>
-
-        <div class="chart-box">
-
-          <canvas
-            id="grafico-historico"
-            aria-label="Histórico de utilização"
-            role="img">
-          </canvas>
-
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">DISCO</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 80%</span>
+              <span class="limite-tag critico">Crítico: 90%</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-disco">54%</span>
+          </div>
         </div>
-
+        <div class="card kpi-card">
+          <div class="kpi-header">
+            <h2 class="card-title">REDE</h2>
+            <div class="kpi-limites">
+              <span class="limite-tag atencao">Atenção: 250ms</span>
+              <span class="limite-tag critico">Crítico: 500ms</span>
+            </div>
+          </div>
+          <div class="metric">
+            <span class="big" id="valor-rede">150<small>ms</small></span>
+          </div>
+        </div>
       </section>
 
-      <!-- PROCESSOS EM EXECUÇÃO -->
+      <!-- Linha inferior: Volume I/O e Top 5 Processos no mesmo nível e mesma altura -->
+      <div class="detalhes-row">
+        <section class="card volume-io-card" aria-label="Volume de entrada e saída">
+          <h2 class="card-title">Volume I/O</h2>
+          <div class="io-grid">
+            <div class="io-chart-group">
+              <span class="label">Disco (Read / Write MB/m)</span>
+              <div class="chart-box"><canvas id="grafico-disco"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
+            </div>
+            <div class="io-chart-group">
+              <span class="label">Rede (Download / Upload MB/m)</span>
+              <div class="chart-box"><canvas id="grafico-rede"></canvas></div>
+              <div class="axis">
+                <span>12:00</span>
+                <span>12:15</span>
+                <span>12:30</span>
+                <span>12:45</span>
+                <span>Agora</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <section class="card processes-card">
-
-        <h2>Processos em execução</h2>
-
-        <p>Consumo de recursos na última captura.</p>
-
-        <label class="search">
-
-          <span aria-hidden="true">⌕</span>
-
-          <input
-            id="busca-processo"
-            type="search"
-            placeholder="Buscar processo..."
-            aria-label="Buscar processo">
-
-        </label>
-
-        <div class="table-wrap">
+        <section class="card processes-card" aria-label="Top 5 processos de CPU">
+          <h2 class="card-title">Top 5 processos de CPU</h2>
 
           <table>
-
             <thead>
-
               <tr>
                 <th>PID</th>
-                <th>Processo</th>
-                <th>CPU (%)</th>
-                <th>RAM (%)</th>
+                <th>NOME</th>
+                <th class="num">CPU%</th>
+                <th class="num">RAM%</th>
               </tr>
-
             </thead>
-
-            <tbody id="tabela-processos-geral"></tbody>
-
+            <tbody id="tabela-processos-geral">
+              <tr>
+                <td class="pid">1094</td>
+                <td>Server 01</td>
+                <td class="num">32.4%</td>
+                <td class="num">18.1%</td>
+              </tr>
+              <tr>
+                <td class="pid">3029</td>
+                <td>node /app/server.js</td>
+                <td class="num">28.1%</td>
+                <td class="num">22.5%</td>
+              </tr>
+              <tr>
+                <td class="pid">4810</td>
+                <td>Server 02</td>
+                <td class="num">12.5%</td>
+                <td class="num">14.2%</td>
+              </tr>
+              <tr>
+                <td class="pid">847</td>
+                <td>Server 03</td>
+                <td class="num">4.2%</td>
+                <td class="num">8.4%</td>
+              </tr>
+              <tr>
+                <td class="pid">5221</td>
+                <td>Server 04</td>
+                <td class="num">2.8%</td>
+                <td class="num">3.8%</td>
+              </tr>
+            </tbody>
           </table>
-
-          <p id="sem-processos" hidden>
-            Nenhum processo encontrado.
-          </p>
-
-        </div>
-
-      </section>
-
-    </div>
-
-    <!-- ACESSO ÀS DASHBOARDS ESPECÍFICAS -->
-
-    <section class="card dashboards-card">
-
-      <h2>Acessar dashboards específicos</h2>
-
-      <p>Análise detalhada de cada recurso.</p>
-
-      <div class="dashboard-links">
-
-        <a href="dashboard-cpu.html">
-
-          <strong>
-            <span>⚙</span>
-            CPU
-            <span class="badge" id="link-status-cpu">—</span>
-            <b>→</b>
-          </strong>
-
-          <small>Análise de processamento</small>
-
-        </a>
-
-        <a href="dashboard-ram.html">
-
-          <strong>
-            <span>▥</span>
-            RAM
-            <span class="badge" id="link-status-ram">—</span>
-            <b>→</b>
-          </strong>
-
-          <small>Análise de memória</small>
-
-        </a>
-
-        <a href="dashboard-disk.html">
-
-          <strong>
-            <span>▱</span>
-            Disco
-            <span class="badge" id="link-status-disco">—</span>
-            <b>→</b>
-          </strong>
-
-          <small>Análise de armazenamento</small>
-
-        </a>
-
-        <a href="dashboard-rede.html">
-
-          <strong>
-            <span>♧</span>
-            Rede
-            <span class="badge" id="link-status-rede">—</span>
-            <b>→</b>
-          </strong>
-
-          <small>Análise de tráfego de rede</small>
-
-        </a>
-
+        </section>
       </div>
-
-    </section>
-
+    </div>
   </main>
 
-  <!-- MENU MODAL -->
-
   <div class="menu-overlay" id="menu-overlay" hidden>
-
-    <div
-      class="menu-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Escolher métrica">
-
-      <!-- MENU CPU -->
-
+    <div class="menu-modal" role="dialog" aria-modal="true" aria-label="Escolher métrica">
       <a href="dashboard-cpu.html" class="menu-opcao">
-
-        <div class="menu-opcao-icone">
-          <img src="../assets/imgs/icon_cpu.png" alt="">
-        </div>
-
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_cpu.png" alt=""></div>
         <div class="menu-opcao-texto">
           <strong>CPU</strong>
           <span>Visão de processamento</span>
         </div>
-
         <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-
       </a>
-
-      <!-- MENU RAM -->
-
       <a href="dashboard-ram.html" class="menu-opcao">
-
-        <div class="menu-opcao-icone">
-          <img src="../assets/imgs/icon_ram.png" alt="">
-        </div>
-
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_ram.png" alt=""></div>
         <div class="menu-opcao-texto">
           <strong>RAM</strong>
           <span>Consumo de memória</span>
         </div>
-
         <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-
       </a>
-
-      <!-- MENU DISCO -->
-
       <a href="dashboard-disk.html" class="menu-opcao">
-
-        <div class="menu-opcao-icone">
-          <img src="../assets/imgs/icon_disco.png" alt="">
-        </div>
-
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_disco.png" alt=""></div>
         <div class="menu-opcao-texto">
           <strong>Disco</strong>
           <span>Armazenamento e I/O</span>
         </div>
-
         <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-
       </a>
-
-      <!-- MENU REDE -->
-
       <a href="dashboard-rede.html" class="menu-opcao">
-
-        <div class="menu-opcao-icone">
-          <img src="../assets/imgs/icon_redes.png" alt="">
-        </div>
-
+        <div class="menu-opcao-icone"><img src="../assets/imgs/icon_redes.png" alt=""></div>
         <div class="menu-opcao-texto">
           <strong>Rede</strong>
           <span>Tráfego e pacotes</span>
         </div>
-
         <span class="menu-opcao-seta" aria-hidden="true">➜</span>
-
       </a>
-
     </div>
-
   </div>
 
-  <!-- SCRIPTS -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
   <script src="../js/sidebar.js"></script>
   <script src="../js/dados-mockados.js"></script>
-  <script src="../js/dashboard-geral-json.js"></script>
   <script src="../js/dashboard-geral.js"></script>
   <script src="../js/modal.js"></script>
-
 </body>
 
 </html>
+
+</aside>
+
+
+<main>
+  <header class="topbar">
+    <h1>Dashboard Geral</h1>
+    <button class="menu-btn" aria-label="Abrir menu">
+      <img src="../assets/imgs/menu.svg" alt="">
+    </button>
+  </header>
+
+  <!-- Status e uptime -->
+  <section class="row" aria-label="Resumo do sistema">
+    <div class="card stat">
+      <span class="label">Status do sistema</span>
+      <span class="badge">ESTÁVEL</span>
+    </div>
+    <div class="card stat">
+      <span class="label">Uptime do servidor</span>
+      <span class="uptime">2d : 4h : 25m : 30s</span>
+    </div>
+  </section>
+
+  <!-- CPU e RAM -->
+  <section class="row" aria-label="Uso de CPU e RAM">
+    <div class="card">
+      <h2 class="card-title">CPU</h2>
+      <div class="metric">
+        <div class="spark-wrap">
+          <img class="spark" src="../assets/imgs/grafico.svg" alt="">
+          <div class="axis"><span>00:00</span><span>12:00</span><span>Ativo</span></div>
+        </div>
+        <span class="big">80%</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="card-title">RAM</h2>
+      <div class="metric">
+        <div class="spark-wrap">
+          <img class="spark" src="../assets/imgs/grafico.svg" alt="">
+          <div class="axis"><span>00:00</span><span>12:00</span><span>Ativo</span></div>
+        </div>
+        <span class="big">67%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volume I/O -->
+  <section class="card" aria-label="Volume de entrada e saída">
+    <h2 class="card-title">Volume I/O</h2>
+    <div class="io-grid">
+      <div><span class="label">Disk read MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
+      <div><span class="label">Disk write MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
+      <div><span class="label">Rede download MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
+      <div><span class="label">Rede upload MB/m</span><img class="spark" src="../assets/imgs/grafico.svg" alt=""></div>
+    </div>
+  </section>
+
+  <!-- Top 5 processos -->
+  <section class="card" aria-label="Top 5 processos">
+    <h2 class="card-title">Top 5 processos</h2>
+    
+      <table>
+        <thead>
+          <tr><th>PID</th><th>NOME</th><th class="num">CPU%</th><th class="num">RAM%</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="pid">1094</td><td>Server 01</td><td class="num">32.4%</td><td class="num">18.1%</td></tr>
+          <tr><td class="pid">3029</td><td>node /app/server.js</td><td class="num">28.1%</td><td class="num">22.5%</td></tr>
+          <tr><td class="pid">4810</td><td>Server 02</td><td class="num">12.5%</td><td class="num">14.2%</td></tr>
+          <tr><td class="pid">847</td><td>Server 03</td><td class="num">4.2%</td><td class="num">8.4%</td></tr>
+          <tr><td class="pid">5221</td><td>Server 04</td><td class="num">2.8%</td><td class="num">3.8%</td></tr>
+        </tbody>
+      </table>
+  </section>
+</main>
+
+</body>
+</html>
+
+</html>
+
