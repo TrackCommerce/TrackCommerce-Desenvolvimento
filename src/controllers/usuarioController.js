@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var { ehUsuarioGestor } = require("./centralStatusController");
 var { cyrb53 } = require("../../public/js/hash");
 
 function cadastrar(req, res) {
@@ -131,12 +132,16 @@ function autenticar(req, res) {
 
                         var PrimeiroAcesso = (senha == hashEmail);
 
+                        var ehGestor = ehUsuarioGestor(usuario);
+
                         res.status(200).json({
                             id_usuario: usuario.id_usuario,
                             nome: usuario.nome,
                             email: usuario.email,
                             fk_empresa: usuario.fk_empresa,
                             fk_cargo: usuario.fk_cargo,
+                            nome_cargo: usuario.nome_cargo || null,
+                            ehGestor: ehGestor,
                             primeiroAcesso: PrimeiroAcesso
                         });
                         console.log(resultadoAutenticar);

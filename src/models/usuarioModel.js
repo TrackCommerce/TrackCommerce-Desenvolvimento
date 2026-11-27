@@ -73,9 +73,10 @@ function deletar(id) {
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-        SELECT id_usuario, nome, email, fk_empresa, fk_cargo 
-        FROM usuario 
-        WHERE email = '${email}' AND senha = '${senha}';
+        SELECT u.id_usuario, u.nome, u.email, u.fk_empresa, u.fk_cargo, c.nome_cargo, c.nivel
+        FROM usuario u
+        LEFT JOIN cargo c ON u.fk_cargo = c.id_cargo
+        WHERE u.email = '${email}' AND u.senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
