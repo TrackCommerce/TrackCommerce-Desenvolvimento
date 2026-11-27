@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Central de Status - TrackCommerce</title>
+  <link rel="icon" href="./assets/icon/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/sidebar.css" />
+  <link rel="stylesheet" href="./css/central-status.css" />
+</head>
+
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <a href="index.html" class="logo">
+        <div class="logo-img">
+          <img src="./assets/icon/logo.png" alt="Logo TrackCommerce" />
+        </div>
+        <h2>TrackCommerce</h2>
+      </a>
+
+      <nav class="menu">
+        <a href="central-status.html" class="item ativo">
+          <div class="icone">
+            <img src="./assets/imgs/painel.svg" alt="" />
+          </div>
+          <span>Central</span>
+        </a>
+
+        <a href="selecionar-servidor.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/home.png" alt="" />
+          </div>
+          <span>Painel</span>
+        </a>
+
+        <a href="alertas.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/bell.png" alt="" />
+          </div>
+          <span>Alertas</span>
+        </a>
+
+        <a href="permissoes.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/chave-permissao.png" alt="" />
+          </div>
+          <span>Permissões de Grupos</span>
+        </a>
+
+        <a href="cadastro-instancia.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/server.png" alt="" />
+          </div>
+          <span>Cadastro de Servidores</span>
+        </a>
+
+        <a href="registroFunc.html" class="item">
+          <div class="icone">
+            <img src="./assets/imgs/cadastro.png" alt="" />
+          </div>
+          <span>Cadastro de Funcionários</span>
+        </a>
+      </nav>
+
+      <div class="usuario">
+        <div class="foto">
+          <img src="./assets/imgs/usuario-icone.webp" alt="Usuário" />
+        </div>
+        <div class="info">
+          <h3 id="id_username">Gestor TI</h3>
+          <p id="id_user_role">Gestor de Infraestrutura</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="conteudo-central">
+      <!-- Cabeçalho -->
+      <header class="cabecalho-central">
+        <h1>CENTRAL DE STATUS</h1>
+
+        <div class="acoes-cabecalho">
+          <button type="button" class="btn-gerar-relatorio" id="btnGerarRelatorio">
+            <span>GERAR RELATÓRIO</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <line x1="8" y1="17" x2="16" y2="17" />
+              <line x1="8" y1="9" x2="10" y2="9" />
+            </svg>
+          </button>
+
+          <div class="menu-rapido-wrapper">
+            <button type="button" class="btn-menu-cabecalho" id="btnMenuCabecalho" aria-label="Menu de ações rápidas"
+              aria-expanded="false" aria-controls="menuRapidoDropdown">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="menu-rapido-dropdown" id="menuRapidoDropdown" hidden>
+              <button type="button" id="acaoAtualizarMock">Atualizar leitura agora</button>
+              <button type="button" id="acaoAbrirModalReq">Configurar valor por requisição</button>
+              <button type="button" id="acaoResetarFiltros">Restaurar filtros padrão</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Linha Superior de KPIs -->
+      <section class="kpis-superiores" aria-label="Indicadores principais">
+        <!-- KPI 1: Situação Atual das Instâncias (sem filtros) -->
+        <article class="card-kpi card-situacao">
+          <div class="kpi-topo">
+            <h2>SITUAÇÃO ATUAL<br />DAS INSTÂNCIAS</h2>
+            <span class="badge-problemas" id="badgeProblemas">COM PROBLEMAS: 3/6</span>
+          </div>
+
+          <div class="situacao-grid">
+            <div class="subcard-situacao alerta" tabindex="0" data-situacao="alerta"
+              aria-describedby="popoverAlerta">
+              <span class="subcard-label">Em Alerta</span>
+              <strong class="subcard-numero numero-alerta" id="qtdEmAlerta">2</strong>
+
+              <div class="popover-instancias" id="popoverAlerta" role="tooltip">
+                <div class="popover-titulo">Instâncias em Alerta agora</div>
+                <ul class="popover-lista" id="listaInstanciasAlerta"></ul>
+              </div>
+            </div>
+
+            <div class="subcard-situacao downtime" tabindex="0" data-situacao="downtime"
+              aria-describedby="popoverDowntime">
+              <span class="subcard-label">Downtime</span>
+              <strong class="subcard-numero numero-downtime" id="qtdDowntime">1</strong>
+
+              <div class="popover-instancias" id="popoverDowntime" role="tooltip">
+                <div class="popover-titulo">Instâncias em Downtime agora</div>
+                <ul class="popover-lista" id="listaInstanciasDowntime"></ul>
+              </div>
+            </div>
+          </div>
+
+          <p class="dica-situacao">Passe o mouse ou clique nos quadros para listar as máquinas.</p>
+        </article>
+
+        <!-- KPI 2: Prejuízo por Requisição -->
+        <article class="card-kpi card-requisicao">
+          <div class="kpi-topo">
+            <h2>PREJUÍZO POR REQUISIÇÃO</h2>
+            <button type="button" class="btn-icone-acao" id="btnEditarRequisicao"
+              title="Editar valor padrão por instância" aria-label="Editar valor por requisição">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="valor-destaque-req">
+            <strong id="valorMedioRequisicao">US$ 0,004</strong>
+            <span class="sub-info-req" id="resumoPersonalizacaoReq">Média configurada (padrão US$ 0,004)</span>
+          </div>
+
+          <div class="kpi-rodape">
+            <p>Aqui é definido o valor médio que pode gerar ao negócio por requisição em rede.</p>
+            <div class="info-tooltip-wrapper">
+              <button type="button" class="btn-info" aria-label="Informações sobre Prejuízo por Requisição">i</button>
+              <div class="tooltip-info" role="tooltip">
+                Valor monetário médio estimado por requisição perdida ou degradada. Clique no lápis acima para ajustar o valor padrão global ou personalizar por instância.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- KPI 3: Prejuízo Financeiro -->
+        <article class="card-kpi card-financeiro">
+          <div class="kpi-topo">
+            <h2>PREJUÍZO FINANCEIRO</h2>
+            <span class="pill-comparativo positiva" id="pillComparativo">-20% ~ Média Anual</span>
+          </div>
+
+          <div class="financeiro-subcards">
+            <div class="subcard-fin">
+              <div class="subcard-fin-topo">
+                <span class="subcard-fin-titulo" id="tituloFinReferencia">Média Anual</span>
+                <div class="filtro-fin-wrapper">
+                  <button type="button" class="btn-filtro-fin" id="btnFiltroFinanceiro"
+                    title="Filtrar métricas financeiras" aria-label="Abrir filtros de Prejuízo Financeiro"
+                    aria-expanded="false" aria-controls="popoverFiltroFinanceiro">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true">
+                      <line x1="4" y1="6" x2="20" y2="6" />
+                      <line x1="7" y1="12" x2="17" y2="12" />
+                      <line x1="10" y1="18" x2="14" y2="18" />
+                    </svg>
+                  </button>
+
+                  <div class="popover-filtro-fin" id="popoverFiltroFinanceiro" hidden>
+                    <div class="grupo-filtro-fin">
+                      <label for="filtroBaseAnual">1. Referência Comparativa</label>
+                      <select id="filtroBaseAnual">
+                        <option value="media_todos">Média Todos os anos</option>
+                        <option value="ano_anterior">Prejuízo Ano Anterior</option>
+                      </select>
+                    </div>
+                    <div class="grupo-filtro-fin">
+                      <label for="filtroComposicaoFin">2. Composição Financeira</label>
+                      <select id="filtroComposicaoFin">
+                        <option value="total">Prejuízo total</option>
+                        <option value="instancias">Apenas custo das instâncias</option>
+                        <option value="downtime">Apenas perda por downtime</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <strong class="valor-fin" id="valorFinReferencia">US$ 740,0 MIL</strong>
+              <span class="tag-composicao" id="tagComposicaoEsq">Prejuízo total</span>
+            </div>
+
+            <div class="subcard-fin">
+              <div class="subcard-fin-topo">
+                <span class="subcard-fin-titulo" id="tituloFinPeriodo">Prejuízo Últimos 6 Meses</span>
+              </div>
+              <strong class="valor-fin" id="valorFinPeriodo">US$ 296,0 MIL</strong>
+              <span class="tag-composicao" id="tagComposicaoDir">Prejuízo total</span>
+            </div>
+          </div>
+
+          <div class="kpi-rodape">
+            <p class="formula-texto">
+              Prejuízo = (Qtd. req.) &times; (Req. price) &times; (Tempo em Downtime) + Custo por Instância
+            </p>
+            <div class="info-tooltip-wrapper">
+              <button type="button" class="btn-info" aria-label="Informações sobre Prejuízo Financeiro">i</button>
+              <div class="tooltip-info" role="tooltip">
+                Compara o impacto do período selecionado (direita) contra a referência anual escolhida (esquerda), de forma proporcional ao período. Utilize o ícone de filtro (≡) no card para alternar entre Média de Todos os Anos / Ano Anterior e entre Custo das Instâncias / Perda por Downtime / Prejuízo Total.
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Painel Principal Inferior -->
+      <section class="painel-detalhado" aria-label="Histórico de alertas, downtime e saúde por componente">
+        <div class="barra-filtro-global">
+          <div class="seletor-data-wrapper">
+            <select id="filtroDataGlobal" class="select-data" aria-label="Filtro de período">
+              <option value="12m">Últimos 12 Meses</option>
+              <option value="6m" selected>Últimos 6 Meses</option>
+              <option value="30d">Últimos 30 Dias</option>
+              <option value="1d">Último Dia (Cada 1 h)</option>
+            </select>
+          </div>
+
+          <div class="chips-filtros-ativos">
+            <span class="chip-filtro" id="chipReferenciaAtiva">Base: Média Todos os anos</span>
+            <span class="chip-filtro" id="chipComposicaoAtiva">Escopo: Prejuízo total</span>
+          </div>
+
+          <div class="info-tooltip-wrapper">
+            <button type="button" class="btn-info" aria-label="Informações sobre o filtro de período">i</button>
+            <div class="tooltip-info" role="tooltip">
+              O filtro de data atualiza simultaneamente o subcard de prejuízo do período, o gráfico de alertas e downtimes, a tabela de instâncias e a distribuição por componente.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-inferior">
+          <!-- Coluna Esquerda: Gráfico de Linha + Tabela -->
+          <div class="coluna-esquerda">
+            <article class="card-interno card-linha">
+              <div class="card-interno-topo">
+                <div class="titulo-com-info">
+                  <h3>Quantidade de Alertas e Downtimes</h3>
+                  <div class="info-tooltip-wrapper">
+                    <button type="button" class="btn-info btn-info-sm" aria-label="Informações sobre alertas e downtimes">i</button>
+                    <div class="tooltip-info" role="tooltip">
+                      Evolução temporal de alertas disparados e ocorrências de downtime no intervalo selecionado. O selo à direita destaca o impacto financeiro apurado no período.
+                    </div>
+                  </div>
+                </div>
+                <span class="pill-impacto-periodo" id="pillImpactoPeriodo">-US$ 296,0 MIL</span>
+              </div>
+
+              <div class="legenda-linha">
+                <span><i class="ponto ponto-alerta"></i>Alertas</span>
+                <span><i class="ponto ponto-downtime"></i>Downtimes</span>
+              </div>
+
+              <div class="corpo-grafico-linha">
+                <div class="canvas-linha-wrap">
+                  <canvas id="graficoAlertasDowntimes" aria-label="Gráfico de Quantidade de Alertas e Downtimes" role="img"></canvas>
+                </div>
+
+                <div class="totais-laterais">
+                  <div class="mini-kpi">
+                    <span>Total de Alertas</span>
+                    <strong class="texto-vermelho" id="totalAlertasPeriodo">39</strong>
+                  </div>
+                  <div class="mini-kpi">
+                    <span>Total de Downtimes</span>
+                    <strong class="texto-escuro" id="totalDowntimesPeriodo">11</strong>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="card-interno card-tabela">
+              <div class="card-interno-topo topo-tabela">
+                <div class="titulo-com-info">
+                  <h3>Resumo por Instância</h3>
+                  <div class="info-tooltip-wrapper">
+                    <button type="button" class="btn-info btn-info-sm" aria-label="Informações sobre a tabela de instâncias">i</button>
+                    <div class="tooltip-info" role="tooltip">
+                      Contagem de incidentes por componente e situação consolidada de cada instância no período filtrado.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-container">
+                <table class="tabela-instancias">
+                  <thead>
+                    <tr>
+                      <th>Instância</th>
+                      <th>CPU</th>
+                      <th>RAM</th>
+                      <th>DISCO</th>
+                      <th>REDE</th>
+                      <th>TOTAL</th>
+                      <th>Situação</th>
+                    </tr>
+                  </thead>
+                  <tbody id="corpoTabelaInstancias"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+
+          <!-- Coluna Direita: Alertas por Componente -->
+          <div class="coluna-direita">
+            <article class="card-interno card-componentes">
+              <div class="card-interno-topo">
+                <div class="titulo-com-info">
+                  <h3>Alertas Por Componente</h3>
+                  <div class="info-tooltip-wrapper">
+                    <button type="button" class="btn-info btn-info-sm" aria-label="Informações sobre alertas por componente">i</button>
+                    <div class="tooltip-info" role="tooltip">
+                      Distribuição percentual de alertas moderados e críticos por componente de hardware (CPU, RAM, Disco e Rede) e volume total acumulado.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="componentes-graficos-grid">
+                <div class="roscas-empilhadas">
+                  <div class="bloco-rosca">
+                    <h4>Alertas Moderados</h4>
+                    <div class="rosca-e-legenda">
+                      <div class="canvas-rosca-wrap">
+                        <canvas id="graficoModerados" aria-label="Gráfico de Alertas Moderados por Componente" role="img"></canvas>
+                      </div>
+                      <ul class="legenda-rosca" id="legendaModerados"></ul>
+                    </div>
+                  </div>
+
+                  <div class="bloco-rosca">
+                    <h4>Alertas Críticos</h4>
+                    <div class="rosca-e-legenda">
+                      <div class="canvas-rosca-wrap">
+                        <canvas id="graficoCriticos" aria-label="Gráfico de Alertas Críticos por Componente" role="img"></canvas>
+                      </div>
+                      <ul class="legenda-rosca" id="legendaCriticos"></ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="barra-horizontal-wrap">
+                  <canvas id="graficoBarraComponentes" aria-label="Volume total de alertas por componente" role="img"></canvas>
+                </div>
+              </div>
+
+              <div class="totais-componentes-rodape">
+                <div class="mini-kpi-rodape">
+                  <span>Total de Alertas Moderados</span>
+                  <strong id="totalAlertasModerados">18</strong>
+                </div>
+                <div class="mini-kpi-rodape">
+                  <span>Total de Alertas Críticos</span>
+                  <strong id="totalAlertasCriticos">21</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pop-up de Alteração do Prejuízo por Requisição (estilo alteração de Cargos - permissoes.html) -->
+  <div class="modal-overlay" id="modalPrejuizoReq" hidden aria-modal="true" role="dialog"
+    aria-labelledby="tituloModalReq">
+    <div class="modal-cargos-estilo">
+      <div class="modal-topo">
+        <div>
+          <h2 id="tituloModalReq">Prejuízo por Requisição (Por Instância)</h2>
+          <p>Selecione o valor padrão ou uma instância na lista para configurar o impacto médio por requisição.</p>
+        </div>
+        <button type="button" class="btn-fechar-modal" id="btnFecharModalReq" aria-label="Fechar janela">&times;</button>
+      </div>
+
+      <div class="linha-modal">
+        <div class="card-modal lista-instancias-modal" id="listaInstanciasModal"></div>
+
+        <div class="card-modal painel-edicao-req" id="painelEdicaoReq">
+          <h3>Configuração Selecionada</h3>
+          <p class="subtitulo-edicao" id="nomeAlvoEdicao">Valor Padrão Global</p>
+
+          <div class="campo-edicao-req">
+            <label for="iptValorRequisicao">Valor médio por requisição (US$)</label>
+            <div class="input-moeda-wrap">
+              <span>US$</span>
+              <input type="number" id="iptValorRequisicao" step="0.001" min="0.001" max="100" value="0.004" />
+            </div>
+          </div>
+
+          <div class="atalhos-valores">
+            <span>Sugestões:</span>
+            <button type="button" class="btn-atalho-valor" data-valor="0.002">US$ 0,002</button>
+            <button type="button" class="btn-atalho-valor" data-valor="0.004">US$ 0,004</button>
+            <button type="button" class="btn-atalho-valor" data-valor="0.008">US$ 0,008</button>
+            <button type="button" class="btn-atalho-valor" data-valor="0.015">US$ 0,015</button>
+          </div>
+
+          <div class="checkbox-padrao-wrap" id="wrapAplicarTodas">
+            <label class="opcao-padrao-box">
+              <div>
+                <b>Aplicar às instâncias no padrão</b>
+                <p>Atualiza automaticamente todas as instâncias que não possuem valor personalizado.</p>
+              </div>
+              <input type="checkbox" id="chkAplicarPadrao" class="radio-estilo" checked />
+            </label>
+          </div>
+
+          <div class="resumo-impacto-instancia" id="resumoImpactoInstancia">
+            Estimativa: 0 req/min &bull; impacto atualizado em tempo real.
+          </div>
+
+          <div class="botoes-modal">
+            <button type="button" class="botao-modal salvar" id="btnSalvarReq">SALVAR</button>
+            <button type="button" class="botao-modal restaurar" id="btnRestaurarPadraoReq">USAR PADRÃO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pop-up de Prévia de Relatório (mockado) -->
+  <div class="modal-overlay" id="modalRelatorio" hidden aria-modal="true" role="dialog"
+    aria-labelledby="tituloModalRelatorio">
+    <div class="modal-relatorio-box">
+      <div class="modal-topo">
+        <div>
+          <h2 id="tituloModalRelatorio">Prévia do Relatório Executivo</h2>
+          <p>Resumo consolidado com base nos filtros ativos (dados simulados).</p>
+        </div>
+        <button type="button" class="btn-fechar-modal" id="btnFecharModalRelatorio" aria-label="Fechar relatório">&times;</button>
+      </div>
+      <div class="relatorio-conteudo" id="conteudoRelatorio"></div>
+      <div class="botoes-modal">
+        <button type="button" class="botao-modal salvar" id="btnConfirmarDownloadRelatorio">BAIXAR RESUMO (.JSON)</button>
+        <button type="button" class="botao-modal restaurar" id="btnFecharRelatorioSec">FECHAR</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-aviso" id="toastAviso" role="status" aria-live="polite" hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/central-status.js"></script>
+</body>
+
+</html>
